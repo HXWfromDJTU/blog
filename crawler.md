@@ -1,4 +1,4 @@
-##爬虫架构
+## 爬虫架构
 * 爬虫调度端口
   重要节点：URL管理器 网页下载器 网页解析器 价值数据
   ![avatar](/blog_assets/framework.png)
@@ -60,7 +60,7 @@
 $ pip3 install beautifulsoup4
 ```
 
-## 使用beauifulsoup 解析节点
+## 使用beautifulsoup 解析节点
 ```python
 from bs4 import BeautifulSoup
 
