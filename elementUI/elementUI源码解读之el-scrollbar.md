@@ -6,7 +6,7 @@
 咦？发现了elementUI官网右侧若隐若现的滚动条，下意识地F12了一下，便开始了`el-scrollbar`的发现之旅:smiling_imp:
 
 devtools中的`el-scrollbar`
-![图片](blog_assets/scrollbar_console.png)
+![图片](../blog_assets/scrollbar_console.png)
 
 源码包中
 ```file
