@@ -11,7 +11,7 @@
 * 场景二：双向数据，父子组件需要双向绑定的数据，其中一方变动，需要双方一起变动
    > 实际场景：常用的dialog(或者成为modal)的显示与隐藏
    实现方法：
-   * 使用`sync`+`update:propName` 的方式实现双向绑定,文档[摸我](https://cn.vuejs.org/v2/guide/components.html#sync-%E4%BF%AE%E9%A5%B0%E7%AC%A6)
+   * ①使用`sync`+`update:propName` 的方式实现双向绑定,(Vue版本大于2.30)文档[摸我](https://cn.vuejs.org/v2/guide/components.html#sync-%E4%BF%AE%E9%A5%B0%E7%AC%A6)
   
    ```html
      <!-- 父组件 parent.vue -->
@@ -57,8 +57,7 @@
           }
           </script>
    ```
-    无意中发现了这种开启双向绑定的方法，可以省去子组件内部改变后，还需要暴露一个事件给父组件监听改变父组件中的数据
-   * 使用自定义组件的 `v-model`属性（Vue版本大于2.20,文档[摸我](https://cn.vuejs.org/v2/guide/components.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E7%9A%84-v-model)
+   *②使用自定义组件的 `v-model`属性（Vue版本大于2.20,文档[摸我](https://cn.vuejs.org/v2/guide/components.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E7%9A%84-v-model)
    父组件中 ：
    ```html
    <template>
@@ -85,11 +84,12 @@ export default{
     event:"change"
   },
   props:{
-    myVisible:Boolean
+    myVisible:Boolean //仍需要显示地去声明传入的值，并且与model的prop值对应
   }
 }
 </script>
    ```
+    采用以上两种方式，开启双向绑定，可以省去子组件内部改变后，父组件则可以不用手动监听事件，然后再进行外部修改
 * 场景三： 一个数据内部要修改，外部也要修改
      区别点但是外部的操作并不受内部值得影相，或者说外部传值的时候，并不关心内部的值处于一个什么状态。
 > 实际场景 : 组件A给组件B传递dataList用于显示，而组件B内部可以对外部传入的dataList，选择是否进行处理后再显示)
