@@ -37,4 +37,4 @@ B.fatherFun(); // this is fatehr static function
 ```
 ### super关键字
 ### 实例的__proto__属性
-![图片](../blog_assets/prototype.png)
+![图片](./blog_assets/prototype.png)
