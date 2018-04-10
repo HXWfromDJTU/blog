@@ -59,9 +59,9 @@
    ```
    
    * ②使用自定义组件的 `v-model`属性（Vue版本大于2.20,文档[摸我](https://cn.vuejs.org/v2/guide/components.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E7%9A%84-v-model)
-   父组件中 ：
-   
-```html
+
+  父组件中 ：   
+  ```html
    <template>
        <child   v-model="visible"></child>
    </template>
@@ -89,8 +89,8 @@ export default{
     myVisible:Boolean //仍需要显示地去声明传入的值，并且与model的prop值对应
   }
 }
-</script>
-```
+  </script>
+  ```
  采用以上两种方式，开启双向绑定，可以省去子组件内部改变后，父组件则可以不用手动监听事件，然后再进行外部修改
  
 * 场景三： 一个数据内部要修改，外部也要修改
