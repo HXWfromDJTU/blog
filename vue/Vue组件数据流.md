@@ -75,7 +75,7 @@
      }
      </script>
    ```
-   ```html
+```html
    <template>
              <div class="childComponent" v-show="myVisible"></div>
      </template>
@@ -90,7 +90,7 @@ export default{
   }
 }
   </script>
-  ```
+```
  采用以上两种方式，开启双向绑定，可以省去子组件内部改变后，父组件则可以不用手动监听事件，然后再进行外部修改
  
 * 场景三： 一个数据内部要修改，外部也要修改
