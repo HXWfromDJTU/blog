@@ -17,4 +17,6 @@
 ### python
 [【python爬虫入门】](https://github.com/HXWfromDJTU/blog/blob/master/python/crawler.md)
 
+### 归纳图例
+【vue双向绑定流程图】
 ![vue双向绑定原理流程图](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/vue/Vue%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
