@@ -18,7 +18,7 @@ Vue2.0是包括多个部分，其中`数据双向绑定`的实现，使用的是
 ### Q & A？
 > 1、Dep对象是什么
 
-①dep.subs
+①dep
 * `Dep`对象是用于处理数据依赖的，每一个dep都有一个id，每一个`Observer`对应一个`Dep`
 ②dep.subs
 * `dep.sub`用于记录所有会取该`data`的`Watcher`对象(也就是一个存放`Watcher`对象的数组)，当该数据发生变化时(get或者set)，`dep对象`就会`通知`subs数组`中的所有`Watcher对象`进行更新。
