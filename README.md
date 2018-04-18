@@ -8,7 +8,7 @@
 ### Vue
 [【axios常见问题】](https://github.com/HXWfromDJTU/blog/blob/master/vue/axios%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.md)
 [【Vue组件数据流】](https://github.com/HXWfromDJTU/blog/blob/master/vue/Vue%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%B5%81.md)
-[【vue双向绑定原理图】](https://github.com/HXWfromDJTU/blog/blob/master/vue/Vue%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%B5%81.md)
+[【vue双向绑定原理图】](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/vue/Vue%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
 ### elementUI
 [【elementUI源码解读之el-scrollbar】](https://github.com/HXWfromDJTU/blog/blob/master/elementUI/elementUI%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B9%8Bel-scrollbar.md)
 
@@ -17,3 +17,4 @@
 ### python
 [【python爬虫入门】](https://github.com/HXWfromDJTU/blog/blob/master/python/crawler.md)
 
+![vue双向绑定原理流程图](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/vue/Vue%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
