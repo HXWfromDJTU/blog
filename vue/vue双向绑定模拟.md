@@ -60,6 +60,7 @@ function Dep(){
 	}
 }
 ```
+页面调试
 ```html
 <div id="testValue">init value</div>
 <script type="text/javascript">
@@ -80,4 +81,6 @@ function Dep(){
     })
 </script>
 ```
+> 调试效果
+![双向绑定调试效果](../blog_assets/twowaybinding.gif)
 
