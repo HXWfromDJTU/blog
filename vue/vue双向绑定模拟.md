@@ -81,6 +81,7 @@ function Dep(){
     })
 </script>
 ```
-> 调试效果
+* 调试效果  
+
 ![双向绑定调试效果](../blog_assets/twowaybinding.gif)
 
