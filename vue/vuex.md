@@ -75,6 +75,8 @@ export default new Vuex.Store({
   <span>{{$.state.count}}</span>
  </template>
 ```
+### 小总结
+
 * `state` 数据仓库，类似于Vue实例中的`data`属性
 
 * `mutations` 用于操作`state`中的数据
@@ -83,4 +85,4 @@ export default new Vuex.Store({
 
 * `actions` 实现`mutation`中方法的异步操作，一般用于整理包裹`mutations`中的方法，然后再组件中调用`action`中的方法
    
-* modules 用于统一管理以上四项的模块功能，大型项目一般会进行使用，用于统筹以上四项。针对不同的模块，应该会有多个不同的modules
+* `modules` 用于统一管理以上四项的模块功能，大型项目一般会进行使用，用于统筹以上四项。针对不同的模块，应该会有多个不同的`modules`
