@@ -23,7 +23,8 @@
 [【HTTPS原理🔱】](https://github.com/HXWfromDJTU/blog/blob/master/https.md)
 [【HTTP_状态码】](https://github.com/HXWfromDJTU/blog/blob/master/status_code.md)
 [【About页面渲染】](https://github.com/HXWfromDJTU/blog/blob/master/how_browser_work.md)
-
+[【跨域abc】](https://github.com/HXWfromDJTU/blog/blob/master/CORS.md.md)
+[【跨域实战】](https://github.com/HXWfromDJTU/blog/blob/master/CORS_ON_WORK.md.md)
 ### python
 [【python爬虫入门】](https://github.com/HXWfromDJTU/blog/blob/master/python/crawler.md)
 
