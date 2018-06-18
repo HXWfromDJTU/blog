@@ -1,0 +1,34 @@
+#  实现异步的编程方法
+## 使用`setTimeout`
+```js
+ let asyncAction =   setTimeout(_=>{
+     consle.log("异步执行")
+ },0)
+ // 时间延迟设为0，仅仅将代码拖到本轮任务队列
+```
+## 使用`Promise`
+```js
+  let imgLoading = new Promise((resolve,reject)=>{
+      img.src="www.hahaha.com/xxx.bmp";
+      img.load = _=>{
+          resolve()
+      }
+  }).then(_=>{
+      console.log("异步执行")
+  })
+```
+## 使用async
+* 举例： 后一个异步请求依赖前一个的操作结果
+```js
+const asyncRequest  = async ()=>{
+    const data = await getJSON();
+    if(data.needAnotherRequest){
+        const moreData = await makeAnnotherRequest(data); // 使用另一个promise去请求数据
+        console.log(moreData);
+        return moreData
+    }else{
+        console.log(data);
+        return data;
+    }
+}
+```
