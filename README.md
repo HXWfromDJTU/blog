@@ -4,6 +4,8 @@
 ## 目录
 ### Javascript原生
 [【常见算法的JS实现】](https://github.com/HXWfromDJTU/blog/blob/master/JS/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E7%9A%84Javascript%E5%AE%9E%E7%8E%B0.md)
+[【eventLoop】](https://github.com/HXWfromDJTU/blog/blob/master/JS/eventLoop.md)
+[【常见异步编程】](https://github.com/HXWfromDJTU/blog/blob/master/JS/async_coding.md)
 ### 设计模式
 [【观察者模式】:fire:](https://github.com/HXWfromDJTU/blog/blob/master/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E3%80%8AJS%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F.md)
 [【单例模式】](https://github.com/HXWfromDJTU/blog/blob/master/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E3%80%8AJS%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.md)
