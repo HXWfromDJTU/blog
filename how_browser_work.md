@@ -17,8 +17,8 @@
 * 直行至`</html>`标签，解析完毕
 * 用户若有异步的JS操作，也同样会引起浏览器的`重绘`或者`重新渲染`。(例如用户点击按钮，某个部分隐藏)
 
-[rendingprocess](blog_assets/redning_process.png)
-[rendingtree](blog_assets/rendingtree.png)
+![rendingprocess](blog_assets/redning_process.png)
+![rendingtree](blog_assets/rendingtree.png)
 
 ## 重点释义：
 * Reflow 
