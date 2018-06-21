@@ -11,7 +11,9 @@
 * 可以将`async/await`理解为`星号 + generator`的语法糖，并且自带执行器，不需要`next()`调用
 * 执行顺序：
    ①：`await`是一种让出线程的标志，遇到了`await`标志，会把跟在后面的表达式执行一遍。
+   
    ②：无论返回的是什么，都将返回值放在本轮执行的异步队列中。
+   
    ③：当本轮的JS执行栈完成后，再跳去执行异步队列中的内容。
 ```js
 const asyncFunc = (param) => { 
@@ -33,6 +35,7 @@ console.log('我会在第一轮第二位被打印')
 * `await`进行异步声明的返回`Promise`，`状态`的决定，有以下几种情况：
    ①：返回以下三种值：`new Error()` 、 `代码块中有Javascript代码执行错误` 、 `Promise.reject()`，则`await`返回的`Promise`对象的状态为`rejected`
    ②：若是返回其他值，则返回的`Promise`对象状态则为`resolved`
+   
    ③：无返回值：与返回`undefined`情况相同，都返回一个`resolve`状态的`Promise`对象
 * 返回值的处理：`async`声明的函数，必须等到内部所有的`await`声明返回的`Promise`都执行完了(`reject`或者`resolve`)才能够发生状态变化。（有些类似于Promise.all的规则）
 
@@ -84,7 +87,7 @@ console.log("===7===")
 
 * 执行结果
 ```js
-① '===3==='    // 执行主线程代码   
+① '===3==='    // 执行主线程代码  
 ② '===9==='   // 执行异步await代码的同步代码部分     将一个未知状态的 Promise 放到的异步队列中
 ③ '===5==='   // 执行异步Promise代码的同步代码部分，固定了Promise的状态为resolve,   将一个 then 部分代码放到了 异步队列中
 ④ '===7==='  // 执行主线程的 js代码
