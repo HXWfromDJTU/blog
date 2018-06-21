@@ -64,6 +64,8 @@
 
 * Q2：疑问：为何不在`async`外部统一返回的时候，统一使用`catch`去进行异常的处理呢？
 
+### 综合理解
+
   ```js
    async function testSometing() {
       console.log("===9===");
