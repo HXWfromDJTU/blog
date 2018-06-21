@@ -32,3 +32,28 @@ const asyncRequest  = async ()=>{
     }
 }
 ```
+
+## generator
+```js
+const person = sex => {
+  return new Promise((resolve, reject) => {
+    window.setTimeout(() => {
+      const data = {
+        sex,
+        name: 'keith',
+        height: 180
+      }
+      resolve(data)
+    }, 1000)
+  })
+}
+function *gen () {
+  const data = yield person('boy')
+  console.log(data)
+}
+const g = gen()
+const next1 = g.next() // {value: Promise, done: false}
+next1.value.then(data => {
+  g.next(data)
+})
+```
