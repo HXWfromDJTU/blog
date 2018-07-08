@@ -99,13 +99,19 @@ Object.assign({aa:11,bb:22},new Date())
 ### Object.getPrototypeOf(obj) | 获取原型
 > 给定对象的原型。如果没有继承属性，则返回 null 。
 * 其实是获取了对象的`__proto__`属性
+
 ![object_entries](../blog_assets/getPropertyOf2.png)
+
 * 注意不是获取了`obj`的`prototype`
+
 ![object_entries](../blog_assets/getPropertyOf3.png)
 * `Object.getPropertyOf(obj)`，若`obj`是一个实例，则返回的正好是其构造器的`prototype`
+
 ![object_entries](../blog_assets/getPropertyOf1.png)
 ![object_entries](../blog_assets/getPropertyOf4.png)
+
 * 最后我们也证实了，一个对象实例的`__proto__`，指向的就是其构造器的`prototype`
+
 ![object_entries](../blog_assets/getPrototypeOf5.png)
 ![object_entries](../blog_assets/getPrototypeOf6.png)
 
