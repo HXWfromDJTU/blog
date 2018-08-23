@@ -16,6 +16,8 @@
 ### ES6
 [【es6 class】](https://github.com/HXWfromDJTU/blog/blob/master/ES6/es6_class.md)
 [【类的继承】](https://github.com/HXWfromDJTU/blog/blob/master/ES6/es6_%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF.md)
+[【async】](https://github.com/HXWfromDJTU/blog/blob/master/ES6/async_await_conding.md)
+
 ### Vue
 [【axios常见问题】](https://github.com/HXWfromDJTU/blog/blob/master/vue/axios%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.md)
 [【Vue组件数据流】](https://github.com/HXWfromDJTU/blog/blob/master/vue/Vue%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%B5%81.md)
