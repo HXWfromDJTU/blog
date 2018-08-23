@@ -41,13 +41,13 @@
 * 在内部函数，对外部函数中的变量进行引用后，使得JS在进行垃圾回收的时候，不会将内部函数引用的变量释放掉
 * jQuery的全局包是闭包吗？
    ```js
-   ;(function($){// 可以去掉开头的 ; （分号），国外的开发人员编写的插件时的一种习惯 
+   ;(function($){ 
         $.fn.pluginName = function() {     
               // Our plugin implementation code goes here.     
         };
    })(jQuery);  
    ```
-  * 以上的例子里，在全局环境之上新建了一个二级的作用域，从而避免了在全局上丁一过多的变量。
+  * 以上的例子里，在全局环境之上新建了一个二级的作用域，从而避免了在全局上定义过多的变量。
   * 但是以上出现的并不是闭包
 
 
@@ -168,3 +168,71 @@ ___
 ③ 然后 c.fun(2)、c.fun(3)使用的都是fun(1)执行后留下的活动变量。输出的都是 `1`
 
 anwser: `undefined 0 1 1`
+
+
+## 说了那么多，我什么时候该使用闭包呢？
+### ① 需要面向对象编程的时候
+  *  使用对象原型和使用闭包封装，在对象实例化后，和闭包环境执行之后，都能够实现`面向对象`来构建数据对象，实现对数据声明环境的通过特定方法操作内部数据效果。
+   * 原型：  
+   ```js
+  function Viechel() {
+         this.speed = 100;
+     }
+   Viechel.prototype.speedUp = function() {
+       this.speed += 10;
+   }
+   //  实例化对象
+   var car = new Viechel();
+   ```   
+* 闭包：
+```js
+function viechel() {
+    var speed = 100;
+    return {
+        getSpeed: () => speed,
+        speedUp: function() {
+            speed += 10;
+        }
+    }
+}
+// 执行闭包
+var car = viechel();
+ ```
+#### 优劣势对比：
+*  初始化：
+     使用闭包在执行的时候，变量对象变为活动对象的过程中，可能需要执行大量代码。而原型链的形式，在实例化的时候都只是把构造函数执行一次。也即是，在初始化的时候，原型的形式的效率更高。
+* 调用：在初始化之后，调用方法时，原型上的方法存放在原型链上，寻址速度会略慢。所以在调用上，闭包的形式优于原型的形式。
+####  总结分析
+  *  构建的对象实例化数量少，但是经常需要调用内部方法的时候，请使用闭包。（比如：自定义函数库，页面中banner的控制，大数据监控屏中--各个模块的数据的控制器） 
+  * 若是实例化数量比较多的，一般只需要注入信息，调用方法较少的，请使用对象原型。(比如封装好的`msgCard`组件，时间轴组件等等）
+
+### ② 给页面上多个DOM循环绑定事件的时候
+```js
+// 经典用法，不多解释
+for(var i=0;len =btns.length;i<len;i++){
+  (function(i){
+     btns[i].inclick = function(){
+       alert(i)
+     }
+  })(i)
+}
+```
+### ③ 手动延长某些局部变量的寿命
+#### 例子实现一个图片的异步创建与加载
+```js
+var report = function(src){
+  var img = new Image();
+  img.src = src;
+}
+report('http://api.getImgInfo');
+// 当report执行完成后，img对象则被释放
+```
+
+```js
+var report = (function(){
+   var img = new Image();
+     return function(src){
+         img.src = src;
+   }
+})()
+```
