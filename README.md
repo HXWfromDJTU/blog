@@ -10,6 +10,7 @@
 [【对象方法】](https://github.com/HXWfromDJTU/blog/blob/master/JS/OOJECT_FUNC.md)
 [【原型链方法】](https://github.com/HXWfromDJTU/blog/blob/master/JS/JS_COMMON_FUNC.md)
 [【再看闭包】](https://github.com/HXWfromDJTU/blog/blob/master/interview/closure.md)
+[【防抖与节流】](https://github.com/HXWfromDJTU/blog/blob/master/interview/debounce.md)
 ### 算法
 [【常见算法的JS实现】](https://github.com/HXWfromDJTU/blog/blob/master/JS/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E7%9A%84Javascript%E5%AE%9E%E7%8E%B0.md)
 ### 设计模式
@@ -18,7 +19,7 @@
 ### ES6
 [【es6 class】](https://github.com/HXWfromDJTU/blog/blob/master/ES6/es6_class.md)
 [【类的继承】](https://github.com/HXWfromDJTU/blog/blob/master/ES6/es6_%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF.md)
-[【async】](https://github.com/HXWfromDJTU/blog/blob/master/ES6/async_await_conding.md)
+[【async 下的异步编程】](https://github.com/HXWfromDJTU/blog/blob/master/ES6/async_await_conding.md)
 
 ### Vue
 [【axios常见问题】](https://github.com/HXWfromDJTU/blog/blob/master/vue/axios%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.md)
