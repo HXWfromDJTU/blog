@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>内容垂直居中</title>
+    <link rel="stylesheet" href="index.css"></link>
+    <style>
+        .container {
+            width: 500px;
+            height: 400px;
+            position: relative;
+            border: 1px solid rebeccapurple;
+        }
+
+        .text {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 90%;
+            height: fit-content;
+        }
+
+        /* 父容器高度不定，多行文本 */
+
+        .uncertainContainer {}
+
+        .img-container {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            border: 1px solid rebeccapurple;
+        }
+
+        .img {
+            width: 150px;
+            height: 150px;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            position: absolute;
+            margin: auto;
+        }
+
+        .parent {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            height: 300px;
+            border: 1px solid #FD0C70;
+        }
+
+        .parent .child {
+            color: red;
+            background-color: rebeccapurple;
+        }
+    </style>
+</head>
+
+<body>
+    多行文字居中
+    <div class="container">
+        <span class="text">按时打卡机首付款交电话费的湖 大叔大婶 按时打卡机首付款交电话费的湖 大叔大婶 按时打卡机首付款交电话费的湖 大叔大婶 </span>
+    </div>
+    图片不定大小，居中
+    <div class="img-container">
+        <img src="http://h.hiphotos.baidu.com/image/pic/item/b21c8701a18b87d6b89df7250a0828381f30fd29.jpg" class="img" alt="" srcset="">
+    </div>
+
+    <div class="parent">
+        <div class="child">我的宽高未知</div>
+    </div>
+</body>
+
+
+</html>
