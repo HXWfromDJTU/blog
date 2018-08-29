@@ -1,30 +1,28 @@
 # HTTPS生态了解
-## https
-* https 全称 (Hyper Text Transfer Protocol over Secure Socket Layer)，也就是在原http协议下，添加SSL(Secure Socket Layer)层
-* https最大的亮点就是SSL层加对数据的加密
+### what is https
+* `https` 全称 `(Hyper Text Transfer Protocol over Secure Socket Layer)`，也就是在原`http`协议下，添加`SSL(Secure Socket Layer)`层
+* `https`最大的亮点就是`SSL`层加对数据的加密
 
-## 我们为什么需要https
-* 从原来的http协议缺点来看：
+### why use https?
+* 从原来的`http`协议缺点来看：
     ① 传输的时候使用明文传参，极其容易被第三方截取
-    ②没有访问发起者的身份认证机制，第三方即可以十分容易地使用终端发起大量伪请求
+    ② 没有访问发起者的身份认证机制，第三方即可以十分容易地使用终端发起大量伪请求
     ③ 报文段被部分篡改，服务器端也无法识别
 
-## HTTPS 与 HTTP的不同点
-* HTTP采用的是明文传输，而HTTPS使用的是SSL\TSL进行加密传输
-* HTTP的默认端口是80，而HTTPS的默认端口是443
-* HTTPS 需要CA证书
-* HTTPS保留了HTTP无状态的优点同时，通过SSL实现了加密传输，身份验证的额外功能
+### HTTPS 与 HTTP的不同点
+* `http` 的`URL` 以`http://` 开头，`https`以`https://` 开头
+* `HTTP`采用的是明文传输，而`HTTPS`使用的是`SSL\TSL`进行加密传输
+* `HTTP`的默认端口是`80`，而`HTTPS`的默认端口是`443`
+* `HTTPS` 需要`CA`证书，`http`不需要。
+* http 的连接很简单,是无状态的，`https`协议是由`SSL+http`协议构建的可进行加密传输、身份认证的网络协议 要比`http`协议安全
 
-## HTTPS的劣势
-* 因为加密的需要，常见的三握手就要多几个来回
-* 对服务器的负载增加
 
-## 对称加密 和 非对称加密
+### 对称加密 和 非对称加密
 * 非对称加密的公钥只能够用于加密，非对称加密的私钥既能加密也能够解密
 * 对称加密速度快，可以加密的信息量较大
 * 非对称加密算法复杂，加密解密速度慢，一般用于少量信息加密
 
-## SSL\TSL 握手流程
+### SSL\TSL 握手流程
 ①  客户端向服务器发送准备链接的信息(相当于打招呼)
    * 并且告诉服务器自己支持哪些加密套件
    * SSL(Secure Sockets Layer 安全套接层)版本号
@@ -51,24 +49,32 @@
 ⑥ 客户端 
   * 使用之前生成的随机数，和之前和服务端约定好的加密算法，解开数据主体
   
-## https项目迁移技巧
+### HTTPS的劣势
+* 因为加密的需要，常见的三握手就要多几个来回
+* 对服务器的负载增加
+*  因为对传输进行加密，会一定程度增加cpu消耗。
+*  由于https 要还密钥和确认加密算法的需要，所以首次建立连接会慢一些。
+*  带宽消耗会增加。
 
-### 可动态切换的协议
+
+### https项目迁移技巧
+___
+#### 可动态切换的协议
 * 为了程序的健壮和灵活。HTTPS使用之前，我们需要把以前使用HTTP协议的链接，改为可以根据情况不同，自动变化的动态协议
 * 当用户访问HTTPS资源出错时候，自动改为请求对应的HTTP资源
 
-### 状态码 301 与 302 的差别
+#### 状态码 301 与 302 的差别
 * 302 重定向是临时性的，下次浏览器再次访问的时候，会再次访问原链接
 * 301 状态是永久重定向，适合在更改HTTPS服务后，观察一段时间稳定时，使用301重定向
 总结：当所有的服务都改为HTTPS请求之后，将用户的HTTP请求，使用ngin`302`重定向到HTTPS的请求中去，实现强制切换。
 
-### 使用 meta标签头信息，实现 HTTP转HTTPS
+#### 使用 meta标签头信息，实现 HTTP转HTTPS
 
-#### 使用`block-all-mixed-content`阻止HTTP请求
+###### 使用`block-all-mixed-content`阻止HTTP请求
 ```html
 <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
 ```
-#### 使用`upgrade-insecure-request`进行HTTP请求转换
+###### 使用`upgrade-insecure-request`进行HTTP请求转换
 * 站点内的HTTP请求，会自动改为HTTPS的形式发起
 * 跳转链接也会以HTTPS的形式获取页面
 * 在确认HTTPS服务能够正常支撑日常业务的时候，应该切换到HTTPS服务
