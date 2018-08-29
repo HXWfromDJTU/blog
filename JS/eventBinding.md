@@ -17,5 +17,6 @@
 ②`elementObj.attachEvent(eventName,handle);`
    * `elementObj`：DO对象。
    * `eventName`：事件名称
-   * `handle`：事件句柄函数
- 注意： `attachEvent`低版本浏览器中也能够兼容，但`addEventListener`方法需要在`IE 9`及其以上浏览器才能够生效。
+   * `handle`：事件句柄函数    
+ 
+注意： `attachEvent`低版本浏览器中也能够兼容，但`addEventListener`方法需要在`IE 9`及其以上浏览器才能够生效。
