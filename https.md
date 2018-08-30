@@ -28,6 +28,8 @@
 *  因为对传输进行加密，会一定程度增加cpu消耗。
 *  由于https 要还密钥和确认加密算法的需要，所以首次建立连接会慢一些。
 *  带宽消耗会增加。
+
+
 ### SSL\TSL 握手流程
 ___
 
@@ -95,10 +97,18 @@ ___
 #### ⑧客户端 
   * 使用`key`进行加密数据传输
 
+
+### 握手过程优化
+并不是每一次的传输都需要进行这么繁杂的握手过程，每隔一定的时间才回进行重新SSL握手。
+首次的`client hello`就附带了上一次的`session ID`,服务端接受到这个session  ID,若能够复用则不进行重新握手。
+![](./blog_assets/sessionId.png)
+
 #### 总结
 ![https](./blog_assets/https_process.jpg)
 
 ### 相关连接
 [https实操](network/https_onwork.md)
+### 参考文章
+[SSL/TLS 握手过程详解]
 
 
