@@ -21,33 +21,6 @@
 * 非对称加密的公钥只能够用于加密，非对称加密的私钥既能加密也能够解密
 * 对称加密速度快，可以加密的信息量较大
 * 非对称加密算法复杂，加密解密速度慢，一般用于少量信息加密
-
-### SSL\TSL 握手流程
-①  客户端向服务器发送准备链接的信息(相当于打招呼)
-   * 并且告诉服务器自己支持哪些加密套件
-   * SSL(Secure Sockets Layer 安全套接层)版本号
-   
-② 服务器响应 客户端的打招呼，返回包括
-   * 服务器选定了哪个加密套件
-   * 数字证书
-   
-③ 客户端
-* 使用TSL验证服务器端的 SSL证书的有效性，是否过期，颁发机构是否已注册
-* 若不通过，则向用户发出警告
-* 若通过则进行下一步
-   
-④ 客户端
-   * 使用一系列的加密算法生成一个随机数
-   * 使用证书的公钥(上面提到的加密套件)进行加密
-   * 加密后的内容发送给服务端
-   
-⑤ 服务端
-   * 使用加密套件的私钥进行解密，获得随机数
-   * 服务端使用对称加密算法，对获取到的随机数进行对称加密，得到“指定加密算法” + “随机生成数” 结合的一个特殊令牌
-   * 服务器使用这个令牌加密需要保护的内容主体，一并发送给客户端
-   
-⑥ 客户端 
-  * 使用之前生成的随机数，和之前和服务端约定好的加密算法，解开数据主体
   
 ### HTTPS的劣势
 * 因为加密的需要，常见的三握手就要多几个来回
@@ -55,29 +28,77 @@
 *  因为对传输进行加密，会一定程度增加cpu消耗。
 *  由于https 要还密钥和确认加密算法的需要，所以首次建立连接会慢一些。
 *  带宽消耗会增加。
-
-
-### https项目迁移技巧
+### SSL\TSL 握手流程
 ___
-#### 可动态切换的协议
-* 为了程序的健壮和灵活。HTTPS使用之前，我们需要把以前使用HTTP协议的链接，改为可以根据情况不同，自动变化的动态协议
-* 当用户访问HTTPS资源出错时候，自动改为请求对应的HTTP资源
 
-#### 状态码 301 与 302 的差别
-* 302 重定向是临时性的，下次浏览器再次访问的时候，会再次访问原链接
-* 301 状态是永久重定向，适合在更改HTTPS服务后，观察一段时间稳定时，使用301重定向
-总结：当所有的服务都改为HTTPS请求之后，将用户的HTTP请求，使用ngin`302`重定向到HTTPS的请求中去，实现强制切换。
+#### ① Client Hello 
+> 客户端向服务器发送准备链接的信息(相当于打招呼),    并且告诉服务器自己支持哪些加密套件
+##### 参数：
+  * 随机数 Random1
+  * 客户端支持的加密套件（Support Ciphers）
 
-#### 使用 meta标签头信息，实现 HTTP转HTTPS
+![client_hello](./blog_assets/client_hello.png)
 
-###### 使用`block-all-mixed-content`阻止HTTP请求
-```html
-<meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
-```
-###### 使用`upgrade-insecure-request`进行HTTP请求转换
-* 站点内的HTTP请求，会自动改为HTTPS的形式发起
-* 跳转链接也会以HTTPS的形式获取页面
-* 在确认HTTPS服务能够正常支撑日常业务的时候，应该切换到HTTPS服务
-```html
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-```
+
+#### ② Server Hello
+> 服务器响应 客户端的打招呼，返回包括
+##### 参数 
+   * 服务器从客户端发过来的陶建中，选择了具体的一个加密套件
+   * 随机数 Random2
+
+ ![client_hello](./blog_assets/server_hello.png)
+
+#### ③ Certificate
+> 这一步是服务端将自己的证书下发给客户端，让客户端验证自己的身份，客户端验证通过后取出证书中的公钥。
+##### 参数
+* (服务端 ==>  客户端 )证书
+* 客户端取出证书中的公钥
+
+![证书](./blog_assets/certificate.jpg)
+
+#### ④ Certificate Request & Server Hello Done
+> Certificate Request 是服务端要求客户端上报证书（可选）
+
+> Server Hello Done 通知客户端 Server Hello 过程结束
+
+
+#### ⑤ Certificate Verify  & Client Key Exchange
+* 先从 CA 验证该证书的合法性
+* 验证通过后取出证书中的服务端公钥，再生成一个随机数 Random3
+* 再用服务端公钥非对称加密 Random3 生成 PreMaster Key。
+  > 注意：这里若证书合法性验证失败，则会告知用户改证书有风险。
+##### 参数
+* `PreMaster Key`
+![key](./blog_assets/key_exchange.png)
+
+<font color="red" >至此，使用之前生成的(random1 + random2 + random3)随机数,再使用共同确认的加密算法，生成的`key`，接下来准备开始双方测试加密传输。</font>
+
+
+#### ⑥ Change Cipher Spec & Encrypted Handshake Message （客户端测试加密连接）
+> 首先是客户端通知服务端后面再发送的消息都会使用前面协商出来的秘钥加密了，是一条事件消息。
+
+> 再是客户端将前面的握手消息生成摘要再用协商好的秘钥加密，这是客户端发出的第一条加密消息。
+
+![key](./blog_assets/clicent_check.png)
+
+
+#### ⑦ Change Cipher Spec & Encrypted Handshake Message （服务端测试加密连接）
+>首先是服务端通知客户端后面再发送的消息都会使用加密，也是一条事件消息
+
+>再是服务端也会将握手过程的消息生成摘要再用秘钥加密，这是服务端发出的第一条加密消息
+
+![](./blog_assets/server_check.png)
+   * 使用加密套件的私钥进行解密，获得随机数
+   * 服务端使用对称加密算法，对获取到的随机数进行对称加密，得到“指定加密算法” + “随机生成数” 结合的一个特殊令牌
+   * 服务器使用这个令牌加密需要保护的内容主体，一并发送给客户端
+   
+#### ⑧客户端 
+  * 使用`key`进行加密数据传输
+
+#### 总结
+![https](./blog_assets/https_process.jpg)
+
+### 相关连接
+[https实操](network/https_onwork.md)
+
+
