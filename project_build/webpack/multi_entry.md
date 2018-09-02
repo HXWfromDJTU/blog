@@ -144,3 +144,43 @@ getEntry.forEach(pathname=>{
 // ......
 module.exports = webpackconfig;
 ```
+
+## webpack 4+ 配置
+来源  [《webpack4 + 多入口配置 -- 富途web》](https://juejin.im/post/5af3a6cbf265da0ba266ff25)
+#### 使用Split Chunks，分离重复打包的js
+```js
+new webpack.optimize.SplitChunksPlugin({
+    chunks: 'all',
+    minSize: 30000,
+    minChunks: 1,
+    maxAsyncRequests: 5,
+    maxInitialRequests: 3,
+    automaticNameDelimiter: '-',
+    name: true,
+    cacheGroups: {
+        vue: {
+            test: /[\\/]node_modules[\\/]vue[\\/]/,
+            priority: -10,
+            name: 'vue'
+        },
+        'tui-chart': {
+            test: /[\\/]node_modules[\\/]tui-chart[\\/]/,
+            priority: -20,
+            name: 'tui-chart'
+        }
+    }
+})
+```
+
+#### 使用 `MiniCssExtract`提取为外部CSS
+```js
+// rules配置
+{
+  test: /\.s?[ac]ss$/,//postcss-loader 依赖 postcss-config.js
+  use: [MiniCssExtractPlugin.loader,'css-loader','postcss-loader','sass-loader'] 
+}
+// plugin配置
+new MiniCssExtractPlugin({ //提取为外部css代码
+    filename:'[name].css?v=[contenthash]'
+})
+```
