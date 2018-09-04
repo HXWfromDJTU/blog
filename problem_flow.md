@@ -50,3 +50,10 @@ import Paginate from '~/components/Paginate.vue';
 #### 如何接受奇怪格式的时间，并转换城目标格式
 * `moment.js`可以指定输入时间的格式，并且使用`format`输出所需格式
 ![moment](./blog_assets/moment.png)
+
+
+#### 行内元素高度不对齐
+
+
+#### webapck编译内存溢出
+> FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memory

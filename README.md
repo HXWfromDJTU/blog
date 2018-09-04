@@ -28,11 +28,12 @@ ___
 
 ### Vue
 ___
-* [axios常见问题](https://github.com/HXWfromDJTU/blog/blob/master/vue/axios%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.md)     
-* [Vue组件数据流](https://github.com/HXWfromDJTU/blog/blob/master/vue/Vue%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%B5%81.md)     
-* [vue源码解读之——双向绑定:fire:](https://github.com/HXWfromDJTU/blog/blob/master/vue/Vue%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B9%8B%20%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A.md)     
-* [手工实现简单的双向绑定](https://github.com/HXWfromDJTU/blog/blob/master/vue/vue%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E6%A8%A1%E6%8B%9F.md)     
+* [vue_compile相关](./vue/vue_render.md)     
+* [vue源码__双向绑定:fire:](https://github.com/HXWfromDJTU/blog/blob/master/vue/Vue%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B9%8B%20%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A.md)     
+* [几行代码实现双向绑定](https://github.com/HXWfromDJTU/blog/blob/master/vue/vue%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E6%A8%A1%E6%8B%9F.md)     
 * [webpack多入口配置](./project_build/webpack/multi_entry.md)    
+* [axios常见问题](https://github.com/HXWfromDJTU/blog/blob/master/vue/axios%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.md)     
+<!-- * [Vue组件数据流](https://github.com/HXWfromDJTU/blog/blob/master/vue/Vue%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%B5%81.md)      -->
 
 ### elementUI
 ___
