@@ -47,6 +47,7 @@ ___
 * [HTTPS原理🔱](https://github.com/HXWfromDJTU/blog/blob/master/https.md)  
 * [HTTP 2.0🔱](https://github.com/HXWfromDJTU/blog/blob/master/network/http2.0.md)   
 * [HTTP_状态码](https://github.com/HXWfromDJTU/blog/blob/master/status_code.md)
+* [websocket基础](https://github.com/HXWfromDJTU/blog/blob/master/network/websocket.md)
 * [浏览器页面渲染一二三](https://github.com/HXWfromDJTU/blog/blob/master/how_browser_work.md)     
 * [跨域abc](https://github.com/HXWfromDJTU/blog/blob/master/CORS.md)     
 * [跨域实战](https://github.com/HXWfromDJTU/blog/blob/master/CORS_ON_WORK.md)     
