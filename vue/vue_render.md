@@ -37,6 +37,7 @@
 
 来看看`vue`源码中对`vnode`的声明，[摸我跳转尤大神github](https://github.com/vuejs/vue/blob/3b43c81216c2e29bd519c447e930d6512b5782e8/dist/vue.common.js#L720)
 ![v-node](../blog_assets/vnode.png)
+
 简单明了，就是传入一些节点的相关信息，然后用`js`对象重构了它。
 
 ### render function
