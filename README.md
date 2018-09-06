@@ -1,5 +1,5 @@
 # blog
-🌈 从 [博客园](https://home.cnblogs.com/u/HXW-from-DJTU/) 搬过来一部分，继续记录日常工作学习...
+🌈 从 [博客园](https://home.cnblogs.com/HXW-from-DJTU/) 搬过来一部分，继续记录日常工作学习...
 
 ## 目录
 ### Javascript原生
