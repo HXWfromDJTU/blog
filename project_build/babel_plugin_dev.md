@@ -46,3 +46,7 @@ ___
 ### 开发规范
 [babel-plugin官方手册](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/zh-Hans/plugin-handbook.md)，永远是标准，以下摘抄总结部分。
 （...未完）
+
+___
+### 参考文章
+[babel插件开发 by 潇湘待雨](https://juejin.im/post/5b15f43fe51d4506b26e9638)

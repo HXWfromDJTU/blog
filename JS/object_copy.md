@@ -1,26 +1,34 @@
-# 对象和数组的存储机制
-### ---从深浅拷贝对象和拷贝数组的方法说起
-
+# 对象和数组的拷贝
+___
 ## 浅拷贝
-
-### 数组浅拷贝
-* 常用方法：`array.slice(0)`  `array.concat()`
-
-### 对象的浅拷贝
+使用直接赋值的方式，我们得到的效果一般就是浅拷贝，因为复制的只是对象和数组的引用地址。
+___
+## 伪深拷贝
+#### 数组分割与合并
+* 常用方法：`array.slice(0)` 和 `array.concat()`
+只对数组进行了第一层的完全拷贝，第二层以及内部若存在对象或者数组，则也都只是复制了对象的引用。
+#### Object.assign
 * 常用方法：`Object.assign`
+Object.assign拷贝的是属性值，假如源对象对属性是一个指向对象的引用，也只会拷贝那个对象的引用值。
 
-### 深拷贝
+#### ...展开运算符
+实现的效果仍然是首层内容的完全拷贝，对于第二层及以后都是只复制引用地址。
+
+___
+## 深拷贝
 > 深拷贝是要对对象以及对象的所有子对象进行拷贝。
 
-####  `JSON.stringfy() + JSON.parse`
+####  强转换
+使用`JSON.stringfy() + JSON.parse`进行转换
 * 将数据转换成一个字符串，然后再使用`JSON.parse`转换为`JSON`对象，并且分配一个新的对象。
-* 但是`JSON.parse()`这个方法，只能够正确地处理 `Number`、`String`、`Array`等能够被`json`格式正确表达的数据结构。类似于`Function`这样不能够被`json`表示的数据，则不能够被正确处理。
+* 但是`JSON.parse()`这个方法，只能够正确地处理 `Number`、`String`、`Array`等能够被`json`格式正确表达的数据结构。但是，`undefined`、`function`、`symbol` 会在转换过程中被忽略。
    ```js
    let obj = {a:1,b:'xxx'};
    let copyObj =  JSON.parse(JSON.srtingfy(obj));
    ```
 
-#### 遍历对象上的所有属性，实现深度拷贝
+## 遍历转换
+ 遍历对象上的所有属性，实现深度拷贝
 ```js
   function deepCopy(source){
     let target;
@@ -35,7 +43,7 @@
                    if(typeof source[key] !== 'object'){
                        target[key]  = source[key]
                    }else{
-                       target[key]  =  enxted(source[key])
+                       target[key]  =  deepCopy(source[key])
                    }
               }
           }

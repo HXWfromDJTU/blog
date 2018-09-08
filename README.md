@@ -1,5 +1,5 @@
 # blog
-🌈 move from my * [cnblog blog](https://home.cnblogs.com/u/HXW-from-DJTU/) &amp; some new blog since work
+🌈 move from my  [cnblog blog](https://home.cnblogs.com/u/HXW-from-DJTU/) &amp; some new blog since work
 
 ## 目录
 ### Javascript原生
@@ -57,7 +57,7 @@ ___
 ### python
 ___
 * [python爬虫入门](https://github.com/HXWfromDJTU/blog/blob/master/python/crawler.md)     
-
+___
 ### 归纳图例
 #### vue双向绑定流程图
 ![vue双向绑定原理流程图](./vue/Vue_twoway_binding.png)
