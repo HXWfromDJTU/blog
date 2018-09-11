@@ -12,7 +12,7 @@ function New(fun){
     return function(){
         var o = {}                           //创建临时对象
         o.__proto__ = fun.prototype;         // 将父类的作用域赋值给新对象
-        f.apply(o.arguments);                //继承父类的属性
+        fun.apply(o,arguments);                //用新的参数，继承父类的属性，调用父类的构造器，生成新的属性
         return o;                            //返回新对象
     }
 }

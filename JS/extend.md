@@ -2,7 +2,7 @@
 #### ES 3
 1.   利用 Person.call(this) 执行“方法借用”，获取 Person 的属性
 2.    利用一个空函数将 Person.prototype 加入原型链
-关键代码
+ ###### 关键代码
 ```js
 function inheritProto(Parent, Child) {
   var Fn = function() {};
