@@ -31,7 +31,7 @@ ___
 * [babel_原理&基础配置](./project_build/babel.md)   
 * [babel_插件开发](./project_build/babel_plugin_dev.md)   
 * [vue_compile相关](./vue/vue_render.md)     
-* [vue源码__双向绑定:fire:](https://github.com/HXWfromDJTU/blog/blob/master/vue/Vue%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B9%8B%20%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A.md)     
+* [vue源码__双向绑定:fire:](./vue/Vue_twoway_binding.md)     
 * [几行代码实现双向绑定](https://github.com/HXWfromDJTU/blog/blob/master/vue/vue%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E6%A8%A1%E6%8B%9F.md)     
 * [webpack多入口配置](./project_build/webpack/multi_entry.md)    
 * [axios常见问题](https://github.com/HXWfromDJTU/blog/blob/master/vue/axios%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.md)     

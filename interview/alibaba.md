@@ -21,7 +21,7 @@ ___
 * [DOM事件的绑定的几种方式](../JS/eventBinding.md)
 
 ##### target和currentTarget的区别
-* [currentTarget VS target](https://juejin.im/post/5a9bac73f265da238c3a221a)
+* [currentTarget VS target](../JS/eventBubble.md)
 ##### 说说函数的柯里化
 * [柯里化](../JS/curry.md)
 
