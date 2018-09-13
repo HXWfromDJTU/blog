@@ -3,7 +3,7 @@
 ___
 ###   任务分类
 #### 宏任务(macrotask)
-* `setTimeOut` 、 `setInterval` 、 `setImmediate` 、 `I/O` 、 各种`callback`、`UI渲染等`
+* `setTimeOut` 、 `setInterval` 、 `setImmediate` 、 `I/O` 、 各种`callback`、`UI渲染、`MessageChannel`、`postMessage`等
 * 优先级： `主代码块` > `setImmediate` > `MessageChannel` > `setTimeOut`/`setInterval`
 #### 微任务(microtask)
 * `process.nextTick` 、`Promise`  、`MutationObserver` 、`async(实质上也是promise)`
@@ -24,6 +24,18 @@ ___
 * 若在执行微任务的过程中，加入了新的微任务，会把新的微任务添加在当前任务队列的队尾巴。
 * 微任务会在本轮`EventLoop`执行完后，马上把执行栈中的任务都执行完毕。
 
+简单用代码表示一下过程
+```js
+for (macroTask of macroTaskQueue) {
+    // 1. Handle current MACRO-TASK
+    handleMacroTask();
+  
+    // 2. Handle all MICRO-TASK
+    for (microTask of microTaskQueue) {
+        handleMicroTask(microTask);
+    }
+}
+```
 #### 执行流程
 ① `Javascript`内核加载代码到`执行栈`   
 ② `执行栈`依次执行主线程的`同步任务`，过程中若遇调用了异步Api则会添加回调事件到`回调队列`中。且`微任务`事件添加到微任务队列中，`宏任务`事件添加到宏任务队列中去。直到当前`执行栈`中代码执行完毕。    

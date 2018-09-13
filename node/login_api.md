@@ -7,9 +7,11 @@
 * 是否设计为单点登录？
 
 ### token
+使用token来保持登陆状态
 
 
 ### login 与 get_user_info 的行为分离
+
 
 
 
