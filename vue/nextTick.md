@@ -2,7 +2,7 @@
  * `nextTick`函数是传入一个回调函数`callback`，使得回调函数中的内容，会放到异步任务队列中执行。
  * vue源码使用`promise`、`setTimeout`等方法在`microtask`中创建异步事件，目的是在当前调用栈执行完毕以后，才回去执行这个事件(放到异步队列里)。 
 
-关于 `macro task` 和 `micro task` 的概念，简单用代码表示，不细讲，有兴趣的去看另一篇文章...[传送门:point_right:](/JS/eventLoop.md)
+关于 `macro task` 和 `micro task` 的概念，简单用代码表示，不细讲，有兴趣的去看另一篇文章...[传送门:point_right:](/JS/eventloop.md)
 ```js
 for (macroTask of macroTaskQueue) {
     // 1. Handle current MACRO-TASK
@@ -273,7 +273,7 @@ export default {
 }
 ```
 ###### 输出结果 
-![](/BLOG_ASSETS/vue_nextTick_demo2.png)
+![](/blog_assets/vue_nextTick_demo2.png)
 
 说明同步修改不分生命周期，都会在第一个`eventLoop`中进行，而`$nextTick`也不区分生命周期，都会在本轮执行栈的`微任务阶段`完成修改。
 
