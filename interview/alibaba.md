@@ -41,7 +41,8 @@ ___
 #####  项目中使用到Babel了，来说说 `transform-runtime`和stage-2的作用吧。
 * [babel配置](../project_build/babel.md)
 
-##### webpack配置中使用到了webpack.optimize.UgliJsPlugin，有没有感觉到压缩速度很慢，如何改进呢？
+##### webpack配置中使用到了webpack.optimize.UglyJsPlugin，有没有感觉到压缩速度很慢，如何改进呢？
+因为webpack自带的`webpack.optimize.UglyJsPlugin`使的是单线程打包，而使用 `webpack-parallel-uglify-plugin`，这个插件，可以并行地进行。[github官网](https://github.com/gdborton/webpack-parallel-uglify-plugin)
 * [webpack配置优化笔记](../project_build/webpack/optimize_webpack.md)
 * [webpack打包优化](https://juejin.im/post/5b1e303b6fb9a01e605fd0b3)
 

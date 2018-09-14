@@ -8,6 +8,8 @@ ___
 #### 微任务(microtask)
 * `process.nextTick` 、`Promise`  、`MutationObserver` 、`async(实质上也是promise)`
 * 优先级： `process.nextTick` > `Promise` > `MutationOberser`
+
+micro-task详细笔记[传送门:point_right:](/JS/microTask.md)
 ___
 ### 执行分区
 > 我们常常吧EventLoop中分为 内存、执行栈、WebApi、异步回调队列(包括微任务队列和宏任务队列)

@@ -6,12 +6,15 @@
 ## 我们为什么要去跨域
 > Q：为什么有跨域需求?
 >A：场景 —— 工程服务化后，不同职责的服务分散在不同的工程中，往往这些工程的域名是不同的，但一个需求可能需要对应到多个服务，这时便需要调用不同服务的接口，因此会出现跨域。
+___
 ## 使用JSONP进行跨域
 * 上一篇文章有讲到过，`JSONP`有兼容性好的有点，几乎可以兼容所有市面上的低版本IE
 * 缺点是，`JSONP`只支持`GET`请求，而且需要前后端的一齐配合，比较麻烦(你知道后端的啦...麻烦别人总是不好的)
 
-
+___
 ## 使用 postMessage 进行跨域
+[MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/postMessage)
+
 父页面发送消息：
 ```js 
 window.frames[0].postMessage('message', origin)
@@ -29,7 +32,7 @@ window.addEventListener('message',function(e){
 * origin 表示发送消息的窗口的 (协议 +  主机号 + 端口 )
 
 
-
+___
 ## 使用各种代理服务器实现跨域
 * 因为浏览器之外，使用服务器发起请求并没有同源策略的约束。
 
