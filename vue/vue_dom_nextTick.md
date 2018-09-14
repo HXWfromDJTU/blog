@@ -2,6 +2,7 @@
 我们都知道Vue的DOM更新机制基本为：`setter`  :arrow_right:  `Dep` :arrow_right:  `Watcher` :arrow_right: `patch`   :arrow_right:`视图更新
 
  :question: 那么要是我们在一个生命周期内，改变某个数据`1000`次，那么DOM是会被刷新`1000`次吗？
+ 
  :x:答案是否定的，这个和本文的主体`nextTick`有一定关系。
  #### watcher 的收集和去重机制
  `setter`  :arrow_right:  `Dep` :arrow_right:  `Watcher` :arrow_right:`Watcher.update` :arrow_right:`queueWatcher` :arrow_right: `flushSchedulerQueue`  :arrow_right:   `watcher.run()`:arrow_right:  `patch`   :arrow_right:`视图更新`
