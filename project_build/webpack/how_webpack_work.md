@@ -60,3 +60,7 @@ ___
 ### webpack阶段事件
 贯穿整个工作流程，类似于生命周期一样，`webpack`会向外广播每个阶段的事件。
 
+___
+### 参考文章
+[webpack运行原理 -by Jrain](https://segmentfault.com/a/1190000015291911)
+

@@ -30,7 +30,9 @@ ___
 ___
 * [babel_原理&基础配置](./project_build/babel.md)   
 * [babel_插件开发](./project_build/babel_plugin_dev.md)   
-* [vue_compile相关](./vue/vue_render.md)     
+* [vue_compile相关](/vue/vue_render.md)  
+* [vue_nextTick源码解读 与 eventLoop](./vue/nextTick.md)    
+* [vue_DOM更新机制](./vue/vue_dom_nextTick.md)    
 * [vue源码__双向绑定:fire:](./vue/Vue_twoway_binding.md)     
 * [几行代码实现双向绑定](https://github.com/HXWfromDJTU/blog/blob/master/vue/vue%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E6%A8%A1%E6%8B%9F.md)     
 * [webpack多入口配置](./project_build/webpack/multi_entry.md)    

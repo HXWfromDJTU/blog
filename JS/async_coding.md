@@ -17,7 +17,7 @@
       console.log("异步执行")
   })
 ```
-## 使用async
+## 使用`async`
 * 举例： 后一个异步请求依赖前一个的操作结果
 ```js
 const asyncRequest  = async ()=>{
@@ -57,3 +57,6 @@ next1.value.then(data => {
   g.next(data)
 })
 ```
+### setImmediate
+`setImmediate()`: 是被设计用来一旦当前阶段的任务执行完后执行。
+`setTimeout()`: 是让代码延迟执行。

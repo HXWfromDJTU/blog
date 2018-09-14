@@ -3,7 +3,7 @@
 ___
 ###   任务分类
 #### 宏任务(macrotask)
-* `setTimeOut` 、 `setInterval` 、 `setImmediate` 、 `I/O` 、 各种`callback`、`UI渲染、`MessageChannel`、`postMessage`等
+* `setTimeOut` 、 `setInterval` 、 `setImmediate` 、 `I/O` 、 各种`callback`、 `UI渲染` 、`MessageChannel` 、`postMessage`等
 * 优先级： `主代码块` > `setImmediate` > `MessageChannel` > `setTimeOut`/`setInterval`
 #### 微任务(microtask)
 * `process.nextTick` 、`Promise`  、`MutationObserver` 、`async(实质上也是promise)`
@@ -98,3 +98,7 @@ ___
 ____
 ### 相关文章
 [实现异步的Api](../ES6/async_await_conding.md)
+
+[vue 的nextTick](/vue/nextTick.md)
+
+[vue 的DOM更新机制](/vue/vue_dom_nextTick.md)
