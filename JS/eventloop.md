@@ -85,7 +85,7 @@ let setTimeoutGlobal = setTimeout(_=>{
 ![](/blog_assets/eventLoopGif2.gif)
 
 #### 答案
-> 1 3 2  4 5 6  __ 等待一秒___  7 8  9 4 
+> 1 3 2  5 6  __ 等待一秒___  7 8  9 4 
 
            
 
