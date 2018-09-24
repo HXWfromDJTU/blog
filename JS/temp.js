@@ -19,3 +19,13 @@ function quickSort(arr, left, right) {
 
 
 }
+
+class Peoson {
+    constructor(name) {
+        this.name = name;
+    }
+    this.abc = 'abc';
+    this.sayName = function () {
+        return this.name;
+    }
+}

@@ -11,3 +11,10 @@
 
 ### 与flux的比较
 * `flux` 将用户所有的行为`action`统一使用一个`dispatcher`进行`分发`，一个`action`只能给一个或者多个`store`传递状态，`store`保存了数据，也同时保存当时页面的状态。`store`能够修改view，但是`view`不能够反过来作用于`store`
+
+
+
+
+Povider 用在组件最外层。 
+
+actionCreator
