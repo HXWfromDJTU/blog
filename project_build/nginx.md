@@ -13,3 +13,6 @@
 ### 负载均衡
 
 ## 如何配置Nginx
+
+### 参考文章
+https://juejin.im/post/5bacbd395188255c8d0fd4b2
