@@ -58,7 +58,7 @@
 [跨域abc](https://github.com/HXWfromDJTU/blog/blob/master/CORS.md)     
 [跨域实战](https://github.com/HXWfromDJTU/blog/blob/master/CORS_ON_WORK.md)     
 [GET_&_POST](https://github.com/HXWfromDJTU/blog/blob/master/JS/post_get.md)  
-
+[浏览器线程与进程](/browser/JS_browser_thread.md)
 
 ### python
 
