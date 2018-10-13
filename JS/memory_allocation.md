@@ -70,6 +70,7 @@ ___
 let obj = {a:123,qq:123};
 obj = null;
 ```
+[Javascript垃圾回收 - SwainWong](/JS/GC.md)
 ___
 ### 参考资料
 图① [链接](https://blog.csdn.net/pingfan592/article/details/55189622)

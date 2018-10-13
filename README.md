@@ -14,7 +14,8 @@
 [防抖与节流](https://github.com/HXWfromDJTU/blog/blob/master/interview/debounce.md)     
 [apply bind call this 的恩怨情仇 ](https://github.com/HXWfromDJTU/blog/blob/master/JS/apply_call_bind_this.md)
 [作用域链](/JS/[[SCOPE]].md)  
-
+[微任务](/JS/microTask.md)
+[内存分配](/JS/memory_allocation.md)
 ### 算法
 [常见算法的JS实现](https://github.com/HXWfromDJTU/blog/blob/master/JS/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E7%9A%84Javascript%E5%AE%9E%E7%8E%B0.md)  
 
