@@ -1,5 +1,5 @@
 # async/await 实现异步编程
-
+// 3  9  5  7  8  1   4  6    2  
 ## async/await
 ### 优点
 * `async` 是用同步的方法去写多个异步的操作，程序可读性更高。
@@ -65,7 +65,28 @@
    A1：我们需要在所有的`await`操作外层包裹一个 `try` - `catch` 语句模块中，并且进行合理的异常处理
 
 * Q2：疑问：为何不在`async`外部统一返回的时候，统一使用`catch`去进行异常的处理呢？
-
+### await继发关系
+若在`async`中存在多个`await`的异步任务，最好不要让他们成为继发关系。
+```js
+async function getAllFile(){
+  let foo = await readingFileA();
+  let bar = await readingFileB();
+  return {
+    foo,bar
+  }
+}
+```
+如上面代码，这样洗会先进行文件A的获取，完成之后再进行文件B的获取，这样相当于就是一个阻塞的关系了。
+建议改为
+```js
+async function getAllFile(){
+  //  直接先生成俩Promise对象
+  let APromise = readingFileA();
+  let BPromise = readingFileB();
+  let  fileA = await APromise;
+  let fileB = await  BPromise;
+}
+```
 ### 综合理解
 
   ```js
