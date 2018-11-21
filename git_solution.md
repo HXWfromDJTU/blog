@@ -8,3 +8,4 @@ git pull origin master --allow-unrelated-histories
 ```
 
 
+我么常说的也许就是这个意思吧

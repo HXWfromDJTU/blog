@@ -1,4 +1,5 @@
 # 常用算法的JS实现
+
 ## 排序算法
 ### 1、冒泡排序
 * 复杂度：O(N2)
@@ -130,4 +131,21 @@ function reverseStr(str){
      var resultArr = tmpArr.reverse();
      return resultArr.join("")
 }
+```
+
+### 数组去重
+```js
+function unique(array){
+    let arr = array;
+    let result = [];
+    let hashtable = {};
+    arr.forEach(item=>{
+      if(!hashtable[item]){
+          result.push(item) 
+          hashtable[item] = true; // 占位
+      }
+    })
+    return result;
+}
+
 ```
