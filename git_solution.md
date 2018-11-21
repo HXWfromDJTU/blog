@@ -8,3 +8,4 @@ git pull origin master --allow-unrelated-histories
 ```
 
 
+Slow network is detected
