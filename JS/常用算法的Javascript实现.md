@@ -147,5 +147,89 @@ function unique(array){
     })
     return result;
 }
+```
+### 统计字符串中个字母的出现次数
+```js
+function countCharactarTimes(str){
+    // 若长度为 1 则不需要统计
+      if(str.length == 1){
+          return str;
+      }
+      // 转化为数组操作
+     let strArray = str.split('');
+      //  使用一个 Map 保持不重复
+      let charMap = {};
+       strArray.forEach(char=>{
+          if(!charMap[char]){
+              charMap[char] = 1;
+          }else{
+              charMap[char] +=1; 
+          }
+      })
+       return  charMap;
+}
+```
+### 阶乘
+非递归版本
+```js
+function factorialize(num){
+    let result = 1;
+    // 不接受负数
+    if(num < 0) return -1;
+    // 0 或者 1 则直接返回本身
+    if(num == 0 || num ==1 ){
+         return  1;
+    }
+    // 从输入数字循环乘到 1
+    while(num>1) {
+        result *= num--;
+    }
+    return result;
+}
+```
+递归版本
+```js
+function factorialize(num){
+   let result = 1;
+   // 过滤非常规情况
+   if(num <=) return -1;
+   if(num<0 || num ==1){
+       return 1;
+   }
+   // 阶乘循环
+   if(num > 1){
+       return num * factorialize(num -1);
+   }
+}
+```
+### 二分查找
+```js
+function binary_search(arr,low,high,key){
+    if(low > high)
+    return -1;
+    // 取出中间数
+    var mid = parseInt( (low + high)/2);
+    if(key == arr[mid]){
+        // 返回对应值的位置
+        return mid;
+    }else if(key > arr[mid]){
+        // 取后半段
+        return binary_search(arr,mid+1,hight,key);
+    }else if(key < arr[mid]){
+        // 取前半段
+        return binary_search(arr,low,mid-1,key);
+    }
+}
+```
 
+### 交换两个变量的值
+```js
+function swap(a,b){
+    //  用其中一个两作为 二者差值的容器
+    b = b - a;
+    // a 的最终值值为原本值加上差值
+    a = a + b;
+    //  b 的最终值为 a 的最终值减去差值
+    b = a -  b;
+}
 ```
