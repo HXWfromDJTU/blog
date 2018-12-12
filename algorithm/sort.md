@@ -86,6 +86,9 @@ fucntion quickSort(arr){
 
 
 ### 插入排序
+1⃣️ 带排序数组氛围已排序部分和未排序部分，初始时已排序数组只有一个元素，然后剩下的都是未排序部分
+2⃣️ 未排序部分每次往已排序部分呢插入元素，并且是按照大小顺序进行插入，要保持已排序数组的有序性
+3⃣️ 直到为排序数组为空
 ![](/blog_assets/insertSort.gif)
 
 ```js
@@ -122,8 +125,13 @@ insertSort(arr){
 
 ### 选择排序
 
+
 
 ### 计数排序
+1⃣️ 计算出最大最小数字之差，确定计数范围
+2⃣️ 创建好适应上述大小的容器，称之为计数容器 C，并且每个元素的value初始化为0
+3⃣️ 遍历需要排序的数组，并使用遍历元素作为计数容器C的key，value为出现次数，也就是每便利到对应的一个值就++1；
+4⃣️ 最后使用一个result数组容器盛放结果，对计数容器C进行遍历，循环条件是当前key对应的value不为0，此时的key其实就是我们需要进行排序的元素，每次将key输出到result之后，对应的value就自减 1，意思为出现的次数减1.
 ```java
 // 计数排序，a 是数组，n 是数组大小。假设数组中存储的都是非负整数。
 public void countingSort(int[] a, int n) {
@@ -196,5 +204,42 @@ return oArr;
 ```
 ![](/blog_assets/counting_sort.png)
 ### 桶排序
+1⃣️ 计算数组内最大值与最小值的差值，并根据桶的数目计算出每个桶的大小
+2⃣️ 依次创建每个桶的数据结构，使用取整的方式，决定降数字放入桶中
+3⃣️ 每个桶中第二次放入数据的时候，需要将数据插入到从小到大排序的相应位置（也就是说桶中始终需要保持一个有序性）
+4⃣️ 最后将所有桶合并起来
 
 ### 基数排序
+```js
+function radixSort(arr,maxDigit){
+    let mod = 10; 
+    let dev = 1;
+    // 利用 mod抹平差异，利用 dev 进行分桶
+    // 每一轮的基数不断在增大，第一轮为 1 ，mod和
+    for(let i = 0;i < maxDigit;i++,dev *=10,mod *=10){
+        // 多次循环分桶
+        for(let j=0;j<arr.length;j++){
+          let bucket = parseInt((arr[j] % mod) / dev);
+          if(counter[bucket] = null){
+              counter[bucket] = [arr[j]]
+          }
+        }
+        
+        let pos = 0;
+        for( let x =0;x<count.length;x++){
+            let value = null;
+            if(counter[j] != null){
+                while((value = counter[x].shift())!=null){
+                    arr[pos++] = value;
+                }
+            }
+        }   
+    }
+    return arr;
+}
+```
+
+这三种排序算法都利用了桶的概念，所有算法内部都并不设计元素间的比较，但对桶的使用方法上有明显差异：
+1⃣️ 基数排序：根据键值的每位数字来分配桶
+2⃣️ 计数排序：每个桶只存储单一键值
+3⃣️ 桶排序：每个桶存储一定范围的数值

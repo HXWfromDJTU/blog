@@ -13,3 +13,5 @@
 
 `child_process` 模块
 
+### IPC
+IPC 也就是我们常说的`inter process communition`
