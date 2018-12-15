@@ -77,3 +77,39 @@ b.next(13) // { value:42, done:true }
 3️⃣ 相对于Promise的特点在于能够改善多个异步操作之间前后依赖的情况，并不需要任何的嵌套和回调函数，简洁明了
 3️⃣ 用于部署自定义的 Iterator 接口，注意在初始化generator的时候将需要便利的对象传入即可。
 4️⃣ 把generator看做一个类数组的数据结构，内部存放的值是有序的，每个都要yield暴露出去，使用的时候，可以像数组一样，使用for...of进行遍历就很好了。
+
+
+
+### thunk
+1️⃣ thunk的概念就像是，使用“传名调用”的一种实现策略，传入的参数在被调用的时候才会被执行。
+2️⃣ thunk在JavaScript中实现的不是“传值调用”，而是实现“多参合一”的这一个效果，而且这个参数一般为callback
+3️⃣ thunk的设计思想逐渐演变为generator的执行器的角色。
+
+### co模块与generator的自执行
+1️⃣ co模块会检测传入的对象是否是generator对象，若不是则返回一个resolve状态的promise
+2️⃣ co模块内部会封装gen对象的next方法，并且try...catch处理
+3️⃣ 内部封装的next函数会不断地调用自身，每一次的参数都是上一次next返回的结果
+4️⃣ 处理并发的异步操作，比如说同时返回了三个generator函数。（例如，分批地去读取Stream中的数据）
+
+
+### 实战
+1️⃣ koa框架中，使用generator yield实现接口的异步调用
+```js
+* getTodolist(ctx) {
+  const id = ctx.params.id // 获取url里传过来的参数里的id
+  const result = await todolist.getTodolistById(id) // 通过await “同步”地返回查询结果
+  ctx.body = {
+    success: true,
+    result // 将请求的结果放到response的body里返回
+  }
+}
+
+* createTodolist(ctx) {
+  const data = ctx.request.body
+  const success = await todolist.createTodolist(data);
+  ctx.body = {
+    success
+  }
+}
+
+```

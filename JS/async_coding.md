@@ -32,8 +32,10 @@ const asyncRequest  = async ()=>{
     }
 }
 ```
+2️⃣ 使用`Promise`的不好处，在于当多个异步操作返回的结果前后想依赖的时候，那么我们就会写处一长串的`then`，虽然不是嵌套，但是也出现了大量的荣誉代码。
 
 ## generator
+generator协程
 ```js
 const person = sex => {
   return new Promise((resolve, reject) => {
@@ -57,6 +59,9 @@ next1.value.then(data => {
   g.next(data)
 })
 ```
+
+
+
 ### setImmediate
 `setImmediate()`: 是被设计用来一旦当前阶段的任务执行完后执行。
 `setTimeout()`: 是让代码延迟执行。
