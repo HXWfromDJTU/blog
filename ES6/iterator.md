@@ -133,3 +133,22 @@ Array.form()   // 数组转换
 
 还记得es6新增的Set与Map对象在遍历的时候，通常使用的是`entries`、`keys`、`values`三个方法。返回的都是一个遍历器对象,所遍历的都是j计算生成的数据结构。
 
+### 异步遍历器
+1️⃣ 异步遍历器，与同步最大的不同，特点是调用next方法时候，返回的是一个promise对象,这个promise对象then返回的参数就是熟悉的`{value：xxx,done:false}`的信息了。
+
+2️⃣ 异步遍历器每一个next遍历返回的Promise,都要then去获取结果，代码会显得十分臃肿，那么我们结合async...await的写法，将返回的promise放在await后面进行处理，就可以得到近似同步的执行代码了
+
+3️⃣ for...await of是相比较与for...of的异步Iterator循环方法。
+
+4️⃣ 异步声明的generator
+```js
+async function* gen() {
+  yield 'hello';
+}
+const genObj = gen();
+genObj.next().then(x => console.log(x));
+```
+初始化这个gen，会返回一个异步的Iterator对象，使用for...await of进行遍历
+![](/blog_assets/async_generator.png)
+
+5️⃣ yield * 语句后面也可以跟一个异步遍历器,注意是`yield *`而不是`yield`

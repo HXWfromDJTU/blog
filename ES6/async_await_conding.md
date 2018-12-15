@@ -1,18 +1,14 @@
 # async/await 实现异步编程
-// 3  9  5  7  8  1   4  6    2  
-## async/await
-### 优点
-* `async` 是用同步的方法去写多个异步的操作，程序可读性更高。
-* 多个异步任务时候，每个任务的结果都依赖于上一个异步任务的结果。
 
-  ① 使用`Promise`，当出现多个异步操作，并且前后有依赖关系的时候，会出现`多层嵌套`和`超长链式调用`的问题
-  
-  ② 使用`generator`的时候语义不够`async/await`明确，并且需要手动调用 `next()`方法进行调用
+### 优点
+1️⃣ `async` 是用同步的方法去写多个异步的操作，程序可读性更高。
+2️⃣ 多个异步任务时候，每个任务的结果都依赖于上一个异步任务的结果。
+3️⃣ 使用`Promise`，当出现多个异步操作，并且前后有依赖关系的时候，会出现`多层嵌套`和`超长链式调用`的问题
+4️⃣ 使用`generator`的时候语义不够`async/await`明确，并且需要手动调用 `next()`方法进行调用
 
 ### 内部原理
-* 可以将`async/await`理解为`星号 + generator`的语法糖，并且自带执行器
-* 执行顺序：
-
+1️⃣ 可以将`async/await`理解为`星号 + generator`的语法糖，并且自带执行器
+2️⃣ 执行顺序：
    ①：`await`是一种让出线程的标志，遇到了`await`标志，会把跟在后面的表达式执行一遍。
    
    ②：无论返回的是什么，都将返回值放在本轮执行的异步队列中。
@@ -34,6 +30,38 @@
    })
    console.log('我会在第一轮第二位被打印')
   ```
+
+### async出现的位置
+```js
+// 函数声明
+async function foo() {}
+
+// 函数表达式
+const foo = async function () {};
+
+// **** 对象的方法 ***
+let obj = { async foo() {} };
+obj.foo().then(...)
+
+// Class 的方法
+class Storage {
+  constructor() {
+    this.cachePromise = caches.open('avatars');
+  }
+
+  async getAvatar(name) {
+    const cache = await this.cachePromise;
+    return cache.match(`/avatars/${name}.jpg`);
+  }
+}
+
+const storage = new Storage();
+storage.getAvatar('jake').then(…);
+
+// 箭头函数
+const foo = async () => {};
+
+```
 ### `async`返回值
 * `async`返回的是一个`Promise`对象，使用`.then`就可以继续进行下一步操作
 * `await`进行异步声明的返回`Promise`，`状态`的决定，有以下几种情况：   
@@ -47,9 +75,10 @@
 * 返回值的处理：`async`声明的函数，必须等到内部所有的`await`声明返回的`Promise`都执行完了(`reject`或者`resolve`)才能够发生状态变化。（有些类似于Promise.all的规则）
 
 ### `await`返回值
-* 理论上`await`的后面能够跟任何一种表达式的值
-* 但是，我们使用`await`肯定是去做异步操作的，所有`await` 后面大多数情况下，会跟一个`Promise`对象，并且当后面的返回值是`Promise`对象的时候，`会阻塞当前代码的执行`
-* `await`后面若是跟着一个`非Promise`对象，则会当成返回了一个`状态已定的`的`Promise`，多数情况下是`resolved`，除非表达式返回了`Error`
+1️⃣ 理论上`await`的后面能够跟任何一种表达式的值
+2️⃣  但是，我们使用`await`肯定是去做异步操作的，所有`await` 后面大多数情况下，会跟一个`Promise`对象，并且当后面的返回值是`Promise`对象的时候，`会阻塞当前代码的执行`
+3️⃣`await`后面若是跟着一个`非Promise`对象，则会当成返回了一个`状态已定的`的`Promise`，多数情况下是`resolved`，除非表达式返回了`Error`
+4️⃣ 加入await后跟着的不是标准的Promise对象，但是一个`thenable`对象，那么await也会当做Promise来处理(duck type🦆原则)
 
 ### 异常处理
    ```js
@@ -65,10 +94,13 @@
    A1：我们需要在所有的`await`操作外层包裹一个 `try` - `catch` 语句模块中，并且进行合理的异常处理
 
 * Q2：疑问：为何不在`async`外部统一返回的时候，统一使用`catch`去进行异常的处理呢？
+
 ### await继发关系
-若在`async`中存在多个`await`的异步任务，最好不要让他们成为继发关系。
+若在`async`中存在多个`await`的异步任务，但是前结果并不相互依赖，那么最好不要让他们成为继发关系，这样可以提供异步操作的并发率。
+
 ```js
 async function getAllFile(){
+   // 文件A和文件B并不相互依赖
   let foo = await readingFileA();
   let bar = await readingFileB();
   return {
@@ -87,6 +119,15 @@ async function getAllFile(){
   let fileB = await  BPromise;
 }
 ```
+### 异步遍历器
+1️⃣ 异步遍历器，与同步最大的不同，特点是调用next方法时候，返回的是一个promise对象,这个promise对象then返回的参数就是熟悉的`{value：xxx,done:false}`的信息了。
+
+2️⃣ 异步遍历器每一个next遍历返回的Promise,都要then去获取结果，代码会显得十分臃肿，那么我们结合async...await的写法，将返回的promise放在await后面进行处理，就可以得到近似同步的执行代码了
+
+3️⃣ for...await of是相比较与for...of的异步Iterator循环方法。
+
+
+
 ### 综合理解
 
   ```js
