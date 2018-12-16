@@ -140,7 +140,7 @@ Array.form()   // 数组转换
 
 3️⃣ for...await of是相比较与for...of的异步Iterator循环方法。
 
-4️⃣ 异步声明的generator
+4️⃣ 异步声明的generator,注意在遍历器前添加`async`关键字
 ```js
 async function* gen() {
   yield 'hello';

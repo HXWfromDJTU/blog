@@ -119,12 +119,7 @@ async function getAllFile(){
   let fileB = await  BPromise;
 }
 ```
-### 异步遍历器
-1️⃣ 异步遍历器，与同步最大的不同，特点是调用next方法时候，返回的是一个promise对象,这个promise对象then返回的参数就是熟悉的`{value：xxx,done:false}`的信息了。
 
-2️⃣ 异步遍历器每一个next遍历返回的Promise,都要then去获取结果，代码会显得十分臃肿，那么我们结合async...await的写法，将返回的promise放在await后面进行处理，就可以得到近似同步的执行代码了
-
-3️⃣ for...await of是相比较与for...of的异步Iterator循环方法。
 
 
 
