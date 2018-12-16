@@ -7,7 +7,7 @@
 前端的应用点：`系统的登录窗口`
 
 ### 设计原则
-1、通过一个标志量，来标志当前是否已经为那个类创建过对象了，若果是，则在下一次获取该累的实例时，直接返回之前创建的对象。
+1️⃣ 通过一个标志量，来标志当前是否已经为那个类创建过对象了，若果是，则在下一次获取该累的实例时，直接返回之前创建的对象。
 检验规则
 ```javascript
 //无论多少次创建的实例，必须指向同一个对象，保证在应用中不会出现两个不同的实例
@@ -15,9 +15,9 @@ var a = new Singleton("Leborn");
 var b = new Singleton("Kobe");
 console.log(a === b );   // true   
 ```
-2、创建单例对象、判断是否已存在该单例对象，这两个工作必须遵守`类的单一职责概念`，所以需要分离设计出`创建类`、`代理判断类`
+2️⃣ 创建单例对象、判断是否已存在该单例对象，这两个工作必须遵守`类的单一职责概念`，所以需要分离设计出`创建类`、`代理判断类`
 
-3、需要符合`惰性`这一个特性，用户不进行主动操作，则不主动触发
+3️⃣ 需要符合`惰性`这一个特性，用户不进行主动操作，则不主动触发
 常见案例：使用惰性单例，创建用户登录框
 ```javascript
 //使用闭包进行创建生成器
@@ -37,13 +37,13 @@ document.getElementById('loginBtn').onclick=function(){
     loginLayer.style.display = "block";
 }
 ```
-4、抽象化的惰性单例
+4️⃣ 抽象化的惰性单例  🏆🏆🏆 这里是重点 🏆🏆🏆
 ```javascript
 //此处的 fn 是用于创建惰性单例对象的方法
 var getSingle = function(fn){
     var result;
     return function(){
-        return result || (result = fn.apply(this,arguments));
+        return result || (result = fn.apply(this,arguments)); // 判断实例是否应存在
     }
 }
 ```
@@ -62,6 +62,9 @@ fn可以使多种多样的
 // 通过惰性单例管理器，创建单例对象
 var createSingleLoginLayer = getSingle(createLoginLayer)
 ```
-总结
+### 总结
 > 创建对象的函数 和管理单例的职责被分布在两个不同的方法中，这两个方法组合起来，才具有更大的灵活性。
 
+
+### 参考资料
+《Javascript设计模式与开发实践》 -by 曾探

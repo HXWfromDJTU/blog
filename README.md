@@ -26,8 +26,8 @@
 [css性能优化](/CSS/css_optimize.md)
 
 ### 设计模式
-[观察者模式:fire:](https://github.com/HXWfromDJTU/blog/blob/master/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E3%80%8AJS%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F.md)     
-[单例模式](https://github.com/HXWfromDJTU/blog/blob/master/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E3%80%8AJS%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.md) 
+[观察者模式:fire:](https://github.com/HXWfromDJTU/blog/blob/master/design_mode/%E3%80%8AJS%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F.md)     
+[单例模式](https://github.com/HXWfromDJTU/blog/blob/master/design_mode/%E3%80%8AJS%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.md) 
 
 ### ES6
 [es6 class](https://github.com/HXWfromDJTU/blog/blob/master/ES6/es6_class.md)     
