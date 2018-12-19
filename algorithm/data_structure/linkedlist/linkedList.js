@@ -1,26 +1,25 @@
 class Node {
-    constuctor(element) {
-        this.element = element;
+    constructor(element) {
+        this.value = element;
         this.next = null;
     }
 }
-
-const length = new WeakMap();
-const head = new WeakMap();
-
 class LinkedList {
     constructor() {
-        length.set(this, 0);
-        head.set(this, null);
+        // 初始化链表长度和链表头
+        this.length = new WeakMap();
+        this.head = new WeakMap();
+        this.length.set(this, 0);
+        this.head.set(this, null);
     }
     // 尾插法
-    append(element) {
+    append(value) {
         // 初始化一个新节点
-        let node = new Node(element);
+        let node = new Node(value);
         let current;
         // 若当前只有一个元素
         if (this.getHead() === null) {
-            head.set(this, node);
+            this.head.get(this, node);
         } else {
             // 若当前有多个元素
             current = this.getHead();
@@ -32,16 +31,16 @@ class LinkedList {
             current.next = node;
         }
         // 获取当前的长度
-        let le = this.size();
+        let l = this.size();
         l++;
         // 将新的长度传入 length weakMap中去
-        length.set(this, length);
+        this.length.set(this, l);
     }
     //指定位置插入节点
-    insert(position, node) {
+    insert(position, value) {
         if (position >= 0 && position <= this.size()) {
-            // 建立一个空节点
-            let node = new Node(node);
+            // 建立一个新节点
+            let node = new Node(value);
             // 获取当前头结点
             let current = this.getHead();
             // 用于保存插入位置的前驱节点
@@ -51,6 +50,7 @@ class LinkedList {
             // 若是插入头部
             if (position === 0) {
                 node.next = current;
+                this.head.get(this, node);
             } else {
                 // 循环找到插入点
                 while (index++ < position) {
@@ -60,22 +60,22 @@ class LinkedList {
             }
             // 长度增加 1
             let l = this.size();
-            i++;
-            length.set(this, l);
+            l++;
+            this.length.set(this, l);
             // 表示插入成功
             return true;
         }
     }
-    // 移除指定节点
+    // 根据位置移除指定节点
     removeAt(position) {
         // 判断位置的有效性
         if (position > -1 && position <= this.size()) {
             let current = this.getHead();
-            previous;
-            index = 0;
+            let previous;
+            let index = 0;
             if (position == 0) {
                 // 使得头结点指向 null
-                head.set(this, null);
+                this.head.get(this, null);
             } else {
                 //  遍历节点
                 while (index++ < position) {
@@ -84,10 +84,12 @@ class LinkedList {
                 }
                 // 将当前节点的next指向当前节点的下一个节点，相当于删除当前节点
                 previous.next = current.next;
+                // 释放前节点
+                current.next = null; 
             }
             let l = this.size();
             l--;
-            length.set(this, l);
+            this.length.set(this, l);
             return current.node;
         }
     }
@@ -104,7 +106,7 @@ class LinkedList {
         // 循环遍历
         while (current) {
             // 判断每个值是否相等
-            if (element === current.element) {
+            if (element === current.value) {
                 return index;
             }
             index++;
@@ -119,11 +121,11 @@ class LinkedList {
     }
     // 返回链表包含的元素个数
     size() {
-        return length.get(this);
+        return this.length.get(this);
     }
     // 获取链头项
     getHead() {
-        return head.get(this);
+        return this.head.get(this);
     }
     // 转化为字符串
     toString() {
@@ -131,7 +133,7 @@ class LinkedList {
         let string = '';
         // 循环遍历，转化为字符串
         while (current) {
-            string += current.element + (current.next ? ', ' : '');
+            string += current.value + (current.next ? ', ' : '');
             current = current.next;
         }
         return string;
@@ -156,6 +158,20 @@ class LinkedList {
             perious = current;
             current = next;
         }
-        head.set(this, previous)
+        this.head.get(this, previous)
     }
+    
 }
+// 给链表添加一个遍历器
+LinkedList.prototype[Symbol.iterator] = function *(params){
+   let current =  this.getHead();
+   while(current){
+    yield current;
+    current = current.next;
+   }   
+}
+// 暴露模块
+module.exports = {
+    Node,
+    LinkedList
+};
