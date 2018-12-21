@@ -20,13 +20,12 @@ class HeapBuffer{
      */
    push(value){
        if(!value){
-           console.log("缓存内容value不能够为空！！！")
+           console.log("缓存内容value不能够为空！！！");
        }
        if(this.list.size()<this.size){
            // 使用头插法模拟LRU算法
            this.list.insert(0,value);
        }else{
-           console.log()
            this.list.removeAt(this.list.size()-1);
            this.push(value);
        }

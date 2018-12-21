@@ -1,4 +1,4 @@
-class Node {
+                                                                                                                                                        class Node {
     constructor(element) {
         this.value = element;
         this.next = null;
@@ -19,7 +19,7 @@ class LinkedList {
         let current;
         // 若当前只有一个元素
         if (this.getHead() === null) {
-            this.head.get(this, node);
+            this.head.set(this, node);
         } else {
             // 若当前有多个元素
             current = this.getHead();
@@ -50,7 +50,7 @@ class LinkedList {
             // 若是插入头部
             if (position === 0) {
                 node.next = current;
-                this.head.get(this, node);
+                this.head.set(this, node);
             } else {
                 // 循环找到插入点
                 while (index++ < position) {
@@ -68,11 +68,14 @@ class LinkedList {
     }
     // 根据位置移除指定节点
     removeAt(position) {
+       
         // 判断位置的有效性
         if (position > -1 && position <= this.size()) {
             let current = this.getHead();
+            console.log(current)
             let previous;
             let index = 0;
+           
             if (position == 0) {
                 // 使得头结点指向 null
                 this.head.get(this, null);
@@ -139,28 +142,40 @@ class LinkedList {
         return string;
     }
     // 翻转链表
-    reverse() {
-        let head = this.getHead();
+    reverse(customHead) {
+      let head = this.head.get(this);
+      // 调用类静态方法，实现链表反转
+      LinkedList.reverse.call(this,head)   
+    }
+}
+LinkedList.reverse = function(customHead,length,customTail,listObj){
+        // 链表头部
+        let head = customHead;
+        // 声明步数，限制翻转的节点数量
+        let step = 0;
         // 若当前链表只有一个节点，或者 是空链表
         if (head === null || head.next === null) {
-            return;
+            return head;
         }
+        // 多于一个节点的情况
         let previous = head;
         let current = previous.next;
+        let next = null;
         // 反转后head变为尾部
         head.next = null;
-        while (current) {
+        while (current && (customTail?current!=customTail:true)) {
             // 保存当前节点的后续节点
             next = current.next;
             // 改变当前节点的 next指向
             current.next = previous;
             // 节点整体向前移
-            perious = current;
+            previous = current;
             current = next;
+            // 移动步数累加
+            step++;
         }
-        this.head.get(this, previous)
-    }
-    
+        this.head.set(this, previous);
+        return previous;
 }
 // 给链表添加一个遍历器
 LinkedList.prototype[Symbol.iterator] = function *(params){
