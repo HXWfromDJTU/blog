@@ -89,6 +89,7 @@ map2.get(window); // 'win'
 1️⃣ 就像WeakSet只能存储对象一样，WeskMap只能够使用引用型对象作为键值，不能够使用一般对象作为键值。
 2️⃣ 其指向的对象也是不计入垃圾回收的。
 3️⃣ WeakMap回收实例，[传送门](https://github.com/ruanyf/es6tutorial/issues/362#issuecomment-292451925)
+
 ___
 ### 二者差异
 1️⃣ Set注意提倡存，可以批量存，也可以单个存。但不能够单独一个个取出来。只能够通过遍历取得元素。而Map可以单独存，单独取出。
@@ -97,6 +98,5 @@ ___
 4️⃣ 想要直接遍历出Set和Map的内容请使用forEach,其他方法生成的都是遍历器对象。
 
 ___
-
 ### 参考文章
 [阮一峰 ES6教程 - Set_Map](http://es6.ruanyifeng.com/#docs/set-map)

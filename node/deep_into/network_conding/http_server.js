@@ -7,6 +7,6 @@ let server = http.createServer((req,res)=>{
 });
 server.listen(port,host);
 server.on('request',req=>{
-    console.log( req)
+   // console.log( req)
 })
 console.log('Server running at '+ host +":"+ port);

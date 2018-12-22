@@ -33,7 +33,7 @@
 [es6 class](https://github.com/HXWfromDJTU/blog/blob/master/ES6/es6_class.md)     
 [类的继承](https://github.com/HXWfromDJTU/blog/blob/master/ES6/es6_%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF.md)     
 [async 下的异步编程](https://github.com/HXWfromDJTU/blog/blob/master/ES6/async_await_conding.md)   
-
+[Decorator - 肩负历史前行](/ES6/decorator.md)
 
 ### 框架工具
 
