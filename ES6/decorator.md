@@ -30,7 +30,8 @@ MyTestableClass.isTestable
 
 1️⃣ 首先要区别与第一种类的修饰，类方法的修饰接收到的三个参数
 💿 类的原型(注意不是类哦)
-📷 要修饰的类方法(或者属性)的名称
+📷 要修饰的类方法(或者属性)的名称   
+
 📹 descriptor对象(也就是 Object.defineProperty里面的第三个参数。
 其实这里的操作基本就是未实例化版的`Object.defineProperty()操作`
 
@@ -89,4 +90,5 @@ Anyway..之前一直没有啃下来的Decorator,找到应用场景和知道其�
 ___
 ### 参考文章
 [JS 装饰器实战 -by 芋头](https://zhuanlan.zhihu.com/p/30487077)
+
 [ES6 教程 -by 阮一峰](http://es6.ruanyifeng.com/#docs/decorator)
