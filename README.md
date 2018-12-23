@@ -20,10 +20,10 @@
 
 ### 算法 与 数据结构
 [常见算法的JS实现](https://github.com/HXWfromDJTU/blog/blob/master/JS/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E7%9A%84Javascript%E5%AE%9E%E7%8E%B0.md)  
-[单链表](/algorithm/data_structure/linkedlist/)
-[数组](/algorithm/data_structure/array/)
-[顺序栈](/algorithm/data_structure/stack/)
-[队列](/algorithm/data_structure/queue/)
+[单链表](/algorithm/data_structure/linkedlist/)  
+[数组](/algorithm/data_structure/array/)  
+[顺序栈](/algorithm/data_structure/stack/)  
+[队列](/algorithm/data_structure/queue/)  
 
 
 ### CSS
