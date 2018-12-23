@@ -18,17 +18,22 @@ class ArrayList{
        if(this.length == 0){
         // 头元素指针指向新元素
         this.head = [value];
+         // 长度累加
         this.length++;
         return this.head;
        }
        // 其他情况
-       let index = this.head.length;
+       let index = this.length;
        this.head[index] = value;
+       // 长度累加
+       this.length++;
     }
     // 数组尾部删除一个元素
     pop(){
-        let lastIndex =  this.length;
+        let lastIndex =  this.length-1;
+        let value = this.head[lastIndex];
         this.head[lastIndex] = null;
+        return value;
     }
     // 数组头部添加一个元素
     unshift(value){
@@ -36,46 +41,39 @@ class ArrayList{
     }
     // 数组头部删除一个元素
     shift(){
-        let head = this.getHead();
-        let length = this.length.get(this);
-        let firstNode = heap[head.heapAddr];
-        let nextNode = heap[head.heapAddr+this.dataSize];
-        // 头指针指向下一个元素
-        this.head.set(nextNode);
-        // 长度自加
-        length++;
-        this.length.set(length)
-        // head = null; // 这里就不手动释放掉头元素了
-        // 返回头元素
-        return head;
-    }
-    // 根据下标获取值
-    getValueByIndex(offset){
-       // 获取到要查询元素的
-       let trueIndex = this.getHead() + this.dataSize * this.offset;
-       return heap[trueIndex];
+      
     }
     // 根据值获取下标（有多个只找到第一个）
     indexOf(value){
-        // 从头开始遍历
-        let head = this.getHead();
-        let currentIndex = head.heapAddr;
         let index = 0;
         // 当元素存在的时候
-        while(heap[currentIndex]){
-            if(current.value == value){
+        while(this.head[index]){
+            if(this.head[index] == value){
                 return index;
             }
             // 下标累加
             index++;
-            // 计算下一个元素的下标
-            currentIndex = head.heapAddr + index * this.dataSize;
         }
         // 没有找到的情况
         return undefined;
     }
-    // 获取当前头指针
-    getHead(){
-        return this.head.get(this);
+    show(){
+        for(let item of this){
+            console.log(item)
+        }
     }
+}
+ArrayList.prototype[Symbol.iterator] = function *(){
+    let i =0 ;
+    while(i<this.length){
+        let value = this.head[i];
+        if(value!=undefined && value!=null){
+            yield this.head[i];
+        }
+       i++;
+    }
+}
+
+module.exports = {
+    ArrayList
 }
