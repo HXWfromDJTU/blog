@@ -25,9 +25,8 @@ let binary_search_while = function(value,arr,bottom,top){
    let low = bottom;
    let high = top;
    let mid = 0;
-   while(low<high){
-    mid = Math.floor((low+high)/2);
-    console.log(low,high,mid,arr[mid])
+   while(low<=high){
+    mid = Math.floor(low+(high-low)/2);
       if(arr[mid]==value){
           return mid;
       }else if(arr[mid]<value){
@@ -37,7 +36,25 @@ let binary_search_while = function(value,arr,bottom,top){
       }
    }
 }
+// 找到第一个匹配元素
+let binary_search_find_first = function(value,arr,bottom,top){
+   let low =bottom;
+   let high = top;
+   while(low<=high){
+      mid = Math.floor(low+(high-low)/2);
+      if(arr[mid] == value){
+         if(mid ==0 || arr[mid-1] !=value) return mid;
+         else high = mid+1;
+      }else if(arr[mid]<value){
+          low = mid-1;
+      }else{
+          high = mid+1;
+      }
+   }
+}
+
 module.exports = {
     binary_search_recursion,
-    binary_search_while
+    binary_search_while,
+    binary_search_find_first
 }
