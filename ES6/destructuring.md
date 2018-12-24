@@ -31,11 +31,18 @@ qqq // not defined 报错
 ### 其他类型解构赋值
 1️⃣ 数值 与 布尔值
 ```js
-let {toString: s} = 123;
+let {toFixed: s} = 123;
 s === Number.prototype.toString // true
 
 let {toString: s} = true;
 s === Boolean.prototype.toString // true
+```
+上面的操作实际是
+```js
+let proto123 = Object(123);
+proto123 === Number.prototype // true
+let {toFixed:s} = proto123;
+// 相当于从数值类型的原型对象中解构赋值
 ```
 
 2️⃣ null 与 undefined 

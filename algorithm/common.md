@@ -8,3 +8,10 @@ function checkPalindrom(str) {
     return str == str.split('').reverse().join('');
 }
 ```
+
+
+
+## 数组去重
+```js
+arr = [...new Set(arr)]
+```
