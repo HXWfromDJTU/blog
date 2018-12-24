@@ -98,7 +98,7 @@ void uv__run_timers(uv_loop_t* loop) {
 }
 ```
 ##### Timer Pahse实体
-```c++
+```cpp
 /*
  * uv_timer_t 是 uv_handle_t 的一个子类
  * 用于在未来的某一个时间被唤醒
