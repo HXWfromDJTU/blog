@@ -36,7 +36,7 @@ let binary_search_while = function(value,arr,bottom,top){
       }
    }
 }
-// 找到第一个匹配元素
+// 找到第一个匹配元素的二叉
 let binary_search_find_first = function(value,arr,bottom,top){
    let low =bottom;
    let high = top;

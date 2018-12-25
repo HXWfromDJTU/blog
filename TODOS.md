@@ -12,3 +12,8 @@ v8的部分核心源码笔记
 
 epoll/kqueue/iocp 与libuv的关系
 
+项目代码规范性约束，经验？
+
+
+git-flow的基本流程和对应的命令。
+
