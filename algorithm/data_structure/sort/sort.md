@@ -77,7 +77,7 @@ fucntion quickSort(arr){
        }
    }
    // 递归分治的想法去解决子集数组
-   return [].concat(qucikSort(leftArr),[q],quickSort(rightArr));
+   return [].concat(qucikSort(leftArr),[key],quickSort(rightArr));
 }
 ```
 优化点：
