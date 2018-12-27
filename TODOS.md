@@ -28,3 +28,17 @@ Node深入浅出第八章剩余内容转化
 4️⃣ Nodejs路由解析与Restful Api
 5️⃣ node中间件
 6️⃣ node页面渲染也后端渲染
+
+7️⃣ worker_thread与web_worker的比较。
+
+
+
+#### 计算机网络
+https怎么实现的？SSL和TLS的区别？ 
+
+网络知识补充
+https://www.cnblogs.com/haoyijing/p/5898420.html
+
+
+### node
+https://www.jianshu.com/p/3416a0bf309c

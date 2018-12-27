@@ -4,8 +4,8 @@
 ## 目录
 
 ### Javascript原生
-[常见算法的JS实现](https://github.com/HXWfromDJTU/blog/blob/master/JS/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E7%9A%84Javascript%E5%AE%9E%E7%8E%B0.md)     
 
+[Javascript垃圾回收](/JS/GC.md) 
 [eventLoop](https://github.com/HXWfromDJTU/blog/blob/master/JS/eventloop.md)     
 [常见异步编程](https://github.com/HXWfromDJTU/blog/blob/master/JS/async_coding.md)     
 [数组方法](https://github.com/HXWfromDJTU/blog/blob/master/JS/ARRAY_FUNC.md)     
