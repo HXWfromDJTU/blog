@@ -71,6 +71,6 @@
 ##### 交叉比对
 * `nodeOps` 是一个适配层，根据不同平台提供的不同的操作 DOM 的方法，用于实现跨平台操作DOM
 
-
+___
 ### 参考文章
-* [说说vnode节点 by 染陌](https://juejin.im/post/59b53a595188257e7406fe3d)
+[说说vnode节点 by 染陌](https://juejin.im/post/59b53a595188257e7406fe3d)

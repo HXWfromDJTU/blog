@@ -5,72 +5,115 @@
 
 ### Javascript原生
 
-[Javascript垃圾回收](/JS/GC.md) 
-[eventLoop](https://github.com/HXWfromDJTU/blog/blob/master/JS/eventloop.md)     
-[常见异步编程](https://github.com/HXWfromDJTU/blog/blob/master/JS/async_coding.md)     
-[数组方法](https://github.com/HXWfromDJTU/blog/blob/master/JS/ARRAY_FUNC.md)     
-[对象方法](https://github.com/HXWfromDJTU/blog/blob/master/JS/OOJECT_FUNC.md)     
-[原型链方法](https://github.com/HXWfromDJTU/blog/blob/master/JS/JS_COMMON_FUNC.md)     
-[再看闭包](https://github.com/HXWfromDJTU/blog/blob/master/interview/closure.md)     
-[防抖与节流](https://github.com/HXWfromDJTU/blog/blob/master/interview/debounce.md)     
-[apply bind call this 的恩怨情仇 ](https://github.com/HXWfromDJTU/blog/blob/master/JS/apply_call_bind_this.md)
-[作用域链](/JS/[[SCOPE]].md)  
-[微任务](/JS/microTask.md)
-[内存分配](/JS/memory_allocation.md)
+
+| 序号 | 标题 | 其他 |
+| :------| :------: | :------: |
+| 1 | [Javascript垃圾回收](/JS/GC.md)| 原创 + 📒 |
+| 1 | [eventLoop](/JS/eventloop.md)| 原创 + 📒 |
+| 1 | [防抖与节流](/JS/debounce.md)| 原创 + 📒 |
+| 1 | [内存分配](/JS/memory_allocation.md)| 原创 + 📒 |
+| 1 | [再看闭包](/JS/closure.md)| 原创 + 📒 |
+| 1 | [作用域链](/JS/[[SCOPE]].md)| 原创 + 📒 |
+| 1 | [微任务](/JS/microTask.md)| 原创 + 📒 |
+| 1 | [apply bind call this 的恩怨情仇 ](/JS/apply_call_bind_this.md)  | 📒 |
+| 1 | [数组方法](/JS/ARRAY_FUNC.md)、[对象方法](/JS/OOJECT_FUNC.md)、[原型链方法](/JS/JS_COMMON_FUNC.md)| 原创 + 📒 |
+<!-- | 1 | [常见异步编程](/JS/async_coding.md)| 原创 + 📒 | -->
+
+    
+    
+   
+   
+
+
+
+
 
 ### 算法 与 数据结构
-[常见算法的JS实现](https://github.com/HXWfromDJTU/blog/blob/master/JS/%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E7%9A%84Javascript%E5%AE%9E%E7%8E%B0.md)  
-[单链表](/algorithm/data_structure/linkedlist/)  
-[数组](/algorithm/data_structure/array/)  
-[顺序栈](/algorithm/data_structure/stack/)  
-[队列](/algorithm/data_structure/queue/)  
-
+| 序号 | 标题 | 其他 |
+| :------| :------: | :------: |
+| 1 | [常见算法的JS实现](/algorithm/common.md/)| 原创 + 📒 |
+| 2 | [单链表](/algorithm/data_structure/linkedlist/)| 原创 + 📒 |
+| 3 | [数组](/algorithm/data_structure/array/)| 原创 + 📒 |
+| 4 | [顺序栈](/algorithm/data_structure/stack/)| 原创 + 📒 |
+| 5 | [顺序队列](/algorithm/data_structure/queue/)| 原创 + 📒 |
 
 ### CSS
-[css性能优化](/CSS/css_optimize.md)
+
+| 序号 | 标题 | 其他 |
+| :------| :------: | :------: |
+| 1 | [css性能优化](/CSS/css_optimize.md)❤️| 原创 + 📒 |
 
 ### 设计模式
-[观察者模式:fire:](https://github.com/HXWfromDJTU/blog/blob/master/design_mode/%E3%80%8AJS%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F.md)     
-[单例模式](https://github.com/HXWfromDJTU/blog/blob/master/design_mode/%E3%80%8AJS%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.md) 
+
+| 序号 | 标题 | 其他 |
+| :------| :------: | :------: |
+| 1 | [设计模式总结](/design_mode/prototype.md):fire: | 原创 |
+| 2 | [观察者模式](/design_mode/observer.md)  | 笔记 |
+| 3 | [单例模式](/design_mode/singleton.md) | 笔记 |
+| 4 | [策略模式](/design_mode/strategy.md)   | 笔记 |
+| 5 | [原型模式](/design_mode/prototype.md)    | 笔记 |
+
 
 ### ES6
-[es6 class](https://github.com/HXWfromDJTU/blog/blob/master/ES6/es6_class.md)     
-[类的继承](https://github.com/HXWfromDJTU/blog/blob/master/ES6/es6_%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF.md)     
-[async 下的异步编程](https://github.com/HXWfromDJTU/blog/blob/master/ES6/async_await_conding.md)   
-[Decorator - 肩负历史前行](/ES6/decorator.md)
+<!-- [es6 class](/network/ES6/es6_class.md)     
+[类的继承](/network/ES6/es6_%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF.md)     
+[async 下的异步编程](/network/ES6/async_await_conding.md)    -->
+
+| 序号 | 标题 | 其他 |
+| :------| :------: | :------: |
+| 1 | [Decorator - 肩负历史前行](/ES6/decorator.md):fire: |  |
+
 
 ### 框架工具
+| 序号 | 标题 | 其他 |
+| :------| :------: | :------: |
+| 1 | [babel_原理&基础配置](./project_build/babel.md)  |  |
+| 2 | [babel_插件开发](./project_build/babel_plugin_dev.md) |  |
+| 3 | [vue_compile相关](/vue/vue_render.md)   |  |
+| 4 | [vue_nextTick源码解读 与 eventLoop](./vue/nextTick.md)  |  |
+| 5 | [vue_DOM更新机制](./vue/vue_dom_nextTick.md)  |  |
+| 6 | [vue源码__双向绑定:fire:](./vue/Vue_twoway_binding.md)   |  |
+| 7 | [几行代码实现双向绑定](/network/vue/vue%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E6%A8%A1%E6%8B%9F.md)    |  |
+| 8 | [webpack多入口配置](./project_build/webpack/multi_entry.md)    |  |
+| 9 | [axios常见问题](/network/vue/axios%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.md)    |  |
+| 10 | [elementUI源码解读之el-scrollbar](/network/elementUI/elementUI%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B9%8Bel-scrollbar.md)    |  |
+ 
+    
+    
+    
+   
+    
+    
 
-[babel_原理&基础配置](./project_build/babel.md)   
-[babel_插件开发](./project_build/babel_plugin_dev.md)   
-[vue_compile相关](/vue/vue_render.md)  
-[vue_nextTick源码解读 与 eventLoop](./vue/nextTick.md)    
-[vue_DOM更新机制](./vue/vue_dom_nextTick.md)    
-[vue源码__双向绑定:fire:](./vue/Vue_twoway_binding.md)     
-[几行代码实现双向绑定](https://github.com/HXWfromDJTU/blog/blob/master/vue/vue%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E6%A8%A1%E6%8B%9F.md)     
-[webpack多入口配置](./project_build/webpack/multi_entry.md)    
-[axios常见问题](https://github.com/HXWfromDJTU/blog/blob/master/vue/axios%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.md)     
-[elementUI源码解读之el-scrollbar](https://github.com/HXWfromDJTU/blog/blob/master/elementUI/elementUI%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B9%8Bel-scrollbar.md)     
-
-<!-- [Vue组件数据流](https://github.com/HXWfromDJTU/blog/blob/master/vue/Vue%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%B5%81.md)      -->
+<!-- [Vue组件数据流](/network/vue/Vue%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%B5%81.md)      -->
 
 ### 项目搭建
-[node依赖包的版本管理](https://github.com/HXWfromDJTU/blog/blob/master/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/npm%E4%BE%9D%E8%B5%96%E7%89%88%E6%9C%AC%E9%94%81%E5%AE%9A.md)     
+[node依赖包的版本管理](/project/node_module_manage.md)  
+| 序号 | 标题 | 其他 |
+| :------| :------: | :------: |
+| 1 | [HTTPS原理🔱](/network/https.md)| 原创 + 📒 |   
 
 ### network
-[HTTPS原理🔱](https://github.com/HXWfromDJTU/blog/blob/master/https.md)  
-[HTTP 2.0🔱](https://github.com/HXWfromDJTU/blog/blob/master/network/http2.0.md)   
-[HTTP_状态码](https://github.com/HXWfromDJTU/blog/blob/master/status_code.md)
-[websocket基础](https://github.com/HXWfromDJTU/blog/blob/master/network/websocket.md)
-[浏览器页面渲染一二三](https://github.com/HXWfromDJTU/blog/blob/master/how_browser_work.md)     
-[跨域abc](https://github.com/HXWfromDJTU/blog/blob/master/CORS.md)     
-[跨域实战](https://github.com/HXWfromDJTU/blog/blob/master/CORS_ON_WORK.md)     
-[GET_&_POST](https://github.com/HXWfromDJTU/blog/blob/master/JS/post_get.md)  
-[浏览器线程与进程](/browser/JS_browser_thread.md)
+| 序号 | 标题 | 其他 |
+| :------| :------: | :------: |
+| 1 | [HTTPS原理🔱](/network/https.md)| 原创 + 📒 |
+| 1 | [HTTP 2.0🔱](/network/http2.0.md)| 原创 + 📒 |
+| 1 | [HTTP_状态码](/network/status_code.md)| 原创 + 📒 |
+| 1 | [浏览器页面渲染一二三](/network/how_browser_work.md)| 原创 + 📒 |
+| 1 | [跨域abc](/network/CORS.md)| 原创 + 📒 |
+| 1 | [跨域实战](/network/CORS_ON_WORK.md)| 原创 + 📒 |
+| 1 | [GET_&_POST](/JS/post_get.md)| 原创 + 📒 |
+| 1 | [浏览器线程与进程](/browser/JS_browser_thread.md)  | 📒 |
+
+### Node
+| 序号 | 标题 | 其他 |
+| :------| :------: | :------: |
+| 1 | |  |
 
 ### python
-
-[python爬虫入门](https://github.com/HXWfromDJTU/blog/blob/master/python/crawler.md)     
+| 序号 | 标题 | 其他 |
+| :------| :------: | :------: |
+| 1 | [python爬虫入门](/python/python/crawler.md)| 原创 + 📒 |  
 
 ### 归纳图例
 #### vue双向绑定流程图
