@@ -1,10 +1,7 @@
 # blog
 🌈 从 [博客园](https://home.cnblogs.com/HXW-from-DJTU/) 搬过来一部分，继续记录日常工作学习...
 
-## 目录
-
 ### Javascript原生
-
 
 | 序号 | 标题 | 其他 |
 | :------| :------: | :------: |
@@ -18,15 +15,6 @@
 | 1 | [apply bind call this 的恩怨情仇 ](/JS/apply_call_bind_this.md)  | 📒 |
 | 1 | [数组方法](/JS/ARRAY_FUNC.md)、[对象方法](/JS/OOJECT_FUNC.md)、[原型链方法](/JS/JS_COMMON_FUNC.md)| 原创 + 📒 |
 <!-- | 1 | [常见异步编程](/JS/async_coding.md)| 原创 + 📒 | -->
-
-    
-    
-   
-   
-
-
-
-
 
 ### 算法 与 数据结构
 | 序号 | 标题 | 其他 |
@@ -78,20 +66,14 @@
 | 9 | [axios常见问题](/network/vue/axios%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.md)    |  |
 | 10 | [elementUI源码解读之el-scrollbar](/network/elementUI/elementUI%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B9%8Bel-scrollbar.md)    |  |
  
-    
-    
-    
-   
-    
-    
 
 <!-- [Vue组件数据流](/network/vue/Vue%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%B5%81.md)      -->
 
 ### 项目搭建
-[node依赖包的版本管理](/project/node_module_manage.md)  
+  
 | 序号 | 标题 | 其他 |
 | :------| :------: | :------: |
-| 1 | [HTTPS原理🔱](/network/https.md)| 原创 + 📒 |   
+| 1 | [node依赖包的版本管理](/project/node_module_manage.md)| 原创 + 📒 |  
 
 ### network
 | 序号 | 标题 | 其他 |

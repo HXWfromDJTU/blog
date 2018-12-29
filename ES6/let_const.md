@@ -39,3 +39,4 @@ ___
 ___
 ### 参考文章
 [阮一峰 ES 6 let_const](http://es6.ruanyifeng.com/#docs/let)
+[let 到底有没有变量提升 - by 方应杭](https://zhuanlan.zhihu.com/p/28140450)

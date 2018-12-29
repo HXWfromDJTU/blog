@@ -42,3 +42,10 @@ https://www.cnblogs.com/haoyijing/p/5898420.html
 
 ### node
 https://www.jianshu.com/p/3416a0bf309c
+
+node buffer作用与理解
+
+
+
+### http
+1️⃣ keep-alive
