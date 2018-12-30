@@ -1,14 +1,15 @@
 ## node 中的 eventloop
 
 ![](/blog_assets/eventLoop_in_node.png)
-* `nodeJS`使用的是`V8`的引擎，解析完基础的`nodeJS`代码之后，调用`Node Api`。
-* 这里使用到官方内置的`libuv`这个库，可以实现将不同的任务分配给不同的线程，形成一个`EventLoop`
-* 不同的线程执行的结果，以异步的形式返回给`V8`引擎再去做处理
+___
+![](/blog_assets/node_libuv.png)
+1️⃣ `nodeJS`底层使用的是`V8`的引擎，解析完基础的`nodeJS`代码之后，调用`Node Api`。
+2️⃣  这里使用到官方内置的`libuv`这个库，可以实现将不同的任务分配给不同的线程，形成一个`EventLoop`
+3️⃣ 不同的线程执行的结果，以异步的形式返回给`V8`引擎再去做处理
 
 ___
-### Eventloop with six phase 
 
-#### timer
+#### Timer
 使用一个`for`循环执行所有的 `setTimeout`,`setInterval`的回调，源码在此。[传送门>>](https://github.com/libuv/libuv/blob/9ed3ed5fcb3f19eccd3d29848ae2ff0cfd577de9/src/unix/timer.c#L150)
 
 这些回调都会被存入一个最小堆(min heap)中，这样引擎只需要每次判断头元素，如果符合条件就拿出来执行，知道遇到一个不符合条件或者队列空了才结束`time phase`

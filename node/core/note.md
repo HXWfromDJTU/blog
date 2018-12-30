@@ -10,3 +10,13 @@
 4️⃣ 在模块文件中，声明var x = 1，该变量不是global对象的属性，global.x等于undefined。这是因为模块的全局变量都是该模块私有的，其他模块无法取到
 
 5️⃣ exports 与 modules.exports  
+
+
+
+
+
+
+___
+
+### 参考文章
+[deep-into-node by yjhjstz](https://github.com/yjhjstz/deep-into-node/blob/master/chapter1/chapter1-0.md)
