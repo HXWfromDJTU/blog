@@ -53,6 +53,10 @@ paulyang@zfsc.com
 深圳阿里内推
 pengfei.huang@alibaba-inc.com
 
+饿了么
+kun.zhu@ele.me
+
+
 ### 小厂
 A便利
 联系方式： 张小姐 13480100150 （微信） 

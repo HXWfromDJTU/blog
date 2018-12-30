@@ -8,6 +8,7 @@
 ### 执行过程
 1️⃣ generator初始执行时，只会返回对应的遍历器对象（Iterator Object）
 2️⃣ 每一次外部执行next方法，内部的内容都会不断执行，到下一个 `yield` 或者 `return`，返回当前`yeild`或者`return`后面跟的表达式的值。
+（yield的意思是：投降，放弃，在这里表示让出线程的控制权）
 3️⃣ 从上一条看，yeild可以暂停代码的执行。
 4️⃣ 若最后没有`return`值，则可以理解为`return undefined`
 5️⃣ 普通函数中不能够使用 yield 关键字
