@@ -5,31 +5,31 @@
 
 | 序号 | 标题 | 其他 |
 | :------| :------: | :------: |
-| 1 | [Javascript垃圾回收](/JS/GC.md)| 原创 + 📒 |
-| 1 | [eventLoop](/JS/eventloop.md)| 原创 + 📒 |
-| 1 | [防抖与节流](/JS/debounce.md)| 原创 + 📒 |
-| 1 | [内存分配](/JS/memory_allocation.md)| 原创 + 📒 |
-| 1 | [再看闭包](/JS/closure.md)| 原创 + 📒 |
-| 1 | [作用域链](/JS/[[SCOPE]].md)| 原创 + 📒 |
-| 1 | [微任务](/JS/microTask.md)| 原创 + 📒 |
+| 1 | [Javascript垃圾回收](/JS/GC.md)| 📒 |
+| 1 | [eventLoop](/JS/eventloop.md)| 📒 |
+| 1 | [防抖与节流](/JS/debounce.md)| 📒 |
+| 1 | [内存分配](/JS/memory_allocation.md)| 📒 |
+| 1 | [再看闭包](/JS/closure.md)| 📒 |
+| 1 | [作用域链](/JS/[[SCOPE]].md)| 📒 |
+| 1 | [微任务](/JS/microTask.md)| 📒 |
 | 1 | [apply bind call this 的恩怨情仇 ](/JS/apply_call_bind_this.md)  | 📒 |
-| 1 | [数组方法](/JS/ARRAY_FUNC.md)、[对象方法](/JS/OOJECT_FUNC.md)、[原型链方法](/JS/JS_COMMON_FUNC.md)| 原创 + 📒 |
-<!-- | 1 | [常见异步编程](/JS/async_coding.md)| 原创 + 📒 | -->
+| 1 | [数组方法](/JS/ARRAY_FUNC.md)、[对象方法](/JS/OOJECT_FUNC.md)、[原型链方法](/JS/JS_COMMON_FUNC.md)| 📒 |
+<!-- | 1 | [常见异步编程](/JS/async_coding.md)| 📒 | -->
 
 ### 算法 与 数据结构
 | 序号 | 标题 | 其他 |
 | :------| :------: | :------: |
-| 1 | [常见算法的JS实现](/algorithm/common.md/)| 原创 + 📒 |
-| 2 | [单链表](/algorithm/data_structure/linkedlist/)| 原创 + 📒 |
-| 3 | [数组](/algorithm/data_structure/array/)| 原创 + 📒 |
-| 4 | [顺序栈](/algorithm/data_structure/stack/)| 原创 + 📒 |
-| 5 | [顺序队列](/algorithm/data_structure/queue/)| 原创 + 📒 |
+| 1 | [常见算法的JS实现](/algorithm/common.md/)| 📒 |
+| 2 | [单链表](/algorithm/data_structure/linkedlist/)| 📒 |
+| 3 | [数组](/algorithm/data_structure/array/)| 📒 |
+| 4 | [顺序栈](/algorithm/data_structure/stack/)| 📒 |
+| 5 | [顺序队列](/algorithm/data_structure/queue/)| 📒 |
 
 ### CSS
 
 | 序号 | 标题 | 其他 |
 | :------| :------: | :------: |
-| 1 | [css性能优化](/CSS/css_optimize.md)❤️| 原创 + 📒 |
+| 1 | [css性能优化](/CSS/css_optimize.md)❤️| 📒 |
 
 ### 设计模式
 
@@ -73,29 +73,31 @@
   
 | 序号 | 标题 | 其他 |
 | :------| :------: | :------: |
-| 1 | [node依赖包的版本管理](/project/node_module_manage.md)| 原创 + 📒 |  
+| 1 | [node依赖包的版本管理](/project/node_module_manage.md)| 📒 |  
 
 ### network
 | 序号 | 标题 | 其他 |
 | :------| :------: | :------: |
-| 1 | [HTTPS原理🔱](/network/http/https.md)| 原创 + 📒 |
+| 1 | [HTTPS原理🔱](/network/http/https.md)| 📒 |
 | 1 | [HTTP 2.0🔱](/network/http/http2.0.md)|  |
-| 1 | [HTTP_状态码](/network/status_code.md)| 原创 + 📒 |
-| 1 | [浏览器页面渲染一二三](/network/how_browser_work.md)| 原创 + 📒 |
-| 1 | [跨域abc](/network/CORS.md)| 原创 + 📒 |
-| 1 | [跨域实战](/network/CORS_ON_WORK.md)| 原创 + 📒 |
-| 1 | [GET_&_POST](/JS/post_get.md)| 原创 + 📒 |
+| 1 | [HTTP_状态码](/network/status_code.md)| 📒 |
+| 1 | [浏览器页面渲染一二三](/network/how_browser_work.md)| 📒 |
+| 1 | [跨域abc](/network/CORS.md)| 📒 |
+| 1 | [跨域实战](/network/CORS_ON_WORK.md)| 📒 |
+| 1 | [GET_&_POST](/JS/post_get.md)| 📒 |
 | 1 | [浏览器线程与进程](/browser/JS_browser_thread.md)  | 📒 |
 
 ### Node
 | 序号 | 标题 | 其他 |
 | :------| :------: | :------: |
-| 1 | |  |
+| 1 | [Node eventLoop](/node/core/eventloop_in_node.md) | 📒 |
+| 2 | [Node 异步I/O实现](/node/core/node_io.md)| 📒 |
+| 2 | [libuv源码解读](/node/core/libuv/libUV.md)| 📒 |
 
 ### python
 | 序号 | 标题 | 其他 |
 | :------| :------: | :------: |
-| 1 | [python爬虫入门](/python/python/crawler.md)| 原创 + 📒 |  
+| 1 | [python爬虫入门](/python/python/crawler.md)| 📒 |  
 
 ### 归纳图例
 #### vue双向绑定流程图

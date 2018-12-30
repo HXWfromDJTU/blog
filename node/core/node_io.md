@@ -1,9 +1,9 @@
-# Linux NIO
-
-1️⃣ NIO意思是new I/O,非阻塞I/O的意思，与之相对应的是BIO(阻塞性I/O)
-
-2️⃣ Linux NIO的几种类型 `select` `select/poll`  `epoll`
-
+# Node 异步 I/O 实现
+![](/blog_assets/node_libuv.png)
+___
+### Linux下实现
+1️⃣ NIO意思是new I/O,非阻塞I/O的意思，与之相对应的是BIO(阻塞性I/O)  
+2️⃣ Linux NIO的几种类型 `select` `select/poll`  `epoll`   
 3️⃣ 在linux 下 ，最多同时连接的文件描述符默认是 1024个
 ![](/blog_assets/linux_FD_SETSIZE.png)  
 ### 文件描述符
@@ -46,8 +46,9 @@
 1️⃣ 事件的监听机制使得，文件描述符在epoll创建的时候就全部被拷贝了一次，而后续的等待阶段那就不需要再进行`重复拷贝`  
 2️⃣ epoll_wait的工作就是在这个就绪链表中查看有没有就绪的文件描述符(与前二者区别在于，只要检查就绪列表是否为空，而前二者都需要重复不断遍历所有的文件描述符，检查是否有就绪的)  
 3️⃣ epoll所支持的最大的文件描述符数量，等于最大可以打开文件的数目，这个数目一般远大于2048，对应1GB内存的机器，大约可以打开10w个链接，和系统的内存大小很有关系。
-
-
+___
+### 其他平台实现
+1️⃣ window下的IOCP
 ___
 ### 参考文章
 [select、poll、epoll之间的区别总结[整理]](https://www.cnblogs.com/Anker/p/3265058.html)

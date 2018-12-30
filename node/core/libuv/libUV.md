@@ -1,14 +1,10 @@
 
 # Libuv
-### libuv的角色
-![](/blog_assets/node_libuv.png)
 
+![](/blog_assets/node_libuv.png)
+___
 1️⃣ libUV提供了一个跨平台的抽象，由平台决定`Network I/O`在操作系统(服务器)层面实现，若是win平台则直接调用平台的IOCP机制，若是其他系统(unix)上则结合自行封装的`uv_io_t`实体去兼容各个平台，实现`异步Network I/O`。   
 2️⃣ 
-
-
-
-
 ![](/blog_assets/node_eventloop)
 
 epoll

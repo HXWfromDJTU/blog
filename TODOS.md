@@ -31,6 +31,8 @@ Node深入浅出第八章剩余内容转化
 
 7️⃣ worker_thread与web_worker的比较。
 
+setTimeout小于多少会无效
+
 
 
 #### 计算机网络
