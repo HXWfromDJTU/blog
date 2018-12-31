@@ -1,7 +1,6 @@
 ## Node 中的 eventloop
 
-___
-首先我们再审视一下libuv自身处于一个什么样的位置...
+首先我们再审视一下libuv自身处于一个什么样的位置...
 
 ![](/blog_assets/node_libuv.png)
 1️⃣ `nodeJS`底层使用的是`V8`的引擎，解析完基础的`nodeJS`代码之后，调用`Node Api`。
