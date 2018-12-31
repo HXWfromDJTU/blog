@@ -64,6 +64,7 @@ ___
 
 #### Pahse概述
 ![](/blog_assets/eventLoop_in_node.png)
+
 六个阶段顺序执行，源码[传送门](https://github.com/libuv/libuv/blob/v1.x/src/unix/core.c#L359)
 ```c
   while (r != 0 && loop->stop_flag == 0) {
