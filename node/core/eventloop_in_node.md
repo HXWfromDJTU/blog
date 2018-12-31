@@ -1,6 +1,5 @@
 ## Node 中的 eventloop
 
-___
 首先我们再审视一下libuv自身处于一个什么样的位置...
 
 ![](/blog_assets/node_libuv.png)
