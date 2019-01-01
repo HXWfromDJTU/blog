@@ -1,9 +1,16 @@
 ## 微任务
-面试的时候被问到，除了`promise`还有哪些常见的`微任务`,日常除了使用`promise`之外，貌似没有太多实战...一时语塞......回顾一下知识点：
-微任务：`process.nextTick()` 、`MessageChannel` 、`MutationObserber`、`Promise`
+![](/blog_assets/micro_task_cover.png)
+
+面试的时候被问到，除了`promise`还有哪些常见的`微任务`,日常除了使用`promise`之外，貌似没有太多实战...一时语塞......回顾一下知识点
+
+#### 微任务：
+1️⃣ `process.nextTick()` 
+2️⃣ `MessageChannel` 
+3️⃣ `MutationObserber`
+4️⃣ `Promise`
 ___
 ### MessageChannel
-基本用法
+##### 基本用法
 ```js
 let ch = new MessageChannel()
 let p1 = ch.port1;
@@ -15,7 +22,7 @@ p1.postMessage("你好我是 p1");
 p2.postMessage("这样啊，我是p2，吃了吗？")；
 // port1 receive 这样啊，我是p2，吃了吗？
 ```
-MDN 示例
+#####MDN 示例
 
 ```js
 // 使用MessageChannel构造函数实例化了一个channel对象
@@ -40,6 +47,23 @@ function handleMessage(e) {
   para.innerHTML = e.data;
 }
 ```
+#### webworker
+> 后来笔者在工作红使用到了service-worker帮助进行排序计算，所以补充一下，主页面和worker之间的通信也是是用了 MessageChannel 机制进行实现
+```js
+// page.js
+let worker = new Worker('./counting.js');
+worker.postMessage({id:666})
+worker.on('message',result=>{
+   rending(result); // 渲染结果
+})
+
+// counting.js
+self.on('message',message=>{
+   let result = countintMethod(message.id);
+   self.postMessage(result);
+})
+```
+这样至少有一个好处就是能够不阻塞浏览器UI的渲染，让另一个进程去帮助我们进行计算，然后异步渲染。
 ___
 ### MutationObserver
 >MutationObserver 接口提供了监视对DOM树所做的更改能力。它被设计为旧的MutationEvents功能的替代品。
@@ -110,7 +134,7 @@ ___
 ### process.nextTick
 process.NextTick是nodeJS中的概念，在浏览器中并不能够使用哦，node官网[传送门:point_right:](http://nodejs.cn/api/process.html#process_process_nexttick_callback_args)
 准备另开一篇文章：去学习node_eventLoop,[传送门:point_right:](/node/eventloop_in_node.md)
-##### test1
+
 ```js
 console.log('start');
 process.nextTick(() => {
