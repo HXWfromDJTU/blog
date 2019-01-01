@@ -1,5 +1,6 @@
 # Socket
-
+![](/blog_assets/socket_cover.png)
+___
 ### 简要理解
 1️⃣ 网络上的两个程序通过一个双向链接实现数据的交换，这个连接的一段被称之为socket。
 2️⃣ socket的本质是一个编程接口，对TCP/IP进行了封装，TCP/IP也要提供可供开发者做网络开发的接口。

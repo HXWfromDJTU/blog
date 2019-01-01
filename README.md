@@ -92,7 +92,8 @@
 | :------| :------: | :------: |
 | 1 | [Node eventLoop](/node/core/eventloop_in_node.md) | 📒 |
 | 2 | [Node 异步I/O实现](/node/core/node_io.md)| 📒 |
-| 2 | [libuv源码解读](/node/core/libuv/libUV.md)| 📒 |
+| 3 | [libuv源码解读](/node/core/libuv/libUV.md)| 📒 |
+| 4 | [socket 与 fd](/network/socket.md)| 📒 |
 
 ### python
 | 序号 | 标题 | 其他 |

@@ -64,13 +64,14 @@ vue 核心模块源码
 常见面试算法(10题)  
 散列表、二叉树、堆的实现  
 权威指南(三个点)、红宝书(三个点)  
-socket、文件描述符号、http进阶  
-node源码解读evetloop 文章完成  ✅
+socket、文件描述符号、http进阶 ✅ 
+node源码解读evetloop 文章完成  ✅ 
 
 
 
 
 ### 31日 周一
+二叉树的javascript实现 
 
 
 
