@@ -128,6 +128,6 @@ export default {
 }
 ```
 ###### 输出结果 
-![](/BLOG_ASSETS/vue_nextTick_demo2.png)
+![](/blog_assets/vue_nextTick_demo2.png)
 
 说明同步修改不分生命周期，都会在第一个`eventLoop`中进行，而`$nextTick`也不区分生命周期，都会在本轮执行栈的`微任务阶段`完成修改。
