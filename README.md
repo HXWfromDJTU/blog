@@ -24,6 +24,7 @@
 | 3 | [数组](/algorithm/data_structure/array/)| 📒 |
 | 4 | [顺序栈](/algorithm/data_structure/stack/)| 📒 |
 | 5 | [顺序队列](/algorithm/data_structure/queue/)| 📒 |
+| 6 | [冒泡排序](/algorithm/data_structure/sort/BubbleSort.js) [选择排序](/algorithm/data_structure/sort/SelectSort.js) [插入排序](/algorithm/data_structure/sort/InsertSort.js) [归并排序](/algorithm/data_structure/sort/MergeSort.js) [快速排序](/algorithm/data_structure/sort/QuickSort.js) [计数排序](/algorithm/data_structure/sort/CountSort.js) [🔅排序效率比较](/algorithm/data_structure/sort/index.js)| 📒 |
 
 ### CSS
 

@@ -36,19 +36,20 @@ let binary_search_while = function(value,arr,bottom,top){
       }
    }
 }
-// 找到第一个匹配元素的二叉
+// 找到第一个匹配元素的二分查找
 let binary_search_find_first = function(value,arr,bottom,top){
    let low =bottom;
    let high = top;
    while(low<=high){
       mid = Math.floor(low+(high-low)/2);
       if(arr[mid] == value){
+        // 改造点在此，当二分查找到该值的时候，查看前一个位置的值是否还相等，若是，则改变搜索上限。
          if(mid ==0 || arr[mid-1] !=value) return mid;
-         else high = mid+1;
+         else high = mid-1;
       }else if(arr[mid]<value){
-          low = mid-1;
+          low = mid+1;
       }else{
-          high = mid+1;
+          high = mid-1;
       }
    }
 }

@@ -4,4 +4,24 @@
 3⃣️ 直到为排序数组为空
 */
 
+function insertSort(array){
+   let arr = array;
+   let i,j;
+   for(i=1;i<arr.length;i++){
+       // 设定本轮基准
+       let key = arr[i];
+       // 以当前基准为起点，反向查找比基准值小或者等于的值，找到则插入这个位置，没有找到则不进行任何操作
+       let j = i-1;
+       while(j>=0 && arr[j]>key){
+           arr[j+1] = arr[j];
+           j--;
+       }
+       arr[j+1] = key;
+   }
+   return arr;
+}
+
+module.exports={
+    insertSort
+}
 
