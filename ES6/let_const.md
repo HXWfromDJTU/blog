@@ -36,6 +36,9 @@ ___
 1️⃣ ES6 的6中声明对象的方法 `var` `function` `let` `const` `import`  `class`
 2️⃣ global对象的检测
 
+### 补充
+1️⃣ var 生命存在着变量提升  
+2️⃣ 在非严格模式下，不书写声明，直接使用的时候，不会报错，`但也不会存在变量提升`
 ___
 ### 参考文章
 [阮一峰 ES 6 let_const](http://es6.ruanyifeng.com/#docs/let)

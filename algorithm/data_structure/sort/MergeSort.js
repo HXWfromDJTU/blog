@@ -1,3 +1,10 @@
+/**
+ * 时间复杂度 O(n*log n)
+ * 空间复杂度 O(n)  空间翻倍
+ * 是稳定的排序算法
+ * 非原地排序算法
+ */
+
 // 归并排序 (归并)
 let mergeArr = function(leftArr,rightArr){
     let result = [];
