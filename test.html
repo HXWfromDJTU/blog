@@ -1,0 +1,30 @@
+<body>
+    <div id="a">
+        <div id="b">
+            <div id="c">
+                <div id="d"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('a').addEventListener('click', function ( e ) {
+            console.log('target:' + e.target.id + ' currentTarget:' + e.currentTarget.id);
+        },true);
+        document.getElementById('b').addEventListener('click', function ( e ) {
+            console.log('target:' + e.target.id + ' currentTarget:' + e.currentTarget.id);
+        },true);
+        document.getElementById('c').addEventListener('click', function ( e ) {
+            console.log('target:' + e.target.id + ' currentTarget:' + e.currentTarget.id);
+        },true);
+        document.getElementById('d').addEventListener('click', function ( e ) {
+            console.log('target:' + e.target.id + ' currentTarget:' + e.currentTarget.id);
+        },true);
+    </script>
+    <style>
+    div{
+        border:1px solid blue;
+        padding:20px;
+    }
+    </style>
+</body>

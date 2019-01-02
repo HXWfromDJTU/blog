@@ -105,6 +105,7 @@ var A = new Number();
 Object.prototype.toString.call(A)    // [object Number]
 ```
 优点：能够正常区分所有形式的变量类型
+ps：就连不常用的日期和正则对象都可以无误地检查出来
 缺点：返回的是一个混合型的字符串
 
 

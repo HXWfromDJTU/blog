@@ -1,4 +1,5 @@
 ## DOM事件机制
+![](/blog_assets/event_bubble_cover.png)
 文章标签：`addEventListener` `事件冒泡` `事件传播` `穿透` `currentTarget` `target`
 
 #### 冒泡和捕获
@@ -48,7 +49,11 @@
 #### target 与 currentTarget
 我们可以看到，`event.target`指向引起触发事件的元素，而`event.currentTarget`则是事件绑定的元素，只有被点击的那个目标元素的`event.target`才会等于`event.currentTarget`。
 
+### 阻止链式传播
+1️⃣ 使用`e.stopPropagation()`可以阻止事件的链式传播。 
+2️⃣ 使用 `event.cancelBubble`也可以阻止事件的传播，一般用于兼容IE浏览器  
 
 
+___
 ### 参考文章
 原文：[currntTarget VS target - by 枯荣](https://juejin.im/post/5a64541bf265da3e2d338862)
