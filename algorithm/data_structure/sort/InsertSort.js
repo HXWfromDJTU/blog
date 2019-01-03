@@ -12,7 +12,7 @@
 */
 function insertSort(array){
    let arr = array;
-   let i,j;
+   let i;
    for(i=1;i<arr.length;i++){
        // 设定本轮基准
        let key = arr[i];

@@ -5,7 +5,8 @@ let {quickSort,quickSortOptimize}  = require('./QuickSort');
 let {insertSort,shellSort}  = require('./InsertSort');
 let {selectSort}  = require('./SelectSort');
 let {mergeSort}  = require('./MergeSort');
-let {countingSort}  = require('./CountSort')
+let {countingSort}  = require('./CountSort');
+let {bucketSort} = require('./BucketSort')
 // 无序数组
 let {messData,param} = require('./data')
 
@@ -79,5 +80,14 @@ console.log('所花时间：'+sortTime+'ms');
 sortTime = (new Date()).getTime();
 console.log("\n计数排序结果：");
 countingSort(messData.concat(),10**param.pow);
+sortTime = (new Date()).getTime() - sortTime;
+console.log('所花时间：'+sortTime+'ms'); 
+
+
+
+// 桶排序
+sortTime = (new Date()).getTime();
+console.log("\n桶排序结果：");
+console.log(bucketSort(messData.concat(),20));
 sortTime = (new Date()).getTime() - sortTime;
 console.log('所花时间：'+sortTime+'ms'); 
