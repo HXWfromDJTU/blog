@@ -1,4 +1,5 @@
-# CORS实战
+# 工作中的CORS
+![](/blog_assets/cors_work_cover.png)
 >上一篇笔记了解了什么是跨域，和跨域的原理。
 
 本文，有两个目的。
@@ -94,4 +95,15 @@ server.listen(9527,()=>{
 ```
 
 #### nginx
+1️⃣ 我们可以在nginx层为每个请求都添加上跨域的配置
+```conf
+# 匹配目标站点的域名
+location /other_site/api/ {
+  ###start####
+  add_header Access-Control-Allow-Origin *;
+  add_header Access-Control-Allow-Headers X-Requested-With;
+  add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
+  ###end ###
+}
+```
 

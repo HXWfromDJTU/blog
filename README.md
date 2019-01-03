@@ -24,7 +24,7 @@
 | 3 | [数组](/algorithm/data_structure/array/)| 📒 |
 | 4 | [顺序栈](/algorithm/data_structure/stack/)| 📒 |
 | 5 | [顺序队列](/algorithm/data_structure/queue/)| 📒 |
-| 6 | [冒泡排序 & 优化](/algorithm/data_structure/sort/BubbleSort.js) [选择排序](/algorithm/data_structure/sort/SelectSort.js) [插入+希尔排序](/algorithm/data_structure/sort/InsertSort.js) [归并排序](/algorithm/data_structure/sort/MergeSort.js) [快速排序](/algorithm/data_structure/sort/QuickSort.js) [计数排序](/algorithm/data_structure/sort/CountSort.js) [🔅排序效率比较](/algorithm/data_structure/sort/index.js)| 📒 |
+| 排序 | [冒泡排序&优化](/algorithm/data_structure/sort/BubbleSort.js) <br>[选择排序](/algorithm/data_structure/sort/SelectSort.js) [插入+希尔排序](/algorithm/data_structure/sort/InsertSort.js) [归并排序](/algorithm/data_structure/sort/MergeSort.js) [快速排序](/algorithm/data_structure/sort/QuickSort.js) [计数排序](/algorithm/data_structure/sort/CountSort.js) [桶排序](/algorithm/data_structure/sort/BucketSort.js) [🔅排序效率比较](/algorithm/data_structure/sort/index.js)| 📒 |
 
 ### CSS
 
@@ -77,16 +77,12 @@
 | 1 | [node依赖包的版本管理](/project/node_module_manage.md)| 📒 |  
 
 ### network
-| 序号 | 标题 | 其他 |
+| 分类 | 标题 | 其他 |
 | :------| :------: | :------: |
-| 1 | [HTTPS原理🔱](/network/http/https.md)| 📒 |
-| 1 | [HTTP 2.0🔱](/network/http/http2.0.md)|  |
-| 1 | [HTTP_状态码](/network/status_code.md)| 📒 |
-| 1 | [浏览器页面渲染一二三](/network/how_browser_work.md)| 📒 |
-| 1 | [跨域abc](/network/CORS.md)| 📒 |
-| 1 | [跨域实战](/network/CORS_ON_WORK.md)| 📒 |
-| 1 | [GET_&_POST](/JS/post_get.md)| 📒 |
-| 1 | [浏览器线程与进程](/browser/JS_browser_thread.md)  | 📒 |
+| https | [HTTPS原理🔱](/network/http/https.md)| 📒 |
+| http | [HTTP 2.0🔱](/network/http/http2.0.md)<br> [HTTP_状态码](/network/status_code.md) <br> [GET_&_POST](/JS/post_get.md) |  |
+| 浏览器 | [浏览器页面渲染-老生新谈](/network/how_browser_work.md)<br>[浏览器线程与进程](/browser/JS_browser_thread.md)| 📒 |
+| 跨域 | [浏览器跨域](/browser/CORS.md) <br> [工作中的跨域](/browser/CORS_ON_WORK.md)| 📒 |
 
 ### Node
 | 序号 | 标题 | 其他 |

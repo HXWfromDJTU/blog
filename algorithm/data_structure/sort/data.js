@@ -4,7 +4,7 @@ let messData = [
 ]
 let i = 0;
 let num = 100000; // 数据个数
-let pow = 4;    // 数据范围 10的 pow次方
+let pow = 6;    // 数据范围 10的 pow次方
 while (i < num) {
     messData.push(Math.floor(Math.random().toFixed(pow) * 10**pow))
     i++
