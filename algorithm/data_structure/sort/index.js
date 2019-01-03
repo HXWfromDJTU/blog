@@ -2,7 +2,7 @@
 
 let {bubbleSort,bubbleSortOptimize} = require('./BubbleSort');
 let {quickSort,quickSortOptimize}  = require('./QuickSort');
-let {insertSort}  = require('./InsertSort');
+let {insertSort,shellSort}  = require('./InsertSort');
 let {selectSort}  = require('./SelectSort');
 let {mergeSort}  = require('./MergeSort');
 let {countingSort}  = require('./CountSort')
@@ -27,28 +27,35 @@ console.log('一共有'+ param.num +'个数据进行排序,范围在 0到 '+ 10*
 
 
 
-// 快速排序
-sortTime = (new Date()).getTime();
-console.log("\n快速排序结果：")
-quickSort(messData.concat(),0,messData.length-1);
-sortTime = (new Date()).getTime() - sortTime;
-console.log('所花时间：'+sortTime+'ms'); 
+// // 快速排序
+// sortTime = (new Date()).getTime();
+// console.log("\n快速排序结果：")
+// quickSort(messData.concat(),0,messData.length-1);
+// sortTime = (new Date()).getTime() - sortTime;
+// console.log('所花时间：'+sortTime+'ms'); 
 
-// 快速排序
-sortTime = (new Date()).getTime();
-console.log("\n快速排序优化后结果：")
-console.log(quickSortOptimize(messData.concat(),0,messData.length-1))
-sortTime = (new Date()).getTime() - sortTime;
-console.log('所花时间：'+sortTime+'ms'); 
+// // 快速排序
+// sortTime = (new Date()).getTime();
+// console.log("\n快速排序优化后结果：")
+// console.log(quickSortOptimize(messData.concat(),0,messData.length-1))
+// sortTime = (new Date()).getTime() - sortTime;
+// console.log('所花时间：'+sortTime+'ms'); 
 
 
 
 // 插入排序
-// sortTime = (new Date()).getTime();
-// console.log("\n插入排序结果：")
-// insertSort(messData.concat())
-// sortTime = (new Date()).getTime() - sortTime;
-// console.log('所花时间：'+sortTime+'ms'); 
+sortTime = (new Date()).getTime();
+console.log("\n插入排序结果：")
+insertSort(messData.concat());
+sortTime = (new Date()).getTime() - sortTime;
+console.log('所花时间：'+sortTime+'ms'); 
+
+// 希尔排序
+sortTime = (new Date()).getTime();
+console.log("\n希尔排序结果：")
+shellSort(messData.concat());
+sortTime = (new Date()).getTime() - sortTime;
+console.log('所花时间：'+sortTime+'ms'); 
 
 
 // // 选择排序
