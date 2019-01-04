@@ -26,6 +26,22 @@ let deepCopy = (obj1,obj2) =>{
     }
     return obj1;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 let o2 = {
     abc:[345,456,123],
     qqq:{
@@ -52,6 +68,14 @@ console.log('修改后的对象：',target);
 
 console.log('原模板：',o2);
 o2.fun();
+
+
+let shallowCopy = (target,tempalte) =>{
+    
+}
+
+
 module.exports = {
-    deepCopy
+    deepCopy,
+
 }
