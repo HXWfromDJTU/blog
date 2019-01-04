@@ -8,15 +8,15 @@ DNS （Domain Name System 的缩写）的作用非常简单，就是根据域名
 ```bat
 # dig 域名
 ```
-![](/blog_assets/DNS_1.PNG)  
+![](/blog_assets/DNS_1.png)  
 
 使用`short`参数能够省略过程，直接检索出结果...
 
-![](/blog_assets/DNS_4.PNG)  
+![](/blog_assets/DNS_4.png)  
 
 让我们验证一下查询结果  
 
-![](/blog_assets/DNS_3.PNG)
+![](/blog_assets/DNS_3.png)
 
 
 ### 步骤 
@@ -25,11 +25,11 @@ DNS （Domain Name System 的缩写）的作用非常简单，就是根据域名
 每一次连接网络的时候，DNS服务器都是可以通过DHCP协议动态获取的，常用的DNS服务器一般是你接入的`ISP`提供的服DNS服务器。
 
 UNIX系统中，在`/etc/resolve.conf`文件中查看DNS服务器的IP地址
-![](/blog_assets/DNS_2.PNG)
+![](/blog_assets/DNS_2.png)
 
 也可以指定直接使用某一个DNS服务器
 
-![](/blog_assets/DNS_5.PNG)  
+![](/blog_assets/DNS_5.png)  
 
 ##### 2️⃣ 域名分级查找 
 域名分级 ： `主机名` `次级域名` `顶级域名` `根域名`   
@@ -44,7 +44,7 @@ UNIX系统中，在`/etc/resolve.conf`文件中查看DNS服务器的IP地址
 
 其中，最开始的根域名服务器ip地址，全世界限定了十多台根域名服务器，不需要去获取他们的IP地址，一般都直接内置DNS服务器中。   
 
-![](/blog_assets/DNS_6.PNG) 
+![](/blog_assets/DNS_6.png) 
 
 主机去询问域名服务器的地址...  
 
