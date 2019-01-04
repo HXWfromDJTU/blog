@@ -81,7 +81,7 @@
 | :------| :------: | :------: |
 | https | [HTTPS原理🔱](/network/http/https.md)| 📒 |
 | http | [HTTP 2.0🔱](/network/http/http2.0.md)<br> [HTTP_状态码](/network/status_code.md) <br> [GET_&_POST](/JS/post_get.md) |  |
-| 浏览器 | [浏览器页面渲染-老生新谈](/network/how_browser_work.md)<br>[浏览器线程与进程](/browser/JS_browser_thread.md)| 📒 |
+| 浏览器 | [浏览器页面渲染-老生新谈](/network/how_browser_work.md)<br>[浏览器线程与进程](/browser/JS_browser_thread.md)<br>[浏览器存储](/borwser/browser_storage.md)| 📒 |
 | 跨域 | [浏览器跨域](/browser/CORS.md) <br> [工作中的跨域](/browser/CORS_ON_WORK.md)| 📒 |
 
 ### Node

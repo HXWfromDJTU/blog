@@ -89,7 +89,8 @@ Vue-router的源码与html5 history对象
 
 
 ### 4日 周五
-
+cookie详细了解  
+postMessage 跨页面通信了解...写下demo..应用场景 + iframe代理跨域？ 
 
 ###  5日 周六
 
