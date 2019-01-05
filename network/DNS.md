@@ -2,7 +2,7 @@
 ![](/blog_assets/DNS_COVER.png)
 
 ### 简介
-DNS （Domain Name System 的缩写）的作用非常简单，就是根据域名查出IP地址。你可以把它想象成一本巨大的电话本，电话黄页。 
+DNS （Domain Name System 的缩写）的作用非常简单，就是根据域名查出IP地址。你可以把它想象成一本巨大的电话本，电话黄页。 使用的是`UDP`协议进行传输。
 
 使用`dig`命令工具能够重现DNS查询的过程...
 ```bat
@@ -87,4 +87,4 @@ UNIX系统中，在`/etc/resolve.conf`文件中查看DNS服务器的IP地址
 ___
 ### 参考文章  
 [阮一峰 - DNS入门](http://www.ruanyifeng.com/blog/2016/06/dns.html)   
-[前端优化与DNS](https://www.cnblogs.com/rongfengliang/p/5601770.html)
+[前端优化与DNS](https://www.cnblogs.com/rongfengliang/p/5601770.html)  

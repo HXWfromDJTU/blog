@@ -1,5 +1,6 @@
 # TCP 与 UDP
-
+![](/blog_assets/TCP_UPD_COVER.png)
+___
 1️⃣ TCP (Transmission Control Protocol），UDP（User Datagram Protocol)
 2️⃣ TCP提供并可开的通信传输，而UDP则常被用于让广播和细节控制交给应用的通信传输。
 3️⃣ 传输层必须指出这个具体的程序，为了实现这个功能，使用`端口号`这样的一种识别码。
@@ -84,3 +85,8 @@ $$ T_m = \frac{W}{RTT} \quad $$
 
 
 ### 校验和算法
+
+
+___
+### 参考文章
+[图解TCP/IP]()
