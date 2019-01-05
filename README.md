@@ -68,7 +68,8 @@
   
 | 序号 | 标题 | 其他 |
 | :------| :------: | :------: |
-| 1 | [node依赖包的版本管理](/project/node_module_manage.md)| 📒 |  
+| 开发 | [node依赖包的版本管理](/project/node_module_manage.md)| 📒 |  
+| 管理 | [git_flow](/project_build/git/git_flow.md)| 📒 |  
 
 ### network
 | 分类 | 标题 | 其他 |
