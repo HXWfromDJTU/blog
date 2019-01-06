@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    /*
+       圣杯布局和双飞翼布局作为经典的三栏式布局是面试中的常客。
+       两种布局达到效果上基本相同
+       都是两边两栏宽度固定，中间栏宽度自适应。
+    */
+    .cup div,header {
+        text-align: center;
+    }
+    .cup .header{
+        background-color: grey;
+        width: 100%;
+    }
+    .cup .body{
+        padding: 0 100px 0 100px;
+        overflow: hidden;
+    }
+    .cup .body div{
+        float: left;
+        height: 300px;
+    }
+    .cup .body .left{
+        background-color: rebeccapurple;
+        width: 100px;
+        margin-left: -100%;
+            position: relative;
+            left: -100px;
+    }
+    .cup .body .right{
+            width: 100px;
+            background-color: #4ddef1;
+            /* 产生布局效果的属性 */
+            margin-left: -100px;
+            position: relative;
+            left: 100px;
+    }
+    .cup .body .main{
+        width: 100%;
+        background-color: rgb(228, 69, 207);
+    }
+    .cup .footer{
+        background-color: aqua;
+        width: 100%;
+    }
+    /* 双飞翼布局 */
+    .wings div,.wings header{
+        text-align: center;
+    }
+    .wings .footer{
+     background-color: rgb(185, 107, 11);
+     width: 100%;
+    }
+    .wings .header{
+        width:100%;
+        background-color: red;
+    }
+    .wings .body{
+        overflow: hidden;
+    }
+    .wings .body>div{
+        height: 300px;
+    }
+    .wings .body .main{
+        width: 100%;
+        float: left;
+        height: 300px;
+    }
+    .wings .body .main .main-content{
+        background-color: blueviolet;
+        margin:0 200px;
+    }
+    .wings .body .left{
+        width: 200px;
+        float: left;
+        /* 关键点 
+        使用负margin的手段来定位左边，整整要退后一行的宽度，所以是 -100%
+        */
+        margin-left:-100%;
+        background-color: coral;
+    }
+    .wings .body .right{
+        width: 200px;
+        float: left;
+        /* 关键点 
+         同样使用 -margin值，这次需要退后一个左右边的宽度，所以是 -200
+        */
+        margin-left:-200px;
+        background-color: darkviolet;
+    }
+    /* flex实现双飞翼布局 */
+    .flex-wings .header{
+         background-color: #4ddef1;
+         width:100%;
+    }
+    .flex-wings .footer{
+        background-color: blue;
+        width:100%;
+    }
+    .flex-wings .body .left,.flex-wings .body .right{
+       flex-shrink: 1;
+       background-color: grey;
+       width:200px
+    }
+    .flex-wings .body{
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+    }
+    .flex-wings .body .main{
+         flex-grow: 1;
+         background-color: bisque;
+         height: 300px;
+    }
+    .flex-wings div{
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <div class="cup">
+        圣杯布局
+      <header class="header">header</header>
+      <div class="body">
+            <div class="main">main</div>
+          <div class="left">left</div>
+          
+          <div class="right">right</div>
+      </div>
+      <div class="footer">footer</div>
+      </div>
+
+      <div class="wings">
+            双飞翼布局
+          <header class="header">header</header>
+          <div class="body">
+                <div class="main">
+                    <div class="main-content">
+                        main
+                    </div>
+                </div>
+              <div class="left">left</div>
+              
+              <div class="right">right</div>
+          </div>
+          <div class="footer">footer</div>
+      </div>
+      <div class="flex-wings">
+            flex实现双飞翼布局
+          <header class="header">header</header>
+          <div class="body">
+              <div class="left">left</div>
+              <div class="main">
+                   main
+                </div>
+              <div class="right">right</div>
+          </div>
+          <div class="footer">footer</div>
+      </div>
+</body>
+</html>

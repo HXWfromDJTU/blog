@@ -6,7 +6,13 @@
             </div>
         </div>
     </div>
-    
+    <div id="x">
+        <div id="b">
+            <div id="c">
+                <div id="d"></div>
+            </div>
+        </div>
+    </div>
     <script>
         window.handleCallback = function(response){
           console.log(response);
@@ -16,9 +22,17 @@
       document.body.insertBefore(script,document.body.firstChild);
     </script>
     <style>
-    div{
+    div#a div{
         border:1px solid blue;
         padding:20px;
+    }
+    div#a{
+margin-bottom: 16px;
+    }
+    div#x{
+        margin-top:16px;
+        border:1px solid red;
+        height: 32px;
     }
     </style>
 </body>

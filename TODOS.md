@@ -103,6 +103,12 @@ vue核心源码补读
 babel工作原理复习  
 webpack工作原理及其源码理解  
 elementUI源码及其架构设计    
+前端性能优化之善用工具   
+
+刷前端算法，再次复习基本的排序算法。
+https://github.com/14glwu/FEInterviewBox   
+
+前端如何实现打点、收集日志
 
 ###  7日 周一
 
