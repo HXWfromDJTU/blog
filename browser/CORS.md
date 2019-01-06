@@ -128,7 +128,8 @@ ___
 ### 参考文章
 [CORS - qiutc.me](https://qiutc.me/post/cross-domain-collections.html)       
 [CORS - MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS)   
-[CORB是什么鬼](https://blog.csdn.net/weixin_42672054/article/details/81985736)
+[CORB是什么鬼](https://blog.csdn.net/weixin_42672054/article/details/81985736)  
+[前端跨域大全 -by 360前端](https://segmentfault.com/a/1190000016653873)
 
 
 
