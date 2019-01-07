@@ -114,5 +114,8 @@ https://github.com/14glwu/FEInterviewBox
 
 vue 与 react的优劣势
 
-###  7日 周一
+前端日志监控 
 
+###  7日 周一  
+
+构思项目经理，总结技术点
