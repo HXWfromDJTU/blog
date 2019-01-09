@@ -14,12 +14,8 @@
         </div>
     </div>
     <script>
-        window.handleCallback = function(response){
-          console.log(response);
-        }
-      let script =  document.createElement('script');
-      script.src='http://127.0.0.1:7001/list?callback=handleCallback';
-      document.body.insertBefore(script,document.body.firstChild);
+      let worker = new Worker('./worker.js');
+      worker.postMessage('hahah');
     </script>
     <style>
     div#a div{
@@ -27,7 +23,7 @@
         padding:20px;
     }
     div#a{
-margin-bottom: 16px;
+        margin-bottom: 16px;
     }
     div#x{
         margin-top:16px;

@@ -15,6 +15,7 @@ server.on('connection',socket=>{
 
 
 let workers = {};//设定子线程集合
+
 let createWorker =  _=>{
    let worker = child_process.fork('./worker');
    worker.on('exit',_=>{
@@ -25,7 +26,7 @@ let createWorker =  _=>{
    // 发送服务器句柄给子进程
 worker.send('server',server);
 // 存放新启动的worker
-worker[worker.pid] = worker;
+workers[worker.pid] = worker;
 // 打印日志
 console.log('创建了子进程 '+worker.pid+' 用于处理请求')
 }

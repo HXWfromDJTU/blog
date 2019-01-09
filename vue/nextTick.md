@@ -1,3 +1,5 @@
+# Vue nextTick原理解析
+![](/blog_assets/nexttick_cover.png)
 ### 理论层面
  * `nextTick`函数是传入一个回调函数`callback`，使得回调函数中的内容，会放到异步任务队列中执行。
  * vue源码使用`promise`、`setTimeout`等方法在`microtask`中创建异步事件，目的是在当前调用栈执行完毕以后，才回去执行这个事件(放到异步队列里)。 

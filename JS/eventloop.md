@@ -1,13 +1,18 @@
 # Javascript 的 EventLoop
 ![](/blog_assets/eventLoopTitle.png)
 ___
+其实Javascript的事件环，主要就在理解`宏任务`和`微任务`这两种异步任务，
 ###   任务分类
 #### 宏任务(macrotask)
-* `setTimeOut` 、 `setInterval` 、 `setImmediate` 、 `I/O` 、 各种`callback`、 `UI渲染` 、`MessageChannel` 、`postMessage`等
-* 优先级： `主代码块` > `setImmediate` > `MessageChannel` > `setTimeOut`/`setInterval`
+
+`setTimeOut` 、 `setInterval` 、 `setImmediate` 、 `I/O` 、 各种`callback`、 `UI渲染` 、`messageChannel`等 
+
+##### 优先级
+  `主代码块` > `setImmediate` > `postMessage` > `setTimeOut`/`setInterval`
 #### 微任务(microtask)
-* `process.nextTick` 、`Promise`  、`MutationObserver` 、`async(实质上也是promise)`
-* 优先级： `process.nextTick` > `Promise` > `MutationOberser`
+1️⃣ `process.nextTick` 、`Promise`  、`MutationObserver` 、`async(实质上也是promise)`     
+##### 优先级 
+`process.nextTick` > `Promise` > `MutationOberser`
 
 micro-task详细笔记[传送门:point_right:](/JS/microTask.md)
 ___
@@ -39,18 +44,19 @@ for (macroTask of macroTaskQueue) {
 }
 ```
 #### 执行流程
-① `Javascript`内核加载代码到`执行栈`   
-② `执行栈`依次执行主线程的`同步任务`，过程中若遇调用了异步Api则会添加回调事件到`回调队列`中。且`微任务`事件添加到微任务队列中，`宏任务`事件添加到宏任务队列中去。直到当前`执行栈`中代码执行完毕。    
-③ 开始执行当前所有`微任务队列`中的微任务回调事件。    (:smirk:注意是所有哦，相当于清空队列)    
-④ 取出`宏任务队列`中的第一条(先进先出原则哦)宏任务，放到`执行栈`中执行。    
-⑤  执行当前`执行栈`中的宏任务，若此过程总又再遇到`微任务`或者`宏任务`，继续把`微任务`和`宏任务`进行各自队伍的`入队`操作，然后本轮的`宏任务`执行完后，又把本轮产生的`微任务`一次性出队都执行了。    
-⑥ 以上操作往复循环...就是我们平时说的`eventLoop`了
+1️⃣ `Javascript`内核加载代码到`执行栈`     
+2️⃣ `执行栈`依次执行主线程的`同步任务`，过程中若遇调用了异步Api则会添加回调事件到`回调队列`中。且`微任务`事件添加到微任务队列中，`宏任务`事件添加到宏任务队列中去。直到当前`执行栈`中代码执行完毕。      
+3️⃣ 开始执行当前所有`微任务队列`中的微任务回调事件。    (:smirk:注意是所有哦，相当于清空队列)    
+4️⃣ 取出`宏任务队列`中的第一条(先进先出原则哦)宏任务，放到`执行栈`中执行。     
+5️⃣  执行当前`执行栈`中的宏任务，若此过程总又再遇到`微任务`或者`宏任务`，继续把`微任务`和`宏任务`进行各自队伍的`入队`操作，然后本轮的`宏任务`执行完后，又把本轮产生的`微任务`一次性出队都执行了。    
+6️⃣ 以上操作往复循环...就是我们平时说的`eventLoop`了
 
-....特点是
-* 微任务队列操作，总是会一次性清空队列
-* 宏任务队列每次只会取出一条任务到执行栈中执行
+综合一下....特点是   
 
-### 辅助理解
+⭕️ 微任务队列操作，总是会一次性清空队列
+⭕️ 宏任务队列每次只会取出一条任务到执行栈中执行
+
+### 代码实例
 ```js
 let promiseGlobal = new Promise(resolve=>{
   console.log(1)
@@ -89,7 +95,43 @@ let setTimeoutGlobal = setTimeout(_=>{
 #### 答案
 > 1 3 2  5 6  __ 等待一秒___  7 8  9 4 
 
-           
+#### 例2
+```js
+let mc = new MessageChannel();
+let p1 = mc.port1,p2=mc.port2;
+setTimeout(function(){
+   let pro2 = new Promise(resolve=>{
+       resolve()
+   })
+    pro2.then(data=>{
+       console.log('pro2');
+   })
+},0)
+
+console.log('first round');
+p1.onmessage = function(data){
+ let pro3 = new Promise(resolve=>{
+       resolve()
+   })
+    pro3.then(data=>{
+       console.log('pro3');
+   })
+   console.log(data);
+}
+p2.postMessage("message form port2")
+p2.postMessage("message form port2 second")
+let pro1 = new Promise((solve)=>{
+   
+    console.log('pro1 inner');
+    solve()
+})
+pro1.then(data=>{
+   console.log('pro then')
+});
+
+```
+##### 结果 
+![](/blog_assets/macrotask_message_channel.png)     
 
 ___
 ### 常见的问题

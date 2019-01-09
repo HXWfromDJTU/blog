@@ -1,31 +1,100 @@
 ##### Tcp的可靠性？
-######1️⃣ checksum
+1️⃣ checksum
 每个信息包都包含一个校验码，这个校验码头就是一个用来保证信息包在传输过程中没有被更改的代码，当信息到达目的地的时候，接收方会对比较验码和收到的信息中的数据，如果校验码不对，则被信息包将被省略。(校验码机制)
-###### 2️⃣ ack验证重传
+2️⃣ ack验证重传
 TCP会要求接收方每收到一个信息包都反馈一下，如果接收方没有提供反馈，发送方会自动重发一次，一直到接收方收到为止(反馈机制)
-###### 3️⃣ 序列号保证不乱
+3️⃣ 序列号保证不乱
 TCP每传送一个信息包都会传送一个序号，接收方会检查这个序号，确保收到该信息包，并把全部信息包按顺序重新合并，同时，如果接收方看到一个已接收了的序号，则这个信息包就会被丢弃。(重复性序号机制)
 ⭕️ 理解记忆
 
-###### Node.js 优势
+##### Node.js 优势
 1️⃣ node是单线程异步非阻塞,可以接受高并发的场景
 2️⃣ 不存在线程切换问题
 3️⃣ 使用cluster模块进行多线程
 ⭕️ 手写主从模式代码 
 
-1.c++和js区别
-2.手写js继承实现
-3.闭包，闭包数据缓存手写 (没写出来）
-4.事件循环机制
-6.url->页面生成过程
-7.性能优化
-8.es6新东西
-9.promise执行，事件循环机制
-10.http请求方式，最好了解常用的四个以外其他的那几个
-11.http缓存
-12.webpack
-13.模块化规范，CMD原理是什么？（凉凉）
-14.vue响应式原理 
+
+
+##### c++和js区别 
+node分层
+底层的C/C++实现了V8+ libuv线程调度  http_parse等工作 
+中间架设了桥阶层  
+对外的都是node_build module的JavaScript接口
+我们的开发基本都是基于内建模块的使用  
+⭕️ 理解记忆  
+
+
+##### 手写js继承实现 与 new
+```js
+// new 操作
+let New = function(fun){
+    // 使用闭包更性感
+    return function(){
+      let o = new Object(); // 新建一个空对象  
+      Object.setPrototypeOf(o,fun.prototype); // 绑定原型链   
+      fun.call(o,arguments); // 执行构造函数  
+      return o;
+    }
+}
+// 模拟继承操作
+let Father = function(){
+    this.role = 'Father'
+}
+let Son = function(){
+    this.role = 'Son';
+}
+// 子类构造器的原型，指向父类构造器的实例。
+Son.prtototype  =  Father.prototype; // 继承原型上的所有属性(诶，注意，这里包括构造器都继承了，所以下一步需要重写) 
+Son.prototype.constructor = Son;  // 修改拷贝过来的原型上的构造器
+```
+##### 闭包，闭包数据缓存手写 (没写出来）
+```js
+let calculate = function(a,b){
+    console.log('实际执行了计算')
+    return a+b;
+}
+// 闭包实现缓存其实就是使用代理模式，实现一个代理缓存
+let proxy_cache = function(){
+    let _cache = {}; // 代理缓存器
+    return function(){
+      // 获取参数 （注意：这里必须要将参数转换为字符串，这样才能作为一个灵活的key）
+      let param = Array.prototype.join.call(arguments,',');
+      let hasCached = (_cache[param] !== undefined);
+      if(hasCached){
+        console.log('从缓存中读取......')
+        return _cache[param];
+      }else{
+          let result = calculate(...arguments);
+          // 缓存结果到缓存器中  
+          _cache[param] = result;
+          // 返回计算后的值
+          return result;
+      }
+    }
+}
+```
+##### 事件循环机制 
+宏任务、微任务，主进程 
+messageChannel Promise 
+
+##### url->页面生成过程  
+
+##### 性能优化  
+
+
+##### es6新东西  
+
+##### promise执行，事件循环机制
+
+##### http请求方式，最好了解常用的四个以外其他的那几个 
+
+##### http缓存
+
+##### webpack  
+
+##### 模块化规范，CMD原理是什么？（凉凉）
+
+##### vue响应式原理 
 
 
 技术终面

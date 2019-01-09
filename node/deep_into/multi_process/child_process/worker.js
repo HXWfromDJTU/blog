@@ -23,7 +23,7 @@ server.on('connection',data=>{
 
 
 process.on('uncaughtException',_=>{
-    worker.close(_=>{
+    server.close(_=>{
         process.exit(1);
     })
 })
