@@ -14,6 +14,14 @@ Javascript是一门具有垃圾回收机制的编程语言，程序员大部分�
 
 解除引用后并不会马上释放内存，只是相当于打上了一个标记，本轮GC回收的时候，会直接将指向`null`的数据原所占内存释放掉。
 
+##### delete 补充
+对于删除一个元素，我们已知常用的还有`delete`关键字   
+1️⃣ 常常用于删除对象上的一个属性，无论对应的属性值是一个对象，还是函数或是其他   
+2️⃣ 任何使用`let` `const` `var` `fun`声明的量，都不能都够使用`delete`去删除   
+3️⃣ 删除不能删除的量，执行器并不会报错，会返回一个`false`，然后相当无操作   
+4️⃣ 对于对象属性，若该属性配置了`configurable:false`，那么也是不能够被删除的。 
+
+🚸 `delete`相对于`null`操作范围基本限定在对象的属性上，能够实现资源回收的优化也仅限于对象的属性上。
 ___
 ### 自动回收
 ##### 标记清除法
@@ -72,3 +80,5 @@ ___
 [浅谈Chrome中的垃圾回收 -博客园](https://www.cnblogs.com/liangdaye/p/4654734.html)
 
 《Nodejs深入浅出》
+
+[javascript 中的 delete](https://justjavac.com/javascript/2013/04/04/understanding-delete-in-javascript.html)

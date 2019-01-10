@@ -128,6 +128,6 @@ https://cnodejs.org/topic/56e84480833b7c8a0492e20c
 http 报文头、过一遍
 响应码所有了解  
 
-script type="modules" 
-
 es 6模块化知识整理 
+
+### 10日 
