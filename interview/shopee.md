@@ -78,23 +78,77 @@ let proxy_cache = function(){
 messageChannel Promise 
 
 ##### url->页面生成过程  
+DNS服务器寻找ip  一般DNS服务器在ISP处 缓存有常用网址的ip   根域名代理 -> 顶级域名代理 -> 次级域名代理 
+http -> tcp -> ip -> mac -> 物理层 
+浏览器接收到服务器返回的字符串，然后按照html编码格式进行解析，
+若遇到css标签则会开启一个线程进行异步下载，下载完并解析完成后，会得到CSSOM TREE 和 DOM TREE，合起来就是我们熟知的Render Tree，然后就开始正式地渲染页面。
+渲染页面过程中若有Javascript标签下载或者遇到内嵌的Javascript代码，则会阻塞渲染线程，优先执行Javascript代码。  
+
 
 ##### 性能优化  
+CSS优化  
+代码结构性   
+首屏优化代码   
+工程自动化优化   
+拓展运算符   
+
 
 
 ##### es6新东西  
+promise
+async 
+generator  + iterator  
+set和map  
+Symbol   
+class 声明与继承  
+
 
 ##### promise执行，事件循环机制
+宏任务
+postMessage > setTimeOut
+微任务
+process.nextTick  
+
 
 ##### http请求方式，最好了解常用的四个以外其他的那几个 
-
+GET POST HEAD(类似于get请求，但是没有数据体) TRACE(用于检测网络) PUT(修改资源) DELETE(删除资源) OPTION(请求模拟，比如跨域的试探请求) CONNECT(隧道链接)
 ##### http缓存
+https://juejin.im/entry/57fb373ad203090068c67883
+
 
 ##### webpack  
 
 ##### 模块化规范，CMD原理是什么？（凉凉）
+CommonJS的模块化(exports、module.exports)  AMD规范(require.js) CMD规范(sea.js)  ES6 模块化(import、export、export default)  
 
 ##### vue响应式原理 
+从 new Vue() 构造函数开始，里面启动了 _init()方法参数为vue实例的配置项option  
+init方法中，记录了当前vue实例的id，初始化了生命周期
+initData中 标记了当前vue实例的id,合并了option,初始化生命周期，初始化事件监听容器，初始化渲染，调用'beforeCreate'生命周期钩子，初始化state() ，这里实现了data的数据绑定，也就是 1️⃣ 给数据都设置了_ob_属性 2️⃣ 使用 Object.defineProperty() 在数据 get与set 函数处 设置依赖收集 的拦截  
+而后就继续调用‘created’的周期钩子。
+最后调用挂载方法，先读取template中涉及到的data数据，触发前面埋下的依赖收集，进而触发renderFun而渲染页面，再挂载在指定的DOM节点上。   
+
+细化来说，initState中会先init prop然后是 methods，然后再初始化主要的 data数据，而后再初始化 computed内容和 watch内容。     
+
+数据的初始化是由 initData来实现的，会先判断传入的data是否为工厂模式，而后遍历内部元素，判断是否与prop有重名，若有则报错。符合条件的数据，会被从vm.data.xxx代理到 vm.xxx，这就是为什么平时我们访问数据只要this.xxx的原因了。data初始化的最后，我们会调用observe函数给数据赋予一个_ob_属性，值是一个观察者对象。   
+
+这个观察者对象是与一个值绑定在一起的，用于监控一个值的变化。Obasever类的构造函数中，会先判断当前值是不是数组，若是数组，则先通过修改数组原型链上的常用几个操作的方法，进行数组元素操作变化的监听，然后会调用observeArray，给数组中的每一个元素都重新进行observe()操作
+直到当前元素不是数组了，则直接会对这个数据进行walk()处理
+
+walk（）方法会对当前值得每一个属性都进行 defineReactive操作，也就是我们熟知的给元素绑定get/set埋点方法的操作。 
+
+definedReactive，会为当前数据先设定一个Dep对象，用于收集这个数据会影响哪些操作(操作通常是某个vue组件的renderFun,也可能是某个数据的watch回调) 。
+然后在get函数中，先执行原getter内容，然后再用当前值对应的 Dep对象收集依赖。   
+在set拦击函数中，也先保留原来的赋值操作，然后再是通知dep对象更新当前值得所有依赖。    
+
+数据的双向绑定的埋点工作已经完成，然后重新回到开始的 init方法，在create周期钩子之后。我们进行了实例的挂载。    
+
+当进行数据挂载的时候初始化生成了一个watcher对象，从而手动触动了watcher内部的get方法，进而调用了传入的渲染操作getter，触动到了template中使用到的data，便将这些量收集了起来。   
+
+待到下次该数据值发生改变的时候，便会触动数据对应的dep对象进行依赖的遍历操作，每一个依赖都会执行update方法，就形成了dom的更新。 
+
+
+
 
 
 技术终面

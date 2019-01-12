@@ -53,6 +53,10 @@
 1️⃣ 使用`e.stopPropagation()`可以阻止事件的链式传播。 
 2️⃣ 使用 `event.cancelBubble`也可以阻止事件的传播，一般用于兼容IE浏览器  
 
+##### 不支持事件冒泡的事件  
+鼠标事件：`mouserleave`  `mouseenter`
+焦点事件：`blur` `focus`
+UI事件：scroll resize
 
 ___
 ### 参考文章
