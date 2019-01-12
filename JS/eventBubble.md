@@ -56,7 +56,7 @@
 ##### 不支持事件冒泡的事件  
 鼠标事件：`mouserleave`  `mouseenter`
 焦点事件：`blur` `focus`
-UI事件：scroll resize
+UI事件：`scroll` `resize`
 
 ___
 ### 参考文章
