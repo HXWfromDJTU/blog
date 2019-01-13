@@ -13,3 +13,6 @@ process.on('unhandledRejection', function (err, p) {
 ```
 上面代码中，`unhandleRejection`的回调函数，有两个参数，错误对象本身 和 报错的 Promise对象实例。
 不过在将来，node打算将Promise的Error等级提高为必须处理，否则抛出错误，停止程序的运行。
+
+
+##### Promise Chain

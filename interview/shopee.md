@@ -114,9 +114,11 @@ process.nextTick
 GET POST HEAD(类似于get请求，但是没有数据体) TRACE(用于检测网络) PUT(修改资源) DELETE(删除资源) OPTION(请求模拟，比如跨域的试探请求) CONNECT(隧道链接)
 ##### http缓存
 https://juejin.im/entry/57fb373ad203090068c67883
-
+强缓存 协商缓存  
 
 ##### webpack  
+
+
 
 ##### 模块化规范，CMD原理是什么？（凉凉）
 CommonJS的模块化(exports、module.exports)  AMD规范(require.js) CMD规范(sea.js)  ES6 模块化(import、export、export default)  
@@ -167,12 +169,17 @@ definedReactive，会为当前数据先设定一个Dep对象，用于收集这�
 13. 。。。 
 
 
+2、怎么实现继承，写了用那个实例继承的方式，但是被面试官说这个会存在继承污染还是什么，换另外的方式来做，就用了Object.create()实现继承  
+```js
+function Father(){};
+function Son(){};
+Son.prototype = Father.prototype;
+Son.prototype.consturctor = Son;
+```
+##### 闭包讲一下 
 
+##### js的事件模型是什么样的具体讲一下，有什么作用，在什么场景下会使用到。
 
-、介绍一下自己
-2、怎么实现继承，写了用那个实例继承的方式，但是被面试官说这个会存在继承污染还是什么，换另外的方式来做，就用了Object.create()实现继承
-3、闭包讲一下
-4、js的事件模型是什么样的具体讲一下，有什么作用，在什么场景下会使用到。
 5、e.target和e.currentTerget有什么区别（没回答上来）：其实就是e.target指向触发事件的那个元素。e.currentTarget同未修改指向的this指向一致，指向绑定事件的那个元素
 6、因为项目当中使用了react-router，就被问了你知道怎么使用js实现路由功能吗（不知道，没回答上来）
 7、实现一个斐波那契数列实现输入第n项输出相应的值，优化这个函数，让被查找过的下标值下次再次访问的时候能够立马找到并输出
@@ -189,7 +196,8 @@ definedReactive，会为当前数据先设定一个Dep对象，用于收集这�
 9、事件处理机制、事件委托的应用场景
 10、一个函数new一下和直接调用的区别
 
-现场面试：1、网页渲染过程
+现场面试：
+1、网页渲染过程
 2、渲染的每一个阶段的优化方式及原因
 3、手撕代码：实现ES6中的promise
 4、手撕代码：实现ES6中的Generator

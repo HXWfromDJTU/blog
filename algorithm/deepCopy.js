@@ -21,9 +21,8 @@ let isComplex = data =>{
  *  
  */
 
-
+// 递归形式实现，已完成 除了递归过深，其他没有大问题   
 let deepCopy = function(target,source){
-    let stack = [];// 使用一个数组作为调用栈，系统的调用栈，避免递归栈限制
     // 使用一个WeakMap存储已经拷贝过的对象
     let currentMap = new Map();
     for(let attr in source){
@@ -43,10 +42,50 @@ let deepCopy = function(target,source){
     return target;
 }
 
+/**
+ * 使用层序遍历，修改为非递归形式的深拷贝 
+ * @param {*} 要拷贝的数据 
+ */
+
+
+function deepCopy2(data){
+    let obj = {};
+    let originQueue = [data];
+    let copyQueue = [obj];
+    // 使用 Map来保存已经拷贝过的对象
+    let hasCopyMap = new Map();
+    while(originQueue.length > 0){
+        var _data = originQueue.shift();
+        var _obj = copyQueue.shift();
+        for(var key in _data){
+            var _value = _data[key]
+            if(!isComplex(_value)){
+                _obj[key] = _value;
+            } else {
+                // 若已经存在，则直接从Map中取出   
+                let hasAlready =  hasCopyMap.has(_value); 
+                if(hasAlready){
+                    // 出现环的情况不需要再取出遍历
+                    _obj[key] = hasCopyMap.get(_value);
+                } else {
+                    hasCopyMap.set(_value,_value);
+                    originQueue.push(_value);
+                    _obj[key] = Array.isArray(_value)?[]:{};  // 保留住本层的key，并且新建一个空对象 / 数组 作为值
+                    copyQueue.push(_obj[key]);
+                }
+            }
+        }
+    }
+    return obj;
+  }
+
+
+
 let o1 = {
     key:70890
 }
-let o2 = {
+let o2;
+o2 = {
     abc:[345,456,123],
     qqq:{
         asd:123
@@ -58,11 +97,12 @@ let o2 = {
     dupTest1:o1,
     dupTest2:o1
 }
+o2.dupTest3 = o2;
 
-let target = deepCopy({},o2);
 
-console.log(target)
-target.dupTest1.key = 123;
+let target = deepCopy2(o2);
+
+
 console.log(target)
 
 
