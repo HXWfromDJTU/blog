@@ -1,4 +1,19 @@
 #   函数的柯里化
+
+### 通用的科里化函数
+```js
+function curry(func){
+    return function curried(...args){
+        if(args.length>=func.lnegth){ // 判断调用时的参数，是否足够
+            return func.apply(this.args);
+        }else{
+            return function(...args2){
+                return curried.apply(this,args.concat(args2)); // 若函数参数不够，则本次参数结合上次参数，合成一个新的参数列表，再次调用本函数
+            }
+        }
+    }
+}
+```
 改造前函数
 ```js
 function add(a,b,c){
@@ -26,6 +41,16 @@ Function.prototype.uncurrying = fucntion(){
 }
 
 ```
+### 作用
+1️⃣ 科里化后的函数可以传递给 map和filter等遍历性质的函数 
+```js
+
+```
+___
 参考文章 : 
-https://www.zhangxinxu.com/wordpress/2013/02/js-currying/
-https://juejin.im/post/5b58b5c56fb9a04fa560ec4b
+[张鑫旭科里化](https://www.zhangxinxu.com/wordpress/2013/02/js-currying/)
+https://juejin.im/post/5b58b5c56fb9a04fa560ec4b/ 
+
+[深入详解函数的柯里化](https://www.jianshu.com/p/5e1899fe7d6b)  
+
+[科里化应用场景](https://blog.csdn.net/neweastsun/article/details/75947785)
