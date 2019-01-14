@@ -29,15 +29,21 @@ class MyPromise{
                     callback:callback,
                     param:[this.value]
                 });
+                // 延迟执行的then函数。
+                this.then(this.resolveFunc,this.rejectFunc)
             }
         })
         this._status = 'pending';
+
        if(typeof fn === 'function'){
            try{
             // 执行构造时候 的 回调函数
             fn(this._resolve.bind(this),this._reject.bind(this))
            }catch(err){
-               this.then(null,function(err){});
+               this._reject(err);
+               this.then(null,function(err){
+                   console.log(err)
+               });
            }
        } 
 
@@ -46,13 +52,13 @@ class MyPromise{
      }
      // 注意这里的 _resolve 和 _reject是 Promise对象初始化的时候，用于决定promise状态的工具函数   
       _resolve(val){
-          if(this._status!='pending' && this._status!=undefined ) return; // 状态只能够由pending转移到 solved 
+          if(this._status!='pending') return; // 状态只能够由pending转移到 solved 
           this.value = val; // resovle时候传入的参数
           this._status = 'resolved';
       }
      
       _reject(val){
-         if(this._status != 'pending' && this._status!=undefined ) return; // 状态只能够由pending转移到 rejected
+         if(this._status != 'pending') return; // 状态只能够由pending转移到 rejected
            this.value = val;
            this._status = 'rejected';
       }
