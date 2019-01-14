@@ -43,16 +43,25 @@ class  Dep{
 }
 
 class Watcher{
-     constructor(renderFun,callback){
+     constructor(renderFun){
           Dep.target = this;
           this.renderFun = renderFun;
-          this.callback = callback;
           this.renderFun();
-          this.callback();
           Dep.target = null;
      }
      update(){
          this.renderFun(); 
-         this.callback();
      }
 }
+
+
+let data = {
+     key1:123,
+     key2:456,
+     key3:789
+}
+
+
+Object.keys(data).forEach(key=>{
+     new Obserbver(data,key,data[key]);
+})

@@ -95,16 +95,16 @@ CSS优化
 
 
 ##### es6新东西  
-promise
+promise ⭕️ 手写Promise实现原理 
 async 
-generator  + iterator  
+generator  + iterator  ⭕️ 手写 generator实现原理 
 set和map  
 Symbol   
-class 声明与继承  
+class 声明与继承  ⭕️ 手写 ES5 实现new 和 继承 
 
 
 ##### promise执行，事件循环机制
-宏任务
+宏任务 
 postMessage > setTimeOut
 微任务
 process.nextTick  
@@ -158,8 +158,10 @@ definedReactive，会为当前数据先设定一个Dep对象，用于收集这�
 2. Node怎么捕获错误
 3. 自动解决语法规范
 4. div 实现三角形
-5. primose原理+源码
-6. Instanceof原理
+##### primose原理+源码
+##### Instanceof原理
+例如a instanceof B , 查找原理是 在对象a到的原型链上进行查找，若运算符的右边的对象b的prototype属性，在a的原型链上。则返回true，否则返回false。
+⭕️ 手工绘制原型链、作用域链条、栈和堆的调用关系   
 7. react16新特性
 8. aync + await
 9. webpack加载顺序

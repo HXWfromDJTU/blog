@@ -26,14 +26,14 @@ function Watcher(fn){
 ### Observer对象
 ```js
 function Observer(testObj, key, value){
-	var dep = new Dep();
-	if (Object.prototype.toString.call(value) == '[testObject Object]') {
+   var dep = new Dep();
+   if(Object.prototype.toString.call(value) == '[object Object]') {
 		Object.keys(value).forEach(function(key){
 			new Observer(value,key,value[key])
 		})
 	};
-	Object.defineProperty(testObj, key, {
-		enumerable: true,
+   Object.defineProperty(testObj, key, {
+        enumerable: true,
     	configurable: true,
     	get: function(){
     		if (Dep.target) {
@@ -44,7 +44,7 @@ function Observer(testObj, key, value){
     	set: function(newVal){
     		value = newVal;
     		dep.notify();
-    	}
+          }
 	})
 }
 ```
@@ -52,11 +52,9 @@ function Observer(testObj, key, value){
 ```js
 function Dep(){
 	this.subs = [];
-
 	this.addSub = function (watcher) {
 		this.subs.push(watcher);
 	}
-
 	this.notify = function(){
 		this.subs.forEach(function(watcher){
 			watcher.update();
