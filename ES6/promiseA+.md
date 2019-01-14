@@ -18,45 +18,60 @@
 
 class MyPromise{
      constructor(fn){
+         this.cbQueue = [];
         // 用于传递的参数
         this.value = undefined;
         // 设定空函数，用于存放调用者为状态变化后的回调
         this.resolveFunc = function(){};
         this.rejectFunc = function(){};
         // 设置promise的初始状态为 pedning 
-        this.status = 'pending';
+        this._status = 'pending';
         if(typeof fn === 'function'){
             try{
              // 执行构造时候 的 回调函数
              fn(this._resolve.bind(this),this._reject.bind(this))
             }catch(err){
-                this.then(null,function(err){})
+                this.then(null,function(err){});
             }
         } 
+        let self = this;
+
        return this;
       }
       // 注意这里的 _resolve 和 _reject是 Promise对象初始化的时候，用于决定promise状态的工具函数   
        _resolve(val){
-           if(this.status!='pending') return; // 状态只能够由pending转移到 solved 或者 rejected
-           this.value = val; // resovle时候传入的参数  
-           let timer = setTimeout(function(){
-               pro.resolveFunc(this.value);
-           },0);
-           this.status = 'resolved';
+           if(this._status!='pending') return; // 状态只能够由pending转移到 solved 
+           this.value = val; // resovle时候传入的参数
+           // 压入缓存队列等待执行  
+           this.cbQueue.push({
+               callback:this.resolveFunc,
+               param:[this.value]
+           });
+           this._status = 'resolved';
        }
-    
+      
        _reject(val){
-            if(this.status != 'pending') return; 
+            if(this._status != 'pending') return; // 状态只能够由pending转移到 rejected
             this.value = val;
-            let timer = setTimeout(function(){
-                  pro.rejctFunc(this.val); // 异步调用 then方法中设置的回调
-            },0)
-            this.status = 'rejected';
+            // 压入缓存队列等待执行  
+           this.cbQueue.push({
+               callback:this.rejectFunc,
+               param:[this.value]
+           });
+            this._status = 'rejected';
        }
 
-       then(resolveFunc,rejctFunc){
-            this.resolveFunc = resolveFunc;
-            this.rejectFunc = rejectFunc;
+       then(resolveFunc,rejectFunc){
+             // 若用户有设置，则修改成功或者失败的回调函数
+            this.resolveFunc = resolveFunc?resolveFunc:this.resolveFunc;
+            this.rejectFunc = rejectFunc?rejectFunc:this.rejectFunc;
+            // 若设置then解析的时候，状态还未改变，则只当传入回调函数，而不立即执行
+            if(this._status=='pending') return this; 
+            // 执行回调函数  
+            let excuteCB = this.cbQueue[0].callback;
+            let param = this.cbQueue[0].param;
+            excuteCB.apply(null,...param);
+            return this;
        }
 }
 ```
