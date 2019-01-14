@@ -10,7 +10,8 @@ toobug@futu5.com
 shopee 
 zhongwen.huang@shopee.com
 cometoshopee@163.com
-[链接](https://www.v2ex.com/t/493328#reply8)
+[链接](https://www.v2ex.com/t/493328#reply8)  
+yongkang.yan@shopee.com
 
 阿里 lazada 深圳  P6 起招
 pengfei.huang@lazada.com

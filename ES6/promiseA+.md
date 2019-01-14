@@ -11,29 +11,52 @@
 
 ```js
 /**
- * 按照Promise A+ 规范实现  
+ * 实现一个简单的Promise   
  * 
  */
 
 
-class Promise(){
-    constructor(fn){
-        this[PromiseState] = 'pending'; // 还会变成 fulfill rejected 
-        this[PromiseValue] = undefined;
-        
-        onFulfillMap.set(this,[]);
-        onRejectMap.set(this,[]);
-        nextPromiseMap.set(this,[]); 
-        
-        }
+class MyPromise{
+     constructor(fn){
+        // 用于传递的参数
+        this.value = undefined;
+        // 设定空函数，用于存放调用者为状态变化后的回调
+        this.resolveFunc = function(){};
+        this.rejectFunc = function(){};
+        // 设置promise的初始状态为 pedning 
+        this.status = 'pending';
+        if(typeof fn === 'function'){
+            try{
+             // 执行构造时候 的 回调函数
+             fn(this._resolve.bind(this),this._reject.bind(this))
+            }catch(err){
+                this.then(null,function(err){})
+            }
+        } 
+       return this;
+      }
+      // 注意这里的 _resolve 和 _reject是 Promise对象初始化的时候，用于决定promise状态的工具函数   
+       _resolve(val){
+           if(this.status!='pending') return; // 状态只能够由pending转移到 solved 或者 rejected
+           this.value = val; // resovle时候传入的参数  
+           let timer = setTimeout(function(){
+               pro.resolveFunc(this.value);
+           },0);
+           this.status = 'resolved';
+       }
     
-       try(typeof fn === 'function'){
-           const [resolve,reject,status] = excute()
+       _reject(val){
+            if(this.status != 'pending') return; 
+            this.value = val;
+            let timer = setTimeout(function(){
+                  pro.rejctFunc(this.val); // 异步调用 then方法中设置的回调
+            },0)
+            this.status = 'rejected';
        }
 
-    
-
-    }
-
+       then(resolveFunc,rejctFunc){
+            this.resolveFunc = resolveFunc;
+            this.rejectFunc = rejectFunc;
+       }
 }
 ```

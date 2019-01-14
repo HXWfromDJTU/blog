@@ -53,4 +53,7 @@ https://juejin.im/post/5b58b5c56fb9a04fa560ec4b/
 
 [深入详解函数的柯里化](https://www.jianshu.com/p/5e1899fe7d6b)  
 
-[科里化应用场景](https://blog.csdn.net/neweastsun/article/details/75947785)
+[科里化应用场景](https://blog.csdn.net/neweastsun/article/details/75947785)  
+
+
+[邂逅函数柯里化](https://segmentfault.com/a/1190000008263193)
