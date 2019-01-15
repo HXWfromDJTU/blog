@@ -1,92 +1,125 @@
+
+
 class MyPromise{
     constructor(fn){
-        this.cbQueue = [];
-       // 用于传递的参数
-       this.value = undefined;
-       // 设定空函数，用于存放调用者为状态变化后的回调
-       this.resolveFunc = function(){};
-       this.rejectFunc = function(){};
-       let status = this._status;
-       // 设置promise的初始状态为 pedning 
-       Object.defineProperty(this,'_status',{
-          configurable:true,
-          enumerable:true,
-            get(){
-              return status;
-            },
-           set(newVal){
-               status = newVal;
-               // 判断状态变化
-               let callback;
-               if(newVal=='pending') return;
-               if(newVal=='resolved'){
-                   callback = this.resolveFunc;
-                }else{
-                    callback = this.rejectFunc;
-                }
-                // 压入缓存队列等待执行  
-                this.cbQueue.push({
-                    callback:callback,
-                    param:[this.value]
-                });
-                // 延迟执行的then函数。
-                this.then(this.resolveFunc,this.rejectFunc)
-            }
+        // 设定两种结果回调队列 
+        this.resolveQueue = [];
+        this.rejectQueue = [];
+        this.message = null; // 用于传递状态改变时的消息，状态只会改变一次，所以共用此变量
+        // 设定初始状态 
+        this._status = 'PENDING';
+        try{
+           // 给用户的启动函数传入状态改变的方法
+           fn(this._resolve.bind(this),this._reject.bind(this));
+        }catch(err){
+            this._reject(err);
+        }
+    }
+    // 改变 为成功状态
+    _resolve(data){
+         this.message = data;
+         this._status = 'RESOLVED';
+         this._callback = function(){}
+         // 执行成功队列中的方法
+         this.resolveQueue.forEach(cb=>{
+             // 设定回调函数，并触发统一执行。
+             this._excute(cb)
+         })
+    }
+
+     // 改变 失败状态 
+     _reject(err){
+        this.message = err;
+        this._status = 'REJECTED';
+        // 执行失败队列中的方法  
+        this.rejectQueue.forEach(cb=>{
+            this._excute(cb)
         })
-        this._status = 'pending';
-
-       if(typeof fn === 'function'){
-           try{
-            // 执行构造时候 的 回调函数
-            fn(this._resolve.bind(this),this._reject.bind(this))
-           }catch(err){
-               this._reject(err);
-               this.then(null,function(err){
-                   console.log(err)
-               });
-           }
-       } 
-
-
-      return this;
      }
-     // 注意这里的 _resolve 和 _reject是 Promise对象初始化的时候，用于决定promise状态的工具函数   
-      _resolve(val){
-          if(this._status!='pending') return; // 状态只能够由pending转移到 solved 
-          this.value = val; // resovle时候传入的参数
-          this._status = 'resolved';
-      }
-     
-      _reject(val){
-         if(this._status != 'pending') return; // 状态只能够由pending转移到 rejected
-           this.value = val;
-           this._status = 'rejected';
-      }
-
-      then(resolveFunc,rejectFunc){
-            // 若用户有设置，则修改成功或者失败的回调函数
-           this.resolveFunc = resolveFunc?resolveFunc:this.resolveFunc;
-           this.rejectFunc = rejectFunc?rejectFunc:this.rejectFunc;
-           // 若设置then解析的时候，状态还未改变，则只当传入回调函数，而不立即执行
-           if(this._status=='pending') return this;    
-           let excuteCB = this.cbQueue[0].callback;
-           // 重新覆盖压栈的函数 
-           if(this._status == 'resolved'){
-               excuteCB = this.resolveFunc;
-           }else{
-               excuteCB = this.rejectFunc;
-           }
-           let param = this.cbQueue[0].param;
-           excuteCB.apply(null,param);
-           return this;
-      }
-}
-
-
+     // 对外开放的then方法
+     then(resolveFunc,rejectFunc){
+         let status = this._status;
+         // 若状态已经决定，则直接执行用户设定的回调函数
+        if(status=='RESOLVED'){
+            this._excute(resolveFunc)
+        }
+        if(status=='REJECTED'){
+            this._excute(rejectFunc)
+        }
+        // 若状态悬而未决，则先推入缓存队列，等待后续执行  
+        if(status == 'PENDING'){
+            this.resolveQueue.push(resolveFunc);
+            this.rejectQueue.push(rejectFunc);
+        }
+        return this;
+     }
+     // 根据环境进行判断，使用不同的方式实现微任务
+     _excute(cb){
+        this._callback = cb;
+        // 策略 1️⃣ 如果浏览器支持 MutationObserver
+        if(typeof(MutationObserver)!='undefined'){
+            this.targetNode = document.createElement('i');
+            this.targetNode.id = 'INITIAL';
+            // 配置所需检测对象
+            let config = {
+                attributes:true
+            };
+            // 声明 DOM 变动后触发的回调函数
+            const mutationCallback = (mutationsList) => {
+                for(let mutation of mutationsList) {
+                    // mutation.type 指向的是 配置项中被修改的项目名称
+                    let type = mutation.type;
+                    switch (type) {
+                        case "attributes":
+                            this._callback(this.message);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            };
+            // 使用构造器，初始实例化 MutationObserer对象
+            let observer = new MutationObserver(mutationCallback);
+            // 开启监听属性，传入监听DOM对象，和需要监听的内容
+            observer.observe(this.targetNode, config);
+            // 手动触发
+            this.targetNode.id = this._status;
+            return; // 拦截式
+        }
+        // 策略 2️⃣  若是node环境，则直接使用 nextTick实现微任务
+        if(process){
+           process.nextTick(_=>{
+            this._callback(this.message);
+           })
+           return; // 拦截式
+        }
+        // 策略 3️⃣ 退化到使用 messageChannel（宏任务） 去实现 ，但是比一般的定时器优先级要高
+        if(typeof(MessageChannel)!='undefined'){
+            let mc = new MessageChannel();
+            let port1 = mc.port1;
+            let port2 = mc.port2;
+            // 模拟一个传输过程，为了创建一个优先级比较高的宏任务
+            port1.postMessage({});
+            port2.onmessage(_=>{
+                this._callback(this.message);
+            })
+            return ; // 拦截式 
+        }
+        // 策略 4️⃣ 最后退化到使用 setTimeout 去实现
+        setTimeout(_=>{
+            this._callback(this.message);
+        },0)
+        return;
+     }
+    }
 let pro  = new MyPromise(function(resolve,reject){
-    resolve('asd');
+    setTimeout(function(){
+        resolve('asd');
+    },99)
 })
 
 pro.then(function(data){
-      console.log(data);
+   console.log(data);
 })
+
+console.log(123)

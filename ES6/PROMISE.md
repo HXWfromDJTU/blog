@@ -16,3 +16,8 @@ process.on('unhandledRejection', function (err, p) {
 
 
 ##### Promise Chain
+
+
+
+### 参考文章
+[Promise红绿灯🚥](https://blog.csdn.net/huohuotu/article/details/77749929)   
