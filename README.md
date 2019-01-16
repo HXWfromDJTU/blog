@@ -10,7 +10,7 @@
 | 优化 | [防抖与节流](/JS/debounce.md)| 📒 |
 | 杂谈 | [this指向哪里](/JS/apply_call_bind_this.md)  | 📒 |
 |  数据结构| [数组方法](/JS/ARRAY_FUNC.md)<br>[对象方法](/JS/OOJECT_FUNC.md)<br>[原型链方法](/JS/JS_COMMON_FUNC.md)| 📒 |
-<!-- | 1 | [常见异步编程](/JS/async_coding.md)| 📒 | -->
+| DOM | [DOM事件模型](/JS/eventMode.md)| 📒 |
 
 ##### 算法 与 数据结构
 | 序号 | 标题 | 其他 |

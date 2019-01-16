@@ -72,28 +72,29 @@ function throttle(fun,period){
  */
 
 function throttle(fun,period,callNow){
-    let lastTime = 0; // 初始化时间
+    let lastTime; // 初始化时间
     return function(...args){
           let that = this; // 保存上下文    
           let _args = args; // 保存参数列表 
-           // 计算当前时间
-           let now = (new Date()).getTime();
+          // 计算当前时间
+          let now = (new Date()).getTime();
+          // 若上次时间不存在，则设为当前时间
+           lastTime= lastTime?lastTime:now;
            let remaining = period- (now-lastTime); // 得到触发时间剩余的时间
-        
-          
-           // 首次立即执行 
-           if( (!fun.timerId || remaining<0) && callNow){  // fun.timerId控制是否首次进入，而remaining<0控制是否后续的首次进入
+           // 判断是否是一个新的周期  
+           if( (!fun.timerId || remaining<0)&& callNow ){  // fun.timerId控制是否首次进入，而remaining<0控制是否后续的首次进入,且 remaining<0是强条件
             lastTime = (new Date()).getTime();  // 更新上次执行时间
             fun.apply(that,_args);
             fun.timerId = 'INITIAL'; // 设定为已被初始过
             return;
            } 
-
+           if(remaining==0) return; // 处理 非立即执行的版本
            if(fun.timerId>0) clearTimeout(fun.timerId); // 因为上一次的定时器还存在,清除之前的，然后重新用remaining设置一个新的 
-
+            
            // 在冷却周期内，只是会设定定时器
            fun.timerId =  setTimeout(() => {
-               lastTime = (new Date()).getTime(); // 定时任务被触发，更新上次触发时间
+               lastTime = (new Date()).getTime(); // 定时任务被触发，更新上次触发时间 
+               fun.timerId = null;
                fun.apply(that,args);
            },remaining)
 

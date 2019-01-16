@@ -84,6 +84,14 @@ UNIX系统中，在`/etc/resolve.conf`文件中查看DNS服务器的IP地址
 <link rel="dns-prefetch" href="http://www.next-resource.com/">
 ```
 
+### 其他笔记
+本地DNS服务器一般  
+
+GSLB
+配置CName   
+SLB  
+得到多个ip地址，客户端可以坐负载均衡   
+
 ___
 ### 参考文章  
 [阮一峰 - DNS入门](http://www.ruanyifeng.com/blog/2016/06/dns.html)   
