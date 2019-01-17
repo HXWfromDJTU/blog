@@ -46,14 +46,16 @@ Function.prototype.uncurrying = fucntion(){
 ```js
 
 ```
+2️⃣ 在bind方法中，也有一些科里化的影子。在bind函数初始化的时候，不仅可以改变this指向，还可以初始化参数，让后续得到参数继续传入
 ___
 参考文章 : 
 [张鑫旭科里化](https://www.zhangxinxu.com/wordpress/2013/02/js-currying/)
 https://juejin.im/post/5b58b5c56fb9a04fa560ec4b/ 
 
-[深入详解函数的柯里化](https://www.jianshu.com/p/5e1899fe7d6b)  
+[深入详解函数的柯里化 -by 这波能反杀](https://www.jianshu.com/p/5e1899fe7d6b)  
 
 [科里化应用场景](https://blog.csdn.net/neweastsun/article/details/75947785)  
 
 
-[邂逅函数柯里化](https://segmentfault.com/a/1190000008263193)
+[邂逅函数柯里化](https://segmentfault.com/a/1190000008263193)  
+

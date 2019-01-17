@@ -1,5 +1,5 @@
 # Javascript单线程与浏览器多进程
-___
+
 > 进程是CPU资源分配的最小单位，是能拥有资源和独立运行的最小单位。
 
 > 线程是CPU调度的最小单位，线程是建立在进程的基础上的一次程序运行，一个进程可以有多个线程。
@@ -119,7 +119,9 @@ ___
 ##### 
 ___
 ### 参考文章
-[JS多线程 - 掘金 by dailc](https://juejin.im/post/5a6547d0f265da3e283a1df7)
+[JS多线程 - 掘金 by dailc](https://juejin.im/post/5a6547d0f265da3e283a1df7)  
+
+[V8与字节码](https://cnodejs.org/topic/59084a9cbbaf2f3f569be482)
 
 
 

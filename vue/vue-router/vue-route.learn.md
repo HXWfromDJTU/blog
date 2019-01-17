@@ -14,3 +14,6 @@ const router =new VueRouter({
 
 * 可以为hash的改变添加监听事件：
 >window.addEventListener("hashchange", funcRef, false)
+
+
+
