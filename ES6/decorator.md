@@ -89,6 +89,8 @@ class MyClass {}
 Anyway..之前一直没有啃下来的Decorator,找到应用场景和知道其远大的历史使命之后...希望大家也重视起来...
 ___
 ### 参考文章
+[我们来聊聊装饰器 -by 讶羽](https://juejin.im/post/5bec22ad5188254d070bd9e8) 
+
 [JS 装饰器实战 -by 芋头](https://zhuanlan.zhihu.com/p/30487077)
 
 [ES6 教程 -by 阮一峰](http://es6.ruanyifeng.com/#docs/decorator)

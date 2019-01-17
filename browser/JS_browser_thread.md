@@ -121,7 +121,9 @@ ___
 ### 参考文章
 [JS多线程 - 掘金 by dailc](https://juejin.im/post/5a6547d0f265da3e283a1df7)  
 
-[V8与字节码](https://cnodejs.org/topic/59084a9cbbaf2f3f569be482)
+[V8与字节码](https://cnodejs.org/topic/59084a9cbbaf2f3f569be482)  
+
+[chrome浏览器页面渲染工作原理浅析](https://zhuanlan.zhihu.com/p/30134423)      
 
 
 

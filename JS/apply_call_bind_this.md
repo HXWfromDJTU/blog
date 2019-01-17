@@ -76,4 +76,5 @@ bind在某些浏览器中（看什么看，说你呢IE，站好....）没有得�
 
 ___
 ### 参考文章 
-[深入JS系列（一：call, apply, bind实现）](https://blog.csdn.net/u010377383/article/details/80646415)
+[深入JS系列（一：call, apply, bind实现）](https://blog.csdn.net/u010377383/article/details/80646415)    
+[不用call和apply方法模拟实现ES5的bind方法 - by 微醺岁月](https://www.jianshu.com/p/6a1bc149b598)

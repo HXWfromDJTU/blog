@@ -15,7 +15,7 @@
 ### 本地存储
 1️⃣ 大小调整到有5MB  
 2️⃣ 请求的时候不会自动被带入  
-3️⃣ 适合存储数据，叶面间的共同数据   
+3️⃣ 适合存储数据，页面间的共同数据   
 4️⃣ localStorage和sessionStorage在使用时候，尽量使用`try-catch`进行包裹📦  
 5️⃣ 无痕模式下，许多浏览器的sessionStorage和localStorage会无效   
 #### chrome  
