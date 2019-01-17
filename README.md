@@ -15,7 +15,7 @@
 ##### 算法 与 数据结构
 | 序号 | 标题 | 其他 |
 | :------| :------ | :------ |
-| 其他 | [常见算法的JS实现](/algorithm/common.md/)<br>[treeFormat](/algorithm/treeFormat.js)<br>[手工实现一个Promise](/algorithm/promise.js)| 📒 |
+| 其他 | [常见算法的JS实现](/algorithm/common.md/)<br>[treeFormat](/algorithm/treeFormat.js)<br>[手工实现一个Promise](/algorithm/promise.js)<br>[ES3实现 apply-call-bind](/algorithm/bind.js)| 📒 |
 | 基础数据结构 | [单链表](/algorithm/data_structure/linkedlist/)<br> [数组](/algorithm/data_structure/array/)<br>[顺序栈](/algorithm/data_structure/stack/)<br>[顺序队列](/algorithm/data_structure/queue/)<br>| 📒 |
 | 排序算法 | [冒泡排序&优化](/algorithm/data_structure/sort/BubbleSort.js) <br>[选择排序](/algorithm/data_structure/sort/SelectSort.js)  <br>[插入+希尔排序](/algorithm/data_structure/sort/InsertSort.js) <br> [归并排序](/algorithm/data_structure/sort/MergeSort.js)  <br>[快速排序](/algorithm/data_structure/sort/QuickSort.js) <br> [计数排序](/algorithm/data_structure/sort/CountSort.js)  <br>[桶排序](/algorithm/data_structure/sort/BucketSort.js)  <br>[各种排序效率比较](/algorithm/data_structure/sort/index.js)| 📒 |
 
