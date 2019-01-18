@@ -1,4 +1,4 @@
-##### Tcp的可靠性？
+#### Tcp的可靠性？
 1️⃣ checksum
 每个信息包都包含一个校验码，这个校验码头就是一个用来保证信息包在传输过程中没有被更改的代码，当信息到达目的地的时候，接收方会对比较验码和收到的信息中的数据，如果校验码不对，则被信息包将被省略。(校验码机制)
 2️⃣ ack验证重传
@@ -7,7 +7,7 @@ TCP会要求接收方每收到一个信息包都反馈一下，如果接收方�
 TCP每传送一个信息包都会传送一个序号，接收方会检查这个序号，确保收到该信息包，并把全部信息包按顺序重新合并，同时，如果接收方看到一个已接收了的序号，则这个信息包就会被丢弃。(重复性序号机制)
 ⭕️ 理解记忆
 
-##### Node.js 优势
+#### Node.js 优势
 1️⃣ node是单线程异步非阻塞,可以接受高并发的场景
 2️⃣ 不存在线程切换问题
 3️⃣ 使用cluster模块进行多线程
@@ -15,7 +15,7 @@ TCP每传送一个信息包都会传送一个序号，接收方会检查这个�
 
 
 
-##### c++和js区别 
+#### c++和js区别 
 node分层
 底层的C/C++实现了V8+ libuv线程调度  http_parse等工作 
 中间架设了桥阶层  
@@ -24,7 +24,7 @@ node分层
 ⭕️ 理解记忆  
 
 
-##### 手写js继承实现 与 new
+#### 手写js继承实现 与 new
 ```js
 // new 操作
 let New = function(fun){
@@ -47,7 +47,7 @@ let Son = function(){
 Son.prtototype  =  Father.prototype; // 继承原型上的所有属性(诶，注意，这里包括构造器都继承了，所以下一步需要重写) 
 Son.prototype.constructor = Son;  // 修改拷贝过来的原型上的构造器
 ```
-##### 闭包，闭包数据缓存手写 (没写出来）
+#### 闭包，闭包数据缓存手写 (没写出来）
 ```js
 let calculate = function(a,b){
     console.log('实际执行了计算')
@@ -73,11 +73,11 @@ let proxy_cache = function(){
     }
 }
 ```
-##### 事件循环机制 
+#### 事件循环机制 
 宏任务、微任务，主进程 
 messageChannel Promise 
 
-##### url->页面生成过程  
+#### url->页面生成过程  
 DNS服务器寻找ip  一般DNS服务器在ISP处 缓存有常用网址的ip   根域名代理 -> 顶级域名代理 -> 次级域名代理 
 http -> tcp -> ip -> mac -> 物理层 
 浏览器接收到服务器返回的字符串，然后按照html编码格式进行解析，
@@ -85,7 +85,7 @@ http -> tcp -> ip -> mac -> 物理层
 渲染页面过程中若有Javascript标签下载或者遇到内嵌的Javascript代码，则会阻塞渲染线程，优先执行Javascript代码。  
 
 
-##### 性能优化  
+#### 性能优化  
 CSS优化  
 代码结构性   
 首屏优化代码   
@@ -94,7 +94,7 @@ CSS优化
 
 
 
-##### es6新东西  
+#### es6新东西  
 promise ⭕️ 手写Promise实现原理 
 async 
 generator  + iterator  ⭕️ 手写 generator实现原理 
@@ -103,27 +103,27 @@ Symbol
 class 声明与继承  ⭕️ 手写 ES5 实现new 和 继承 
 
 
-##### promise执行，事件循环机制
+#### promise执行，事件循环机制
 宏任务 
 postMessage > setTimeOut
 微任务
 process.nextTick  
 
 
-##### http请求方式，最好了解常用的四个以外其他的那几个 
+#### http请求方式，最好了解常用的四个以外其他的那几个 
 GET POST HEAD(类似于get请求，但是没有数据体) TRACE(用于检测网络) PUT(修改资源) DELETE(删除资源) OPTION(请求模拟，比如跨域的试探请求) CONNECT(隧道链接)
-##### http缓存
+#### http缓存
 https://juejin.im/entry/57fb373ad203090068c67883
 强缓存 协商缓存  
 
-##### webpack  
+#### webpack  
 
 
 
-##### 模块化规范，CMD原理是什么？（凉凉）
+#### 模块化规范，CMD原理是什么？（凉凉）
 CommonJS的模块化(exports、module.exports)  AMD规范(require.js) CMD规范(sea.js)  ES6 模块化(import、export、export default)  
 
-##### vue响应式原理 
+#### vue响应式原理 
 从 new Vue() 构造函数开始，里面启动了 _init()方法参数为vue实例的配置项option  
 init方法中，记录了当前vue实例的id，初始化了生命周期
 initData中 标记了当前vue实例的id,合并了option,初始化生命周期，初始化事件监听容器，初始化渲染，调用'beforeCreate'生命周期钩子，初始化state() ，这里实现了data的数据绑定，也就是 1️⃣ 给数据都设置了_ob_属性 2️⃣ 使用 Object.defineProperty() 在数据 get与set 函数处 设置依赖收集 的拦截  
@@ -158,9 +158,9 @@ definedReactive，会为当前数据先设定一个Dep对象，用于收集这�
 2. Node怎么捕获错误
 3. 自动解决语法规范
 4. div 实现三角形
-##### primose原理+源码  
+#### primose原理+源码  
 📒 [手工实现一个promise](/algorithm/promise.js)
-##### Instanceof原理
+#### Instanceof原理
 例如a instanceof B , 查找原理是 在对象a到的原型链上进行查找，若运算符的右边的对象b的prototype属性，在a的原型链上。则返回true，否则返回false。
 ⭕️ 手工绘制原型链、作用域链条、栈和堆的调用关系   
 
@@ -174,7 +174,7 @@ definedReactive，会为当前数据先设定一个Dep对象，用于收集这�
 13. 。。。 
 
 
-##### 怎么实现继承，写了用那个实例继承的方式，但是被面试官说这个会存在继承污染还是什么，换另外的方式来做，就用了Object.create()实现继承  
+#### 怎么实现继承，写了用那个实例继承的方式，但是被面试官说这个会存在继承污染还是什么，换另外的方式来做，就用了Object.create()实现继承  
 ```js
 function Father(){};
 function Son(){};
@@ -184,7 +184,7 @@ Son.prototype.consturctor = Son;
 面试被问到的时候，顺便提起`HAS-A`和`IS-A`的问题。  
 ⭕️ 另外了解一下什么是继承污染，如何解决？ 
 
-##### 闭包讲一下 
+#### 闭包讲一下 
 定义：闭包就是能够读取其他函数内部变量的函数。比如说我们在一个函数内定义另一个函数，这个内部函数就可以访问外层函数的变量，当我们将内部函数的句柄返回给外部调用者时，外层函数中被内部函数调用的变量则不会被释放掉。  
 作用    
 1️⃣ 用对面向对象编程，类似于 function+prototype的模式，但是调用方法的时候不需要每次都去查找原型链   
@@ -198,22 +198,22 @@ Son.prototype.consturctor = Son;
 
 
 
-##### js的事件模型是什么样的具体讲一下，有什么作用，在什么场景下会使用到。
+#### js的事件模型是什么样的具体讲一下，有什么作用，在什么场景下会使用到。
  
 📒 [DOM事件模型](/JS/eventMode.md)
 
 
-##### e.target和e.currentTerget有什么区别（没回答上来）
+#### e.target和e.currentTerget有什么区别（没回答上来）
 其实就是e.target指向触发事件的那个元素。e.currentTarget同未修改指向的this指向一致，指向绑定事件的那个元素
 [DOM事件模型](/JS/eventBubble.md)
 
-##### 因为项目当中使用了react-router，就被问了你知道怎么使用js实现路由功能吗（不知道，没回答上来）
+#### 因为项目当中使用了react-router，就被问了你知道怎么使用js实现路由功能吗（不知道，没回答上来）
 ⭕️ 手绘 vue-router 解析图   
 ♎️ 写一篇vue-router的源码解析，理解   
 
-##### 实现一个斐波那契数列实现输入第n项输出相应的值，优化这个函数，让被查找过的下标值下次再次访问的时候能够立马找到并输出
+#### 实现一个斐波那契数列实现输入第n项输出相应的值，优化这个函数，让被查找过的下标值下次再次访问的时候能够立马找到并输出
 
-##### 用数组的reduce方法实现数组拍平算法 
+#### 用数组的reduce方法实现数组拍平算法 
 
 1、介绍项目，根据项目提问
 2、三栏布局
@@ -227,15 +227,15 @@ Son.prototype.consturctor = Son;
 10、一个函数new一下和直接调用的区别
 
 
-##### 渲染的每一个阶段的优化方式及原因  
+#### 渲染的每一个阶段的优化方式及原因  
 CSS优化
 DOM优化
 
-##### 手撕代码：实现ES6中的promise  
+#### 手撕代码：实现ES6中的promise  
 📒 [手工实现一个promise](/algorithm/promise.js)
 
 4、手撕代码：实现ES6中的Generator
-##### 进程和线程  
+#### 进程和线程  
 目前工作中接触到的进程和线程，分为两个环境去说，一个是浏览器环境，一个是node环境。   
 先说说。
 一般的现代浏览器都是采用的是多进程模式，这里说的进程还分为几种，浏览器主进程、插件管理,GPU管理进程，还有一种是浏览器渲染进程。其他的进程基本都是共享的，浏览器渲染进程，一个web页面(标签页)，每个标签页都是一个单独的web程序，都有一有一个。
@@ -256,10 +256,10 @@ JS执行线程调用的则是 js执行内核 类似于 V8 Chakara monkey
 
 可以引导面试官，聊一聊自己的人员轨迹项目....排序分组和DOM渲染的问题。Canvas渲染的问题。
 
-##### chrome是多进程还是多线程 ？这样设计的好处？
+#### chrome是多进程还是多线程 ？这样设计的好处？
 回答如上题目。
 
-##### 前端缓存技术  
+#### 前端缓存技术  
 前端缓存，放到打一个层面来说我们称之为 前端的持久化。  
 持久化的方法一般有 cookie/webstorage（local\session）还有常用的http缓存  
 cookie 一般来说比较小，一个客户端对应所有的域名存储的信息大小不能够超过4k,而且每次请求的时候都必须要携带，存在浪费带宽的情况。而且多次携带者用户的敏感数据，来回跑，也是十分之不安全和没有必要的。  <span class="tips">每个域名都有限制数目，一般在50个左右</span> 
@@ -287,9 +287,47 @@ e-tag 和 if-match
 
 
 
-8、HTTP状态码
+#### HTTP状态码
 
-1XX 的是表示请求正在处理中或者请请求升级
+1XX 的是表示请求正在处理中或者请请求升级  
+2XX 表示的是请求已成功，服务器会按照请求的类型不同而返回不同的内容。   
+3XX 表示重定向，但有一个304表示命中缓存  
+4XX 表示客户端错误
+5XX 表示服务端错误  
+
+常用的来说  
+100 表示请求已经被接受了，服务器正在处理中，希望客户端继续发送数据已完成请求  
+101 表示协议升级，或者说是协议切换。比如说我们首次请求的时候使用的是，http，服务端则会返回一个101响应，表示switching protocol告诉客户端升级到https，又或者本次通信准备使用websocket协议进行，那么客户端收到101状态码后，读取报文中的<span class="tips">Upgrade字段</span>中的，建议升级到的协议，然后下一次通信就开始使用切换后的协议。   
+
+200 使我们最常见的请求成功报文。  
+204 表示请求成功但是没有没有实体内容返回，可能是一个HEAD类型的请求  
+206 出现在对于资源的部分请求，常见于大文件的分段下载。客户端一般会根据服务端首次返回的报文中，寻找是否有 Range-Request这个字段，表示这个资源是否支持分段下载，若支持，则客户端会开始进行范围请求。
+客户端首先在报文头中，携带<b class="err">range</b>字段，表示请求的范围。  
+服务端返回的报文中，必须指出<span class="err">content-range</span>字段，表示次请求返回的实体内容的区间。   
+
+301 表示永久重定向，包括我们的书签也会被修改<b class="tips">深挖</b><b class="err">伴随着报文的Location字段会返回重定向后的地址</b> 
+
+302、303、307 都表示的是临时重定向，浏览器保存的书签任然还是指向原页面，其中302是HTTP1.0就有的产物，而HTTP1.1才出现303和307。  
+被302重定向之后，浏览器处理为不改变请求方式，直接重新发起请求。 
+三种返回状态，在GET请求的时候基本没什么不一样，浏览器都会处理为直接使用`GET`方法重新发送请求。
+
+而因为POST请求不是幂等的，重新POST(比如说重新发送表单、重新进行支付等等)，都会造成不可预料的结果。三种返回状态就有不同的处理方式。   
+
+<span class="fixed">大多数浏览器都会在POST请求遇到重定向的时候，改为GET请求重新发送</span>
 
 
-<style>.tips{color:red;font-size:12px;border:1px solid grey;border-radius:5px;background-color:yellow;position:relative;top:-4px;}</style>
+304 表示命中缓存的一个状态码。客户端收到304之后就会直接读取本地缓存的数据。  
+
+4XX 
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="../config/global.css"/>
+<style>.tips{color:red;font-size:12px;border:1px solid grey;border-radius:5px;background-color:yellow;position:relative;top:0px;}</style>
