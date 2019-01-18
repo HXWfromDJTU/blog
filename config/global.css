@@ -12,4 +12,16 @@
 
 .err{color:red;font-weight: bolder;} 
 
-.fixed{color:green;}
+.fixed{color:green;} 
+
+
+.tag{
+    border:1px solid gray;;
+    background-color: aquamarine;
+    color:black;
+    box-shadow: #ddd 3px 4px;
+    border-radius: 5px;
+    font-size: 8px;
+    padding:2px;
+    margin:3px 3px;
+}

@@ -24,11 +24,13 @@
 基于第三点的RenderTree，我们又延伸出了`Render Layer`的概念，一个`Render Layer`上有N个`Render Object`。 
 
 ![](/blog_assets/tilt.png) 
-<div style="color:grey;text-align:center;margin-bottom:20px;">火狐的一个插件 tile</div>
+<div style="color:grey;text-align:center;margin-bottom:20px;">chrome的 『Show composited layer borders』模式</div>
 
-最后，浏览器调用`GPU`进行渲染。
-<!-- 4️⃣ 渲染过程中若遇到`<script>`标签下载完成，则会马上开始执行，优先级高于`render`，而我们知道浏览器的渲染线程和JS解析线程是互斥的，所以这里js的执行就会停止UI的渲染。   -->
-(想了解更多，请看另一篇博文[传送门](/browser/JS_browser_thread.md)👉）  
+最后，浏览器调用`GPU`进行渲染。    
+想了解更多内容的，请去访问我的另一篇博文[《Render Layer与GUP加速》](/css/GPU.md)👉
+ 
+<!-- 4️⃣ 渲染过程中若遇到`<script>`标签下载完成，则会马上开始执行，优先级高于`render`，而我们知道浏览器的渲染线程和JS解析线程是互斥的，所以这里js的执行就会停止UI的渲染。  
+(想了解更多，请看另一篇博文[传送门](/browser/JS_browser_thread.md)👉）   -->
 
 👺👺 所以我们通常会把script标签插入到DOM的底部  
 👍 因为js中可能有DOM操作，而此时DOM的加载可能没有完成，操作就会失败。
@@ -79,7 +81,11 @@ ___
 ### 参考文章
 [从URL输入到到加载完成的过程 - FEX baidu](http://fex.baidu.com/blog/2014/05/what-happen/) 
 
-封面图来自[赵九杰 - 艺术家主页](http://www.artwe.com/Artist?artist_id=831)
+封面图来自[赵九杰 - 艺术家主页](http://www.artwe.com/Artist?artist_id=831)  
+
+[浏览器工作原理](https://github.com/slashhuang/translation/blob/master/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6)
+
+[css3硬件加速](https://div.io/topic/1348)   
 
 
 <style>.tips{color:red;font-size:12px;border:1px solid grey;border-radius:5px;background-color:#aaa;position:relative;top:-15px;}</style>
