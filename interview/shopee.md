@@ -234,7 +234,9 @@ DOM优化
 #### 手撕代码：实现ES6中的promise  
 📒 [手工实现一个promise](/algorithm/promise.js)
 
-4、手撕代码：实现ES6中的Generator
+##### 手撕代码：实现ES6中的Generator  
+
+
 #### 进程和线程  
 目前工作中接触到的进程和线程，分为两个环境去说，一个是浏览器环境，一个是node环境。   
 先说说。
@@ -258,6 +260,7 @@ JS执行线程调用的则是 js执行内核 类似于 V8 Chakara monkey
 
 #### chrome是多进程还是多线程 ？这样设计的好处？
 回答如上题目。
+好处是每一个tab页面都是有一个单独的内核进程来管理，页面之间的运行不会相互影响，插件管理进程服务于多个页面，GPU渲染进程也是共享于多个页面。类似于主从模式下的管理，节省进程的数目，每个进程都有自己明确的工作。         
 
 #### 前端缓存技术  
 前端缓存，放到打一个层面来说我们称之为 前端的持久化。  
@@ -320,7 +323,22 @@ e-tag 和 if-match
 
 4XX 
 
+400 Bad Request 表示客户端的请求报文有问题，服务端不能理解客户端的请求内容。
 
+401 Unauthorized 表示请求的资源需要进行认证 <span class="fixed">表示页面需要认证，或者表示上一次的认证通信失败了<span>
+
+403 Forbiten 表示客户端无权访问该资源
+  
+404 Not Fount 表示请求的资源不存在
+ 
+
+5xx  
+
+500 Internal Server Error 表示系统内部发生错误，也有可能是一些系统不想告知外界的一些情况。
+
+503 Service Uavaliable 表示服务暂时不可用，会伴随 Retry-After：<Date> 去表示预计服务恢复的时间  
+
+<span class="fixed">502 Bad Gateway 表示客户端的请球未能通过BGP出口，Border Gateway Protocol，一般是服务机房的网关问题。</span>一般稍等时间，然后使用强制刷新后即可解决。      
 
 
 
