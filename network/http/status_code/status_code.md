@@ -9,8 +9,10 @@
 * 请求被服务器成功处理，服务器会根据不同的请求方式返回结果
 
 #### 204 NO CONTENT
-* 服务器已经完成了处理，但是不需要返回响应体
-
+❤️ 服务器已经完成了处理，但是不需要返回响应体 
+##### `RFC的描述原文` 
+<code>If the client is a user agent, it SHOULD NOT change its document view from that which caused the request to be sent. This response is primarily intended to allow input for actions to take place without causing a change to the user agent’s active document view, although any new or updated metainformation SHOULD be applied to the document currently in the user agent’s active view.</code>
+若用户进行
 #### 206 PARTIAL CONTENT
 * 这个状态码的出现，表示客户端发起了`范围请求`，而服务器只对其中的一部分的请求成功处理了
 * 此时的客户端请求，必须包含有`range`字段，而服务端的报文中，必须包含由，`Content-Range`指定的实体内容(`entity`)
@@ -68,4 +70,6 @@
 
 ___
 ### 参考文章
-[http状态码 -百度百科](https://baike.baidu.com/item/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/5053660?fr=aladdin)
+[http状态码 -百度百科](https://baike.baidu.com/item/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/5053660?fr=aladdin)  
+
+[200/204/206-302/303/307 -cnblog](http://www.cnblogs.com/zhjh256/p/6910534.html)
