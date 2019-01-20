@@ -31,21 +31,33 @@ let New = function(fun){
     // 使用闭包更性感
     return function(){
       let o = new Object(); // 新建一个空对象  
-      Object.setPrototypeOf(o,fun.prototype); // 绑定原型链   
-      fun.call(o,arguments); // 执行构造函数  
-      return o;
+      Object.setPrototypeOf(o,fun.prototype); // 绑定原型方法   
+      fun.call(o,arguments); // 绑定原型属性     
+      return o; // 返回改造后的对象   
     }
 }
 // 模拟继承操作
+// 声明父类的构造器
 let Father = function(){
     this.role = 'Father'
 }
+// 声明子类的构造器
 let Son = function(){
     this.role = 'Son';
 }
-// 子类构造器的原型，指向父类构造器的实例。
-Son.prtototype  =  Father.prototype; // 继承原型上的所有属性(诶，注意，这里包括构造器都继承了，所以下一步需要重写) 
-Son.prototype.constructor = Son;  // 修改拷贝过来的原型上的构造器
+function inherit(subType,superType){
+    var prototype = Object.create(superType.prototype);
+    prototype.constructor = subType;
+    supType.prototype = prototypr;
+}
+// 若是不支持 Object.create 则使用兼容方法 
+function object(o){
+   fucntion F(){}; // 声明一个空的构造器 
+   F.prototype = o; // 连接构造器与构造原型  
+   return  new F();   // 返回一个空构造器的实例（目的就是拷贝了一份o）
+}
+
+
 ```
 #### 闭包，闭包数据缓存手写 (没写出来）
 ```js
@@ -237,7 +249,7 @@ function flatten(arr){
 
 
 1、介绍项目，根据项目提问
-#### 三栏布局 
+#### 三栏布局   
 #### JS原型链  
 
 4、Redux库数据流向
