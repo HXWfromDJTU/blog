@@ -117,6 +117,8 @@ async function getAllFile(){
   let BPromise = readingFileB();
   let  fileA = await APromise;
   let fileB = await  BPromise;
+   // 是不是觉得 这里的 await就是相当于以前promise的then和rejct的结合呢，相当于取出value
+   // 所以说async/await就是 promise 和 generator的结合呢。
 }
 ```
 

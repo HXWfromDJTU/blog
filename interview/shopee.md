@@ -172,7 +172,8 @@ definedReactive，会为当前数据先设定一个Dep对象，用于收集这�
 
 技术终面
 1. css-module
-2. Node怎么捕获错误
+##### Node怎么捕获错误  
+
 3. 自动解决语法规范
 4. div 实现三角形
 #### primose原理+源码  
@@ -182,9 +183,45 @@ definedReactive，会为当前数据先设定一个Dep对象，用于收集这�
 ⭕️ 手工绘制原型链、作用域链条、栈和堆的调用关系   
 
 
-7. react16新特性
-8. aync + await
-9. webpack加载顺序
+7. react16新特性   
+
+
+##### aync + await  
+async/await 是ES7的新规范，是一个异步解决的新方案。但另一方面我们也可以仅仅把他看做是综合了Promise规范和一个带自动执行器的generator规范。      
+async 关键字声明了一个异步函数，函数内部可以包括多个用await声明的异步操作。
+
+await 一定要声明在async方法中，await的作用和原来generator的yiled含义基本相同，yield是啥意思？放弃，退让的意思，程序执行到这里，就会把代码指定的主动权让出来。   
+await后面所跟着的表达式，规范中该规定会返回一个Promise对象。若后面跟着的不是一个promise对象，是一个其他值，则默认返回一个转台为resolved的promise对象，若表达式执行过程中执行错误，则返回一个rejected的promise对象。    
+就日常开发而已，我认为单个的异步任务，使用async/await优势并不明显，而是在多个异步任务，并且后一个任务的请求条件要以前一个/或多个为基础的情况下，async/await就可以解决多重嵌套的问题，以同步的代码形式实现了异步前后依赖的功能。   
+<span class="err">值得一提的是,await使用的时候，若多个任务之间没有依赖，则要将多个异步任务同时执行掉，再用await去等待返回值，否则会出现浪费时间的问题
+```js
+async function(){
+  let pro1 = getValue1Async();
+  let pro2 = getValue2Async();
+  let result1 = await pro1;
+  let result2 = await pro2;
+}
+   // 是不是觉得 这里的 await就是相当于以前promise的then和rejct的结合呢，相当于取出value
+   // 所以说async/await就是 promise 和 generator的结合呢。
+
+```
+
+</span>
+⭕️ 需要练习一些async的练习题  
+
+#####  webpack加载顺序   
+loader的加载顺序是自由向左的。  
+
+工作流程
+① webpack会使用 bin/webpack.js 进行命令行中 阐述的解析，初步读取参数。  
+② webpack会使用 lib/webpack.js 生成一个compiler实例，继承一个叫做 产检管理工具类，使用其apply方法记载各种内置的和外置的插件。 
+
+③ 程序中有一个 process 的函数，读取用户的webpack.config.js配置，使用上一步加载出来的插件，对文件进行处理  
+
+④ 程序输出整合出指定的文件   
+
+
+
 10. web-view 兼容性
 11. wpvue框架
 12. proxy
