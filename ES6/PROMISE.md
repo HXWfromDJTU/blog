@@ -1,4 +1,4 @@
-# 聊聊工作中遇到的Promise
+<!-- # 聊聊工作中遇到的Promise
 Promise大家都很熟悉，ES 6规范嘛，resolve、reject、then、catch都烂熟于心，但是苦于工作中没有应用，也空是屠龙之技~
 
 ### Promise吃掉Error
@@ -15,7 +15,10 @@ process.on('unhandledRejection', function (err, p) {
 不过在将来，node打算将Promise的Error等级提高为必须处理，否则抛出错误，停止程序的运行。
 
 
-##### Promise Chain
+##### Promise Chain -->  
+
+
+#### Promise 与 bulebird
 
 
 
