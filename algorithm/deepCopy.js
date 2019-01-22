@@ -81,6 +81,8 @@ function deepCopy2(data){
 
 
 
+
+
 let o1 = {
     key:70890
 }
@@ -98,7 +100,7 @@ o2 = {
     dupTest2:o1
 }
 o2.dupTest3 = o2;
-
+o2.dupTest1.key = 888;
 
 let target = deepCopy2(o2);
 
@@ -107,8 +109,3 @@ console.log(target)
 
 
 
-
-// module.exports = {
-//     deepCopy,
-
-// }
