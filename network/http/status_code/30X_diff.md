@@ -17,7 +17,7 @@ ___
 * 大部分浏览器 都会 `302` 会将 `POST` 请求转为 `GET`
 * `303` 是规范强制规定将 `POST` 转为 `GET` 请求，请求地址为 `header` 头中的 `Location`
 *  `307` 则不一样，规范要求浏览器继续向 `Location` 的地址 `POST` 内容。
-
+![](/blog_assets/REPOST.png)
 ### 307 与 HSTS
 `hsts`全称`HTTP`严格传输安全（`HTTP Strict Transport Security`，縮寫：`HSTS`），功能是要求浏览器下次访问该站点时使用`https`来访问，而不再需要先是`http`再转`https`。
 

@@ -100,7 +100,7 @@ o2 = {
     dupTest2:o1
 }
 o2.dupTest3 = o2;
-o2.dupTest1.key = 888;
+o2.dupTest1.key = 123;
 
 let target = deepCopy2(o2);
 

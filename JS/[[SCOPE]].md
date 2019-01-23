@@ -62,4 +62,6 @@ ___
 ### 参考文档 
 [JavaScript内部属性 Scope 与作用域链及其性能问题 - CSDN](https://blog.csdn.net/q1056843325/article/details/53086893?locationNum=12&fps=1)
 
-[稳扎问打Javascript - by 柴毛毛](https://blog.csdn.net/u010425776/article/details/53557942?utm_source=copy)
+[稳扎问打Javascript - by 柴毛毛](https://blog.csdn.net/u010425776/article/details/53557942?utm_source=copy)   
+
+[Javascript高级程序设计 - 第三版](https://blog.csdn.net/u010425776/article/details/53557942?utm_source=copy)

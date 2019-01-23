@@ -101,6 +101,3 @@ function throttle(fun,period,callNow){
     }
 }
 
-/**
- * 添加首次
- */

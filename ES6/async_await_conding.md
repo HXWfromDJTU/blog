@@ -154,7 +154,7 @@ async function getAllFile(){
    console.log("===7===")
    ```
 
-* 执行结果
+#### 执行结果
 
 ① '===3==='    
 > // 执行主线程代码  
@@ -169,19 +169,19 @@ async function getAllFile(){
 > // 执行主线程的 js代码
 
 ⑤ 无输出           
-> // 执行了 return "===8===";  相对于resolve了第一个Promise ,将  const testFn1 = await testSometing(); 后面的代码放入异步队列中等待执行
+> // 执行了 return "===8===";  相对于resolve了第一个Promise ,将  const testFn1 = await testSometing(); 后面的代码放入异步队列的尾部等待执行
 
 ⑥ '===6==='  
 > //   执行了  ③ 中的then代码
 
 ⑦ '===8===' 
-> // 因为被 testFn1 阻塞，所以async main中后面的代码迟迟不能执行，所以 又再次轮转到了 ⑤ 中的 then内容
+> 顺序执行异步队列
 
 ⑧'===1==='  
-> // testFn2 执行同步代码 ，在下一行返回一个已经 resolve的 Promise
+> // testFn2 执行同步代码 
 
 ⑨ '===2==='  
-> // 在下一行输出内容
+> // 返回的Promise.then仍是微任务，先于下一句执行
 
 '===4==='   
 > // testFn2 的带的内容已经返回，阻塞解除继续执行后面的 输出 4

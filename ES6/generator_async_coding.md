@@ -114,3 +114,6 @@ b.next(13) // { value:42, done:true }
 }
 
 ```
+___
+### 参考文章 
+[阮一峰 ES 6 generator](http://es6.ruanyifeng.com/#docs/generator)
