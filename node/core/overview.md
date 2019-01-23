@@ -17,7 +17,7 @@
 
 4️⃣ libuv 填平了多个平台的对异步I/O的不同实现，在Win平台上则是直接使用IOCP代替转让部分的功能。 (libuv的笔记📒，[传送门](/node/core/libuv/libUV.md))
 
-5️⃣ c-ares 是使用C语言实现的一个异步DNS查找的一个底层库，著名的Nodejs curl gevent都使用了c-ares作为底层
+5️⃣ c-ares 是使用C语言实现的一个异步DNS查找的一个底层库，著名的`Nodejs` `curl` `gevent`都使用了`c-ares`作为底层
 
 6️⃣ http_parser、OpenSSL、zlib等模块实现了一些和http请求封装有关的东西，比如说http解析、SSL和数据压缩
 ![](/blog_assets/node_source.png)

@@ -6,7 +6,7 @@ class MyPromise{
         this.message = null; // 用于传递状态改变时的消息，状态只会改变一次，所以共用此变量
         // 设定初始状态 
         this._status = 'PENDING';
-        if(!fn || !typeof(fn)=='function'){throw Error('MyPromise 必须传递一个解析函数');return;}
+        if(!typeof(fn)=='function'){throw Error('MyPromise 必须传递一个解析函数');return;}
         // 启动解析
         try{
            // 给用户的启动函数传入状态改变的方法
@@ -20,7 +20,6 @@ class MyPromise{
         if(this._status != 'PENDING') return this; // 状态只能够由 PENDING 出发
          this.message = data;
          this._status = 'RESOLVED';
-         this._callback = function(){}
          // 执行成功队列中的方法
          this.resolveQueue.forEach(cb=>{
              // 设定回调函数，并触发统一执行。
@@ -73,13 +72,8 @@ class MyPromise{
             const mutationCallback = (mutationsList) => {
                 for(let mutation of mutationsList) {
                     // mutation.type 指向的是 配置项中被修改的项目名称
-                    let type = mutation.type;
-                    switch (type) {
-                        case "attributes":
-                            this._callback(this.message);
-                            break;
-                        default:
-                            break;
+                    if(mutation.type=='attributes'){
+                        this._callback(this.message);
                     }
                 }
             };

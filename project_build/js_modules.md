@@ -138,11 +138,11 @@ export { foo, bar } from 'my_module';
 import { foo, bar } from 'my_module';
 export { foo, bar };
 ```
-___
+___ 
 #### ES 6 module 与 CommonJS的几大差异  
 1️⃣ CommonJS引入的是模块的一个拷贝，而ES 6 module引入的是暴露对象的引用(模块内部值改变，外部引用值也会改变)   
 2️⃣ 在模块中,CommonJS的this指向当前模块，而ES 6 module中this指向的是undefined。es6模块中也不存在
-`arguments`、`require``module`、`exports`、`__filename`、`__dirname`这些对象
+`arguments`、`require`、`module`、`exports`、`__filename`、`__dirname`这些对象
 (注意es 6 规范中的是 `export`...与`exports`不是一个东西)
 ___
 ### Node 模块化 

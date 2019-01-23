@@ -47,10 +47,10 @@
 * [【JS 2-4】微任务](/JS/microTask.md) 
 * [【JS 2-5】Javascript模块化方案总结](/project_build/js_modules.md)
 * [【JS 2-6】this指向哪里](/JS/apply_call_bind_this.md)
-
+* [【JS 2-7】类型检测](/JS/type_inspect.md)
 
 ##### 设计模式系列
-* [【设计模式 1-X】设计模式总览](/design_mode/prototype.md) 
+* [【设计模式 1-X】设计模式总览](/design_mode/summary.md) 
 * [【设计模式 1-1】观察者模式](/design_mode/observer.md)
 * [【设计模式 1-2】单例模式](/design_mode/singleton.md)
 * [【设计模式 1-3】策略模式](/design_mode/strategy.md)
@@ -73,8 +73,8 @@
 * [【传输层 1-1】DNS基本原理](/network/DNS.md)
 * [【传输层 1-2】TCP与UDP](/network/network_class/TCP.md)
 * [【应用层 2-1】HTTP 2.0🔱](/network/http/http2.0.md) 
-* [【应用层 2-2】HTTP_状态码_及其header](/network/status_code.md)
-* [【应用层 2-3】HTTPS链接详解](/network/http/https.md)
+* [【应用层 2-2】HTTP_状态码_及其对应header](/network/status_code.md)
+* [【应用层 2-3】从报文分析HTTPS握手过程](/network/http/https.md)
 * [【应用层 2-4】“熟悉而陌生”的GET_&_POST](/network/http/post_get.md) 
 * [【网络安全 3-1】XSS 与 CSRF](/browser/CSRF_XSS.md)
 

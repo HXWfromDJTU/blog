@@ -37,7 +37,7 @@ function handleMessage(e) {
 }
 ```
 #### webworker
-> 后来笔者在工作红使用到了service-worker帮助进行排序计算，所以补充一下，主页面和worker之间的通信也是是用了 MessageChannel 机制进行实现
+> 后来笔者在工作使用到了service-worker帮助进行排序计算，所以补充一下，主页面和worker之间的通信也是是用了 MessageChannel 机制进行实现
 ```js
 // page.js
 let worker = new Worker('./counting.js');

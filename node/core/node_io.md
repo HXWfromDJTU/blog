@@ -2,7 +2,7 @@
 ![](/blog_assets/node_libuv.png)
 ___
 ### Linux下实现
-1️⃣ NIO意思是new I/O,非阻塞I/O的意思，与之相对应的是BIO(阻塞性I/O)  
+1️⃣ NIO意思是Non-Blocking I/O,非阻塞I/O的意思，与之相对应的是BIO(阻塞性I/O)  
 2️⃣ Linux NIO的几种类型 `select` `select/poll`  `epoll`   
 3️⃣ 在linux 下 ，最多同时连接的文件描述符默认是 1024个
 ![](/blog_assets/linux_FD_SETSIZE.png)  
@@ -61,7 +61,7 @@ ___
 [select、poll、epoll之间的区别总结[整理]](https://www.cnblogs.com/Anker/p/3265058.html)  
 [Java 与 NIO](https://www.cnblogs.com/personnel/p/4583279.html)  
 《异步I/O - NodeJS深入浅出 第三章》  
-
+[IO模型及select、poll、epoll和kqueue的区别](https://www.cnblogs.com/moonz-wu/p/4740908.html)
 
 <link rel="stylesheet" href="../../config/global.css"/>
 
