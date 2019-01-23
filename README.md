@@ -1,7 +1,8 @@
 ###  When they go low - we go high 
-🌈 从 [博客园](https://home.cnblogs.com/HXW-from-DJTU/) 搬过来一部分，继续记录日常工作学习...欢迎star  
-技术栈`前端`+`node`
 
+🌈 记录总结日常工作学习...欢迎star  
+
+技术栈`前端`+`node`,2019准备进军`TypeScript`,欢迎学习交流wx: hxw_597371030 
 
 
 <!-- | 优化 | [防抖与节流](/JS/debounce.md) -->
