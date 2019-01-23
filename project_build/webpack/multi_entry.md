@@ -4,9 +4,9 @@
 
 ### 改造
 多页面配置与单页面配置，其实在大部分都还是相同的(单页面配置解读，[摸这里](./single_entry.md))。`loader`、`output`、`plugins`这些都算是共用的配置，不需要修改。主要修改一下三个配置：
-1️⃣ 与打包入口相关的`entry`
-2️⃣ `css`代码分离插件`extract-text-webpack-plugin`
-3️⃣ `js`代码注入插件`html-webpack-plugin`
+1️⃣ 与打包入口相关的`entry`   
+2️⃣ `css`代码分离插件`extract-text-webpack-plugin`   
+3️⃣ `js`代码注入插件`html-webpack-plugin`   
 
 来看一个开发目录结构
 ![多入口](/blog_assets/webpack_multi_entry.png)
