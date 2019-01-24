@@ -71,7 +71,7 @@
 * [【传输层 1-1】DNS基本原理](/network/DNS.md)
 * [【传输层 1-2】TCP与UDP](/network/network_class/TCP.md)
 * [【应用层 2-1】HTTP 2.0🔱](/network/http/http2.0.md) 
-* [【应用层 2-2】HTTP状态码 - 从报文头一一分析](/network/status_code.md)
+* [【应用层 2-2】HTTP状态码 - 从报文头一一分析](/network/http/status_code/summary.md)
 * [【应用层 2-3】从报文分析HTTPS握手过程](/network/http/https.md)
 * [【应用层 2-4】“熟悉而陌生”的GET_&_POST](/network/http/post_get.md) 
 * [【网络安全 3-1】XSS 与 CSRF](/browser/CSRF_XSS.md)
