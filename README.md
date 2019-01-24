@@ -83,7 +83,10 @@
 * [【node系列 1-3】socket 与 FileDescription](/network/socket.md)
 * [【node系列 1-4】libuv源码解读](/node/core/libuv/libUV.md)
 * [【node系列 1-5】node多进程与egg.js](/node/multi_process.md)
-* [【node系列 1-6】内建模块之V8](/node/deep_into/cluster/)
+* [【node系列 1-6】内建模块之V8](/node/core/v8/v8.md)  
+* [【node系列 1-7】小议node异常处理](/node/error_handler.md)  
+* [【node系列 1-8】node架构总览](/node/core/overview.md)
+
 
 ##### 框架 与 工具系列
 * [【框架Vue 1-1】vue_compile相关](/vue/vue_render.md)
