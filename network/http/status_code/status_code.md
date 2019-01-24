@@ -1,5 +1,6 @@
-# http状态码 及其 对应报文头
-
+## HTTP状态码 - 从报文头一一分析
+![](/blog_assets/status_code_cover.png) 
+___
 ### 1XX 
 #### 100 Continue
 ##### `行为表现`
@@ -26,7 +27,7 @@ ___
 一类的状态码，表示你的请求已经被服务器正确地处理了，没有遇到其他问题，服务器在返回体中，选择性地返回一些内容\
 
 #### 200 OK
-* 请求被服务器成功处理，服务器会根据不同的请求方式返回结果 
+💎 请求被服务器成功处理，服务器会根据不同的请求方式返回结果    
 
 #### 201 Created  
 请求已经被实现，而且有一个新的资源已经依据请求的需要而建立，且其 URI 已经随Location 头信息返回。
@@ -34,16 +35,35 @@ ___
 
 
 #### 204 NO CONTENT
-❤️ 服务器已经完成了处理，但是不需要返回响应体   
-![](/blog_assets/204.png)
-##### `RFC的描述原文` 
-<code>If the client is a user agent, it SHOULD NOT change its document view from that which caused the request to be sent. This response is primarily intended to allow input for actions to take place without causing a change to the user agent’s active document view, although any new or updated metainformation SHOULD be applied to the document currently in the user agent’s active view.</code>
-若用户进行
-#### 206 PARTIAL CONTENT
-* 这个状态码的出现，表示客户端发起了`范围请求`，而服务器只对其中的一部分的请求成功处理了
-* 此时的客户端请求，必须包含有`range`字段，而服务端的报文中，必须包含由，`Content-Range`指定的实体内容(`entity`) 
+1️⃣ 服务器已经完成了处理，但是不需要返回响应体    
+2️⃣ 与200状态下，没有实体返回的区别在于，浏览器处理204的状态码，只是回去读取报文头的更新信息，若UA是一个浏览器，请求的时候是`<a href="xxx">`标签形式，204则不会发生页面跳转，相对应200下则会发生跳转。 
 
-![](/blog_assets/206.png)
+![](/blog_assets/204.png) 
+
+`RFC的描述原文`  
+![](/blog_assets/204_RFC.png) 
+
+#### 206 Partial Content 
+1️⃣ 这个状态码的出现，表示客户端发起了`范围请求`，而服务器只对其中的一部分的请求成功处理了
+2️⃣ 此时的客户端请求，必须包含有`range`字段，而服务端的报文中，必须包含由，`Content-Range`指定的实体内容(`entity`) 
+
+![](/blog_assets/206.png)    
+
+`Range字段含义`     
+💎 XXX--rrr 有头有尾，表示使用多线程下载。   
+💎 XXX--    有头无尾，表示断点续传，在线播放    
+💎 ---XXX   有尾无头，表明只要最后的XXXbytes    
+💎 XXX--ccc,yyy-uuu,qqq-zzz  表示明确范围的多范围下载   
+
+`增强校验`     
+💎 使用`If-Modified`和`If-Match`这两套去保证分段的资源是可靠的，资源在分段过程中没有被修改   
+💎 或者是用`If-Range`去请求   
+>`If-Range`浏览器告诉 WEB 服务器，如果我请求的对象没有改变，就把我缺少的部分给我，如果对象改变了，就把整个对象给我。浏览器通过发送请求对象的ETag 或者自己所知道的最后修改时间给 WEB 服务器，让其判断对象是否改变了。总是跟 Range 头部一起使用。   
+
+详细过程请参考这篇文章,[传送门](https://www.cnblogs.com/findumars/p/5745345.html)
+
+
+___
 ### 3XX 
 表示服务器端已经接受到了请求，必须对请求进行一些特殊的处理之后，才能够顺利完成此处请求
 #### 301 MOVE PERMANELTLY
@@ -119,37 +139,103 @@ ___
 ### 4XX
 
 #### 400 BAD REQUEST
-* 表示该请求报文中`存在语法错误`，导致服务器无法理解该请求。客户端需要修改请求的内容后再次发送请求。
+1️⃣ 表示该请求报文中`存在语法错误`，导致服务器无法理解该请求。客户端需要修改请求的内容后再次发送请求。    
+2️⃣ 一般也可以用于用户提交的表单内容不完全正确，服务端也可以用400来享用客户
+
+![](/blog_assets/400.png)  
+<div style="text-align:center;color:grey;">跨域OPTION请求中的 400</div>
 
 #### 401 UNAUTHORIZED
-* 该状态码表示发送的请求需要有通过HTTP认证
-* 当客户端再次请求该资源的时候，需要在请求头中的Authorization包含认证信息。
+1️⃣ 该状态码表示发送的请求需要有通过HTTP认证
+2️⃣ 当客户端再次请求该资源的时候，需要在请求头中的Authorization包含认证信息。
+
+![](/blog_assets/401.png)  
+<div style="text-align:center;color:grey;">验证失败返回 401</div>
+
+![](/blog_assets/401_CORRECT.png)  
+<div style="text-align:center;color:grey;">客户端主动提供Authorization信息</div>
+
+3️⃣ `www-authenticate:Basic`表示一种简单的，有效的用户身份认证技术。  
+
+##### Basic 验证过程简述
+1️⃣ 客户端访问一个受http基本认证保护的资源。    
+2️⃣ 服务器返回401状态，要求客户端提供用户名和密码进行认证。（验证失败的时候，响应头会加上WWW-Authenticate: Basic realm="请求域"。）
+```
+401 Unauthorized     
+WWW-Authenticate： Basic realm="WallyWorld"
+```
+3️⃣ 客户端将输入的用户名密码用`Base64`进行编码后，采用非加密的明文方式传送给服务器。
+```
+Authorization: Basic xxxxxxxxxx.
+```
+4️⃣ 服务器将Authorization头中的用户名密码解码并取出，进行验证，如果认证成功，则返回相应的资源。如果认证失败，则仍返回`401`状态，要求重新进行认证。   
 
 #### 403 FORBIDDEN
-* 该状态码表明对请求资源的访问被服务器拒绝了。 
-* 服务器没有必要给出拒绝的详细理由，但如果想做说明的话，可以在实体的主体部分原因进行描述 。
-* 未获得文件系统的访问权限，访问权限出现某些问题，从未授权的发送源IP地址试图访问等情况都可能发生403响应。
+1️⃣ 该状态码表明对请求资源的访问被服务器拒绝了。    
+2️⃣ 服务器没有必要给出拒绝的详细理由，但如果想做说明的话，可以在实体的主体部分原因进行描述 。   
+3️⃣ 未获得文件系统的访问权限，访问权限出现某些问题，从未授权的发送源IP地址试图访问等情况都可能发生403响应。     
 
+![](/blog_assets/403.png)
 #### 404 NOT FOUND
-* 表明无法找到制定的资源
-* 通常也被服务端用户表示不想透露的请求失败原因
+1️⃣ 表明无法找到制定的资源
+2️⃣ 通常也被服务端用户表示不想透露的请求失败原因  
+
+![](/blog_assets/404.png)  
+
+#### 405 Method Not Allowed  
+表示该资源不支持该形式的请求方式，在Response Header中返回`Allow`字段，携带支持的请求方式  
+![](/blog_assets/405.png)     
+
+#### 412 Precondition Failed  
+在请求报文中的`If-xxx`字段发送到服务端后，服务端发现没有匹配上。比如，`If-Match:asfdfsdzxc`，希望匹配`ETag`值。
+
+![](/blog_assets/412.png)    
+
+#### 417 Exception Failed  
+我们先来看看RFC是怎么定义的...
+
+![](/blog_assets/417_RFC.png)  
+
+在请求头`Expect`中指定的预期内容无法被服务器满足，或者这个服务器是一个代理服务器，它有明显的证据证明在当前路由的下一个节点上，Expect 的内容无法被满足。
+
+
+![](/blog_assets/417.png)  
 
 ### 5XX
-#### 500 INTERNAL SERVER ERROR
-* 表示服务器端在处理客户端请求的时候，服务器内部发生了错误
+#### 500 Internal Server Error
+表示服务器端在处理客户端请求的时候，服务器内部发生了错误  
 
-#### 503 SERVICE UNAVALIABEL
-* 该状态码表示服务器已经处于一个超负荷的一个状态，或者是所提供的服务暂时不能够正常使用
-* 若服务器端能够事先得知服务恢复时间的话，可以在返回503状态码的同时，把恢复时间写入`Retry-After`字段中
+![](/blog_assets/500.png)  
 
+#### 502 Bad Gateway 
+1️⃣ 一般表示连接服务器的便捷路由器出问题了，导致请求不能到达。  
 
+我们最常见的应该是这个页面    
+![](/blog_assets/502_SHORT.png)     
 
+然后资源请求的时候，详细的报文
+
+![](/blog_assets/502.png)  
+
+#### 503 Service Unavaliable
+1️⃣ 该状态码表示服务器已经处于一个超负荷的一个状态，或者是所提供的服务暂时不能够正常使用     
+2️⃣ 若服务器端能够事先得知服务恢复时间的话，可以在返回503状态码的同时，把恢复时间写入`Retry-After`字段中     
+
+常见的页面形式
+![](/blog_assets/503_SHORT.png)  
+
+报文解读
+![](/blog_assets/503.png)  
+
+3️⃣ 注意，要是503的报文返回时，没有携带`Retry-After`的报文头，那么客户端应将次返回处理为`500`
 ___
 ### 参考文章   
 [100 continue 的秘密](https://blog.csdn.net/pzqingchong/article/details/70196092)
 [http状态码 -百度百科](https://baike.baidu.com/item/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/5053660?fr=aladdin)  
-[301与302](https://lz5z.com/HTTP-301-vs-302/)  
-
-[websocket探秘](https://segmentfault.com/a/1190000015985491)
-
-[200/204/206-302/303/307 -cnblog](http://www.cnblogs.com/zhjh256/p/6910534.html)
+[301与302](https://lz5z.com/HTTP-301-vs-302/)    
+[websocket探秘](https://segmentfault.com/a/1190000015985491)    
+[200/204/206-302/303/307 -cnblog](http://www.cnblogs.com/zhjh256/p/6910534.html)    
+[HTTP状态码302、303和307的故事](https://www.cnblogs.com/cswuyg/p/3871976.html)    
+[RFC- HTTP1.1](https://tools.ietf.org/html/rfc2616#section-10.3.3)   
+[206断续下载](
+https://blog.csdn.net/xiaofei0859/article/details/52883500)
