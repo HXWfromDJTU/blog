@@ -1,4 +1,4 @@
-###When they go low - we go high 
+### When they go low - we go high 
 
 🌈 记录总结日常工作学习...欢迎star
 
@@ -38,13 +38,12 @@
 <!-- | 其他 | [常见算法的JS实现](/algorithm/common.md/) -->
 
 ##### ECMAScript 系列`Javascript` `ES6`
-
 * [【ES6 1-1】Decorator - 肩负历史前行](/ES6/decorator.md)
-* [【ES6 1-1】Async/await - 同步方式写异步](/ES6/async_await_conding.md) 
+* [【ES6 1-1】Async/await - 同步方式写异步](/ES6/async_await_conding.md)
 * [【JS 2-1】Javascript EventLoop In Browser](/JS/eventloop.md)
 * [【JS 2-2】再看闭包](/JS/closure.md)
 * [【JS 2-3】作用域链](/JS/[[SCOPE]].md)
-* [【JS 2-4】微任务](/JS/microTask.md) 
+* [【JS 2-4】微任务](/JS/microTask.md)
 * [【JS 2-5】Javascript模块化方案总结](/project_build/js_modules.md)
 * [【JS 2-6】this指向哪里](/JS/apply_call_bind_this.md)
 * [【JS 2-7】类型检测](/JS/type_inspect.md)
@@ -54,7 +53,7 @@
 * [【设计模式 1-1】观察者模式](/design_mode/observer.md)
 * [【设计模式 1-2】单例模式](/design_mode/singleton.md)
 * [【设计模式 1-3】策略模式](/design_mode/strategy.md)
-* [【设计模式 1-4】原型模式](/design_mode/prototype.md) 
+* [【设计模式 1-4】原型模式](/design_mode/prototype.md)
 
 ##### 浏览器系列
 * [【浏览器系列 1-1】线程与进程](/browser/JS_browser_thread.md)
@@ -66,7 +65,6 @@
 * [【浏览器系列 1-7】跨域实战](/browser/CORS.md)
 * [【浏览器系列 1-8】性能优化1 - 整体流程优化](/browser/rending_optimize.md)
 * [【浏览器系列 1-9】性能优化2 - css性能优化](/CSS/css_optimize.md)
-
 * [【浏览器系列 1-10】浏览器事件模型](/JS/eventMode.md)
 
 ##### 网络传输系列
@@ -77,35 +75,28 @@
 * [【应用层 2-3】从报文分析HTTPS握手过程](/network/http/https.md)
 * [【应用层 2-4】“熟悉而陌生”的GET_&_POST](/network/http/post_get.md) 
 * [【网络安全 3-1】XSS 与 CSRF](/browser/CSRF_XSS.md)
-
  
 
 ##### Node系列
 * [【node系列 1-1】Node eventLoop](/node/core/eventloop_in_node.md)
-* [【node系列 1-2】Node 异步I/O实现](/node/core/node_io.md) 
+* [【node系列 1-2】Node 异步I/O实现](/node/core/node_io.md)
 * [【node系列 1-3】socket 与 FileDescription](/network/socket.md)
 * [【node系列 1-4】libuv源码解读](/node/core/libuv/libUV.md)
 * [【node系列 1-5】node多进程与egg.js](/node/multi_process.md)
 * [【node系列 1-6】内建模块之V8](/node/deep_into/cluster/)
 
 ##### 框架 与 工具系列
-
 * [【框架Vue 1-1】vue_compile相关](/vue/vue_render.md)
-* [【框架Vue 1-2】vue_nextTick源码解读 与 eventLoop](./vue/nextTick.md) 
-* [【框架Vue 1-3】vue_DOM更新机制](./vue/vue_dom_nextTick.md) 
+* [【框架Vue 1-2】vue_nextTick源码解读 与 eventLoop](./vue/nextTick.md)
+* [【框架Vue 1-3】vue_DOM更新机制](./vue/vue_dom_nextTick.md)
 * [【框架Vue 1-4】手供实现一个双向绑定](/vue/manual_two_way_binding.md)
 * [【工具Babel 2-1】babel_原理&基础配置](./project_build/babel.md)
 * [【工具Babel 2-1】babel_插件开发](./project_build/babel_plugin_dev.md)
-
 * [【工具Webpack 3-1】webpack工作原理](/project_build/webpack/how_webpack_work.md)
-
-* [【工具Webpack 3-2】webpack多入口配置](./project_build/webpack/multi_entry.md) 
-
-* [【框架ElementUI 4-1】源码解读之el-scrollbar](/network/elementUI/elementUI%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B9%8Bel-scrollbar.md) 
-
+* [【工具Webpack 3-2】webpack多入口配置](./project_build/webpack/multi_entry.md)
+* [【框架ElementUI 4-1】源码解读之el-scrollbar](/network/elementUI/elementUI%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B9%8Bel-scrollbar.md)
 * 【框架ElementUI 4-2】源码解读之Event机制
-
-* [【工具git 5-1】git_flow](/project_build/git/git_flow.md) 
+* [【工具git 5-1】git_flow](/project_build/git/git_flow.md)
 * [【工具npm 6-1】node依赖包的版本管理](/project_build/npm_package_version.md)
 
 <!-- [axios常见问题](/network/vue/axios%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.md)-->

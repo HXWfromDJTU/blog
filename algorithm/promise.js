@@ -57,9 +57,9 @@ class MyPromise{
         return this;
      }
      // 根据环境进行判断，使用不同的方式实现微任务  
-     // 参考 Vue  this.$nexttick 的源码实现，使用策略退化的机制实现微任务的处理 
+     // 参考 Vue  this.$nextTick 的源码实现，使用策略退化的机制实现微任务的处理 
      _excute(cb){
-        this._callback = cb;
+        this._callback = cb || function(){};  // 空处理
         // 策略 1️⃣ 如果浏览器支持 MutationObserver
         if(typeof(MutationObserver)!='undefined'){
             this.targetNode = document.createElement('i');
