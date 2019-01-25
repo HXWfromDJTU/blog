@@ -173,15 +173,18 @@ definedReactive，会为当前数据先设定一个Dep对象，用于收集这�
 技术终面
 1. css-module
 ##### Node怎么捕获错误  
+[【node系列 1-7】小议node异常处理](/node/error_handler.md)  
 
 3. 自动解决语法规范
 4. div 实现三角形
+
 #### primose原理+源码  
-📒 [手工实现一个promise](/algorithm/promise.js)
+📒 [手工实现一个promise](/algorithm/promise.js)   
+
 #### Instanceof原理
 例如a instanceof B , 查找原理是 在对象a到的原型链上进行查找，若运算符的右边的对象b的prototype属性，在a的原型链上。则返回true，否则返回false。
 ⭕️ 手工绘制原型链、作用域链条、栈和堆的调用关系   
-
+⭕️ 手写instanceof的实现  
 
 7. react16新特性   
 

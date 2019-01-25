@@ -2,7 +2,7 @@
 
 🌈 记录总结日常工作学习...欢迎star
 
-技术栈`前端`+`node`,2019准备进军`TypeScript`,欢迎学习交流wx: hxw_597371030 
+技术栈`前端`+`node`,2019准备进军`TypeScript`,欢迎学习交流~
 
 
 <!-- | 优化 | [防抖与节流](/JS/debounce.md) -->
@@ -32,7 +32,10 @@
 * [【模拟 3-3】ES3实现 apply-call-bind](/algorithm/bind.js)
 * [【模拟 3-4】实现简单的eventEmitter](/algorithm/data_structure/sort/index.js)
 * [【模拟 3-5】数组扁平化](/algorithm/flatten.js)
-* [【模拟 3-5】防抖与节流](/algorithm/debounce_throttle.js)
+* [【模拟 3-6】防抖与节流](/algorithm/debounce_throttle.js)  
+* [【模拟 3-7】instanceof模拟](/algorithm/instanceof.js)  
+
+
 
 
 <!-- | 其他 | [常见算法的JS实现](/algorithm/common.md/) -->
