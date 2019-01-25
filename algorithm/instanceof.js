@@ -26,6 +26,65 @@ function  instanceOf(a,b){
 }
 
 
+
+/**
+ * new 关键字模拟
+ * @param {*} fun 要实例化的构造器
+ */
+function New(fun){
+    if(typeof(fun) !== 'function'){throw new Error('new 操作必须作用于一个构造器上')};
+    return function(){
+        var o = {}                           //创建临时对象
+        o.__proto__ = fun.prototype;         // 将父类的作用域赋值给新对象
+        fun.apply(o,arguments);                //用新的参数，继承父类的属性，调用父类的构造器，生成新的属性
+        return o;                            //返回新对象
+    }
+}
+
+
+// 作为 ES5 之前 Object.create 的替代函数
+/**
+ * 模拟 Object.create 方法
+ * @param {*} obj 
+ */
+Object.prototype.create = Object.prototype.create || function(obj){
+    var fun = function(){}; // 设置一个空的构造函数
+    fun.prototype = obj; // 空类的原型指向要拷贝的对象  
+    return new fun(); // 返回一个对象的实例，因为构造函数是空的，所以对obj上的属性肯定没有修改，达到了拷贝的目的
+}
+
+/**
+ * 模拟继承函数
+ * @param {*} subClass 子类构造器
+ * @param {*} superClass 父类构造器
+ */
+function Extend(subClass,superClass){
+    if(typeof(subClass)!=='function' || typeof(superClass)!=='function'){
+        throw new Error('extend操作必须作用在两个构造器之间');
+    }
+    var proto = Object.create(superClass.prototype);// 拷贝父类原型  
+    proto.constructor  = subClass; // 对象增加，修改该原型对应的构造器  
+    subClass.prototype = proto; // 赋值给子类原型  
+}
+
+/**
+ * 模拟实现 assign方法
+ * @param {*} target 目标元素
+ * @param {*} source 一个或者多个source对象
+ */
+Object.assign = Object.assign || function(target){
+    // 取出要合并的对象  
+    for(var i=1;i<arguments.length;i++){
+        var obj = arguments[i];
+        var keyArr =  Object.keys(obj);
+        for(var j = 0;j<keyArr.length;j++){
+           target[keyArr[i]] =  obj[keyArr[i]]; // 后续属性值，覆盖前一个的属性值
+        }
+    }
+  return target;
+}
+
+
 // Test Case   
 let fun = function(){};
 let obj = {};
@@ -45,11 +104,3 @@ let construct = [
 construct.forEach(res=>{
     console.log(res)
 })
-/**
-true
-true
-true
-false
-true
-true
- */
