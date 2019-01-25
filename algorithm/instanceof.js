@@ -1,13 +1,22 @@
+
+function _isLeagal(obj){
+    var type = typeof(obj);
+    // 非对象或者函数类型，直接抛出错误
+    if( (type == 'object' && obj != null)  || type == 'function') return true;
+}
 /**
  * intanceOf 模拟实现 instanceof 运算符   
  * @param {*} a  要检测的对象
  * @param {*} b  要追溯的原型
  */
 function  instanceOf(a,b){
-    var type = typeof(a);
-   if( (type!= 'object' && type != 'function') || a == null ) return false; // 非对象或者函数类型，直接返回false
-   if(b===Object) return true; // 若是Object顶级，则直接返回true
+   // 检验参数合法性
+  
+   if(!_isLeagal(b)){throw new Error('the second param of instanceof must be an object');}
 
+   if(!_isLeagal(a)){return false};
+
+   if(b===Object) return true; // 若是Object顶级，则直接返回true
    var proto = Object.getPrototypeOf(a); // Object.getPrototypeOf 若不支持，则使用 .__proto__ 的形式进行原型链追溯
    var flag = false;    
    //  直到找到原型链的顶端
@@ -52,6 +61,7 @@ Object.prototype.create = Object.prototype.create || function(obj){
     fun.prototype = obj; // 空类的原型指向要拷贝的对象  
     return new fun(); // 返回一个对象的实例，因为构造函数是空的，所以对obj上的属性肯定没有修改，达到了拷贝的目的
 }
+
 
 /**
  * 模拟继承函数

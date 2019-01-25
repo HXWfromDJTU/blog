@@ -58,10 +58,49 @@ var  B = new String("123");
 缺点：
 ① 不能够检测使用构造函数生成的对象  
 ② 不能够区分出 `Array` `Object`  `null`  
+#### typeof 原理  
+在 javascript 的最初版本中，使用的 32 位系统，为了性能考虑使用低位存储了变量的类型信息： 
+`000`：对象
+`1`：整数
+`010`：浮点数
+`100`：字符串
+`110`：布尔
+`undefined`：用 - （−2^30）表示。
+`null`：对应机器码的 NULL 指针，一般是全零。
+
+##### typeof底层C++的判断逻辑  
+```cpp
+if (JSVAL_IS_VOID(v)) {  // (1) 判断是否为 undefined
+    type = JSTYPE_VOID;
+} else if (JSVAL_IS_OBJECT(v)) {  // (2) 如果不是 undefined，判断是否为对象
+    obj = JSVAL_TO_OBJECT(v);
+    if (obj &&
+        (ops = obj->map->ops,
+            ops == &js_ObjectOps
+            ? (clasp = OBJ_GET_CLASS(cx, obj),
+            clasp->call || clasp == &js_FunctionClass) 
+            : ops->call != 0
+        )
+       ) {  
+        type = JSTYPE_FUNCTION; // 判断为function
+    } else {
+        type = JSTYPE_OBJECT; // 判断为 object
+    }
+} else if (JSVAL_IS_NUMBER(v)) {  // 如果不是对象，判断是否为数字
+    type = JSTYPE_NUMBER;
+} else if (JSVAL_IS_STRING(v)) { // 判断是否是字符串 
+    type = JSTYPE_STRING;
+} else if (JSVAL_IS_BOOLEAN(v)) { // 如果不是对象，判断是否为Boolean
+    type = JSTYPE_BOOLEAN;
+}
+```
+这样一来常见的`typeof null`的bug就很明显了，结果仍然是和对象一样的 `000`。
+
+typeof原理部分，来参考资料 [JavaScript中typeof原理探究？ -by justjavac](https://segmentfault.com/q/1010000011846328)
 
 ### instanceof
-`insatnceof`的原理是根据原型链向上查找，有一个局限性就是第二个参数必须是对象或者构造函数。
-
+`insatnceof`的原理是根据原型链向上查找，有一个局限性就是第二个参数必须是对象或者构造函数。     
+[instanceof的模拟实现](/algorithm/instanceof.js)
 ```js
 //  与 typeof 基本相反，不能够有效地检测字面量的类型
 "stringTest"  instanceof  String  //false
