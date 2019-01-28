@@ -143,7 +143,6 @@ ___
 ### 参考文章
 [HTTP 2 的新特性你 get 了吗？](https://zhuanlan.zhihu.com/p/26433450)   
 
-[http 2优化 -by renren网](https://juejin.im/post/5aad47b1f265da23884cd5cb)   
 
 [从Chrome源码看HTTP/2](https://juejin.im/post/5aad47b1f265da23884cd5cb)  
 
