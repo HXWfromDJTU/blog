@@ -7,7 +7,17 @@
 
 ### CORS
 其实这是浏览器的同源策略，为了尽量保证页面的安全，默认不允许加载不同源的资源。 
-W3C还有一个CROS策略`(Corss-origin Resource Sharing)`，策略允许浏览器向跨源服务器，发出异步请求`(XHRHttpRequest)`，获取所需要的资源。 
+W3C还有一个CROS策略`(Corss-origin Resource Sharing)`，策略允许浏览器向跨源服务器，发出异步请求`(XHRHttpRequest)`，获取所需要的资源。   
+
+
+> 当`协议`、`子域名`、`主域名`、`端口号`中任意一个不相同时，都算作不同域。   
+
+##### 同源策略限制内容有       
+1️⃣ Cookie、LocalStorage、IndexedDB 等存储性内容    
+2️⃣ DOM 节点     
+3️⃣ AJAX 请求不能发送     
+
+
 
 ### 兼容性
 ![CORS兼容性](/blog_assets/section-cross-domain-cors.png)
