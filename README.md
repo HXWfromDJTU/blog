@@ -34,6 +34,7 @@
 * [【模拟 3-5】数组扁平化](/algorithm/flatten.js)
 * [【模拟 3-6】防抖与节流](/algorithm/debounce_throttle.js)  
 * [【模拟 3-7】New_Extend_Create_Assign_Instanceof模拟](/algorithm/instanceof.js)  
+* [【模拟 3-8】LazyMan--模拟一个简单的异步链式调用栈](/algorithm/LazyMan.js)  
 
 
 
