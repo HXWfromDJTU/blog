@@ -30,7 +30,7 @@
 * [【模拟 3-1】手工实现一个Promise](/algorithm/promise.js)
 * [【模拟 3-2】手工实现深拷贝](/algorithm/deepCopy.js)
 * [【模拟 3-3】ES3模拟实现 apply-call-bind](/algorithm/bind.js)
-* [【模拟 3-4】实现简单的eventEmitter](/algorithm/data_structure/sort/index.js)
+* [【模拟 3-4】实现简单的eventEmitter](/algorithm/data_structure/observer.js)
 * [【模拟 3-5】数组扁平化](/algorithm/flatten.js)
 * [【模拟 3-6】防抖与节流](/algorithm/debounce_throttle.js)  
 * [【模拟 3-7】New_Extend_Create_Assign_Instanceof模拟](/algorithm/instanceof.js)  
