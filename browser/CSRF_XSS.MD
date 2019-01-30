@@ -20,7 +20,7 @@ XSS(Cross-Site-Scripting)
 以下是Java Server设置返回报文的例子 
 ```java
 response.setHeader("Set-Cookie", "cookiename=value;
-Path=/;Domain=domainvalue;Max-Age=seconds;HTTPOnly");
+Path=/;Domain=domainvalue;Max-Age=seconds;HTTP-Only");
 ```
 
 ### CSRF
@@ -34,7 +34,7 @@ CSRF(Cross-Site-Request-Forgery)
 
 3️⃣ 看起来发了一篇文章没有什么，但是要是这个操作是转账操作呢？....
 `http://alipay/payment?toUserid=15016132387` 
-当然，阿里转账的接口不会有这么简单...但这是因为大厂有这个方法的思维，要是小厂分分钟呗。 
+当然，阿里转账的接口不会有这么简单...但这是因为大厂有这个方法的思维，要是小厂分分出问题钟呗。 
 
 ##### 防范措施 
 1️⃣ 明眼的同学就能看出，切，我换POST请求不就行了嘛。这是一条路子。  
