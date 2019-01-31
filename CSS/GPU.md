@@ -31,6 +31,28 @@
 
 
 
+RenderObject(LayoutObject)  DOM树种每个Node节点都有一个对应的`LayoutObject`
+
+RenderLayer(PaintLayer)     
+
+Compositing Layers 
+
+GraphicsLayers -> GraphicsContext 
+
+每一个HTML element元素都有一个node与之对应     
+
+DOM树到最后的渲染，需要进行一些转换映射     
+
+一般来说，创建`Paint Layer`的原因有三种：  
+1️⃣ NormanPaintLayer   
+
+2️⃣ OverflowClipLayer   
+
+3️⃣ NoPaintLayer   
+
+若没有出现这三种情况，则这个LayoutObject则和第一个拥有渲染层的父元素，共用一个渲染层。    
+
+
 
 
 
