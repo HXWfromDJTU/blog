@@ -33,9 +33,9 @@
 
 RenderObject(LayoutObject)  DOM树种每个Node节点都有一个对应的`LayoutObject`
 
-RenderLayer(PaintLayer)     
+RenderLayer(PaintLayer)     渲染层
 
-Compositing Layers 
+Compositing Layers    合成层   
 
 GraphicsLayers -> GraphicsContext 
 
@@ -45,16 +45,35 @@ DOM树到最后的渲染，需要进行一些转换映射
 
 一般来说，创建`Paint Layer`的原因有三种：  
 1️⃣ NormanPaintLayer   
+* 根元素   
+* 有明确定位的元素  
+* 透明度不为1的元素   
+* 使用了滤镜（filter）属性的元素   
+* 使用了 Mask 属性的元素   
+* 使用了 mix-blend-mode 属性  
+* 使用了 teansform 属性   
+* backface-visibility 属性为hidden  
+* 使用了 reflection 属性   
+* 有 CSS column-count 属性，或者有 CSS column-width 属性   
 
 2️⃣ OverflowClipLayer   
+* overflow 不为 visible   
 
 3️⃣ NoPaintLayer   
+* 一个不需要绘制paint的元素。比如说一个空的div元素。       
 
 若没有出现这三种情况，则这个LayoutObject则和第一个拥有渲染层的父元素，共用一个渲染层。    
 
+![](/blog_assets/devtools_fps.png)
+##### 渲染层提升为合成层   
+1️⃣ 直接原因   
+
+2️⃣ 后代元素原因  
+
+3️⃣ overlap 重叠原因 
 
 
-
+##### 层压缩  
 
 
 ___
