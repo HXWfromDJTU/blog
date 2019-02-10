@@ -1,34 +1,20 @@
 <body>
-    <div id="a">
-        <div id="b">
-            <div id="c">
-                <div id="d"></div>
-            </div>
-        </div>
-    </div>
-    <div id="x">
-        <div id="b">
-            <div id="c">
-                <div id="d"></div>
-            </div>
-        </div>
-    </div>
-    <script>
-      let worker = new Worker('./worker.js');
-      worker.postMessage('hahah');
-    </script>
-    <style>
-    div#a div{
-        border:1px solid blue;
-        padding:20px;
-    }
-    div#a{
-        margin-bottom: 16px;
-    }
-    div#x{
-        margin-top:16px;
-        border:1px solid red;
-        height: 32px;
-    }
-    </style>
+    <table class="table">
+        <tr><td>第一行</td></tr>
+        <tr><td>第二行</td></tr>
+        <tr><td>第三行</td></tr>
+        <tr><td>第四行</td></tr>
+      </table>
+       
+      <style>
+        .table tr:nth-child(2n-1){
+            background-color:white;
+        }
+        .table tr:nth-child(2n){
+            background-color:grey;
+        }
+        .table tr:hover{
+            background-color:yellow;
+        }
+      </style>
 </body>

@@ -113,6 +113,12 @@
 
 <!-- [Vue组件数据流](/network/vue/Vue%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%B5%81.md)-->
 
+##### Chrome Devtools使用指南 （待完成）
+* 【Devtools 1-1】Element面板 - Rendering
+* 【Devtools 2-1】Source面板  - 断点与资源分布  
+* 【Devtools 3-1】Network面板 - 网络调试
+* 【Devtools 3-2】Network面板 - timeline  
+* 【Devtools 3-3】Performance - 性能监测 
 
 
 ##### 项目难点系列 
