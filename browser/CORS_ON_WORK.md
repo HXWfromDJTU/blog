@@ -9,11 +9,8 @@
 #### 为什么有跨域需求?
 场景 —— 工程服务化后，不同职责的服务分散在不同的工程中，往往这些工程的域名是不同的，但一个需求可能需要对应到多个服务，这时便需要调用不同服务的接口，因此会出现跨域。
 ___
-### 使用JSONP进行跨域
-1️⃣ 上一篇文章有讲到过，`JSONP`有兼容性好的有点，几乎可以兼容所有市面上的低版本IE
-2️⃣ 缺点是，`JSONP`只支持`GET`请求，而且需要前后端的一齐配合，比较麻烦(你知道后端的啦...麻烦别人总是不好的)
 
-### 使用 postMessage 进行跨域
+### 6️⃣ 使用 postMessage 进行跨域
 [MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/postMessage)
 
 父页面发送消息：
@@ -36,16 +33,37 @@ window.addEventListener('message',function(e){
 ___
 ### 使用各种代理服务器实现跨域
 ☯️ 因为浏览器之外，使用服务器发起请求并没有同源策略的约束。
-☯️ 当然你的代理服务器，是要和当前页面是同源的...
+☯️ 当然你的代理服务器，是要和当前页面要部署在一个域上...
 
-#### node
+### 7️⃣ nginx
+我们可以在`nginx`层为每个请求都添加上跨域的配置  
+
+```conf
+# 匹配目标站点的域名
+server {
+  listen 81;
+  server_name localhost # 表示前端页面所载的服务器
+  location /{ # 表示拦截所有请求
+      proxy_pass http://www.server.com:8080 # 反向代理到真实的服务器上  
+      proxy_cookie_domin localhost www.server.com  # 传递cookie到目标服务器 
+
+      ### 添加头部跨域信息 start ####
+      add_header Access-Control-Allow-Origin *;
+      add_header Access-Control-Allow-Headers X-Requested-With;
+      add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
+      ###end ###
+  }
+}
+```
+
+### 8️⃣ node
 1️⃣ 代理服务器(中间层)接受客户端的服务请求
 2️⃣ 将 浏览器 的请求转发给真正的服务端
 3️⃣ 服务端返回所要请求的数据
 4️⃣ 将服务端返回的数据转发给客户端
 
 ```js
-//#### 浏览器脚本
+//浏览器脚本
 import axios from 'axios';
 axios.get('http://localhost:9527',{
   params:{
@@ -59,7 +77,7 @@ axios.get('http://localhost:9527',{
 ```
 
 ```js
-//#### 服务器脚本
+//服务器脚本
 const http = require('http'); //引入http模块
 // 创建代理服务器
 const server = http.createServer((request,reponse)=>{
@@ -94,16 +112,52 @@ server.listen(9527,()=>{
 },)
 ```
 
-#### nginx
-1️⃣ 我们可以在nginx层为每个请求都添加上跨域的配置
-```conf
-# 匹配目标站点的域名
-location /other_site/api/ {
-  ###start####
-  add_header Access-Control-Allow-Origin *;
-  add_header Access-Control-Allow-Headers X-Requested-With;
-  add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
-  ###end ###
+### 9️⃣ websocket 
+`WebSocket protocol` 是`HTML5`一种新的协议。它实现了浏览器与服务器全双工通信，同时允许跨域通讯，是`server push`技术的一种很棒的实现。  
+
+##### 客户端代码 
+```js
+// 客户端使用原始的 websocket规范进行编写
+let ws = new WebSocket('ws://192.30.47.91:8080/url');
+ws.open = function(){
+  console.log('websocket has connected');
 }
+
+ws.onclose = function(){
+  console.log('client socket has closed')
+}
+
+ws.onmessage = function(data){
+    console.log(data);
+}
+
+ws.send('some data'); 
+
+// 关闭连接
+ws.close();
 ```
 
+##### 服务端代码(192.30.47.91:8080)
+```js
+// 本例子中直接使用websocket的流行包socket.io进行演示
+let io = require('socket.io');
+let http = require('http');
+
+// 启动http服务
+let server = http.createServer((req,res)=>{
+  res.writeHead(200,{'Content-type','text-/html'});
+}).listen(9527);
+
+// 使用
+io.listen(server).on('connection',port=>{
+  // 
+  port.on('message',msg=>{
+    console.log('Message from Client:',msg);  // 打印客户端信息
+    client.send('Here is a message from server');// 给客户端发一条
+  })
+  port.on('disconnect',data=>{
+    console.log('Server was out...'); // 服务端断开连接了
+  })
+})
+
+```

@@ -19,4 +19,4 @@
 
 引用类型在读取值得时候，都会先进行valueOf和toString
 
-![](/blog_assets/toPrimitive.png)
+![](/blog_assets/toPrimitive.png) 

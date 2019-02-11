@@ -40,7 +40,10 @@ CSRF(Cross-Site-Request-Forgery)
 1️⃣ 明眼的同学就能看出，切，我换POST请求不就行了嘛。这是一条路子。  
 2️⃣ 设计支付这种破坏性的操作的，建议使用更高级的身份验证形式，比如验证指纹，或者重新输入密码等等...
 
+
+
 ### 参考文章
 [浏览器的沙箱模式](https://www.cnblogs.com/slly/p/6639173.html)  
 
-[前端优化 - by Alex 百度](https://juejin.im/book/5a8f9ddcf265da4e9f6fb959/section/5a8f9f7bf265da4e82635e46)
+[前端优化 - by Alex 百度](https://juejin.im/book/5a8f9ddcf265da4e9f6fb959/section/5a8f9f7bf265da4e82635e46)  
+
