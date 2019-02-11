@@ -26,7 +26,7 @@ window.addEventListener('message',function(e){
 ```
 接收时候，事件源对象`e`中可以获取三个重要的元素  
 1️⃣ data 表示父页面发过来的数据
-2️⃣ source 表示发送消息的窗口对象
+2️⃣ source 表示发送消息的窗口对象   
 3️⃣ origin 表示发送消息的窗口的 (协议 +  主机号 + 端口 )
 
 

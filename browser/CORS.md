@@ -8,9 +8,7 @@
 
 其实这是浏览器的同源策略，为了尽量保证页面的安全，默认不允许加载不同源的资源。 
 
-
-
-
+##### 怎么样是跨域
 > 当`协议`、`子域名`、`主域名`、`端口号`中任意一个不相同时，都算作不同源。   
 
 ##### 同源策略限制内容有       
@@ -21,22 +19,76 @@
 
 ##### 跨域的方式一共有多种
 
-| 序号| 跨域方法 | 主要原理 | 优缺点 | 写法 |
-| ------ | ------ | ------ | ------ | ------ |
-| 1️⃣ | `JSONP`   | 使用服务端返回字符串立即执行全局函数来传递参数 | 只能够使用get请求 |  |
-| 2️⃣ | `iframe + domain`  | 通过JS进行document.domin将iframe和主页面设置为同一个domian实现跨子域 | 只能够跨子域 ,只能够在同个iframe内 |  |
+| 序号| 跨域方法 | 主要原理 | 优缺点 |
+| ------ | ------ | ------ | ------ | 
+| 1️⃣ | `JSONP`  | 使用服务端返回字符串立即执行全局函数来传递参数 | 只能够使用get请求 |  |
+| 2️⃣ |  `CORS`  |  HTTP协议的`Allow-Control-Allow-Origin`等字段，与服务端达成协议|  |
 | 3️⃣ | `iframe + hash`  |  |  |  |
 | 4️⃣ | `iframe + window.name`  |  |  |  |
-| 5️⃣ | `CORS`  |  |  |  |
+| 5️⃣ |  `iframe + domain` |通过JS进行document.domin将iframe和主页面设置为同一个domian实现跨子域 | 只能够跨子域 ,只能够在同个iframe内 |  |  |
 | 6️⃣| `postMessage`  |  |  |  |
-| 7️⃣ | `nginx`  |  |  |  |  
-| 8️⃣ | `nodejs`  |  |  |  |  
-| 9️⃣ | `websocket`  |  |  |  |  
+| 7️⃣ | `nginx`  | 代理服务器不存在跨域问题 |  |  |  
+| 8️⃣ | `nodejs`  | 代理服务器不存在跨域问题 |  |  |  
+| 9️⃣ | `websocket`  | websocket协议原本就允许跨域 |  |  |  
 
 
 
 ___  
-### 1️⃣ CORS
+
+### 1️⃣ 标签资源"跨域"JSONP
+在HTML规范中，有几个标签请求的资源是可以逃避同源策略的。 
+1️⃣ `<img>`标签是一个由来已久的标签，几乎没有任何的兼容性问题。实战中也常常用于打点计数。 
+```js
+let image = new Image();
+image.onerror = image.onload = function(){
+   console.log('跨域请求已经被服务器成功接收，但是我拿不到responseTest...😭');
+}
+image.src = 'www.taobao.com/api/v2?name=swainwong'
+```
+2️⃣ `<script>`与`<linkl>`分别用于加载浏览器资源，也是常用的标签，常用于CDN请求  
+3️⃣ `<script>`标签还可以用与实现 JSONP跨域请求...下文继续讲述 
+
+##### JSONP
+JSONP(JSONP with padding)相信FNer们在好多文章中都听过JSONP的大名，但是都没有实现过
+##### 实现原理
+1️⃣ 只能够使用get请求跨域获取资源
+2️⃣ JSONP的原理是`script`标签不受同源策略的限制
+##### 客户端操作
+1️⃣ 客户端首先需要在全局环境中声明一个函数，用于接收和处理即将通过JSONP获取到的数据  
+2️⃣ 然后使用Javscript动态生成一个`script`标签，类型为`text/javscript`,`src`值为`要跨域获取的资源地址`+`获取函数的字段名称`+`回调函数的名称`。例如：`www.assets.com/assets?callbackName=resovleFunction`，最后动态插入到head标签中
+```js
+function resolveJosn(result) {
+	console.log(result.name);
+}
+var jsonpScript= document.createElement("script");
+jsonpScript.type = "text/javascript";
+jsonpScript.src = "https://www.qiute.com?callback=resolveJson";
+document.getElementsByTagName("head")[0].appendChild(jsonpScript);
+```
+
+##### 服务端处理
+1️⃣ 服务端接收到请求之后，从取出请求的URL中取出方法的名称
+2️⃣ 使用这个方法的名称，动态生成一段Javascript代码，在代码中使用这个方法，将所需要传输的跨域数据，作为函数的参数传入处理方法中
+```js
+server.on('request', function(req, res) {
+    var params = qs.parse(req.url.split('?')[1]);
+    var fn = params.callback;
+    // jsonp返回设置
+    res.writeHead(200, { 'Content-Type': 'text/javascript'});
+    res.write(fn + '(' + JSON.stringify(params) + ')');
+    res.end();
+});
+```
+##### 实现效果
+3️⃣ 服务端返回这一段`script`之后，浏览器端获取到了资源，根据浏览器的加载策略，会立即执行这段代码。达到跨域获取数据的效果。
+
+##### 注意事项
+1️⃣ JSONP是从其他域中加载代码执行，如果域名不安全，很可能会在响应中夹带一些恶意代码。   
+2️⃣ 我们无法得知JSONP请求的成功与否。   
+
+___
+
+### 2️⃣ CORS
  
 W3C还有一个CROS策略`(Corss-origin Resource Sharing)`，策略允许浏览器向跨源服务器，发出异步请求`(XHRHttpRequest)`，获取所需要的资源。   
 #### CORS 的兼容性
@@ -108,60 +160,15 @@ User-Agent: Mozilla/5.0...
 5️⃣ 并且每次的跨域请求中，请求报文会包含`Origin`字段，服务器的返回报文会包含`Access-Control-Allow-Origin`
 ___
 
-### 2️⃣ 标签资源"跨域"JSONP
-在HTML规范中，有几个标签请求的资源是可以逃避同源策略的。 
-1️⃣ `<img>`标签是一个由来已久的标签，几乎没有任何的兼容性问题。实战中也常常用于打点计数。 
-```js
-let image = new Image();
-image.onerror = image.onload = function(){
-   console.log('跨域请求已经被服务器成功接收，但是我拿不到responseTest...😭');
-}
-image.src = 'www.taobao.com/api/v2?name=swainwong'
-```
-2️⃣ `<script>`与`<linkl>`分别用于加载浏览器资源，也是常用的标签，常用于CDN请求  
-3️⃣ `<script>`标签还可以用与实现 JSONP跨域请求...下文继续讲述 
+### 3️⃣ iframe + document.domain   
 
-##### JSONP
-JSONP(JSONP with padding)相信FNer们在好多文章中都听过JSONP的大名，但是都没有实现过
-##### 实现原理
-1️⃣ 只能够使用get请求跨域获取资源
-2️⃣ JSONP的原理是`script`标签不受同源策略的限制
-##### 客户端操作
-1️⃣ 客户端首先需要在全局环境中声明一个函数，用于接收和处理即将通过JSONP获取到的数据  
-2️⃣ 然后使用Javscript动态生成一个`script`标签，类型为`text/javscript`,`src`值为`要跨域获取的资源地址`+`获取函数的字段名称`+`回调函数的名称`。例如：`www.assets.com/assets?callbackName=resovleFunction`，最后动态插入到head标签中
-```js
-function resolveJosn(result) {
-	console.log(result.name);
-}
-var jsonpScript= document.createElement("script");
-jsonpScript.type = "text/javascript";
-jsonpScript.src = "https://www.qiute.com?callback=resolveJson";
-document.getElementsByTagName("head")[0].appendChild(jsonpScript);
-```
+### 4️⃣ iframe + window.name 
 
-##### 服务端处理
-1️⃣ 服务端接收到请求之后，从取出请求的URL中取出方法的名称
-2️⃣ 使用这个方法的名称，动态生成一段Javascript代码，在代码中使用这个方法，将所需要传输的跨域数据，作为函数的参数传入处理方法中
-```js
-server.on('request', function(req, res) {
-    var params = qs.parse(req.url.split('?')[1]);
-    var fn = params.callback;
-    // jsonp返回设置
-    res.writeHead(200, { 'Content-Type': 'text/javascript'});
-    res.write(fn + '(' + JSON.stringify(params) + ')');
-    res.end();
-});
-```
-##### 实现效果
-3️⃣ 服务端返回这一段`script`之后，浏览器端获取到了资源，根据浏览器的加载策略，会立即执行这段代码。达到跨域获取数据的效果。
+### 5️⃣ iframe + location.hash 
 
-##### 注意事项
-1️⃣ JSONP是从其他域中加载代码执行，如果域名不安全，很可能会在响应中夹带一些恶意代码。   
-2️⃣ 我们无法得知JSONP请求的成功与否。   
+### summary
+> 接下来准备去了解剩下的跨域方法，在项目中具体有哪些跨域需求，又有哪些操作需要FEer们去进行操作的 :smile: [传送门](/browser/CORS_ON_WORK.md)
 
-> 接下来准备去了解一哈，在项目中具体有哪些跨域需求，又有哪些操作需要FEer们去进行操作的 :smile: [传送门](/browser/CORS_ON_WORK.md)
-
-___
 ### 参考文章
 [CORS - qiutc.me](https://qiutc.me/post/cross-domain-collections.html)       
 [CORS - MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS)   
