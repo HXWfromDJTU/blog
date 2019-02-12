@@ -65,11 +65,10 @@
 * [【浏览器系列 1-3】浏览器存储](/borwser/browser_storage.md)
 * [【浏览器系列 1-4】Javascript垃圾回收](/JS/GC.md)
 * [【浏览器系列 1-5】Javascript内存分配](/JS/memory_allocation.md)
-* [【浏览器系列 1-6】浏览器跨域](/browser/CORS.md)
-* [【浏览器系列 1-7】跨域实战](/browser/CORS.md)
-* [【浏览器系列 1-8】性能优化1 - 整体流程优化](/browser/rending_optimize.md)
-* [【浏览器系列 1-9】性能优化2 - css性能优化](/CSS/css_optimize.md)
-* [【浏览器系列 1-10】浏览器事件模型](/JS/eventMode.md)
+* [【浏览器系列 1-6】浏览器跨域总结](/browser/CORS.md)<!-- * [【浏览器系列 1-7】跨域实战](/browser/CORS.md) -->
+* [【浏览器系列 1-7】性能优化1 - 整体流程优化](/browser/rending_optimize.md)
+* [【浏览器系列 1-8】性能优化2 - css性能优化](/CSS/css_optimize.md)
+* [【浏览器系列 1-9】浏览器事件模型](/JS/eventMode.md)
 
 ##### 网络传输系列
 * [【传输层 1-1】DNS基本原理](/network/DNS.md)

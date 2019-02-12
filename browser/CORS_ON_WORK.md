@@ -11,8 +11,8 @@
 ___
 
 ### 6️⃣ 使用 postMessage 进行跨域
-[MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/postMessage)
-
+[MDN文档] (https://developer.mozilla.org/zh-CN/docs/Web/API/Window/postMessage)
+##### 举个iframe的例子
 父页面发送消息：
 ```js 
 window.frames[0].postMessage('message', origin)
@@ -24,6 +24,10 @@ window.addEventListener('message',function(e){
       //TODO ...
 });
 ```
+##### 另一个页面的例子
+![](/blog_assets/CO_postMessage.png)  
+
+
 接收时候，事件源对象`e`中可以获取三个重要的元素  
 1️⃣ data 表示父页面发过来的数据
 2️⃣ source 表示发送消息的窗口对象   
