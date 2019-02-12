@@ -17,4 +17,9 @@ function New(fun){
     }
 }
 
-```
+``` 
+
+### 小常识
+1️⃣ new Person 和 new Person() 含义相同，都相当于调用了构造函数，并且给构造函数传递了一个`undefined`参数。   
+
+

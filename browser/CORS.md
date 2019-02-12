@@ -48,30 +48,42 @@ image.onerror = image.onload = function(){
 image.src = 'www.taobao.com/api/v2?name=swainwong'
 ```
 2️⃣ `<script>`与`<linkl>`分别用于加载浏览器资源，也是常用的标签，常用于CDN请求  
-3️⃣ `<script>`标签还可以用与实现 JSONP跨域请求...下文继续讲述 
+3️⃣ `<script>`标签还可以用与实现 JSONP跨域请求...下文继续讲述   
 
-##### JSONP
-JSONP(JSONP with padding)相信FNer们在好多文章中都听过JSONP的大名，但是都没有实现过
 ##### 实现原理
+JSONP(JSONP with padding)相信FNer们在好多文章中都听过JSONP的大名，但是都没有实现过
 1️⃣ 只能够使用get请求跨域获取资源
 2️⃣ JSONP的原理是`script`标签不受同源策略的限制
 ##### 客户端操作
 1️⃣ 客户端首先需要在全局环境中声明一个函数，用于接收和处理即将通过JSONP获取到的数据  
 2️⃣ 然后使用Javscript动态生成一个`script`标签，类型为`text/javscript`,`src`值为`要跨域获取的资源地址`+`获取函数的字段名称`+`回调函数的名称`。例如：`www.assets.com/assets?callbackName=resovleFunction`，最后动态插入到head标签中
+##### 客户端处理
 ```js
+// callback处理函数  
 function resolveJosn(result) {
 	console.log(result.name);
 }
+// 原生
 var jsonpScript= document.createElement("script");
 jsonpScript.type = "text/javascript";
 jsonpScript.src = "https://www.qiute.com?callback=resolveJson";
 document.getElementsByTagName("head")[0].appendChild(jsonpScript);
+
+// jQuery 
+$.ajax({
+    url: 'https://www.qiute.com',
+    type: 'get',
+    dataType: 'jsonp',  // 请求方式为jsonp
+    jsonpCallback: "resolveJson",    // 自定义回调函数名
+    data: {}
+});
 ```
 
 ##### 服务端处理
 1️⃣ 服务端接收到请求之后，从取出请求的URL中取出方法的名称
 2️⃣ 使用这个方法的名称，动态生成一段Javascript代码，在代码中使用这个方法，将所需要传输的跨域数据，作为函数的参数传入处理方法中
 ```js
+// nodejs服务端 
 server.on('request', function(req, res) {
     var params = qs.parse(req.url.split('?')[1]);
     var fn = params.callback;
@@ -352,14 +364,12 @@ iframe = document.createElement('iframe');
 
 <!-- ### summary
 > 接下来准备去了解剩下的跨域方法，在项目中具体有哪些跨域需求，又有哪些操作需要FEer们去进行操作的 :smile: [传送门](/browser/CORS_ON_WORK.md) -->
-
+___
 ### 参考文章
 [CORS - qiutc.me](https://qiutc.me/post/cross-domain-collections.html)       
 [CORS - MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS)   
 [CORB是什么鬼](https://blog.csdn.net/weixin_42672054/article/details/81985736)  
 [前端跨域大全 -by 360前端](https://segmentfault.com/a/1190000016653873)  
-
-
 [前端常见跨域 - 掘金](https://juejin.im/entry/59b8fb276fb9a00a42474a6f)
 
 
