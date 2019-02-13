@@ -132,7 +132,8 @@ W3C还有一个CROS策略`(Corss-origin Resource Sharing)`，策略允许浏览�
    var xhr = new XMLHttpRequest(); 
    xhr.withCredentials = true;
    ```
-   ☎️ 若要使用cookie跨域，服务端相应头中，`Access-Control-Allow-Origin`就不能模糊地表为` * `，而是需要标明与发送请求客户的地址。
+   ☎️ 若要使用cookie跨域，服务端相应头中，`Access-Control-Allow-Origin`就不能模糊地表为` * `，而是需要标明与发送请求客户的地址。   
+   
 ##### 3️⃣ `Access-Control-Expose-Headers`
    可选字段，用于给返回报文中，添加六个基本字段外的其他字段。客户端在获得返回报文的时候，可以使用`XHR.getResponseHeader()`获取到包括基础字段，外加这些额外的字段 
 
