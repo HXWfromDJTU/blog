@@ -1,26 +1,37 @@
-# cookie  
+# 浏览器中的cookie  
+![](/blog_assets/cookie_cover.png)
 ### cookie是什么  
 首先定义一下，cookie是一段记录用户信息的字符串，一般保存在客户端的内存或者硬盘中。       
-
+![](/blog_assets/cookie_file.png)
+##### 使用浏览器界面看看查看
 ![](/blog_assets/ff_cookie.png)
 ### 服务端读写cookie
 cookie的创建是由服务端的响应头，其中带着`set-cookie`的字段，来对客户端进行cookie设置。   
 
 ![](/blog_assets/cookie_set.png) 
 
-##### 常用字段有  
+#### 常用字段有  
 `name` 表示cookie的名称    
 
 `value` 字段表示cookie的值       
 
-`domain` 表示cookie的有效域，默认值为当前域名。         
-👉 当服务器是`非顶级域名`时，不能够跨顶级域名设置其他域的二级三级域名。     
-👉 当服务器是`顶级域名`时，只能够设置顶级域名，不能够设置二级与三级域名,也不能够读取二级与三级域名中的`cookie`     
-👉 当服务器是`二级域名`时，只能够设置domain为自身`二级域名`或者`对应的顶级域名`，那么当我们想共享cookie值给所有二级域名的时候，我们的cookie就应该设置为`对应的顶级域名`。         
+##### `domain` 
+表示cookie的有效域，默认值为当前域名。                   
+👉 一个服务器能够设置`domian`的有效的范围是，从自身域名开始，`向上`追溯到一级域名。比如`a.b.c.baidu.com`能够设置有效的cookie-domain是`.a.b.c.baidu.com`、`.b.c.baidu.com`、`.c.baidu.com`、`.baidu.com`。同样的，在读取cookie并且通过http request发送cookie时，也是去匹配匹配上述规则范围内的cookie一并发送到服务器。      
+👉 不能够跨`上级域名`设置其他域的子域。不能够设置`.a.u.c.baidu.com`。       
+👉 当服务器想共享`cookie`值给所有二级域名的时候，我们的`cookie`就应该设置为`共同的上一级域名`。比如`.baidu.com`(常用于单点登录)       
 
-`path` 也表示限制cookie的有效范围，与`domain`共同作用,默认值为`/`表示所有路径       
+⭕️ 在不domain下的cookie即使同名也不会覆盖，若在同一个domain下，同名的cookie后者会覆盖前者。   
+
+⭕️ 若不显示设置`cookie`的`domain`值，则浏览器会处理为生成一个只对当前域名有效的`cookie`。比如在`map.baidu.com`下，我们生成了一个cookie，但没有指定domain值，那么这个cookie,只有在访问`map.baidu.com`时候有效，而`abc.map.baidu.com`和`user.map.baidu.com`都是拿不到的。        
+
+⭕️ 建议设置cookie时候，都带上`.`符号，如`.a.b.c.baidu.com`。
+
+
+##### `path`    
+也表示限制cookie的有效范围，与`domain`共同作用,默认值为`/`表示所有路径          
 比如说`domain`为`www.abc.com`,`path`为`/sale/img`，则只有匹配`www.abc.com/sale/img`路径的资源才可以读取`cookie`。  
-谨记，这里的规则是`匹配模式`的，也就是说，上面的例子也能匹配`www.abc.com/sale/img/qqq/ss`      
+谨记，这里的规则是`匹配模式`的，也就是向后匹配，上面的例子也能匹配`www.abc.com/sale/img/qqq/ss`      
 
 `expire/Max-Age`表示为cookie的有效时间       
 默认值session,也就是指浏览器session，也就是用户关闭浏览器就会清除掉这个cookie。       
@@ -76,20 +87,21 @@ function setCookie(name,value){
 浏览器对对一个域的cookie大小和数目都有着不同的限制。   
 | 浏览器 | 数目(个/域) | 总大小 | 其他 |
 | ------ | ------ | ------ | ------ | 
-| Firefox | 50个  | 4M | 
-| Chrome | 53个  | 4M |
-| Safari | 无限制  | 4M |  
-| IE 7+ | 50个  | <4m |  使用LRU淘汰 |
-| IE 6 | 20个  | <4m |  使用LRU淘汰 |
-| Opera | 30个  | 4M |
+| Firefox | 50个  | 4k | 
+| Chrome | 53个  | 4k |
+| Safari | 无限制  | 4k |  
+| IE 7+ | 50个  | <4k |  使用LRU淘汰 |
+| IE 6 | 20个  | <4k |  使用LRU淘汰 |
+| Opera | 30个  | 4k |
 
-### 不可跨域使用  
-关于域的设置，👆前面部分有介绍。     
+### cookie与跨域 
+关于域的设置，👆前面讲解domain部分有介绍。     
 
-`cookie`中的`domin`设置的跨域是指跨子域名都不可以访问,例如`www.baidu.com`和`map.baidu.com`是不可以跨域进行读取内容的。     
+`cookie`中的`domin`设置的跨域是指跨子域名都不可以访问,例如`www.baidu.com`和`map.baidu.com`是不可以跨域进行读取内容的。(看上述domain第一条规则)     
 ![](/blog_assets/cookie_devtool.png) 
-##### 在设置CORS请求的时候     
-✅ 首先服务端要返回`Access-Control-Allow-Credentials`表明允许跨域请求携带`cookie`，并且`Allow-Control-Allow-Origin`字段也不能模糊的表示为`*`，而要写明`cookie`发送的域      
+##### CORS下的cookie跨域    
+✅ 首先服务端要返回`Access-Control-Allow-Credentials`表明允许跨域请求携带`cookie`，并且`Allow-Control-Allow-Origin`字段也不能模糊的表示为`*`，而要写明`cookie`发送的域   
+
 ✅ 再者，客户端也要设置请求的携带`cookie`     
 ```js
 // 原生ajax请求设置跨域携带cookie
@@ -130,5 +142,7 @@ ___
 ### 参考文章   
 
 
-[干掉状态：从 session 到 token](https://juejin.im/entry/592e286d44d9040064592a7b)
+[干掉状态：从 session 到 token](https://juejin.im/entry/592e286d44d9040064592a7b)   
+
+[正确使用cookie中的domain](https://blog.csdn.net/u010856177/article/details/81104714)
 
