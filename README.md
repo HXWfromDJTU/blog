@@ -27,7 +27,7 @@
 * [【排序 2-6】计数排序](/algorithm/data_structure/sort/CountSort.js)
 * [【排序 2-7】 桶排序](/algorithm/data_structure/sort/BucketSort.js)
 * [【排序 2-8】各种排序效率比较](/algorithm/data_structure/sort/index.js)
-* [【模拟 3-1】手工实现一个Promise](/algorithm/promise.js)
+* [【模拟 3-1】手工实现一个Promise](https://github.com/HXWfromDJTU/sw-promise)
 * [【模拟 3-2】手工实现深拷贝](/algorithm/deepCopy.js)
 * [【模拟 3-3】ES3模拟实现 apply-call-bind](/algorithm/bind.js)
 * [【模拟 3-4】实现简单的eventEmitter](/algorithm/data_structure/observer.js)
