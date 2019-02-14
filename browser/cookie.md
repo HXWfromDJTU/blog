@@ -2,10 +2,10 @@
 ![](/blog_assets/cookie_cover.png)
 ### cookie是什么  
 首先定义一下，cookie是一段记录用户信息的字符串，一般保存在客户端的内存或者硬盘中。       
-![](/blog_assets/cookie_file.png)
+![](/blog_assets/cookie_file.png)     
 ##### 使用浏览器界面看看查看
 ![](/blog_assets/ff_cookie.png)
-### 服务端读写cookie
+### 服务端读写cookie    
 cookie的创建是由服务端的响应头，其中带着`set-cookie`的字段，来对客户端进行cookie设置。   
 
 ![](/blog_assets/cookie_set.png) 
@@ -41,9 +41,14 @@ Max-Age 的值为一个秒值
 
 `size` 表示cookie的大小     
 
-`secure` 若设置为true，则表表示此`cookie`只会在https协议或者ssl等安全协议下进行发送。          
+##### `secure` 
+若设置为true，则表表示此`cookie`只会在https协议或者ssl等安全协议下进行发送。 
+```js
+document.cookie = "username=cfangxu; secure"
+```
 
-`http-only` 表示该cookie只会在http请求传输的时候携带，而不能够被本地的JavaScript脚本所读取到。(可以简要的防止XSS攻击)。     
+##### `http-only` 
+表示该cookie只会在http请求传输的时候携带，而不能够被本地的JavaScript脚本所读取到。(可以简要的防止XSS攻击)。     
 
 ### 客户端读写Cookie 
 读取cookie可以使用`docuemnt.cookie`
