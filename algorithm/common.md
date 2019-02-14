@@ -15,6 +15,17 @@ arr = [...new Set(arr)];
 ```
 
 
-### 3️⃣ 实现
+### 3️⃣ 格式化cookie为JSON
+```js
+// 格式化cookie函数
+function parseCookie() { 
+    var cookie = document.cookie;
+    var pattern = /([^=]+)=([^;]+);?\s*/g;
+    var result, value = {}; 
+    while((result = pattern.exec(cookie)) != null) {
+         value[result[1]] = result[2]; 
+         } return value; 
+   }
+```
 
 
