@@ -26,15 +26,15 @@
 * [【排序 2-5】快速排序](/algorithm/data_structure/sort/QuickSort.js) 
 * [【排序 2-6】计数排序](/algorithm/data_structure/sort/CountSort.js)
 * [【排序 2-7】 桶排序](/algorithm/data_structure/sort/BucketSort.js)
-* [【排序 2-8】各种排序效率比较](/algorithm/data_structure/sort/index.js)
-* [【模拟 3-1】手工实现一个Promise](https://github.com/HXWfromDJTU/sw-promise)
-* [【模拟 3-2】手工实现深拷贝](/algorithm/deepCopy.js)
+* [【排序 2-8】各种排序效率比较](/algorithm/data_structure/sort/index.js) 
+* [【模拟 3-1】手工实现一个Promise](https://github.com/HXWfromDJTU/sw-promise) `hot`
+* [【模拟 3-2】手工实现深拷贝](/algorithm/deepCopy.js) `hot`
 * [【模拟 3-3】ES3模拟实现 apply-call-bind](/algorithm/bind.js)
 * [【模拟 3-4】实现简单的eventEmitter](/algorithm/data_structure/observer.js)
 * [【模拟 3-5】数组扁平化](/algorithm/flatten.js)
 * [【模拟 3-6】防抖与节流](/algorithm/debounce_throttle.js)  
 * [【模拟 3-7】New_Extend_Create_Assign_Instanceof模拟](/algorithm/instanceof.js)  
-* [【模拟 3-8】LazyMan--模拟一个简单的异步链式调用栈](/algorithm/LazyMan.js)  
+* [【模拟 3-8】LazyMan--模拟一个简单的异步链式调用栈](/algorithm/LazyMan.js)  `new`   
 
 
 
@@ -47,8 +47,8 @@
 * [【JS 2-1】Javascript EventLoop In Browser](/JS/eventloop.md)
 * [【JS 2-2】再看闭包](/JS/closure.md)
 * [【JS 2-3】作用域链](/JS/[[SCOPE]].md)
-* [【JS 2-4】微任务](/JS/microTask.md)
-* [【JS 2-5】Javascript模块化方案总结](/project_build/js_modules.md)
+* [【JS 2-4】微任务](/JS/microTask.md)   
+* [【JS 2-5】Javascript模块化方案总结](/project_build/js_modules.md)   
 * [【JS 2-6】this指向哪里](/JS/apply_call_bind_this.md)
 * [【JS 2-7】类型检测](/JS/type_inspect.md)
 
@@ -65,17 +65,18 @@
 * [【浏览器系列 1-3】浏览器存储](/borwser/browser_storage.md)
 * [【浏览器系列 1-4】Javascript垃圾回收](/JS/GC.md)
 * [【浏览器系列 1-5】Javascript内存分配](/JS/memory_allocation.md)
-* [【浏览器系列 1-6】浏览器跨域总结](/browser/CORS.md)<!-- * [【浏览器系列 1-7】跨域实战](/browser/CORS.md) -->
+* [【浏览器系列 1-6】浏览器跨域总结](/browser/CORS.md)`hot`
 * [【浏览器系列 1-7】性能优化1 - 整体流程优化](/browser/rending_optimize.md)
 * [【浏览器系列 1-8】性能优化2 - css性能优化](/CSS/css_optimize.md)
 * [【浏览器系列 1-9】浏览器事件模型](/JS/eventMode.md)  
-* [【浏览器系列 1-10】浏览器中的cookie](/browser/cookie.md)
+* [【浏览器系列 1-10】浏览器中的cookie](/browser/cookie.md)   `new` 
+* [【浏览器系列 1-11】从渲染Timeline中深入交互优化](/browser/PaintTiming.md) `new` 
 
 ##### 网络传输系列
 * [【传输层 1-1】DNS基本原理](/network/DNS.md)
 * [【传输层 1-2】TCP与UDP](/network/network_class/TCP.md)
 * [【应用层 2-1】HTTP 2.0🔱](/network/http/http2.0.md) 
-* [【应用层 2-2】HTTP状态码 - 从报文头一一分析](/network/http/status_code/summary.md)
+* [【应用层 2-2】HTTP状态码 - 从报文头一一分析](/network/http/status_code/summary.md) `hot`
 * [【应用层 2-3】从报文分析HTTPS握手过程](/network/http/https.md)
 * [【应用层 2-4】“熟悉而陌生”的GET_&_POST](/network/http/post_get.md) 
 * [【网络安全 3-1】XSS 与 CSRF](/browser/CSRF_XSS.md)
