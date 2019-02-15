@@ -60,9 +60,18 @@ ___
 ##### 标签引入
 ```html
 <script type="module" src="./foo.js"></script>
-<!-- 等同于 -->
-<script type="module" src="./foo.js" defer></script>
+<!-- 效果类似于 -->
+<script src="./foo.js" defer></script>
+<!-- async标志，会自动加载，并且加载成功就马上执行，不管script标签的前后顺序(除非当前有script正在执行) -->
+<script src="./foo.js" defer></script>
 ```
+>`defer`关键字表示脚本的`执行`延迟到文档加载完成之后。 ![](/blog_assets/defer_script.png)    
+
+> `module`关键字也能够使得JS在DOM加载完后才执行，兼容性不如前者,IE封杀，edge 16+,FF60+,Chrome 61+
+![](/blog_assets/module_script.png)   
+
+当二者同时出现的时候，执行顺序是`一般脚本` >  `module脚本`  > `defer脚本` > `DOMContentLoaded事件`           
+
 
 ##### import引入
 
