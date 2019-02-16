@@ -62,7 +62,7 @@
 ##### 浏览器系列
 * [【浏览器系列 1-1】线程与进程](/browser/JS_browser_thread.md)
 * [【浏览器系列 1-2】页面渲染-老话新谈](/network/how_browser_work.md)
-* [【浏览器系列 1-3】浏览器存储](/borwser/browser_storage.md)
+* [【浏览器系列 1-3】浏览器存储](/browser/browser_storage.md)
 * [【浏览器系列 1-4】Javascript垃圾回收](/JS/GC.md)
 * [【浏览器系列 1-5】Javascript内存分配](/JS/memory_allocation.md)
 * [【浏览器系列 1-6】浏览器跨域总结](/browser/CORS.md)`hot`

@@ -155,3 +155,4 @@ ___
 ### 参考文章
 [前端性能量化标准 -by 云栖社区](https://yq.aliyun.com/articles/598162)
 
+[DOMContentLoaded与load的区别](https://www.cnblogs.com/caizhenbo/p/6679478.html)

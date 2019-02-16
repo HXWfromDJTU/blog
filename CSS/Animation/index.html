@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+    #anim {
+  position: absolute;
+  left: 0px;
+  width: 150px;
+  height: 150px;
+  line-height: 150px;
+  background: aqua;
+  color: white;
+  border-radius: 10px;
+  padding: 1em;
+}
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div id="anim"> Click here to start animation</div>
+</body>
+<script>
+// 兼容性处理
+window.requestAnimFrame = (function() {
+  return (
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function(callback, element) {
+      window.setTimeout(callback, 1000 / 60)
+    }
+  )
+})()
+
+var elem = document.getElementById('anim')
+var startTime;
+
+function render(time) {
+  time = Date.now()
+  if (!startTime) {
+    startTime = time
+  }
+  elem.style.left = ((time - startTime) / 10) % 500 + 'px'
+  elem.style.top = ((time - startTime) / 10) % 500 + 'px'
+}
+
+elem.onclick = function() {
+  (function animloop() {
+    render()
+    requestAnimFrame(animloop, elem)
+  })()
+}
+
+</script>
+</html>
