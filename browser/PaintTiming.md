@@ -2,11 +2,11 @@
 
 我们知道在浏览器渲染中，页面渲染有几个关键的时刻比如说`First Paint`、`DOMContentLoaded`、`Onload`以及`可交互时间`。     
 
-打开我们亲爱的淘宝页面，使用`devtools`中的`Performance`面板录制一段从初始加载到完成的过程，可以看出各个资源的下载和执行的过程，也能看到`Chrome`给我们标出了所需要注意的几个关键时间点。     
+打开我们亲爱的淘宝页面，使用`devtools`中的`Performance`面板录制一段从初始加载到完成的过程，可以看出各个资源的下载和执行的过程，也能看到`Chrome`给我们标出了所需要注意的几个关键时间点。     
 ![](/blog_assets/paint_timing_taobao.png)     
 
 
-### DOMContentLoaded   
+### DOMContentLoaded   
 直接看字面意思，就是DOM的内容加载(解析)完毕了。而据我们之前所知，页面中脚本(无论是外链还是内联)的执行都会阻碍DOM的解析，也就是说脚本的执行，会延迟`DOMContentLoaded`事件的到来。
 
 ![](/blog_assets/script_block_parse.png)   
@@ -103,9 +103,9 @@ FMP在chrome下的定义是，浏览器计算页面的内容高度或者说是�
 
 重要的是，也能确保使用`async`标记的`script`被加载并且执行完，假如我们的一些业务代码是依赖于这些异步加载的第三方库的，则不会出现业务代码操作失败。   
 
-但因为`图片、视屏`这一类的资源一般都是加载时间较长，所以`onload`事件的使用，需要谨慎，否则会大大拖延业务代码的执行。   
+但因为`图片、视屏`这一类的资源一般都是加载时间较长，所以`onload`事件的使用，需要谨慎，否则会大大拖延业务代码的执行。   
 
-对应到代码上，就是使用JS去监听`window.onload`事件
+对应到代码上，就是使用JS去监听`window.onload`事件
 ```js
 window.onload=function(){
   document.getElementById("bg").style.backgroundColor="#F90"; //DOM操作
