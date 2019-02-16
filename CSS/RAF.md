@@ -55,4 +55,30 @@ elem.onclick = function() {
 动画执行一段时间后，最小化浏览器，然后再打开，发现元素位置不变。
 ![](/BLOG_ASSETS/block_RAF.png)
 
-![](/BLOG_ASSETS/block_RAF2.png)
+![](/BLOG_ASSETS/block_RAF2.png) 
+
+
+### RAF的使用
+其实RAF在使用上像是一个`setTimeout`而不是`setInterval`，因为调用一次RAF，只会执行一次，需要在回调中再次去设置RAF才能够实现。但是熟悉JS异步任务的都知道，异步队列的执行需要等待主函数执行完毕，也就是说前面的任务会造成定时器`不准时`，要是在动画中，则会出现`卡帧`。     
+![](/blog_assets/setTimeout_delay.png)   
+
+
+##### Q:RAF也是JS的函数，为什么不会被延迟呢？   
+答案是也会被延迟
+
+##### 函数节流
+得益于这个优点，RAF也可以用于用于函数节流。  
+
+
+### 兼容性
+说了这么多，我们最后看一下兼容性   
+![](/blog_assets/RAF_campatibility.png)    
+
+```js
+
+```  
+
+
+### 总结 
+`RAF`采用的是浏览器帧刷新间隔，始终保持最佳绘制效率。不会因为动画间隔过短，过度消耗性能。也不会因为事时间过长，使得动画卡顿。 
+
