@@ -71,6 +71,7 @@
 * [【浏览器系列 1-9】浏览器事件模型](/JS/eventMode.md)  
 * [【浏览器系列 1-10】浏览器中的cookie](/browser/cookie.md)   `new` 
 * [【浏览器系列 1-11】从渲染Timeline中深入交互优化](/browser/PaintTiming.md) `new` 
+* [【浏览器系列 1-12】屏幕刷新与requestAnimationFrame](/css/RAF.md)
 
 ##### 网络传输系列
 * [【传输层 1-1】DNS基本原理](/network/DNS.md)
