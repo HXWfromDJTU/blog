@@ -24,11 +24,11 @@ setTimeout是基于时间的周期性操作，只要物理时间在流动，那�
 比如在制作一个视屏弹幕效果的时候，使用`setTimeout`和`RAF`都可以实现字幕的滚动效果，咋看是没有问题的。     
 
 但当用户把浏览器放置到后台的时候，定时器仍然在执行，弹幕仍然在滚动，会造成额外的性能浪费。而使用`RAF`制作的动画，当用户将浏览器放置到背景之后，
-![](/BLOG_ASSETS/background_RAF.png)  
+![](/blog_assets/background_RAF.png)  
 
 最小化后等待一段时间，再次打开。发现字幕会被重置，而不是持续滚动。
 
-![](/BLOG_ASSETS/background_RAF2.png)
+![](/blog_assets/background_RAF2.png)
 
 再来看另外一个例子,代码如下，动画效果是一个蓝色小块沿着东南方向周期移动。
 ```js
@@ -53,7 +53,7 @@ elem.onclick = function() {
 ```  
 
 动画执行一段时间后，最小化浏览器，然后再打开，发现元素位置不变。
-![](/BLOG_ASSETS/block_RAF.png)
+![](/blog_assets/block_RAF.png)
 
 ![](/BLOG_ASSETS/block_RAF2.png) 
 
