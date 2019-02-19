@@ -20,7 +20,7 @@ ___
 ##### HTTPS 与 HTTP的不同点
 1️⃣ `http` 的`URL` 以`http://` 开头，`https`以`https://` 开头
 2️⃣ `HTTP`采用的是明文传输，而`HTTPS`使用的是`SSL\TSL`进行加密传输
-3️⃣ `HTTP`的默认端口是`80`，而`HTTPS`的默认端口是`443`
+3️⃣ `HTTP`的默认端口是`80`，而`HTTPS`的默认端口是`443`<span style="color:red;"><=牢记</span>
 4️⃣ `HTTPS` 需要`CA`证书，`http`不需要。
 5️⃣ http 的连接很简单,是无状态的，`https`协议是由`SSL+http`协议构建的可进行加密传输、身份认证的网络协议 要比`http`协议安全
 

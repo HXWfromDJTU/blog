@@ -89,6 +89,14 @@ $$ T_m = \frac{W}{RTT} \quad $$
 | 67 | bootps | Bootstrap Protocol Server |
 
 
+### 快速重传与快速恢复
+##### TCP Reno 和 TCP Tahoe   
+
+* 当 `rwnd` < `cwnd` : 是接收方的接收能力限制了发送方窗口的最大值。
+* 当 `cwnd` < `rwnd` : 是网络的拥塞限制了发送方窗口的最大值。
+
+
+
 ### 校验和算法
 
 
