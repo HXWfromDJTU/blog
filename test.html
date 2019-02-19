@@ -6,15 +6,97 @@
         <tr><td>第四行</td></tr>
       </table>
        
-      <style>
-        .table tr:nth-child(2n-1){
-            background-color:white;
-        }
-        .table tr:nth-child(2n){
-            background-color:grey;
-        }
-        .table tr:hover{
-            background-color:yellow;
-        }
-      </style>
+      
+       <a href="#page2">page2</a>
+       <a href="#page3">page3</a>
+       <div><button onclick="router.push({path:'/page4',params:{data:123}})">page4 - router.push</button></div>
+       <div><button onclick="router.replace({path:'/page5',params:{data:555}})">page5 - router.replace</button></div>
 </body>
+<script>    
+class SwRouter {
+  constructor(route) {
+    this.routes = route; // 初始化路由
+    this.isReplace = false; // 初始化模式为push
+    this.history = []; // 收集历史记录  
+    this.currentIndex = this.history.length - 1; // 当前所在页面的标号
+    this.params = {}; // 初始化加载的时候可以从url中截取参数列表，使用正则
+    this._binding();
+  }
+  // 绑定事件
+  _binding(){
+    this.refresh = this.refresh.bind(this);   
+    var _this = this; // 保存指向
+    window.addEventListener('load', function(e){
+        _this.refresh(e,_this.params);
+    }, false);         // 首次加载
+    window.addEventListener('hashchange', function(e){
+        _this.refresh(e,_this.params);
+    }, false);  //  后续hash变化
+  }
+  _refreshHistory(){
+    this.currentUrl = location.hash.replace('#','/') || '/';   // 提取路径,加入提取失败就设置为默认的`/`
+    if(this.isReplace){
+        this.history.pop(); // 弹出最后一个元素
+        this.history.push(this.currentUrl);  // 记录新路径   
+    }else{
+        this.history.push(this.currentUrl);  // 将当前hash路由推入数组储存
+    }
+    this.isReplace = false;
+    console.log('当前历史记录栈为：'+this.history)
+  }
+  // 设置路由   
+  route(path, callback) {
+    this.routes[path] = callback || function() {};
+  }
+  // 刷新页面
+  refresh(e,param) {
+    this._refreshHistory(); // 记录history
+    this.currentIndex++; // 指针向前移动
+    this.routes[this.currentUrl](); // 执行对应页面的回调  
+  }
+  // 跳转到某一个路由页面   
+  push(route){
+      // 表示是否替换式
+      this.isReplace = false;
+      this._jump(route);
+  }
+  // 跳转到一个新的路由页面
+  replace(route){
+      this.isReplace = true;
+      this._jump(route);
+  }
+  go(step){
+      if(Object.prototype.toString.call(step) !== '[object Number]'){
+          throw Error('param to router.go must be a number~~~');
+      }
+      // 使用 window.history 和模拟 history 实现
+      var supportHistory = window.history?true:false;
+      if(supportHistory){
+          window.history.go(step)
+      }else{
+        window.history.go(step) // 等待 this.history 完整
+      }
+  }
+  // 实际进行跳转的内部函数
+  _jump(route){
+      this.currentUrl = route.path;   // 提取路径
+      this.params = route.params; // 使用全局中专页面参数
+      // 若没有预先设置这个路由，则先进行设置
+      if(!this.routes[this.currentUrl]){
+          this.routes[this.currentUrl] = function(){}   
+      }
+      // 正式触发跳转
+      location.hash = route.path.replace('/','#');  
+  }
+}
+// 声明路由  
+var route = {
+    '/':function(){console.log('渲染首页')},
+    '/page2':function(){console.log('渲染页面page2')},
+    '/page3':function(){console.log('渲染页面page3')}
+}
+// 初始化路由
+var router = new SwRouter(route);
+</script>
+
+
