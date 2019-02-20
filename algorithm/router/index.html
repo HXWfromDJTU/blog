@@ -22,7 +22,10 @@ function goto4(){
         params:{data:555},
         renderFun:function(){console.log('渲染组件4')},
         onEnter:function(){console.log('我在进入page4的时候打印')},
-        onLeave:function(){console.log('我在离开page4的时候打印')}
+        onLeave:function(){console.log('我在离开page4的时候打印')},
+        beforeEnter:function(to,form,next){
+              console.log('/page4路由守卫',to)
+        }
     })
 }  
 function goto5(){
@@ -66,6 +69,7 @@ var router = new SwRouter(routes);
 
 // 设置全局路由守卫
 router.beforeEach(function(to,form,next){
+    console.log('全局守卫');
    next(); // 表示通过路由
 })
 </script>

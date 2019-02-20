@@ -50,22 +50,26 @@ class SwRouter extends EventEmitter {
           this.trigger('beforeLeave');
           onLeave(); // 离开上一个路由   
       }
-      this.currentIndex++; // 指针向前移动
-      // 判断是否设置了路由守卫   
-     if(this.hasGlobalRouterGuard || beforeEnter){
+      this.currentIndex++; // 指针向前移动   
+
+      if(typeof(beforeEnter)==='function'){
+        this.currentRouteGuard = beforeEnter;
+     }
+      // 判断是否设置了路由守卫（全局守卫或者独享守卫）
+     if(this.currentRouteGuard){  
+        this._setRouterGuard(this.currentRouteGuard);  // 设置路由守卫
         let enterPromise = new Promise((res,rej)=>{
-            // 触发 `beforeEnter`事件，将 resolve 句柄交给外面
-            this.trigger('beforeEnter',res);
+            // 触发 `beforeEnter`事件，将 resolve 句柄交给外面   
+            this.trigger('beforeEnter'+this.currentUrl,res);  
         })
         enterPromise.then(data=>{
           renderFun(); // 渲染当前路由
           onEnter();  // 进入当前路由
-        })
+        });
      }else{
-        renderFun(); // 渲染当前路由
-        onEnter();  // 进入当前路由
+          renderFun(); // 渲染当前路由
+          onEnter();  // 进入当前路由
      }
-      
     }
     // 根据url找到指定route配置
     _findRoute(path,newRoute){
@@ -132,16 +136,19 @@ class SwRouter extends EventEmitter {
      * @param {*} callback 用于暴露参数的回调
      */
     beforeEach(callback){
+        this.currentRouteGuard = callback;
+    }
+    _setRouterGuard(callback){
         let _this = this;
-        this.hasGlobalRouterGuard = true;
         // 兼容第一次进入的时候取标志   
         var currentIndex  = this.history.length -2 <0?0:this.history.length -2;
+        var eventName = 'beforeEnter'+this.currentUrl;
         // 监听路由发生变化
-        this.listen('beforeEnter',function(resolve){
-        let from = _this.history[currentIndex]?_this.history[currentIndex]:{};
-        let to = _this._findRoute(_this.currentUrl); // 解构取出两个方法  
-        callback(to,from,resolve);
-       })
+        this.listen(eventName,function(resolve){
+        let from = _this.history[currentIndex]?_this.history[currentIndex]:{}; // 取出前一个路由
+        let to = _this._findRoute(_this.currentUrl); // 取出当前路由  
+         callback(to,from,resolve);
+        })
     }
   }
   

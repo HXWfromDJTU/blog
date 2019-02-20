@@ -35,6 +35,7 @@
 * [【模拟 3-6】防抖与节流](/algorithm/debounce_throttle.js)  
 * [【模拟 3-7】New_Extend_Create_Assign_Instanceof模拟](/algorithm/instanceof.js)  
 * [【模拟 3-8】LazyMan--模拟一个简单的异步链式调用栈](/algorithm/LazyMan.js)  `new`   
+* [【模拟 3-9】模拟一个基础的前端路由](/algorithm/router)  `new`   
 
 
 
