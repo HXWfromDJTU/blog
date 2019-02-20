@@ -9,3 +9,7 @@
 | SwRouter.prototype.push | 跳转路由页面 | ✅ |
 | SwRouter.prototype.replace | 替换路由页面 | ✅ |
 | SwRouter.prototype.go | 跳转到历史记录页的某一个路由位置 | ✅ |
+| keep-alive |  |  |
+| 全局路由守卫|  | ✅  |
+| 独享式路由守卫|  |  |
+| onEnter / onLeave |  | ✅  |

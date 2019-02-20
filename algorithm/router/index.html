@@ -63,6 +63,11 @@ var routes = [
 ]
 // 初始化路由
 var router = new SwRouter(routes);
+
+// 设置全局路由守卫
+router.beforeEach(function(to,form,next){
+   next(); // 表示通过路由
+})
 </script>
 
 

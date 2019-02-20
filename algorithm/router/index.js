@@ -44,15 +44,28 @@ class SwRouter extends EventEmitter {
       var currentIndex  = this.history.length -2 <0?0:this.history.length -2;
       // 执行组件/页面渲染 以及 进入时的方法   
       let {onLeave} = this.history[currentIndex]?this.history[currentIndex]:{};
-      let {renderFun,onEnter} = this._findRoute(this.currentUrl);; // 解构取出两个方法  
+      let {renderFun,onEnter,beforeEnter} = this._findRoute(this.currentUrl); // 解构取出两个方法  
       // 第一个页面不执行上层离开回调   
       if(currentIndex!==0){
-          this.trigger('beforeLeave')
+          this.trigger('beforeLeave');
           onLeave(); // 离开上一个路由   
       }
       this.currentIndex++; // 指针向前移动
-      renderFun(); // 渲染当前路由
-      onEnter();  // 进入当前路由
+      // 判断是否设置了路由守卫   
+     if(this.hasGlobalRouterGuard || beforeEnter){
+        let enterPromise = new Promise((res,rej)=>{
+            // 触发 `beforeEnter`事件，将 resolve 句柄交给外面
+            this.trigger('beforeEnter',res);
+        })
+        enterPromise.then(data=>{
+          renderFun(); // 渲染当前路由
+          onEnter();  // 进入当前路由
+        })
+     }else{
+        renderFun(); // 渲染当前路由
+        onEnter();  // 进入当前路由
+     }
+      
     }
     // 根据url找到指定route配置
     _findRoute(path,newRoute){
@@ -78,6 +91,15 @@ class SwRouter extends EventEmitter {
         // 返回路由
         return route;
     }
+     // 编程式跳转...用于实际进行跳转的内部函数
+     _jump(route){
+        this.currentUrl = route.path;   // 提取路径
+        this.params = route.params; // 使用全局中专页面参数
+        route = this._findRoute(this.currentUrl,route); // 
+        // 正式触发跳转
+        location.hash = route.path.replace('/','#');  
+    }
+    // ========================  外部方法列表  ==================
     // 跳转到某一个路由页面   
     push(route){
         // 表示是否替换式
@@ -89,6 +111,10 @@ class SwRouter extends EventEmitter {
         this.isReplace = true;
         this._jump(route);
     }
+    /**
+     * 跳转到某个指定位置的历史记录
+     * @param {*} step 
+     */
     go(step){
         if(Object.prototype.toString.call(step) !== '[object Number]'){
             throw Error('param to router.go must be a number~~~');
@@ -101,13 +127,21 @@ class SwRouter extends EventEmitter {
           window.history.go(step) // 等待 this.history 完整
         }
     }
-    // 编程式跳转...用于实际进行跳转的内部函数
-    _jump(route){
-        this.currentUrl = route.path;   // 提取路径
-        this.params = route.params; // 使用全局中专页面参数
-        route = this._findRoute(this.currentUrl,route); // 
-        // 正式触发跳转
-        location.hash = route.path.replace('/','#');  
+    /**
+     * 全局路由守卫
+     * @param {*} callback 用于暴露参数的回调
+     */
+    beforeEach(callback){
+        let _this = this;
+        this.hasGlobalRouterGuard = true;
+        // 兼容第一次进入的时候取标志   
+        var currentIndex  = this.history.length -2 <0?0:this.history.length -2;
+        // 监听路由发生变化
+        this.listen('beforeEnter',function(resolve){
+        let from = _this.history[currentIndex]?_this.history[currentIndex]:{};
+        let to = _this._findRoute(_this.currentUrl); // 解构取出两个方法  
+        callback(to,from,resolve);
+       })
     }
   }
   
