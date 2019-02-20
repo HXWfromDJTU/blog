@@ -61,7 +61,7 @@
 * [【JS 2-2】再看闭包](/JS/closure.md)
 * [【JS 2-3】作用域链](/JS/[[SCOPE]].md)
 * [【JS 2-4】微任务](/JS/microTask.md)   
-* [【JS 2-5】Javascript模块化方案总结](/project_build/js_modules.md)   
+* [【JS 2-5】Javascript模块化方案总结](/project_build/js_modules.md)   
 * [【JS 2-6】this指向哪里](/JS/apply_call_bind_this.md)
 * [【JS 2-7】类型检测](/JS/type_inspect.md)
 
