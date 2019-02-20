@@ -1,8 +1,6 @@
 /**
  * 使用 ECMAScript（JS）代码实现一个事件类Event，包含下面功能：绑定事件、解绑事件和派发事件。
  */
-
-
  class EventEmitter{
      constructor(){
          // 使用图的数据结构去查找
@@ -48,33 +46,35 @@
      }
  }
 
- let event  =  new EventEmitter();
-let callback1 = function(data){
-    console.log('christmas-egg-bug lol:'+data);
-};
+// exports.EventEmitter = EventEmitter;
 
-let callback2  = function(data){
-    console.log('many-people-in-('+ data+')-lost-job')
-}
- event.listen('christmas-egg-explore',callback1)
+// let event  =  new EventEmitter();
+// let callback1 = function(data){
+//     console.log('christmas-egg-bug lol:'+data);
+// };
 
- event.trigger('christmas-egg-explore','Alibaba');
+// let callback2  = function(data){
+//     console.log('many-people-in-('+ data+')-lost-job')
+// }
+//  event.listen('christmas-egg-explore',callback1)
 
-
- event.listen('christmas-egg-explore',function(data){
-     console.log('other-company-cry-to-die:')
- })
+//  event.trigger('christmas-egg-explore','Alibaba');
 
 
- event.listen('cut-hc',callback2)
- // 测试事件触发
- event.trigger('christmas-egg-explore','AntDesign');
- event.trigger('cut-hc','DiDi');
+//  event.listen('christmas-egg-explore',function(data){
+//      console.log('other-company-cry-to-die:')
+//  })
 
- //测试事件取消 
- event.off('christmas-egg-explore',callback1);
 
- event.off('cut-hc',callback2);
+//  event.listen('cut-hc',callback2)
+//  // 测试事件触发
+//  event.trigger('christmas-egg-explore','AntDesign');
+//  event.trigger('cut-hc','DiDi');
 
- event.trigger('cut-hc','MeiTuan');
- event.trigger('christmas-egg-explore','AntDesign');
+//  //测试事件取消 
+//  event.off('christmas-egg-explore',callback1);
+
+//  event.off('cut-hc',callback2);
+
+//  event.trigger('cut-hc','MeiTuan');
+//  event.trigger('christmas-egg-explore','AntDesign');

@@ -1,0 +1,68 @@
+<body>
+    <table class="table">
+        <tr><td>第一行</td></tr>
+        <tr><td>第二行</td></tr>
+        <tr><td>第三行</td></tr>
+        <tr><td>第四行</td></tr>
+      </table>
+       
+      
+       <a href="#page2">page2</a>
+       <a href="#page3">page3</a>
+       <div><button onclick="goto4()">page4 - router.push</button></div>
+       <div><button onclick="goto5()">page5 - router.replace</button></div>
+</body>
+<!-- 引入自己编写的简略版EE -->
+<script src="./resource/event.js"></script>
+<script src="./index.js"></script>
+<script>  
+function goto4(){
+    router.push({
+        path:'/page4',
+        params:{data:555},
+        renderFun:function(){console.log('渲染组件4')},
+        onEnter:function(){console.log('我在进入page4的时候打印')},
+        onLeave:function(){console.log('我在离开page4的时候打印')}
+    })
+}  
+function goto5(){
+    // 跳转到page5
+    router.replace({
+        path:'/page5',
+        params:{data:555},
+        renderFun:function(){console.log('渲染组件5')},
+        onEnter:function(){console.log('我在进入page5的时候打印')}
+    })
+}
+// 声明路由  
+var routes = [
+    {
+        path:'/',
+        renderFun:function(){console.log('渲染首页')},
+        onEnter:function(){
+            console.log('准备进入首页')
+        }
+    },
+    {
+        path:'/page2',
+        renderFun:function(){console.log('渲染页面page2')},
+        onEnter:function(){
+            console.log('准备进入page2')
+        }
+    },
+    {
+        path:'/page3',
+        renderFun:function(){console.log('渲染页面page3')},
+        onEnter:function(){
+            console.log('准备进入page3')
+        },
+        onLeave:function(){
+            console.log('准备离开page3')
+        }
+    },
+]
+// 初始化路由
+var router = new SwRouter(routes);
+</script>
+
+

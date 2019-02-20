@@ -71,7 +71,7 @@ class SwRouter {
   refresh(e,param) {
     this._refreshHistory(); // 记录history   
     // 兼容第一次进入的时候取标志   
-    var currentIndex  = this.currentIndex -1 <0?0:this.currentIndex -1;
+    var currentIndex  = this.history.length -2 <0?0:this.history.length -2;
     // 执行组件/页面渲染 以及 进入时的方法   
     let {onLeave} = this.history[currentIndex]?this.history[currentIndex]:{};
     let {renderFun,onEnter} = this._findRoute(this.currentUrl);; // 解构取出两个方法  
@@ -84,19 +84,26 @@ class SwRouter {
     onEnter();  // 进入当前路由
   }
   // 根据url找到指定route配置
-  _findRoute(path){
+  _findRoute(path,newRoute){
       var routeArr = this.routes;
       var _this = this;
       var route = routeArr.find(function(route,index){
           return route.path === path;
       })
-      // 为路由设置默认项，避免执行出错
-      route = Object.assign({
+      var template = {
         path:'/',
         renderFun:function(){},
         onEnter:function(){},
         onLeave:function(){}
-      },route);
+      }
+      // 若没有预先设置这个路由，则先进行设置
+      if(!route){
+          route = Object.assign(template,newRoute);  //
+          this.routes.push(route);
+      }else{
+          // 为路由设置默认项，避免执行出错
+          route = Object.assign(template,route);
+      }
       // 返回路由
       return route;
   }
@@ -127,10 +134,7 @@ class SwRouter {
   _jump(route){
       this.currentUrl = route.path;   // 提取路径
       this.params = route.params; // 使用全局中专页面参数
-      // 若没有预先设置这个路由，则先进行设置
-      if(!this._findRoute(this.currentUrl)){
-          this.routes.push(route)  
-      }
+      route = this._findRoute(this.currentUrl,route); // 
       // 正式触发跳转
       location.hash = route.path.replace('/','#');  
   }
