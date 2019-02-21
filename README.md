@@ -1,9 +1,8 @@
 ### When they go low - we go high 
 
-🌈 记录总结日常工作学习...欢迎star
+🌈 记录总结日常工作学习...欢迎star....技术栈`前端`+`node`,2019准备进军`TypeScript`,欢迎学习交流~
 
-技术栈`前端`+`node`,2019准备进军`TypeScript`,欢迎学习交流~
-
+求职：base深圳广州 wx:hxw_597371030
 
 <!-- | 优化 | [防抖与节流](/JS/debounce.md) -->
 
@@ -61,7 +60,7 @@
 * [【JS 2-2】再看闭包](/JS/closure.md)
 * [【JS 2-3】作用域链](/JS/[[SCOPE]].md)
 * [【JS 2-4】微任务](/JS/microTask.md)   
-* [【JS 2-5】Javascript模块化方案总结](/project_build/js_modules.md)   
+* [【JS 2-5】Javascript模块化方案总结](/project_build/js_modules.md)   
 * [【JS 2-6】this指向哪里](/JS/apply_call_bind_this.md)
 * [【JS 2-7】类型检测](/JS/type_inspect.md)
 
