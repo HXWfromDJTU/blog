@@ -47,8 +47,9 @@
 * [【浏览器系列 1-8】性能优化2 - css性能优化](/CSS/css_optimize.md)
 * [【浏览器系列 1-9】浏览器事件模型](/JS/eventMode.md)  
 * [【浏览器系列 1-10】浏览器中的cookie](/browser/cookie.md)   `new` 
-* [【浏览器系列 1-11】从渲染Timeline中深入交互优化](/browser/PaintTiming.md) `new` 
+* [【浏览器系列 1-11】性能优化3 - 从渲染Timeline中深入交互优化](/browser/PaintTiming.md) `new` 
 * [【浏览器系列 1-12】屏幕刷新与requestAnimationFrame](/CSS/RAF.md)
+* [【浏览器系列 1-13】性能优化4 - 从webpack打包配置的优化](/browser/webpack_optimize.md) `new` 
 
 
 <!-- | 其他 | [常见算法的JS实现](/algorithm/common.md/) -->
