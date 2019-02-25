@@ -289,8 +289,8 @@ import Scroll from 'antd/lib/scroll';
 
 ### 总结 
 | 优化方案  | 解决痛点   | 备注  |
-|---|----|---|
-|  webpack-bundle-analyzer |  搞清楚模块间的关系和大小  |   |
-|  hash |  最大程度上使得文件可以缓存，减少请求  |   |
-|  commonChunk |  抽取公共模块，减小总模块大小  |   |
-|  webpack.DLL |  减少静态资源(依赖)的打包，只对当前业务进行打包  |   |
+|---|---|---|
+|  webpack-bundle-analyzer |  搞清楚模块间的关系和大小  | s  |
+|  hash |  最大程度上使得文件可以缓存，减少请求  |  s |
+|  commonChunk |  抽取公共模块，减小总模块大小  |  s |
+|  webpack.DLL |  减少静态资源(依赖)的打包，只对当前业务进行打包  |  s |
