@@ -43,13 +43,15 @@ ___
 
 ### 使用hash缓存   
 我们在前端优化的知识点中，有一点很重要的就是使用本地的缓存进行减少请求，以达到优化的效果。     
-我们在给打包资源设置输出名称的时候，注意到有`[name]`、`[contenthash]`、`[hash]`、`[chunkhash]`等设置。
+我们在给打包资源设置输出名称的时候，注意到有`[name]`、`[contenthash]`、`[hash]`、`[chunkhash]`等设置。     
+
 |配置项|含义|备注|
 |---|---|---|
 |[name]| 原始文件名的替代符 |   |
 |[contenthash]| 文件内容有变化则跟着变化|   |
 |[hash]|整个项目有变换的时候，hash值才会跟着变化|   |
-|[chunkhash]|chunk有变化，chunkhash才跟着变化|   |   
+|[chunkhash]|chunk有变化，chunkhash才跟着变化|   |        
+
 ##### Javascript与Css配置contenthash
 Javascript和CSS一般是我们的业务代码,所以无论是内容发生一丁点的变化，我们也需要更新它。     
 ```js
