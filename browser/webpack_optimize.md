@@ -227,8 +227,8 @@ webpack build/webapck.prod.conf.js   # 生成环境
 
 ### 其他常见操作   
 
-##### 开启GZip压缩   
-开启GZip压缩可以有效地减少`http`传输量的的大小，减少传输时间，从而提高性能。     
+##### 开启GZip压缩   
+开启Gzip压缩可以有效地减少`http`传输量的的大小，减少传输时间，从而提高性能。     
 ```js
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
@@ -260,3 +260,37 @@ module.exports = {
   ]
 };
 ```
+
+### Tree-shaking     
+这里篇幅有限，我只抛砖引玉，原文在此[传送门👉](https://zhuanlan.zhihu.com/p/32831172)  
+首先我们普及一个知识--函数的副作用，简单的来说就是一个函数会对函数外部的变量产生影响的行为。          
+由于`babel`转码会产生副作用，而且我们常用的`uglifyJS`插件也会导致代码产生副作用。   
+
+
+##### 解决方案  
+1️⃣ 现将我们的代码进行tree-shaking打包，在最后进行bundle的babel转码和uglifyJS的压缩。但是只能够对自身的公共库进行shaking，收效并不大。        
+
+2️⃣ node_modules模块包开发者，使用模块单独导出的模块式，比如说组件库的`button`和`scroll`组件分别单独是一个目录，使用的时候再加上一个`babel-xxx-transform`垫片     
+```js
+// 将以下代码
+import {Button,Scroll} from 'antd';   // 此处为全部引入，有shaking的需要
+// 转化为一下代码(转化为单独引入)，相当于手动shaking了
+import Button from 'antd/lib/button';
+import Scroll from 'antd/lib/scroll';
+```
+
+3️⃣ 还是作为模块的开发者，我们可以考虑将模块转译/压缩的工作交给使用者去进行，这样就可以在使用的时候先进行`tree-shaking`，再进行转码了。(参考第一条)     
+但是目前的大情况是，大多数的webpack配置都默认忽略对`node_modules`的转译配置，但不可否认这是一条可行的路子。     
+
+4️⃣ 直接改为使用`rollup`进行打包。(生态明显没有webapck，入门门槛高，以后再讨论)       
+
+5️⃣ 
+
+
+### 总结 
+| 优化方案  | 解决痛点   | 备注  |
+|---|----|---|
+|  webpack-bundle-analyzer |  搞清楚模块间的关系和大小  |   |
+|  hash |  最大程度上使得文件可以缓存，减少请求  |   |
+|  commonChunk |  抽取公共模块，减小总模块大小  |   |
+|  webpack.DLL |  减少静态资源(依赖)的打包，只对当前业务进行打包  |   |
