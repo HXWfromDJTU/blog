@@ -227,6 +227,102 @@ webpack build/webapck.prod.conf.js   # 生成环境
 最终打包后的运行文件是这样的
 ![](/blog_assets/webpack_dll.png)      
 
+
+___     
+### Tree-shaking     
+##### tree-shaking的原理
+在集合ES 6模块和commonJS模块的区别之后，我们知道ES 6的特点是静态解析，而CommonJS的特点是动态解析，tree-shaking是借助于ES 6的静态解析特点，所以，这里要注意，我们默认触发tree-shaking的方法就是使用ES 6的模块化。   
+
+同时也要普及一个观念，tree-shaking打包之后，仅仅是撇开了模块的引用，但是还要结合压缩工具(uglifyJS等)来进行，这样才是一次完整的`tree-shaking`
+##### 函数的副作用   
+这里篇幅有限，我只抛砖引玉，原文在此[传送门👉](https://zhuanlan.zhihu.com/p/32831172)  
+正常情况下，我们的webpack默认es6规范编写的模块都能使用tree-shaking。但是这里涉及到一个函数副作用的概念，简单的来说就是一个函数会对函数外部的变量产生影响的行为。一旦出现了函数副作用，那么默认的tree-shaking就并不会生效。       
+
+由于`babel`转码会产生副作用，而且我们常用的`uglifyJS`插件也会导致代码产生副作用。所以我们要考虑将这些操作，移动到webpack形成bundle之后进行。        
+
+
+
+
+##### 解决方案  
+1️⃣ 现将我们的代码进行tree-shaking打包，在最后进行bundle的babel转码和uglifyJS的压缩。但是只能够对自身的公共库进行shaking，收效并不大。        
+
+2️⃣ node_modules模块包开发者，使用模块单独导出的模块式，比如说组件库的`button`和`scroll`组件分别单独是一个目录，使用的时候再加上一个`babel-xxx-transform`垫片     
+```js
+// 将以下代码
+import {Button,Scroll} from 'antd';   // 此处为全部引入，有shaking的需要
+// 转化为一下代码(转化为单独引入)，相当于手动shaking了
+import Button from 'antd/lib/button';
+import Scroll from 'antd/lib/scroll';
+```
+
+3️⃣ 还是作为模块的开发者，我们可以考虑将模块转译/压缩的工作交给使用者去进行，这样就可以在使用的时候先进行`tree-shaking`，再进行转码了。(参考第一条)     
+但是目前的大情况是，大多数的webpack配置都默认忽略对`node_modules`的转译配置，但不可否认这是一条可行的路子。     
+
+4️⃣ 直接改为使用`rollup`进行打包。(生态明显没有webapck，入门门槛高，以后再讨论)       
+
+5️⃣ 结合第一条和第三条，我们综合考虑如何实现先`tree-shaking`再进行`编译`与`压缩`。               
+✅ 首先我们要将`loader`配置中的`babel-loader`给去掉...
+```js
+module.exports = {
+    entry:'../main.jsx',
+    output:{
+        filename:'bundle.js'
+    },
+    module:{
+        rules:[
+            {
+                test:/\.jsx?$/,
+                exclude:/node_modules/, // 排除掉node_modules目录下的转码
+                use:{
+                    loader:'babel-loader',
+                    options:{
+                        presets:['es2015','react']
+                    }
+                }
+            }
+        ]
+    }
+}
+```     
+✅ 再者我们将这一部分的`转译`工作，转换到`plugin`中进行。改为使用`babel-minify-webpack-plugin`将`minify`和`babel`的操作合在一个插件中处理。[插件传送门👉](https://webpack.docschina.org/plugins/babel-minify-webpack-plugin/)               
+
+```js 
+const MinifyPlugin = require('babel-minify-webpack-plugin'); // 引入插件
+module.exports = {
+    entry://...
+    output://...
+    plugins:[
+        new MinifyPlugin(minifyOpts, {
+            test:/\.js($|\?)/i, // 表示匹配哪些文件
+            comments:,// 表示保留哪些注释？
+            sourceMap:,//会覆盖 webapckConfig.devtool的值，默认为webapck配置中的值，
+            babel:,// 允许自定义一个 babel-core,
+            minifyPreset:,//允许自定义一个 minify preset
+        })
+    ]
+}
+```
+6️⃣ 最新的webpack 4.x中出现了用于消除`side-effect`的配置     
+新的 webpack 4 正式版本，扩展了这个检测能力，通过 package.json 的 "sideEffects" 属性作为标记，向 compiler 提供提示，表明项目中的哪些文件是需要进行特殊对待(特殊考虑)的文件,若设置为false，指默认为没有副作用。    
+
+```json
+// 引用库的 panckage.json
+{   
+    "name":"super-big-module",
+    "sideEffexts":false
+}
+// 
+{   
+    "name":"super-big-module",
+    "sideEffexts":[
+        "./src/lib/aaa.js" // 列举出有副作用的文件，webapck将会特殊对待
+    ]
+}
+```
+详细配置请参考官方文档，[传送门👉](https://webpack.docschina.org/guides/tree-shaking/#src/components/Sidebar/Sidebar.jsx)
+
+sideEffect配置参考[传送门👉](https://segmentfault.com/a/1190000015689240)
+___
 ### 其他常见操作   
 
 ##### 开启GZip压缩   
@@ -262,37 +358,22 @@ module.exports = {
   ]
 };
 ```
+##### devtools   
+开发环境推荐使用：`cheap-module-eval-source-map`     
+生产环境推荐使用：`cheap-module-source-map`     
 
-### Tree-shaking     
-这里篇幅有限，我只抛砖引玉，原文在此[传送门👉](https://zhuanlan.zhihu.com/p/32831172)  
-首先我们普及一个知识--函数的副作用，简单的来说就是一个函数会对函数外部的变量产生影响的行为。          
-由于`babel`转码会产生副作用，而且我们常用的`uglifyJS`插件也会导致代码产生副作用。   
-
-
-##### 解决方案  
-1️⃣ 现将我们的代码进行tree-shaking打包，在最后进行bundle的babel转码和uglifyJS的压缩。但是只能够对自身的公共库进行shaking，收效并不大。        
-
-2️⃣ node_modules模块包开发者，使用模块单独导出的模块式，比如说组件库的`button`和`scroll`组件分别单独是一个目录，使用的时候再加上一个`babel-xxx-transform`垫片     
-```js
-// 将以下代码
-import {Button,Scroll} from 'antd';   // 此处为全部引入，有shaking的需要
-// 转化为一下代码(转化为单独引入)，相当于手动shaking了
-import Button from 'antd/lib/button';
-import Scroll from 'antd/lib/scroll';
-```
-
-3️⃣ 还是作为模块的开发者，我们可以考虑将模块转译/压缩的工作交给使用者去进行，这样就可以在使用的时候先进行`tree-shaking`，再进行转码了。(参考第一条)     
-但是目前的大情况是，大多数的webpack配置都默认忽略对`node_modules`的转译配置，但不可否认这是一条可行的路子。     
-
-4️⃣ 直接改为使用`rollup`进行打包。(生态明显没有webapck，入门门槛高，以后再讨论)       
-
-5️⃣ 
-
-
+___
 ### 总结 
 | 优化方案  | 解决痛点   | 备注  |
 |---|---|---|
 |  webpack-bundle-analyzer |  搞清楚模块间的关系和大小  | s  |
 |  hash |  最大程度上使得文件可以缓存，减少请求  |  s |
-|  commonChunk |  抽取公共模块，减小总模块大小  |  s |
-|  webpack.DLL |  减少静态资源(依赖)的打包，只对当前业务进行打包  |  s |
+|   CommonChunkPlugin |  抽取公共模块，减小总模块大小  |  s |
+|   DllPulgin 和 DllReferencePlugin |  减少静态资源(依赖)的打包，只对当前业务进行打包  |  s |
+|  tree-shaking |  减少对大模块中无用代码的引入，有效减少打包结果的大小  |  s |
+|  devtools |  生成的代码的压缩程度与是否可调式，关系到需要操作的时间长短  |  s |
+|  GZip |  进行代码的压缩，减小代码体积 |  s |
+|  uglifyJS |  压缩最终打包的代码，清除注释，实现最终的tree-shaking  |  s |
+
+### 参考文章
+[webapck 4 tree-shaking](https://blog.csdn.net/haodawang/article/details/77199980)
