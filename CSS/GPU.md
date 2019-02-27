@@ -76,7 +76,26 @@ DOM树到最后的渲染，需要进行一些转换映射
 ##### 层压缩  
 
 
+##### 课程笔记
+render:也就是把模型（元素和css信息）变成位图的过程，称之为渲染。
+
+一个元素可能对应着多个盒子，每一盒子对应着一张位图
+
+图形类 ： 边框，SVG,阴影，都属于图形类
+
+渲染过程是不会将子元素绘制到位图上去的。这样能够最大程度缓存渲染的结果，减少重新渲染的机会。     
+
+阴影会作为一个独立的盒子来处理      
+
+合成(composite)：不是必要的一环，最大限度减少绘制次数的原则。   
+使用猜测的策略。
+使用will-change进行提示。
+
+脏矩形算法   
+
+渲染把元素变成了位图，合成操作把一部分位图变成合成层，最终的绘制过程把合成层显示到屏幕上。
 ___
 ### 参考文章
 [css3硬件加速](https://div.io/topic/1348)     
-[chrome渲染优化](https://www.oschina.net/translate/chrome-accelerated-rendering?cmp&p=1)
+[chrome渲染优化](https://www.oschina.net/translate/chrome-accelerated-rendering?cmp&p=1)   
+[will-change](https://www.cnblogs.com/yuzhongwusan/p/4186405.html)      
