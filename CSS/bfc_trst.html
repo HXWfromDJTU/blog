@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .left {
+            background: #73DE80;
+            /* 绿色 */
+            opacity: 0.5;
+            border: 3px solid #F31264;
+            width: 200px;
+            height: 200px;
+            float: left;
+        }
+
+        .right {
+            /* 粉色 */
+            background: #EF5BE2;
+            opacity: 0.5;
+            border: 3px solid #F31264;
+            width: 400px;
+            min-height: 100px;
+            display: inline-block;
+        }
+
+        .box {
+            background: #888;
+            height: 100%;
+            margin-left: 50px;
+            display: inline-block;
+        }
+
+        .little {
+            background: #fff;
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+            float: left;
+        }
+
+        .center-box {
+            border: 1px solid red;
+            position: relative;
+            background-color: grey;
+            height: 500px;
+        }
+
+        .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+    <div class='box'>
+        <div class='left'>左左左左左左左 </div>
+        <div class='right'>
+            <div class='little'></div>
+            <div class='little'></div>
+            <div class='little'></div>
+        </div>
+    </div>
+    <div class="center-box">
+        <div class="center">asasasas</div>
+    </div>
+</body>
+
+</html>

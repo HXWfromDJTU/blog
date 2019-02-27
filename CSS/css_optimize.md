@@ -27,17 +27,19 @@ ___
 ___
 ## 编码优化
 编码上，我们知道css解析选择器的时候，`render-tree`的搜索方向是从叶子结点出发的，编码上也就是从右往左读取的，逐级进行过滤。
-####   :x: 不使用通配符和属性选择器   
-因为通配符选择器和树形选择器匹配到的标签过多，比较耗时
+####   :x: 尽量不使用通配符和属性选择器   
+因为通配符选择器和树形选择器匹配到的标签过多，比较耗时。总的来说，我们要在css匹配规则最后(最右)书写比较精确的规则，以便浏览器更快地命中规则。       
 ```css
+/*  * 表示全选，相当于没说，范围太大 */
 .bodyContainer * {
     height:30px;
 }
+/* class="container"范围太大 */
 .demo[class="container"]{
     width:90px;
 }
 ```
-#### :x: 减少使用性能消耗高的属性
+#### :x: 尽量减少使用性能消耗高的属性
 如`box-shadow`/`border-radius`/`filter`/`透明度`/`:nth-child`等CSS3属性用起来十分爽，效果也好，但当我们要考虑性能时，如有可以接受的替代方案，则考虑性能为先。
 #### :x: 减少重排与重绘
 这是个老生常谈的问题了，我们在了解浏览器渲染原理的时候，用户的一些操作，样式的先后被覆盖，影响DOM也会影响CSS，都有可能引起`重绘`和`重排`。
@@ -62,9 +64,12 @@ ___
 ####  :x: 不要使用 @import 来引入CSS
 样式表的加载有其先后性，但是使用`@import`来关联样式文件，会导致样式文件下载顺序的紊乱，甚至于后续js文件下载的顺序混杂在一起，导致不可预知的后果。
 使用并行的`<link>`标签来引入多个样式表，可以让多个样式表并行下载。
-> @import无论写在哪一行，都会在页面加载完再加载css  
+> @import无论写在哪一行，都会在页面加载完再加载css,也就出现了，页面本来样式已经排布完(已经到了DOMContentLoad),然后又要去加载@import的内容，就增加了页面重新排布的可能。
 
-[为啥不建议使用@import?](https://blog.csdn.net/qq_41813695/article/details/80489601)
+详细参考这篇文章：[为啥不建议使用@import?](https://blog.csdn.net/qq_41813695/article/details/80489601)    
+
+不知道啥是`DOMContentLoad`?看看这里:[浏览器优化3 之 页面加载的Timeline](/browser/PaintTiming.md)
+
 #### :heavy_check_mark:使用`BEM`等编码规范
 使用行为状态分离`class`命名规范，提高样式代码的可读性、修改灵活性。也是用于大型项目开发的多人合作编写`CSS`。
 
@@ -131,7 +136,9 @@ document.head.appendChild(link1);
 我们的项目中，通常会产生两种多余的CSS代码
 1️⃣ 两段css代码都对一个元素的同一个状态进行了修饰，一个等级高一个等级低，则肯定有一方被覆盖，被覆盖方可能就是`无效css`。
 2️⃣ 项目公共库中还没有`match`的`css`代码，我们也认为是无效的`css`代码。
-当然我们还是推荐使用`webpack`+ `purifycss`，官方讲解[摸我](https://github.com/webpack-contrib/purifycss-webpack)，网友讲解[摸我](https://www.cnblogs.com/hezihao/p/8029590.html)
+当然我们还是推荐使用`webpack`+ `purifycss`，官方讲解[摸我](https://github.com/webpack-contrib/purifycss-webpack)，网友讲解[摸我](https://www.cnblogs.com/hezihao/p/8029590.html)       
+
+最后，我们做一个预告，我们将在后面的文章《浏览器性能优化 5 - GPU加速》中继续讲解如何利用图层的合成规则进一步优化我们的渲染性能。[传送门👉](/CSS/GPU.md)     
 
 ___
 

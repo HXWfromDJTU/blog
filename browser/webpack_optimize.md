@@ -337,15 +337,13 @@ ___
 由于`babel`转码会产生副作用，而且我们常用的`uglifyJS`插件也会导致代码产生副作用。所以我们要考虑将这些操作，移动到webpack形成bundle之后进行。        
 
 
-
-
 ##### 解决方案  
 1️⃣ 现将我们的代码进行tree-shaking打包，在最后进行bundle的babel转码和uglifyJS的压缩。但是只能够对自身的公共库进行shaking，收效并不大。        
 
 2️⃣ node_modules模块包开发者，使用模块单独导出的模块式，比如说组件库的`button`和`scroll`组件分别单独是一个目录，使用的时候再加上一个`babel-xxx-transform`垫片     
 ```js
 // 将以下代码
-import {Button,Scroll} from 'antd';   // 此处为全部引入，有shaking的需要
+import {Button,Scroll} from 'antd';   // 此处为全部引入，有shaking的需要  
 // 转化为一下代码(转化为单独引入)，相当于手动shaking了
 import Button from 'antd/lib/button';
 import Scroll from 'antd/lib/scroll';

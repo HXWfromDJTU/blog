@@ -1,12 +1,12 @@
-##  视觉格式化模型  
 
+Block Formatting Content也就是我们熟悉的BFC
 
 盒的类型由`display`属性决定。        
 
 
 `块盒(block box)`  
 
-
+##  视觉格式化模型  
 
 
 ### 三种定位方案   
@@ -59,6 +59,11 @@ BFC就是一个页面上的隔离的独立容器，容器里的元素和容器�
 
 利用BFC也可以实现盒子内闭合浮动。   
 
+
+
+___
+### 参考文章
+[学习 BFC (Block Formatting Context) -by 网易考拉](https://juejin.im/post/59b73d5bf265da064618731d)
 
 
 

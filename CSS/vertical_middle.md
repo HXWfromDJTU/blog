@@ -1,7 +1,7 @@
-## “内容”如何垂直居中
-
-### 块元素在 `高度确定` 容器元素中垂直居中
+# “内容”如何垂直居中
 ___
+### 块元素在 `高度确定` 容器元素中垂直居中
+
 ```css
  #container{
      height:400px;
@@ -78,7 +78,7 @@ ___
 ```
 ![未知宽高](../blog_assets/unknow_width_height.png)
 
-#### absolute(定位) + translate(平移)
+#### absolute(定位) + translate(平移)     
 * 使用子元素定位,设定顶部和左边距离都为50%，然后使用css3的tranform:translate平移归位
 * 兼容性：不支持IE9一下浏览器
 
