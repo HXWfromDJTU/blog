@@ -491,3 +491,176 @@ ReactDom.render(<App />,document.getElementById('root'),null)
 ##### 总结 
 我们可以看到FiberTree和DOM-Tree基本是一一对应的关系，因为一个React-Element对象就对应者一个Fiber对象。
 > SwainWong有话说：感觉和Vue一个data属性对应一个Dep对象类似。。。    
+
+___
+### 第四节 Update 更新    
+Update对象用于记录组件状态的改变，每一次操作就会产生一个Update对象，这些update对象存放于UpdateQueue对象中，针对同一个ReactElement对象的变化，可以有多个Update对象同时存在。           
+
+```js
+// ReactFiberReconciler.js   LINE 58
+import {createUpdate, enqueueUpdate} from './ReactUpdateQueue';     
+// LINE 115   
+// 调度更新对象        
+function scheduleRootUpdate(
+  current: Fiber,
+  element: ReactNodeList,
+  expirationTime: ExpirationTime,
+  callback: ?Function,
+) {
+  // 调试代码.....
+  
+  // 结合 expirationTime 生成一个 Update对象     
+  const update = createUpdate(expirationTime);
+  // Caution: React DevTools currently depends on this property
+  // being called "element".
+  update.payload = {element}; // payload指向当前需要渲染的内容       
+
+  // 处理第三个参数，若是传入的话，则必须是一个function，也可以选择不传入
+  callback = callback === undefined ? null : callback;
+  if (callback !== null) {warningWithoutStack(typeof callback === 'function',
+      'render(...): Expected the last optional `callback` argument to be a ' +
+        'function. Instead received: %s.',
+      callback,
+    );
+    update.callback = callback;
+  }
+  // TODO: 这里多出一个处理 effect的方法，未知作用
+  flushPassiveEffects();
+  // 
+  enqueueUpdate(current, update);
+  scheduleWork(current, expirationTime);
+
+  return expirationTime;
+}
+```
+接下来我们看看单个的Update对象     
+```js
+// ReactUpdateQueue.js LINE 193   
+/**
+ * @description 方法用于创建一个Update对象，我们你可以看看Update对象里面的数据结构  
+ * @param expirationTime 超时时间
+ */     
+export function createUpdate(expirationTime: ExpirationTime): Update<*> {
+  return {
+    expirationTime: expirationTime, // 更新的过期时间
+    //  0: UpdateState  更新state  
+    //  1: RepalceState 替换state  
+    //  2: ForceUpdate  强制更新  
+    //  3： CpatureUpdate 更新过程中出现了error，可以利用这个CpatureUpdate捕获到，并且渲染出错误    
+    tag: UpdateState, // 会根据以上的不同类型的值(也是不同的情况)，进行不一样的操作
+    payload: null, // 实际执行操作的内容(可以理解为要被渲染的内容)
+    callback: null, // 执行更新后的回调函数     
+    next: null, // 指向下一个Update对象(因为Update对象是被存储在UpdateQueue数组里面去的)
+    nextEffect: null, // ”side effect“ 先关相关的内容，后面补充说明 TODO:   
+  };
+}
+```
+再来看看Update对象的容器--UpdateQueue的数据结构。    
+```js
+// ReactUpdateQueue.js  LINE 119   
+// 定义 UpdateQueue 对象的数据结构
+export type UpdateQueue<State> = {
+  baseState: State, // 在每次计算 state的时候，会基于一个baseState，在上次渲染后的基础上开始计算  
+
+  firstUpdate: Update<State> | null, // 指向队伍中第一个Update
+  lastUpdate: Update<State> | null,  // 指向队伍中最后一个Update
+
+  firstCapturedUpdate: Update<State> | null, // 第一个”捕获类型“的Update对象    
+  lastCapturedUpdate: Update<State> | null, // 最后一个”捕获类型“的Update对象    
+
+  firstEffect: Update<State> | null,// 第一个”Side effect“
+  lastEffect: Update<State> | null, // 最后一个 ”side effect“
+
+  firstCapturedEffect: Update<State> | null,
+  lastCapturedEffect: Update<State> | null,
+};
+```
+看完了Update和它的容器`UpdateQueue`,接着我们看看对这些内容的操作...enqueueUpdate
+```js
+// ReactUpdateQueue.js   LINE 220
+/**
+ * @description 用于创建或者更新 UpdateQueue ，要注意同时操作
+ *（更新） 两个 Fiiber对象上的 queue,重点基本就在于同步两个queue的内容
+ * @param <Fiber> 也就是当前 ReactElement 对应的 Fiber对象   
+ * @param <Update> 当前 ReactElement 对应的更新器   
+ * @return undefined
+ * TODO: 
+ * 这里设置 queue1 与 queue2 是为了对应 本体Fiber 和 WorkInProgress(Fiber)上的 UpdateQueue
+ * 注意这里 的queue1 和 queue2 是数组(队列)，属于应用类型
+ * 是肯定不能全等的，只能去维持 firstUpdate 和 lastUpdate 相同 
+ */
+export function enqueueUpdate<State>(fiber: Fiber, update: Update<State>) {
+  // 取出 fiber 对象中的 alternate 也就是与其对应的那个 影子 Fiber 对象     
+  // (也就是上面 👆 第三章 讲到的 每一个Fiber都有一个WorkInProgree 的影子分身)      
+  const alternate = fiber.alternate;   
+  let queue1; 
+  let queue2;
+  // 首次渲染 alternate 对象还是 一个 nill ,则会 命中到第一个 if 判断
+  if (alternate === null) {
+    // 这里内部处理第一次 渲染的队列操作
+    queue1 = fiber.updateQueue; // 尝试获取 fiber 对象上的 updateQueue 属性值 
+    queue2 = null;
+    // 若是 本体 Fiber 对象上的 queue 都是 null 的话，就创建一个新的空的 UpdateQueue 给他
+    if (queue1 === null) {
+        // 这里的 createUpdateQueue 方法我们就不列举了
+        // 其实就是将上面👆 说过的 UpdateQueue 数据对象，所有的属性都置为null 
+        // 用这个Fiber对象的当前state 作为 UpdateQueue的baseState值 ,并且返回   
+       queue1 = fiber.updateQueue = createUpdateQueue(fiber.memoizedState);
+    }
+  } else { // 第二次渲染会命中到后续的这个else中     
+    // 同时取出这两个 Fiber 对象中的 updateQueue
+    queue1 = fiber.updateQueue;
+    queue2 = alternate.updateQueue;
+    if (queue1 === null) {
+      if (queue2 === null) {
+        // 若是这两个 updateQueue 都不存在，则说明这个节点从未被更新过任何一次
+        // 那么就都创建一个新的 updateQueue 给他们
+        queue1 = fiber.updateQueue = createUpdateQueue(fiber.memoizedState);
+        queue2 = alternate.updateQueue = createUpdateQueue(alternate.memoizedState);
+      } else {
+        // 若只有 queue1 存在，那么就将 queue1 克隆到 queue2 上
+        queue1 = fiber.updateQueue = cloneUpdateQueue(queue2);    
+      }
+    } else {
+      if (queue2 === null) {
+         // 若是 queue1 存在 queue2 不存在，同样是拷贝 queue1 到 queue2 上   
+        queue2 = alternate.updateQueue = cloneUpdateQueue(queue1);
+      } else {
+        // 要是都是 queue 那就皆大欢喜啦......啥都不做......     
+      }
+    }
+  }    
+  // 上面是👆 对 queue1、2是否存在做的一些同步工作。。。。。。
+
+  // 接下来要做的是对这两个queue进行添加元素      
+  if (queue2 === null || queue1 === queue2) {
+    // queue2 不存在 ，或者 queue1 完全等于 queue2，那都只需要更新一个queue就行了  
+    // 首次渲染的时候，会名命中第一种☝️ 情况
+    // appendUpdateToQueue 的作用是 将这个update 添加到 更新队列 1 中
+    appendUpdateToQueue(queue1, update);    
+  } else {
+    // 进到这里，。说明不是第一次触发更新了...
+    // 也说明有两个 queue,并且还都不相等。我们都需要对他们进行更新......  
+
+    // while accounting for the persistent structure of the list — we don't
+    // want the same update to be added multiple times.
+    // TODO: 上面👆 这两句，暂时不理解，不知道是不是和Vue一样，相同的Update不希望被添加到queue中   
+
+    // 判断queue的lastUpdate === null，是想知道这个queue是不是空的...
+    if (queue1.lastUpdate === null || queue2.lastUpdate === null) {
+      // 同时更新两个队列
+      appendUpdateToQueue(queue1, update);
+      appendUpdateToQueue(queue2, update);
+    } else {
+      // Both queues are non-empty. The last update is the same in both lists,
+      // because of structural sharing. So, only append to one of the lists.
+      appendUpdateToQueue(queue1, update);    
+      // But we still need to update the `lastUpdate` pointer of queue2.
+      queue2.lastUpdate = update;
+    }
+  }
+  // 调试代码......
+}
+```
+___
+### 第五节 expirationTime 的计算     
