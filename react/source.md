@@ -1,7 +1,5 @@
 
-# react源码解析课程  
-
-### 第一节 
+# 前言 
 
 UI = fn(x)   api简单   setState  纯粹  
 
@@ -16,14 +14,14 @@ fiber sheduler
 
 需要进行反复的思考
 
-### 源码解析  
-
 react-dom 
 
 react-reconciler   
 
 sheduler 16之后的十分核心的包，实现异步渲染的功能。 
-
+___
+# React主体   
+主要围绕`./src/React.js`这个文件来说明，React上挂载的常用方法     
 ### ⭕️ 第一节 react 与 react-dom的关系   
 index.js  => React.js（100行都不到）   ReactBaseClass(也是100行不到) 
 主要在React-Dom中为主要  
@@ -40,7 +38,7 @@ ReactBaseClass 主要去定义React组件的一些东西
 JSX需要进行babel转换      
 
 ![](/blog_assets/JSX-TO-JS-1.png)
-[react - babel 实时转换](https://babeljs.io/repl#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=DwEwlgbgfMD07SA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=false&presets=react%2Cstage-2&prettier=false&targets=&version=7.3.4)   
+[react - babel 在线转换体验👉](https://babeljs.io/repl#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=DwEwlgbgfMD07SA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=false&presets=react%2Cstage-2&prettier=false&targets=&version=7.3.4)   
 
 
 自定义的组件必须要大写字母打头，否则JSX解析的时候就会理解为一个原生标签，找不到的话运行的时候就会报错。      
@@ -414,9 +412,186 @@ const ReactElement = function (type, key, ref, self, source, owner, props) {
 
 ___
 
-### 第八节 Context   
+### 第八节 Context  与 getChildContext     
 实际场景：父子嵌套多层，多个层次的组件间的沟通。         
-上级组件提供了一个context属性，传入一个对象，只要是在这个组件树中的组件，都可以使用`context`属性对其进行访问。
-1️⃣ childContentType   
+上级组件提供了一个context属性，传入一个对象，只要是在这个组件树中的组件，都可以使用`context`属性对其进行访问。React官方提供了两个方法`childContentType`（17版本中即将被废弃） 与`createContext`（新增）   
+[官方文档👉](https://react.docschina.org/docs/legacy-context.html#%E6%9B%B4%E6%96%B0context)   
 
-2️⃣ createContext     
+首先，我们来件要地回顾一下如何使用  `getChilContext`   
+```jsx  
+const PropTypes = require('prop-types'); // 这里需要引入一个React的公共常量库
+// 父组件
+class FatherComp extends React.Component{
+    // 显示地声明要暴露给整个组件数树的参数(属性)
+    getChildContext(){
+        return {color:'red'}
+    }
+    render(){
+        const children = this.props.messages.map(msg=>{
+            <Msg text={msg.text} />
+        })
+        render(
+            <div>{children}</div>
+        )
+    }
+}
+// 想要给整个组件树种的子组件都暴露一些属性和参数，就系需要设置这个contextTypes 
+FatherComp.contextTypes = {
+    color:PropTypes.string
+}
+// 子组件
+class Message extends React.Component{
+    render(){
+        rteurn(
+            <div>
+               <MyButton>{this.props.text}<MyButton>
+            </div>
+        )
+    }
+}
+// 孙组件
+class MyButton extends React.Component{
+    render(){
+         // 注意：小写字母打头表明是html原生的标签(组件)
+        return(
+            // 这里使用 的 this.context.color 访问到的是父组件中，暴露给子组件的属性      
+            <button style={{background:this.context.color }}>   
+               {this.props.children}
+            </button>
+        )
+    }
+}
+// 在使用父组件传递过来的公共参数(属性)的时候，必须要设定这个 contextTypes否则出错  
+// 这里有点像是 Vue 的 props的规定参数类型，但是这里若不设置，子组件则完全无法接收到这个参数。        
+Mybutton.contextTypes = {
+    color:PropTypes.string
+}
+```
+  FIXME: 补充 React.createContext 的使用用法与 源码内容          
+___
+
+###  第九节  ConcurrentMode  
+基于Javascript是一个单线程的模式，那么渲染任务、一些动画任务、用户输入等等就都是相互互斥的，那么React16后就提出了一个Concurrent来实现许多的react任务优先调度。React内核会判断各种任务的优先级，限制性重要的，然后再执优先基低的任务。     
+
+##### flashSync   
+flushSync的作用就是基于上面👆说到的场景，作用是提升异步任务的优先级。
+```jsx
+import React,{ConcurrentMode} from 'React';
+import {flushSync}  from 'react-dom';
+
+class Parent extends React.Component {
+    // 使用 flushSync 来提升传入任务的优先级        
+    flushSync(_=>{
+        this.setState({
+            number:123
+        })
+        console.log('做一些优先级比价高的事情')
+    })
+}
+```  
+
+##### concurrentMode源码 
+`ReactSymbols.js`    
+```js
+// line 12
+const hasSymbol = typeof Symbol === 'function' && Symbol.for;
+// line 38 
+export const REACT_CONCURRENT_MODE_TYPE = hasSymbol
+  ? Symbol.for('react.concurrent_mode')
+  : 0xeacf;
+  // 我们发现，concurrentMode组件就是一个 Symbol对象，没有任何其他的东西
+```  
+
+___
+
+### 第十节 Suspense  与 lazy
+`Suspend`组件的作用主要的作用是制作出类似于数据加载中的一个效果图。`Suspend`组件中的子组件要求是一个特殊的"异步加载组件"，并且是会抛出一个promise的。suspend会等待子组件中所有的promise状态都决定之后，显示子组件的内容。          
+>React.Suspense let you specify the loading indicator in case some components in the tree below it are not yet ready to render.
+```jsx 
+import React,{Suspense,lazy} from 'React';
+function requestData(){
+    const promise = file.read();
+    throw promise; // 注意，这里一定是要 throw 
+}
+function SuspendingComp(){
+    const data = requestData(); // 获取数据，并且 threw 一个 promise   
+    return <p></{data}p>
+}
+export deafult ()=>{
+   <Suspense fallback="数据加载中......">
+     <SuspendingComp /> // throw Promise 的一个组件 
+   </Suspense>
+}
+
+``` 
+在 `suspend`  Api 未开放的时候，我们常使用的是 lazy，配合我们的`webpack`实现我们的一个React组件的异步加载过程(优化)。[官网传送门👉](https://react.docschina.org/docs/react-api.html#reactlazy)      
+> React.lazy() lets you define a component that is loaded dynamically. This helps reduce the bundle size to delay loading components that aren’t used during the initial render.  
+React.lazy使得我们可以定义一个动态加载的组件，这有助于我们减少bundle的大小，在首次首次渲染的时候可以延迟这部分内容的加载。
+
+接下来，简单演示一下使用的实例
+```jsx
+// 异步加载的组件 lazy.js
+import React from 'React';
+exportdefault ()=> <p> Lazy Component 这是一个想要被懒加载的组件</p>
+
+// 使用 
+import React,{lazy} from 'React'; // 这里引入一个 lazy 方法
+const LazyComp = lazy(()=>import('./lazy.js')); // 这里利用webpack的特性
+
+export  deafult ()=>{
+   <Suspense fallback="数据加载中......">
+     <LazyComp /> // 一个lazy方法处理过的组件
+   </Suspense>
+}
+```
+接下来我们看看这两个api的源码实现。  
+`React.js` 节选
+```js
+// line 9
+import {REACT_SUSPENSE_TYPE,} from 'shared/ReactSymbols'; // 引入这部分  
+// line 28
+import { lazy } from './ReactLazy';
+// 绑定在React对象上
+// line 83 
+Suspense: REACT_SUSPENSE_TYPE,  
+// line 67
+lazy,
+```
+`ReactSymbols.js`
+```js
+// line 44 
+// 这里我们发现Suspense 还是一个Symbol对象 FIXME: 为啥呢？如何工作呢
+export const REACT_SUSPENSE_TYPE = hasSymbol
+  ? Symbol.for('react.suspense')
+  : 0xead1;
+```
+`./src/ReactLazy.js` 节选
+```js
+// 第一个参数是一个 function,并且要求返回的是一个 thenable 的方法
+export function lazy<T, R>(ctor: () => Thenable<T, R>): LazyComponent<T> {
+  let lazyType = {
+    $$typeof: REACT_LAZY_TYPE,
+    _ctor: ctor, // 传入的返回Promise的方法
+    // React uses these fields to store the result.
+    _status: -1, // 用于 记录 这个组件的状态，一般来说对应这个 Promise的状态，这里使用数字的代替
+    _result: null, // 异步加载出来的内容（一般是一个组件），加载成功之后，会放到这个属性上     
+  };
+
+  // dev调试部分的代码 省略......
+
+  // 最后返回一个组合对象
+  return lazyType;
+}
+```
+>Today, lazy loading components is the only use case supported by <React.Suspense>:
+时至今日，这个Suspense的使用也只仅仅在lazy的时候才有用
+
+关于这部分内容的实战使用，请参考[官网说明 - Code-Splitting👉](https://react.docschina.org/docs/code-splitting.html#reactlazy)              
+
+TODO:这里最后再留下一个疑问，为何我们需要throw一个promise，而不是我们常常使用的return呢？  
+
+
+___
+# React渲染过程
+
+### 第一节 ReactDom || hydrate     
