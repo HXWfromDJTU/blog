@@ -456,5 +456,38 @@ export type Fiber = {|
 |};
 ```
 
-我们来看看 Fiber是如何利用Fiber对象上的属性去串联起来整个Fiber Tree的      
-![](/blog_assets/Fiber_Tree.png)
+我们来看看Fiber是如何利用Fiber对象上的属性去串联起来整个Fiber Tree的
+```jsx
+class  MyInput React.Component{
+    return (
+           <div>
+             <input type="text" />
+           </div>
+    )
+}
+class List extends React.Component{
+    return (
+           <div>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+           </div>
+    )
+}
+class App extends React.Component{
+    return (
+           <div>
+              <MyInput></MyInput>
+              <List></List>
+           </div>
+    )
+}
+// 挂载
+ReactDom.render(<App />,document.getElementById('root'),null)
+```
+![FiberTree](/blog_assets/Fiber_Tree.png) 
+
+##### 总结 
+我们可以看到FiberTree和DOM-Tree基本是一一对应的关系，因为一个React-Element对象就对应者一个Fiber对象。
+> SwainWong有话说：感觉和Vue一个data属性对应一个Dep对象类似。。。    
