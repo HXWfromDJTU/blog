@@ -593,5 +593,305 @@ TODO:这里最后再留下一个疑问，为何我们需要throw一个promise，
 
 ___
 # React渲染过程
+ReactDom || hydrate     
+创建ReactRoot    
+创建FiberRoot和RootFiber     
+创建更新      
+进入调度      
+___
+### 第一节   ReactDom.render()
 
-### 第一节 ReactDom || hydrate     
+首先我们来看看，我们最常见的SPA入口
+```jsx
+import React from 'raect';
+import ReactDom from 'react-dom';
+import App from './app'
+ReactDOM.render(<APP />,documentgetElementById('root'))
+```  
+我们去看看react-dom的主入口是个什么情况，如何挂载的render方法,这里我们看到的是客户端渲染的东西     
+`./react-dom/src/client/ReactDOM.js`节选
+```js
+// LINE 672
+
+const ReactDOM: Object = {
+  //  暂时省略其他方法...... findDOMNode 与 hydrate等
+  // ReactDom.render方法
+  render(
+    element: React$Element<any>, // 挂载内容
+    container: DOMContainer,  // 挂载点
+    callback: ?Function,   // 应用渲染结束之后，会调用这个callback
+  ) {
+    //  判断挂载点是否有效的DOM节点
+    invariant(isValidContainer(container),'Target container is not a DOM element.');
+
+    // 省略部分dev调试的代码......   
+
+    // 委托这个方法去实现     
+    return legacyRenderSubtreeIntoContainer(
+      null,
+      element,
+      container,
+      false,
+      callback,
+    );
+  }
+```
+接下来看看 legacyRenderSubtreeIntoContainer 方法
+```js
+// render方法依托此方法实现
+function legacyRenderSubtreeIntoContainer(
+  parentComponent: ?React$Component<any, any>, // 父组件
+  children: ReactNodeList,
+  container: DOMContainer,
+  // forceHydrate 表示是否会调合 原来存在于 Container组件中的html的节点，是否要复用这些节点
+  // 在render方法中传入的是一个 固定的false值,表示不复用节点
+  // 在hydrate方法的时候，传入的是true值 
+  // (主要在 server-side-render的时候使用，因为第一次渲染SSR和client-render出来的内容一般会是一样的，所以用于复用这些节点)
+  forceHydrate: boolean, 
+  callback: ?Function,
+) {
+  // dev调试代码.......省略
+  // 一般的组件没有  “_reactRootContainer” 属性，所以我们主要关注 !root中的代码
+  let root: Root = (container._reactRootContainer: any);
+  if (!root) {
+    // Initial mount 初始化挂载
+    // 继续依托这个 legacyCreateRootFromDOMContainer 方法实现
+    // 根据后续代码知道，这里得到的是一个FiberRoot对象      
+    root = container._reactRootContainer = legacyCreateRootFromDOMContainer(
+      container,
+      forceHydrate, // （是否缓存container里面的内容）基本可以表示是客户端渲染的意思
+    );
+    // 判断是否有 callback (这部分和主流程没有太大关系，暂时跳过 TODO:)
+    if (typeof callback === 'function') {
+      const originalCallback = callback;
+      callback = function () {
+        const instance = getPublicRootInstance(root._internalRoot);
+        originalCallback.call(instance);
+      };
+    }
+    // Initial mount should not be batched.
+    // 这里执行了一个 React中的一个batchUpdate 批量更新 ，后续会被说明 TODO:      
+    unbatchedUpdates(() => {
+        // 这里的判断，“legacyRenderSubtreeIntoContainer(本方法)” 
+        // 被 render 和 hydrate 调用的时候,parentComponent 传进来的都是 null
+        // 所以这里不会执行第一个 if 
+      if (parentComponent != null) {
+        root.legacy_renderSubtreeIntoContainer(
+          parentComponent,
+          children,
+          callback,
+        );
+      } else {
+        // 实际调用的是 render方法
+        root.render(children, callback); // 请查看后续说明
+      }
+    });
+  } else {
+    if (typeof callback === 'function') {
+      const originalCallback = callback;
+      callback = function () {
+        const instance = getPublicRootInstance(root._internalRoot);
+        originalCallback.call(instance);
+      };
+    }
+    // Update
+    if (parentComponent != null) {
+      root.legacy_renderSubtreeIntoContainer(
+        parentComponent,
+        children,
+        callback,
+      );
+    } else {
+      root.render(children, callback);
+    }
+  }
+  // FIXME: 疑惑？那么这里返回的是什么？       
+  return getPublicRootInstance(root._internalRoot);
+}
+```
+继续上面的代码看看 `legacyCreateRootFromDOMContainer`方法
+```js
+//  ReactDOM.js  LINE 495
+function legacyCreateRootFromDOMContainer(
+  container: DOMContainer,  // 容器节点    
+  forceHydrate: boolean,    // 是否缓存container中的东西       
+): Root {
+  // 合并手动配置 与 自动判断是否该合并的情况
+  const shouldHydrate = forceHydrate || shouldHydrateDueToLegacyHeuristic(container);
+  // First clear any existing content.
+  // 首先处理的是 “!shouldHydrate”的情况，也就是非服务端渲染(不需要缓存container内部节点的情况)
+  if (!shouldHydrate) {
+    let warned = false;
+    let rootSibling;
+    // 遍历container里面的节点，并且一个个移除掉
+    while ((rootSibling = container.lastChild)) {
+      // dev调试代码......
+
+      // 将container里面的内容都移除掉
+      container.removeChild(rootSibling);
+    }
+  }
+   // dev调试代码......
+  // Legacy roots are not async by default.
+  // root节点不应该是async的 FIXME: 为啥？
+  const isConcurrent = false;
+
+  // 根据后续可知，这里返回的是一个 FirberRoot 对象   
+  return new ReactRoot(container, isConcurrent, shouldHydrate);
+}
+```
+接着看看 `new ReactRoot`
+```js
+//  ReactDOM.js  LINE 21
+import {createContainer/* 此处省略了其他引入*/} from 'react-reconciler/inline.dom';
+//  ReactDOM.js  LINE 365 
+function ReactRoot(
+  container: DOMContainer,
+  isConcurrent: boolean,
+  hydrate: boolean,
+) {
+  // 接续看看这个内容 ， 由后续说明可以知道，这里返回的是一个 FirberRoot 对象  
+  const root = createContainer(container, isConcurrent, hydrate);
+  // 挂载到了这个 this._internalRoot 属性上     
+  this._internalRoot = root;
+}
+```
+此处我们追踪到了`react-reconciler`，这是一个React中非常重要的模块，负责操作跟平台无关的节点的一些调合（Hydrate），也负责任务调度。我们现在简单去看看......                
+别忘记我们的临时任务只是找到`createContainer`这个方法的来由......
+
+`react-reconciler/inline.dom.js`
+```js
+export * from './src/ReactFiberReconciler';
+```
+`react-reconciler/src/ReactFiberReconciler.js`     
+```js
+// ReactFiberReconciler.js LINE 275
+export function createContainer(
+  containerInfo: Container,
+  isConcurrent: boolean,
+  hydrate: boolean,
+): OpaqueRoot {
+  // 返回了一个 FiberRoot  暂时不说明.....后续说明 FiberRoot是个什么
+  // (看到这里，请往回看上一步的返回)
+  return createFiberRoot(containerInfo, isConcurrent, hydrate);
+}
+```
+这里我们再来看看 `root.render()`的执行
+```js
+// ReactDOM.js   LINE 373 
+ReactRoot.prototype.render = function (
+  children: ReactNodeList,
+  callback: ?() => mixed,
+): Work {
+  const root = this._internalRoot;
+  const work = new ReactWork(); 
+  callback = callback === undefined ? null : callback;
+  if (__DEV__) {
+    warnOnInvalidCallback(callback, 'render');
+  }
+  if (callback !== null) {
+    work.then(callback);
+  }
+  // 主要看这个方法,跳到 ReactFiberReconciler.js 中继续查看
+  updateContainer(children, root, null, work._onCommit);
+  return work;
+};
+``` 
+```js
+// ReactFiberReconciler.js  LINE 283
+export function updateContainer(
+  element: ReactNodeList,  // 应用的实际的节点 <App />
+  container: OpaqueRoot,   // "初始容器DOM节点"被装饰过后的 FiberRoot 对象     
+  parentComponent: ?React$Component<any, any>, // null   
+  callback: ?Function,  // 这是一个被 ReactWork 封装过的 开始 render方法传入的第三个参数callback
+): ExpirationTime {
+  const current = container.current;
+  const currentTime = requestCurrentTime();
+  // 十分重要的点，expirationTime通过十分复杂的计算，并且这个时间会被用于优先级的任务更新 
+  //  后续这个计算过程会说明 TODO:
+  const expirationTime = computeExpirationForFiber(currentTime, current);
+  
+  return updateContainerAtExpirationTime(
+    element,
+    container,
+    parentComponent,
+    expirationTime,
+    callback,
+  );
+}
+```
+```js
+// ReactFiberReconciler.js  LINE 162
+export function updateContainerAtExpirationTime(
+  element: ReactNodeList,
+  container: OpaqueRoot,
+  parentComponent: ?React$Component<any, any>,
+  expirationTime: ExpirationTime,
+  callback: ?Function,
+) {
+  // TODO: If this is a nested container, this won't be the root.
+  const current = container.current;
+
+   // 省略调试代码.....
+
+  const context = getContextForSubtree(parentComponent);
+  if (container.context === null) {
+    container.context = context;
+  } else {
+    container.pendingContext = context;
+  }
+  //  
+  return scheduleRootUpdate(current, element, expirationTime, callback);
+}
+```
+
+```js
+// ReactFiberReconciler.js 
+function scheduleRootUpdate(
+  current: Fiber,
+  element: ReactNodeList,
+  expirationTime: ExpirationTime,
+  callback: ?Function,
+) {
+  // 后续会被 讲解 TODO:
+  const update = createUpdate(expirationTime);
+  // Caution: React DevTools currently depends on this property
+  // being called "element".
+  update.payload = {element};
+
+  callback = callback === undefined ? null : callback;
+  if (callback !== null) {
+    warningWithoutStack(
+      typeof callback === 'function',
+      'render(...): Expected the last optional `callback` argument to be a ' +
+        'function. Instead received: %s.',
+      callback,
+    );
+    update.callback = callback;
+  }
+
+  flushPassiveEffects();  
+  // 这里的 enqueue 有点像是 Vue在一个生命周期内的更新收集(对一个节点的多次更新会被收集起来)
+  enqueueUpdate(current, update);
+  // 开启任务调度......   
+  // 告诉React，我们这里有改变发生了，让内核去调度这些变化产生的任务，优先做优先级高的任务
+  scheduleWork(current, expirationTime);
+
+  return expirationTime;
+}
+```
+##### 本节整理      
+`ReactDom.render()`  --> `创建了一个 ReactRoot对象` ---> `创建了一个 FiberRoot 对象`  ---> `自动初始化一个 Fiber对象`。     
+
+计算了一个expirationTime 用于比较任务时间
+```js
+expirationTime = computeExpirationForFiber
+```   
+过程总也创建了一个update对象，放到ReactRoot对象上,进入一个更新的过程。   
+
+创建一个更新任务，调度一个更新的任务。     
+
+___
+### 第二节 
+
+
