@@ -1,4 +1,8 @@
 # 第二部分 React渲染过程
+React在较早的版本中，从setState开始到渲染完成，是同步一气呵成的，也就是一个一个连续的长任务(long tash)。
+
+当所需要渲染的组件比较庞大，这个长任务u机会占据主线程比较长的时间，导致页面响应度变差，使得浏览器在动画执行、用户操作方面出现卡顿与延迟，所以，在16.x以后的版本中，facebook的大佬们就重写了react的核心算法`reconciliation`。       
+
 关键词： `ReactDom`  `hydrate`  `ReactRoot`    `FiberRoot和RootFiber`   `更新`与`调度`      
 ___
 ### 第一节   ReactDom.render()
@@ -300,7 +304,7 @@ FiberRoot是整个应用的起点，记录着整个应用会更新过程的各�
 ```jsx
 ReactDom.render(<App />,document.getElementById('root'),null)
 ```  
-下面👇 的一步步过程其实就是，对 container信息的一个包装，我们可以理解为`Fiber对象`是一个以`挂载点DOM`为核心信息的复杂对象，记录着整个应用的各种信息。        
+下面👇 的一步步过程其实就是，对 container信息的一个包装，我们可以理解为`FiberRoot对象`是一个以`挂载点DOM`为核心信息的复杂对象，记录着整个应用的各种信息。        
 ```js
 //ReactDOM.js  LINE 495  legacyCreateRootFromDOMContainer 方法
 return new ReactRoot(container, isConcurrent, shouldHydrate);
@@ -345,7 +349,7 @@ type BaseFiberRootProperties = {|
   containerInfo: any, // 也就是 render方法传入的第二个参数，内容的挂载点。。。。。。
     pendingChildren: any, // 在持久化更新中会被用到，在服务端渲染中会被用到
     current: Fiber, // FiberRoot 会和一个 Fiber 对象相对应 ，这里的Fiber是Fiber树的顶点   TODO: 在下一节Fiber详细说明
-    // 下面是几个在调度中用到的时间参数
+    // 下面是几个在调度中用到的时间参数 TODO: 后续补充解释
     earliestSuspendedTime: ExpirationTime,
     latestSuspendedTime: ExpirationTime,
     earliestPendingTime: ExpirationTime,
@@ -370,7 +374,7 @@ type BaseFiberRootProperties = {|
 ```
 ___ 
 
-### 第三节 Fiber  
+### 第三节 Fiber  对象
 每一个ReactElement都会对应一个Fiber对象，比如说class Component中我们常用的`state`和`props`都是记录在这个组件对应的`Fiber`对象上的。只有当Fiber更新之后，才会挂载到`this.state`和`this.props`。   
 
 当然，我们这里说的ReactElement，也包括funcational  component而不仅仅是class component，也就是说即使是funcitional Component也是可以获取到这个Component更新前后的stste和props的，即使functional component是没有this对象的。        
