@@ -51,6 +51,7 @@
 * [【浏览器系列 1-12】屏幕刷新与requestAnimationFrame](/CSS/RAF.md)
 * [【浏览器系列 1-13】性能优化4 - 从webpack打包配置的优化](/browser/webpack_optimize.md) `new` 
 * [【浏览器系列 1-14】性能优化5 - 从CSS合成层着手的渲染优化](/CSS/GPU.md) `写作中...` 
+* 【浏览器系列 1-15】性能优化6 - 前端资源重新加载 
 
 <!-- | 其他 | [常见算法的JS实现](/algorithm/common.md/) -->
 

@@ -668,3 +668,272 @@ export function enqueueUpdate<State>(fiber: Fiber, update: Update<State>) {
 ```
 ___
 ### 第五节 expirationTime 的计算     
+expiration是呼吸的意思,而有道给出了一个和React相类似的解释...     
+![有道解释图片](/blog_assets/expirationTime_youdao.png)        
+
+而在React中，所谓的到期时间，是相对于调度器初始调用的起始时间而言的一个时间段。
+
+调度器初始调用后的某一段时间内，需要完成这项更新，这个时间段长度值就是到期时间的时间值。        
+
+##### expirationTime 计算过程
+
+这一节我们来看看如何计算一个 expirationTime 。  
+
+初次出现要计算 expirationTime 是在updateContainer方法中......
+
+```js
+// ReactFiberReconciler.js  LINE 41
+import {computeExpirationForFiber} from './ReactFiberScheduler';
+// LINE 283
+export function updateContainer(
+  // 简化内容.....
+
+  const current = container.current; // 当前的Fiber对象
+  const currentTime = requestCurrentTime(); // 
+  // 十分重要的点，expirationTime通过十分复杂的计算，并且这个时间会被用于优先级的任务更新 
+  const expirationTime = computeExpirationForFiber(currentTime, current);
+
+  // 调用 updateContainerAtExpirationTime 方法
+}
+```     
+我们先来看看这个 currentTime 是怎么计算出来的。        
+```js
+// ReactFiberScheduler.js LINE 2044
+/** 获取到一个js文件包加载完成到本次需要渲染开始的时间间隔......TODO:
+ * @description 
+ * @return 
+ */ 
+function requestCurrentTime() {
+  // 判断是否处于 渲染阶段
+  if (isRendering) {
+    return currentSchedulerTime;
+  }
+  findHighestPriorityRoot();
+  if (
+    nextFlushedExpirationTime === NoWork ||
+    nextFlushedExpirationTime === Never
+  ) {
+    recomputeCurrentRendererTime();// 源码
+    currentSchedulerTime = currentRendererTime;
+    return currentSchedulerTime;
+  }
+  return currentSchedulerTime;
+}
+```  
+```js
+// 用于获得当前渲染时间......
+function recomputeCurrentRendererTime() {
+  // originalStartTimeMs 指的是react文件包被加载的时间，被初始化为 new Date();
+  // 这里计算后得到的 currentTimeMs 就是 文件初始化到 这个方法被执行的时间。     
+  const currentTimeMs = now() - originalStartTimeMs;
+  // 然后 msToExpirationTime 根据一个固定的规则，将 currentRendererTime 修改为 这个装饰过的值
+  currentRendererTime = msToExpirationTime(currentTimeMs);
+}
+```
+接下来我们看看真正要去计算的这部分过程......这里我把整个核心的计算文件都贴了出来
+```js
+// ReactFiberExpirationTime.js  
+import MAX_SIGNED_31_BIT_INT from './maxSigned31BitInt';
+
+export type ExpirationTime = number;
+
+export const NoWork = 0;
+export const Never = 1;
+export const Sync = MAX_SIGNED_31_BIT_INT;
+
+const UNIT_SIZE = 10;
+const MAGIC_NUMBER_OFFSET = MAX_SIGNED_31_BIT_INT - 1;
+
+function ceiling(num: number, precision: number): number {
+  return (((num / precision) | 0) + 1) * precision;
+}
+
+// 高低优先级时间计算的公共方法    
+function computeExpirationBucket(
+  currentTime,
+  expirationInMs,
+  bucketSizeMs,
+): ExpirationTime {
+  return (
+    MAGIC_NUMBER_OFFSET -
+    ceiling(
+      MAGIC_NUMBER_OFFSET - currentTime + expirationInMs / UNIT_SIZE,
+      bucketSizeMs / UNIT_SIZE,
+    )
+  );
+}
+
+// 综合以上的代码，我们可以得到计算公式：
+
+/**
+ *   MAGIC_NUMBER_OFFSET -
+ *  ((((MAGIC_NUMBER_OFFSET - currentTime + expirationInMs / UNIT_SIZE) / (bucketSizeMs / UNIT_SIZE)) | 0) + 1) * (bucketSizeMs / UNIT_SIZE);  
+ * 
+ * 整理一下，得到...
+ * 
+ * MAGIC_NUMBER_OFFSET + ((current - MAGIC_NUMBER_OFFSET) * UNIT_SIZE - expirationInMs ) / bucketSizeMs
+ */ 
+
+// 计算低优先级的方法 部分     
+export const LOW_PRIORITY_EXPIRATION = 5000;
+export const LOW_PRIORITY_BATCH_SIZE = 250;
+
+export function computeAsyncExpiration(
+  currentTime: ExpirationTime,
+): ExpirationTime {
+  return computeExpirationBucket(
+    currentTime,
+    LOW_PRIORITY_EXPIRATION,
+    LOW_PRIORITY_BATCH_SIZE,
+  );
+}
+
+// We intentionally set a higher expiration time for interactive updates in
+// dev than in production.
+//
+// If the main thread is being blocked so long that you hit the expiration,
+// it's a problem that could be solved with better scheduling.
+//
+// People will be more likely to notice this and fix it with the long
+// expiration time in development.
+//
+// In production we opt for better UX at the risk of masking scheduling
+// problems, by expiring fast.  
+
+
+// 计算高优先级部分的方法     
+export const HIGH_PRIORITY_EXPIRATION = __DEV__ ? 500 : 150;
+export const HIGH_PRIORITY_BATCH_SIZE = 100;
+
+export function computeInteractiveExpiration(currentTime: ExpirationTime) {
+  return computeExpirationBucket(
+    currentTime,
+    HIGH_PRIORITY_EXPIRATION,
+    HIGH_PRIORITY_BATCH_SIZE,
+  );
+}
+
+```
+| 方法名 | 参数1 | 参数2 | 参数3  |
+| ---   | ---   | ---  |  ---  |
+|  computeInteractiveExpiration     | currentTime      |  HIGH_PRIORITY_EXPIRATION (`150`)   |     HIGH_PRIORITY_BATCH_SIZE(`100`)  |
+|  computeAsyncExpiration     | currentTime      |  LOW_PRIORITY_EXPIRATION (`5000`)  |     LOW_PRIORITY_BATCH_SIZE(`250`)  |
+```js
+const UNIT_SIZE = 10; // 常量
+```
+
+| 情况 | 公式 | 
+| ---   | ---   |
+| 通用公式 | MAGIC_NUMBER_OFFSET + (current - MAGIC_NUMBER_OFFSET +  expirationInMs - bucketSizeMs ) / UNIT_SIZE |
+|  |expirationTime = ((((current - -2 +  5000) / 10) /25) \| 0) + 1) * 25 |
+
+
+
+
+##### `实际时间`  与 `expirationTime` 
+
+在一个操作内，多次调用setState，多个操作(对应多个Update对象)的产生时间之间的间隔就特别小，因为根据操作发生的先后，那么任务的优先级不同，对应React就对将其当做多次更新去频繁操作UI。 
+
+在整个时候 expirationTime 机制，相当于就收集了一个小小的时间段内的操作，将这个时间段内产生的Update的优先级，当做是一致的。      
+
+也就是说，经过计算，React中，两个Update对象的实际操作时间在一个 `BATCH_SIZE / UNIT_SIZE`，所得出的ExpirationTime是一致的。      
+
+
+### expirationTime 种类   
+
+
+```js
+function computeExpirationForFiber(currentTime: ExpirationTime, fiber: Fiber) {
+  const priorityLevel = getCurrentPriorityLevel();
+
+  let expirationTime;
+  if ((fiber.mode & ConcurrentMode) === NoContext) {
+    // Outside of concurrent mode, updates are always synchronous.
+    expirationTime = Sync;
+  } else if (isWorking && !isCommitting) {
+    // During render phase, updates expire during as the current render.
+    expirationTime = nextRenderExpirationTime;
+  } else {
+    switch (priorityLevel) {
+      case ImmediatePriority:
+        expirationTime = Sync;
+        break;
+      case UserBlockingPriority:
+        expirationTime = computeInteractiveExpiration(currentTime);
+        break;
+      case NormalPriority:
+        // This is a normal, concurrent update
+        expirationTime = computeAsyncExpiration(currentTime);
+        break;
+      case LowPriority:
+      case IdlePriority:
+        expirationTime = Never;
+        break;
+      default:
+        invariant(
+          false,
+          'Unknown priority level. This error is likely caused by a bug in ' +
+          'React. Please file an issue.',
+        );
+    }
+
+    // If we're in the middle of rendering a tree, do not update at the same
+    // expiration time that is already rendering.
+    if (nextRoot !== null && expirationTime === nextRenderExpirationTime) {
+      expirationTime -= 1;
+    }
+  }
+
+  // Keep track of the lowest pending interactive expiration time. This
+  // allows us to synchronously flush all interactive updates
+  // when needed.
+  // TODO: Move this to renderer?
+  if (
+    priorityLevel === UserBlockingPriority &&
+    (lowestPriorityPendingInteractiveExpirationTime === NoWork ||
+      expirationTime < lowestPriorityPendingInteractiveExpirationTime)
+  ) {
+    lowestPriorityPendingInteractiveExpirationTime = expirationTime;
+  }
+
+  return expirationTime;
+}
+
+```
+同步模式    
+
+##### 异步模式  
+flushSync 这个方法我们在前面有使用过，就是强制这个任务马上执行。
+```js    
+function flushSync<A, R>(fn: (a: A) => R, a: A): R {
+  invariant(
+    !isRendering,
+    'flushSync was called from inside a lifecycle method. It cannot be ' +
+    'called when React is already rendering.',
+  );
+  const previousIsBatchingUpdates = isBatchingUpdates;
+  isBatchingUpdates = true;
+  try {
+    return syncUpdates(fn, a);
+  } finally {
+    isBatchingUpdates = previousIsBatchingUpdates;
+    performSyncWork();
+  }
+}
+
+```  
+
+可以参考上一篇文章的这部分内容...
+```jsx
+import {flushSync}  from 'react-dom';
+class Parent extends React.Component{
+    // 使用 flushSync 来提升传入任务的优先级,后面的源码会见到     
+    flushSync(_=>{
+        this.setState({
+            number:123
+        })
+        console.log('做一些优先级比价高的事情')
+    })
+}
+```
+##### 指定context的情况    
