@@ -25,4 +25,7 @@ Route组件要包含在 Router组件中  ， 这里的router也就是Browser-Rou
 Switch组件   
 
 
-LocaleProvider？？
+LocaleProvider？？  
+
+
+##### React-router-redux     

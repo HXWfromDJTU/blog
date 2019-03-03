@@ -65,7 +65,9 @@
 * [【JS 2-5】Javascript模块化方案总结](/project_build/js_modules.md)   
 * [【JS 2-6】this指向哪里](/JS/apply_call_bind_this.md)
 * [【JS 2-7】类型检测](/JS/type_inspect.md)   
-* [【JS 2-7】RAF-熟悉的陌生人](/CSS/RAF.md) `写作中...`  
+* [【JS 2-7】RAF-熟悉的陌生人](/CSS/RAF.md) `写作中...`    
+* [【JS 2-8】函数参数传值还是传引用](/JS/function_param.md)   
+
 
 
 ##### 设计模式系列
@@ -99,7 +101,10 @@
 
 ##### React源码解析
 * [【React源码 1-1】从React.jsReact对象上的方法](/react/source_ch1.md)   
-* [【React源码 1-2】从Fiber对象说起的更新与调度](/react/source_ch2.md)
+* [【React源码 1-2】从Fiber对象说起的更新与调度](/react/source_ch2.md)    
+
+
+
 
 ##### 框架 与 工具系列
 * [【框架Vue 1-1】vue_compile相关](/vue/vue_render.md)
