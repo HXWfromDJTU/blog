@@ -58,10 +58,16 @@
 3️⃣ 事件绑定的回调中的`this`始终指向的是`event.currentTarget`，也就是事件绑定的元素。<span style="color:green"><新颖></span>
 
 ### 阻止链式传播 
-1️⃣ 使用`e.stopPropagation()`可以阻止事件的链式传播。 
-2️⃣ 使用 `event.cancelBubble`也可以阻止事件的传播，一般用于兼容IE浏览器
+1️⃣ 使用`e.stopPropagation()`可以阻止事件的链式传播。         
+2️⃣ 使用 `event.cancelBubble`也可以阻止事件的传播，一般用于兼容IE浏览器     
 
-##### 不支持事件冒泡的事件  
+##### Q:在同一个元素上，同一个事件监听多次，在第一个处理过程中如何禁止掉后面的监听回调？       
+使用stopPropagation? ❌          
+使用这个方法只能够使得事件后续的传播停止，但并不能够使在同一个元素上的监听事件回调后续不被触发。          
+请使用，`e.stopImmediatePropagation()`，可以达到我们想要的效果，事件`立即`停止传播。                     
+
+
+### 不支持事件冒泡的事件  
 鼠标事件：`mouserleave`  `mouseenter`
 焦点事件：`blur` `focus`
 UI事件：`scroll` `resize`
