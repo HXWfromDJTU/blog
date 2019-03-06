@@ -22,7 +22,7 @@
               // Our plugin implementation code goes here.     
         };
    })(jQuery);  
-   ```
+   ```   
   * 以上的例子里，在全局环境之上新建了一个二级的作用域，从而避免了在全局上定义过多的变量。
 
 ___

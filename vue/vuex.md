@@ -74,7 +74,141 @@ export default new Vuex.Store({
   <button @click="$store.commit('reduce')">增加</button>
   <span>{{$.state.count}}</span>
  </template>
+```    
+### 源码解析       
+vuex是vue的一个插件，我们在使用的时候用的是`Vue.use(vuex)`，以前了解过Vue源码的同许都知道，vue的插件机制是通过`install`方法进行导入的，所以vuex也是实现了一个install方法     
+```js
+export function install (_Vue) {
+  if (Vue && _Vue === Vue) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error(
+        '[vuex] already installed. Vue.use(Vuex) should be called only once.'
+      )
+    }
+    return
+  }
+  Vue = _Vue  
+  // 前面的操作基本可以不看，重点就在这里，applyMixin    
+  applyMixin(Vue)
+}
+```      
+applyMixin这个方法在另一个目录`src/mixin.js`下     
+```js
+// 这里export 出来的function 就是 上面提到的 applyMixin
+export default function (Vue) {
+  const version = Number(Vue.version.split('.')[0])
+  if (version >= 2) {
+    // 对啦，重点就只有这一句，混入了一个 beforeCreate的钩子函数。         
+    Vue.mixin({ beforeCreate: vuexInit })   
+  } else {
+   // 内容省略...这里为处理 1.x版本的代码，重点请关注上面 👆   
+  }
+
+  // 在 beforeCreate的过程中实现以下操作。 
+  function vuexInit () {
+    const options = this.$options
+    // 给每一个组件都注入 $store 属性     
+    if (options.store) {   
+      //  若没有 store属性，则创建一个
+      this.$store = typeof options.store === 'function'
+        ? options.store()
+        : options.store
+        // 若有的话，则判断是否有父节点，若叶有父节点，则会读取父节点的$store给当前节点          
+    } else if (options.parent && options.parent.$store) {
+      this.$store = options.parent.$store
+    }
+  }
+} 
+```       
+##### 创建 Vuex对象   
+我们在工作中使用vuex是这样紫的，给Vue构造器函数传入actions,getters,state,mutations,modules等配置参数。            
+```js
+export default new Vuex.Store({
+  actions,
+  getters,
+  state,
+  mutations,
+  modules
+  // ...
+})
 ```
+我们来看看模块module系统的源码是怎么样的？ 
+```js
+// 
+export default class Module {
+  constructor (rawModule, runtime) {
+    this.runtime = runtime
+    // children 用于保存子模块
+    this._children = Object.create(null)
+    // _rawModule用于保存用户传进来的这个直接的模块        
+    this._rawModule = rawModule         
+    // _rawState 用于保存用户传入的module第一层对应的 state对象     
+    const rawState = rawModule.state
+
+    // Store the origin module's state
+    this.state = (typeof rawState === 'function' ? rawState() : rawState) || {}
+  }
+
+
+// 接下来是一些 工具方法   
+  get namespaced () {
+    return !!this._rawModule.namespaced
+  }
+
+  addChild (key, module) {
+    this._children[key] = module
+  }
+
+  removeChild (key) {
+    delete this._children[key]
+  }
+
+  getChild (key) {
+    return this._children[key]
+  }
+  // 更新内部的 actions  mutations 与 getters      
+  update (rawModule) {
+    this._rawModule.namespaced = rawModule.namespaced
+    if (rawModule.actions) {
+      this._rawModule.actions = rawModule.actions
+    }
+    if (rawModule.mutations) {
+      this._rawModule.mutations = rawModule.mutations
+    }
+    if (rawModule.getters) {
+      this._rawModule.getters = rawModule.getters
+    }
+  }
+
+  forEachChild (fn) {
+    forEachValue(this._children, fn)
+  }
+
+  forEachGetter (fn) {
+    if (this._rawModule.getters) {
+      forEachValue(this._rawModule.getters, fn)
+    }
+  }
+
+  forEachAction (fn) {
+    if (this._rawModule.actions) {
+      forEachValue(this._rawModule.actions, fn)
+    }
+  }
+
+  forEachMutation (fn) {
+    if (this._rawModule.mutations) {
+      forEachValue(this._rawModule.mutations, fn)
+    }
+  }
+}
+
+```
+
+
+
+
+
 ### 小总结
 
 * `state` 数据仓库，类似于Vue实例中的`data`属性

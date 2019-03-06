@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "启动程序",
-            "program": "${workspaceFolder}/algorithm/lazyMan.js"
+            "program": "${workspaceFolder}/node/KOA/simpleKoa.js"
         }
     ]
 }
