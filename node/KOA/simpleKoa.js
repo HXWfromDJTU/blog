@@ -28,7 +28,6 @@ class Koa {
         const callbacks = this.middlewares;
         if (callbacks.length === 0) return;// 执行栈清空，停止执行
         let work = callbacks.shift(); // 取出第一个处理过程
-
         work.apply(this, [ctx, this._next.bind(this)]);
     }
     /**
