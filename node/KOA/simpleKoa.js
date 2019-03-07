@@ -9,8 +9,8 @@ class Koa {
         this.response = Object.create(null);
         // 初始化的时候创建一个http服务器
         this.server = Koa.http.createServer(ctx => {
-            // console.log(ctx)
-            this._flush(ctx);
+            console.log('被连接上了.....')
+            this._next(ctx);
         });
     }
     /**
@@ -23,12 +23,13 @@ class Koa {
     /**
      * 当请求到来的时候，我们清空任务队列中的内容
      */
-    _flush(ctx) {
+    _next(ctx) {
+        // 取出中间件
         const callbacks = this.middlewares;
-        let next = null;
-        callbacks.map(cb => {
-            cb(ctx, next)
-        })
+        if (callbacks.length === 0) return;// 执行栈清空，停止执行
+        let work = callbacks.shift(); // 取出第一个处理过程
+
+        work.apply(this, [ctx, this._next.bind(this)]);
     }
     /**
      * 创建上下文对象
@@ -45,7 +46,7 @@ class Koa {
         return ctx;
     }
     /**
-     * 
+     * 监听端口号
      * @param {Number} port 需要被监听的端口号
      */
     listen(port) {
