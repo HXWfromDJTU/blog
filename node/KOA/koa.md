@@ -38,4 +38,16 @@ fn().then(res => console.log(res)).catch(err => console.error(err.stack));
 
 
 #### next
-next方法是代码执行下一步的唯一标准，无论是同步任务还是异步任务。     
+next方法是代码执行下一步的唯一标准，无论是同步任务还是异步任务。若不是手动调用这个next方法，则表现出卡住了,而这里的卡住必须是使用,promise的方式去实现的.
+```js
+return Promise.resolve(
+          work(ctx, () => {  // 注意：这里的第二个参数，就是我们中间件回调中的第二个参数 next ，用于启动下一个中间件       
+               dispatch(index + 1);  // 递归推动        
+            })
+         )
+```
+这里的设计和一些路由守卫的设计有些类似，在`vue-router`中，不执行`beforeEach`中的`next()`回调，则无法进入对应的组件/页面一样。   
+
+
+###### 为何一定要使用 Promise.resolve()     
+Koa 规定只要遇到 next 就需要等待，则将取出每一个中间件函数执行后的结果使用 Promise.resolve 强行包装成一个成功态的 Promise，就对异步进行了兼容。        

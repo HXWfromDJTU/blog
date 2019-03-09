@@ -17,6 +17,7 @@ function defineGetter(obj, property, key) {
  */
 function defineSetter(obj, property, key) {
     obj.__defineSetter__(key, function (val) {
+        console.log(123)
         this[property][key] = val;
     })
 }
