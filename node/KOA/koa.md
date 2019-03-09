@@ -27,8 +27,15 @@ const fn = async function() {
 fn().then(res => console.log(res)).catch(err => console.error(err.stack));
 ```
 
+但是我们的koa是不建议我们直接去修改这个内置的request对象的
+![](/blog_assets/koa_3.png)
+
+
+`ctx.state`用于承载各个中间件之间需要传递的参数。            
+
+![](/blog_assets/koa_ctx_state.png)
 
 
 
-
-
+#### next
+next方法是代码执行下一步的唯一标准，无论是同步任务还是异步任务。     
