@@ -62,17 +62,42 @@ class Koa {
         }
         return ctx;
     }
+    /**
+     * 处理请求的方法
+     * @param {*} req 请求对象
+     * @param {*} res 相应对象
+     */
     handleRequest(req, res) {
-        // 根据 用户的实际请求情况，创造出一个请求    
+        // 根据 用户的实际请求情况，根据我们的需求拼凑一个需要的上下文对象          
         let ctx = this.setContext(req, res);
-        // 将 上下文和 中间件合并
+
+        // 启动中间件的执行     
         this.compose(ctx, this.middlewares);
     }
-    compose() {
-
+    /**
+     * 处理中间件的执行过程      
+     * @param {*} ctx 上下文对象
+     * @param {*} middles 中间件对象
+     */
+    compose(ctx, middles) {
+        function dispatch(index) {
+            // 拦截式方法，若访问到最后一个中间件了，就返回一个resolved 状态的 promise   
+            if (index === middles.length) {
+                return Promise.resolve();
+            }
+            // 取出指定的中间件         
+            const work = middlewares[index];
+            // 取出下一个中间件作为promise的resolve回调      
+            return Promise.resolve(
+                work(ctx, () => {  // 注意：这里的第二个参数，就是我们中间件回调中的第二个参数 next ，用于启动下一个中间件       
+                    dispatch(index + 1);  // 递归推动        
+                })
+            )
+        }
+        dispatch(0); // 启动中间件任务      
     }
     /**
-     * 监听端口号
+     * 监听端口号    
      * @param {Number} port 需要被监听的端口号
      */
     listen(port) {
