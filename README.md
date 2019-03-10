@@ -35,7 +35,7 @@
 * [【模拟 3-7】New_Extend_Create_Assign_Instanceof模拟](/algorithm/instanceof.js)  
 * [【模拟 3-8】LazyMan--模拟一个简单的异步链式调用栈](/algorithm/LazyMan.js)  `new`   
 * [【模拟 3-9】模拟一个基础的前端路由](/algorithm/router)  `new`   
-* [【模拟 3-10】模拟一个简单的KOA](/node/KOA/simpleKoa.js)  `new`   
+* [【模拟 3-10】模拟一个简单的KOA](/node/KOA/koa)  `new`   
 
 ##### 浏览器系列
 * [【浏览器系列 1-1】线程与进程](/browser/JS_browser_thread.md)
