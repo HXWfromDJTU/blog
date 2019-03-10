@@ -3,6 +3,8 @@ const http = require('http'); // 引入 http支持
 const context = require('./context');
 const request = require('./request');
 const response = require('./response');
+// 引入流处理   
+const Stream = require('stream');
 /**
  * @class koa 
  */
@@ -31,21 +33,15 @@ class Koa {
         // 将组装好的对象挂载到 context 属性上。           
         let ctx = this.context;
 
-        ctx.request = {
-            ...this.request,
-            req,
-            res,
-        }
-        ctx.response = {
-            ...this.response,
-            req,
-            res,
-        }
-        ctx.res = res;
-        ctx.req = req;
-        ctx.app = this;  // 应用程序实例引用     
+        ctx.request = this.request;
+        ctx.response = this.response;
+
+        ctx.req = ctx.request.req = ctx.response.req = req;
+        ctx.res = ctx.response.res = ctx.request.res = res;
+
+        ctx.app = this;  // 应用程序实例引用        
         ctx.originUrl = '';
-        ctx.state = {};  // 各个中间件之间的数据传递 
+        ctx.state = {};  // 各个中间件之间的数据传递     
 
         return ctx;
     }
@@ -59,7 +55,26 @@ class Koa {
         let ctx = this.setContext(req, res);
 
         // 启动中间件的执行     
-        this.compose(ctx, this.middlewares);
+        let handler = this.compose(ctx, this.middlewares);
+
+        // 根据不同的body返回类型，进行不同的处理
+        handler.then(_ => {
+            console.log('---', ctx.body)
+            // 处理是流的情况
+            if (Buffer.isBuffer(ctx.body) || typeof ctx.body === 'string') {
+                res.setHeader('Content-Type', 'text/plain;chartset=utf8');
+                res.end(ctx.body);
+            } else if (typeof ctx.body === 'object') {
+                // 处理是json对象的情况   
+                res.setHeader('Content-Type', 'application/json;chartset=utf8');
+                res.end(JSON.stringify(ctx.body));
+            } else if (ctx.body instanceof Stream) {
+                // 处理是文件流的情况     
+                ctx.body.pipe(res);
+            } else {
+                res.end('404 Not Found');
+            }
+        })
     }
     /**
      * 处理中间件的执行过程      
@@ -81,7 +96,7 @@ class Koa {
                 })
             )
         }
-        dispatch(0); // 启动中间件任务      
+        return dispatch(0); // 启动中间件任务      
     }
     /**
      * 监听端口号    

@@ -1,40 +1,18 @@
-const { Koa } = require('./index.js');
-
-
+const { Koa } = require('./koa/index.js');
+const fs = require('fs');
+const { action1, action2, action3 } = require('./middlewares')
 let koa = new Koa();
 
 
-koa.use(async (ctx, next) => {
-    console.log(1)
-    // 处理后的ctx，继续传送给下一步
-    let result = await next(ctx);
-    console.log(result)
-});
+koa.use(action1);
 
 // 
-koa.use(async (ctx, next) => {
-    console.log(3)
-    let result = await readfile();
-    next();
-    console.log(ctx.body)
-    console.log(ctx)
-});
+koa.use(action2);
 
-let readfile = function () {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            console.log(4)
-            resolve('xxx')
-        }, 3000);
-    })
 
-}
 
 // 模拟最终处理过程
-koa.use((ctx, next) => {
-    console.log(5)
-    ctx.res.body = "Hello World!"
-});
+koa.use(action3);
 
 
 koa.listen(3001);
