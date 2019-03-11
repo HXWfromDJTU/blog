@@ -5,11 +5,14 @@ const request = require('./request');
 const response = require('./response');
 // 引入流处理   
 const Stream = require('stream');
+// 引入EE事件处理模块     
+const EventEmitter = require('events');
 /**
  * @class koa 
  */
-class Koa {
+class Koa extends EventEmitter {  // 这里继承 EE 模块，令koa对象可以监听/触发事件     
     constructor() {
+        super()
         // 中间件队列
         this.middlewares = [];
         // 根据引入的三个基本模块,创建对象     
@@ -51,12 +54,14 @@ class Koa {
      * @param {*} res 相应对象
      */
     handleRequest(req, res) {
+        res.statusCode = 404; // 默认返回状态码 是 404
+
         // 根据 用户的实际请求情况，根据我们的需求拼凑一个需要的上下文对象          
         let ctx = this.setContext(req, res);
 
         // 启动中间件的执行     
         let handler = this.compose(ctx, this.middlewares);
-
+        console.log(handler)
         // 根据不同的body返回类型，进行不同的处理
         handler.then(_ => {
             console.log('---', ctx.body)
@@ -74,6 +79,10 @@ class Koa {
             } else {
                 res.end('404 Not Found');
             }
+        }).catch(err => {
+            this.emit('err', err); // 向外暴露事件
+            res.statusCode = 500; // 表示内部错误
+            res.end('Internal Server Error')
         })
     }
     /**
@@ -81,22 +90,13 @@ class Koa {
      * @param {*} ctx 上下文对象
      * @param {*} middlewares 中间件对象
      */
-    compose(ctx, middlewares) {
-        function dispatch(index) {
-            // 拦截式方法，若访问到最后一个中间件了，就返回一个resolved 状态的 promise   
-            if (index === middlewares.length) {
-                return Promise.resolve();
-            }
-            // 取出指定的中间件         
-            const work = middlewares[index];
-            // 取出下一个中间件作为promise的resolve回调      
-            return Promise.resolve(
-                work(ctx, () => {  // 注意：这里的第二个参数，就是我们中间件回调中的第二个参数 next ，用于启动下一个中间件       
-                    dispatch(index + 1);  // 递归推动        
-                })
-            )
+    async compose(ctx, middlewares) { // 简化版的compose，接收中间件数组、ctx对象作为参数
+        function dispatch(index) { // 利用递归函数将各中间件串联起来依次调用
+            if (index === middlewares.length) return; // 最后一次next不能执行，不然会报错
+            const middleware = middlewares[index]; // 取当前应该被调用的函数
+            return middleware(ctx, () => dispatch(index + 1)); // 调用并传入ctx和下一个将被调用的函数，用户next()时执行该函数
         }
-        return dispatch(0); // 启动中间件任务      
+        return dispatch(0);
     }
     /**
      * 监听端口号    
@@ -104,7 +104,7 @@ class Koa {
      */
     listen(port) {
         // 初始化的时候创建一个http服务器     
-        this.server = Koa.http.createServer(this.handleRequest.bind(this));
+        this.server = http.createServer(this.handleRequest.bind(this));
         // 监听端口     
         if (typeof port === 'number' && port > 0 && port < 65535) {
             this.server.listen(port);
@@ -113,7 +113,5 @@ class Koa {
         }
     }
 }
-// 模拟实现一个Koa   
-Koa.http = http;
 
 exports.Koa = Koa;
