@@ -51,3 +51,15 @@ return Promise.resolve(
 
 ###### 为何一定要使用 Promise.resolve()     
 Koa 规定只要遇到 next 就需要等待，则将取出每一个中间件函数执行后的结果使用 Promise.resolve 强行包装成一个成功态的 Promise，就对异步进行了兼容。        
+
+### 参考文章  
+[模拟实现一个简单的koa - 掘金](https://juejin.im/post/5bbdd97fe51d450e8c35287a)   
+
+
+[koa2 框架中的中间件同步还是异步的问题？- v2ex](https://www.v2ex.com/t/441745)    
+
+
+[koa-router 官方文档](https://github.com/ZijianHe/koa-router/tree/master#module_koa-router--Router+routes)   
+
+
+[逐行分析Koa中间件机制](https://juejin.im/post/5c7decbbe51d454a7c5e8474)

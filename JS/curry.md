@@ -14,7 +14,7 @@ function curry(func){
     }
 }
 ```
-改造前函数
+改造前函数         
 ```js
 function add(a,b,c){
     return a+ b + c;
