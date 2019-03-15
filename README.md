@@ -14,26 +14,18 @@
 
 
 ##### 手写模拟系列
-* [【数据结构 1-1】单链表](/algorithm/data_structure/linkedlist/)
-* [【数据结构 1-2】数组](/algorithm/data_structure/array/) 
-* [【数据结构 1-3】顺序栈](/algorithm/data_structure/stack/) 
-* [【数据结构 1-4】顺序队列](/algorithm/data_structure/queue/) 
-* [【排序 2-1】冒泡排序&优化](/algorithm/data_structure/sort/BubbleSort.js)
-* [【排序 2-2】选择排序](/algorithm/data_structure/sort/SelectSort.js) 
-* [【排序 2-3】插入+希尔排序](/algorithm/data_structure/sort/InsertSort.js) 
-* [【排序 2-4】归并排序](/algorithm/data_structure/sort/MergeSort.js) 
-* [【排序 2-5】快速排序](/algorithm/data_structure/sort/QuickSort.js) 
-* [【排序 2-6】计数排序](/algorithm/data_structure/sort/CountSort.js)
-* [【排序 2-7】 桶排序](/algorithm/data_structure/sort/BucketSort.js)
-* [【排序 2-8】各种排序效率比较](/algorithm/data_structure/sort/index.js) 
-* [【模拟 3-1】手工实现一个Promise](https://github.com/HXWfromDJTU/sw-promise) `hot`
-* [【模拟 3-2】手工实现深拷贝](/algorithm/deepCopy.js) `hot`
+* [【数据结构 1-1】单链表](/algorithm/data_structure/linkedlist/)、[数组](/algorithm/data_structure/array/)、[顺序栈](/algorithm/data_structure/stack/) 、[顺序队列](/algorithm/data_structure/queue/) 
+* [【排序 2-1】冒泡排序](/algorithm/data_structure/sort/BubbleSort.js)、[选择排序](/algorithm/data_structure/sort/SelectSort.js)、[插入+希尔排序](/algorithm/data_structure/sort/InsertSort.js)
+* [【排序 2-2】归并排序](/algorithm/data_structure/sort/MergeSort.js)、[快速排序](/algorithm/data_structure/sort/QuickSort.js) 
+* [【排序 2-3】计数排序](/algorithm/data_structure/sort/CountSort.js)、[桶排序](/algorithm/data_structure/sort/BucketSort.js)
+* [【模拟 3-1】手工实现一个Promise](https://github.com/HXWfromDJTU/sw-promise) 
+* [【模拟 3-2】手工实现深拷贝](/algorithm/deepCopy.js) 
 * [【模拟 3-3】ES3模拟实现 apply-call-bind](/algorithm/bind.js)
 * [【模拟 3-4】实现简单的eventEmitter](/algorithm/data_structure/observer.js)
 * [【模拟 3-5】数组扁平化](/algorithm/flatten.js)
 * [【模拟 3-6】防抖与节流](/algorithm/debounce_throttle.js)  
 * [【模拟 3-7】New_Extend_Create_Assign_Instanceof模拟](/algorithm/instanceof.js)  
-* [【模拟 3-8】LazyMan--模拟一个简单的异步链式调用栈](/algorithm/LazyMan.js)  `new`   
+* [【模拟 3-8】LazyMan--模拟一个简单的异步链式调用栈](/algorithm/LazyMan.js)    
 * [【模拟 3-9】模拟一个基础的前端路由](/algorithm/router)  `new`   
 * [【模拟 3-10】模拟一个简单的KOA](https://github.com/HXWfromDJTU/sw-koa)  `new`   
 
