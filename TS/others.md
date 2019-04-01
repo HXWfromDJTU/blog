@@ -1,0 +1,1 @@
+void类型，只能够赋值  null与 undefined。     

@@ -146,3 +146,6 @@ ____
 [vue 的nextTick](/vue/nextTick.md)
 
 [vue 的DOM更新机制](/vue/vue_dom_nextTick.md)
+
+
+[高能福利 -- 外国帅哥讲清楚Eventloop](https://www.v2ex.com/t/537855#reply0)
