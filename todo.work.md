@@ -19,7 +19,7 @@ const ipc = require('electron').ipcRenderer
 const asyncMsgBtn = document.getElementById('async-msg')
 
 asyncMsgBtn.addEventListener('click', function () {
-  ipc.send('asynchronous-message', 'ping')
+  ipc.send('asynchronous-message', 'ping');
 })
 
 ipc.on('asynchronous-reply', function (event, arg) {
@@ -154,30 +154,12 @@ Wallet缓存的一些东西
 矿工费的计算？耗电量。     
 
 
-### 桌面端钱包    
+### webpack 配置  
 
-JS 底层库,暂定使用第三方接口进行调试。    
-
-底层 + UI 层： 耗时 ==>  
+使用`webpack --mode=production`或者是不做配置，则会默认启动`FlagDependencyUsagePlugin`, `FlagIncludedChunksPlugin`, `ModuleConcatenationPlugin`, `NoEmitOnErrorsPlugin`, `OccurrenceOrderPlugin`, `SideEffectsFlagPlugin` 和 `UglifyJsPlugin`.        
 
 
-底层库后续需要两周。
+使用`webpack --mode=development`开发模式没会自动启动`NamedChunksPlugin` 和 `NamedModulesPlugin`插件。   
 
-dapp通信协议了。多端通用的dapp的通信协议。 
 
-对接后端接口，新增前端的sdk。        
 
-浏览器插件版本   
-
-社交插件版本    
-
-官网：钱包官网     
-
-帮助系统： 多端共用，多语言 。1️⃣自己搭建 一个 帮助文档的 服务        
-
-       
-### 721 非同质化代币/礼品卡   
-
-ERC 721 ETH的卡
-
-主链coin和基于主链的代币    
