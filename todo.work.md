@@ -154,12 +154,22 @@ Wallet缓存的一些东西
 矿工费的计算？耗电量。     
 
 
-### webpack 配置  
+### webpack 配置        
 
 使用`webpack --mode=production`或者是不做配置，则会默认启动`FlagDependencyUsagePlugin`, `FlagIncludedChunksPlugin`, `ModuleConcatenationPlugin`, `NoEmitOnErrorsPlugin`, `OccurrenceOrderPlugin`, `SideEffectsFlagPlugin` 和 `UglifyJsPlugin`.        
 
+使用`webpack --mode=development`开发模式没会自动启动`NamedChunksPlugin` 和 `NamedModulesPlugin`插件。      
 
-使用`webpack --mode=development`开发模式没会自动启动`NamedChunksPlugin` 和 `NamedModulesPlugin`插件。   
+[link](https://www.webpackjs.com/concepts/mode/)   
 
 
+### javascript 迁移到 typescript   
+Object.assign 在ts中无效          
+[参考文章](https://stackoverflow.com/questions/38860161/using-typescript-and-object-assign-gives-me-an-error-property-assign-does-no)        
+
+
+
+### typescript 模块化   
+
+`Typescript`沿用了`Javascript`中`ECMAScript`模块的概念，
 
