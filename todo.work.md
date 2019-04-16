@@ -147,7 +147,7 @@ BIP 11
 unspend
 
 
-HDWallet 
+HDWallet  
 
 Wallet缓存的一些东西   
 
@@ -167,9 +167,25 @@ Wallet缓存的一些东西
 Object.assign 在ts中无效          
 [参考文章](https://stackoverflow.com/questions/38860161/using-typescript-and-object-assign-gives-me-an-error-property-assign-does-no)        
 
+tsconfig 的 编译选项中，使用 lib 参数，可以指定在编译过程中需要引入的库文件列表。          
+
+
 
 
 ### typescript 模块化   
 
-`Typescript`沿用了`Javascript`中`ECMAScript`模块的概念，
+`Typescript`沿用了`Javascript`中`ECMAScript`模块的概念，   
 
+### TS Error 列表   
+``
+
+
+### TIDB 
+
+> TiDB 是 PingCAP 公司受 Google Spanner / F1 论文启发而设计的开源分布式 HTAP (Hybrid Transactional and Analytical Processing) 数据库，结合了传统的 RDBMS 和 NoSQL 的最佳特性。TiDB 兼容 MySQL，支持无限的水平扩展，具备强一致性和高可用性。TiDB 的目标是为 OLTP (Online Transactional Processing) 和 OLAP (Online Analytical Processing) 场景提供一站式的解决方案。         
+
+
+### alexa 网站排名   
+
+
+### babel-node 让node环境支持es6 
