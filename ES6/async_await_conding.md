@@ -75,10 +75,11 @@ const foo = async () => {};
 * 返回值的处理：`async`声明的函数，必须等到内部所有的`await`声明返回的`Promise`都执行完了(`reject`或者`resolve`)才能够发生状态变化。（有些类似于Promise.all的规则）
 
 ### `await`返回值
-1️⃣ 理论上`await`的后面能够跟任何一种表达式的值
-2️⃣  但是，我们使用`await`肯定是去做异步操作的，所有`await` 后面大多数情况下，会跟一个`Promise`对象，并且当后面的返回值是`Promise`对象的时候，`会阻塞当前代码的执行`
-3️⃣`await`后面若是跟着一个`非Promise`对象，则会当成返回了一个`状态已定的`的`Promise`，多数情况下是`resolved`，除非表达式返回了`Error`
-4️⃣ 加入await后跟着的不是标准的Promise对象，但是一个`thenable`对象，那么await也会当做Promise来处理(duck type🦆原则)
+1️⃣ 理论上`await`的后面能够跟任何一种表达式的值               
+2️⃣  但是，我们使用`await`肯定是去做异步操作的，所有`await` 后面大多数情况下，会跟一个`Promise`对象，并且当后面的返回值是`Promise`对象的时候，`会阻塞当前代码的执行`.            
+3️⃣`await`后面若是跟着一个`非Promise`对象，则会当成返回了一个`状态已定的`的`Promise`，多数情况下是`resolved`，除非表达式返回了`Error`.           
+4️⃣ 加入await后跟着的不是标准的Promise对象，但是一个`thenable`对象，那么await也会当做Promise来处理(duck type🦆原则).               
+
 
 ### 异常处理
    ```js
