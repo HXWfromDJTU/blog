@@ -1,10 +1,8 @@
 ### When they go low - we go high 
 
-🌈 记录总结日常工作学习...欢迎star....技术栈`前端`+`node`,
+🌈 记录总结日常工作学习...欢迎star....
 
-2019 todo list    
-
-item | 
+2019 todo list  | 
 -|
 `TypeScript` | 
 `electron` | 
