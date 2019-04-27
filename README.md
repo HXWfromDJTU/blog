@@ -3,17 +3,12 @@
 🌈 记录总结日常工作学习...欢迎star....技术栈`前端`+`node`,
 
 2019 todo list    
-item |
-- |
-`TypeScript`  |  
-`electron` |   
-`node - IPC`|
 
 item | 
 -|
-香蕉 | 
-苹果 | 
-草莓 | 
+`TypeScript` | 
+`electron` | 
+`node - IPC` | 
 
 base深圳广州
 
