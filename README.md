@@ -1,6 +1,11 @@
 ### When they go low - we go high 
 
-🌈 记录总结日常工作学习...欢迎star....技术栈`前端`+`node`,2019准备进军`TypeScript`,欢迎学习交流~
+🌈 记录总结日常工作学习...欢迎star....技术栈`前端`+`node`,
+
+2019 todo list      
+`TypeScript`    
+`electron`    
+`node - IPC`
 
 base深圳广州
 
