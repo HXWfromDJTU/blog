@@ -1,14 +1,12 @@
 ### When they go low - we go high 
 
-🌈 记录总结日常工作学习...欢迎star....
+🌈 记录总结日常工作学习...欢迎star....base深圳广州
 
-2019 todo list  | 
--|
-`TypeScript` | 
-`electron` | 
-`node - IPC` | 
-
-base深圳广州
+2019 todo list  | status |
+-| - |
+`TypeScript` | 👋 learning |
+`electron` | 🚩 working on |
+`node - IPC` | 🚩 working on |
 
 <!-- | 优化 | [防抖与节流](/JS/debounce.md) -->
 
@@ -19,21 +17,6 @@ base深圳广州
 [async 下的异步编程](/network/ES6/async_await_conding.md) -->
 
 
-##### 手写模拟系列
-* [【数据结构 1-1】单链表](/algorithm/data_structure/linkedlist/)、[数组](/algorithm/data_structure/array/)、[顺序栈](/algorithm/data_structure/stack/) 、[顺序队列](/algorithm/data_structure/queue/) 
-* [【排序 2-1】冒泡排序](/algorithm/data_structure/sort/BubbleSort.js)、[选择排序](/algorithm/data_structure/sort/SelectSort.js)、[插入+希尔排序](/algorithm/data_structure/sort/InsertSort.js)
-* [【排序 2-2】归并排序](/algorithm/data_structure/sort/MergeSort.js)、[快速排序](/algorithm/data_structure/sort/QuickSort.js) 
-* [【排序 2-3】计数排序](/algorithm/data_structure/sort/CountSort.js)、[桶排序](/algorithm/data_structure/sort/BucketSort.js)
-* [【模拟 3-1】手工实现一个Promise](https://github.com/HXWfromDJTU/sw-promise) 
-* [【模拟 3-2】手工实现深拷贝](/algorithm/deepCopy.js) 
-* [【模拟 3-3】ES3模拟实现 apply-call-bind](/algorithm/bind.js)
-* [【模拟 3-4】实现简单的eventEmitter](/algorithm/data_structure/observer.js)
-* [【模拟 3-5】数组扁平化](/algorithm/flatten.js)
-* [【模拟 3-6】防抖与节流](/algorithm/debounce_throttle.js)  
-* [【模拟 3-7】New_Extend_Create_Assign_Instanceof模拟](/algorithm/instanceof.js)  
-* [【模拟 3-8】LazyMan--模拟一个简单的异步链式调用栈](/algorithm/LazyMan.js)    
-* [【模拟 3-9】模拟一个基础的前端路由](/algorithm/router)  `new`   
-* [【模拟 3-10】模拟一个简单的KOA](https://github.com/HXWfromDJTU/sw-koa)  `new`   
 
 ##### 浏览器系列
 * [【浏览器系列 1-1】线程与进程](/browser/JS_browser_thread.md)
@@ -67,7 +50,8 @@ base深圳广州
 * [【JS 2-7】RAF-熟悉的陌生人](/CSS/RAF.md) `写作中...`    
 * [【JS 2-8】函数参数传值还是传引用](/JS/function_param.md)   
 
-
+##### Typescript 
+* 【Typescript 1-1】typescript中的模块化
 
 ##### 设计模式系列
 * [【设计模式 1-X】设计模式总览](/design_mode/summary.md) 
@@ -77,6 +61,21 @@ base深圳广州
 * [【设计模式 1-4】原型模式](/design_mode/prototype.md)
 
 
+##### 手写模拟系列
+* [【数据结构 1-1】单链表](/algorithm/data_structure/linkedlist/)、[数组](/algorithm/data_structure/array/)、[顺序栈](/algorithm/data_structure/stack/) 、[顺序队列](/algorithm/data_structure/queue/) 
+* [【排序 2-1】冒泡排序](/algorithm/data_structure/sort/BubbleSort.js)、[选择排序](/algorithm/data_structure/sort/SelectSort.js)、[插入+希尔排序](/algorithm/data_structure/sort/InsertSort.js)
+* [【排序 2-2】归并排序](/algorithm/data_structure/sort/MergeSort.js)、[快速排序](/algorithm/data_structure/sort/QuickSort.js) 
+* [【排序 2-3】计数排序](/algorithm/data_structure/sort/CountSort.js)、[桶排序](/algorithm/data_structure/sort/BucketSort.js)
+* [【模拟 3-1】手工实现一个Promise](https://github.com/HXWfromDJTU/sw-promise) 
+* [【模拟 3-2】手工实现深拷贝](/algorithm/deepCopy.js) 
+* [【模拟 3-3】ES3模拟实现 apply-call-bind](/algorithm/bind.js)
+* [【模拟 3-4】实现简单的eventEmitter](/algorithm/data_structure/observer.js)
+* [【模拟 3-5】数组扁平化](/algorithm/flatten.js)
+* [【模拟 3-6】防抖与节流](/algorithm/debounce_throttle.js)  
+* [【模拟 3-7】New_Extend_Create_Assign_Instanceof模拟](/algorithm/instanceof.js)  
+* [【模拟 3-8】LazyMan--模拟一个简单的异步链式调用栈](/algorithm/LazyMan.js)    
+* [【模拟 3-9】模拟一个基础的前端路由](/algorithm/router)  `new`   
+* [【模拟 3-10】模拟一个简单的KOA](https://github.com/HXWfromDJTU/sw-koa)  `new`   
 
 ##### 网络传输系列
 * [【传输层 1-1】DNS基本原理](/network/DNS.md)
@@ -101,7 +100,6 @@ base深圳广州
 ##### React源码解析
 * [【React源码 1-1】从React.jsReact对象上的方法](/react/source_ch1.md)   
 * [【React源码 1-2】从Fiber对象说起的更新与调度](/react/source_ch2.md)    
-
 
 
 
