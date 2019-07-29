@@ -52,6 +52,7 @@
 
 ##### Typescript 
 * 【Typescript 1-1】typescript中的模块化
+* 【Typescript 1-2】ts + vue2.x 开发总结
 
 ##### 设计模式系列
 * [【设计模式 1-X】设计模式总览](/design_mode/summary.md) 
