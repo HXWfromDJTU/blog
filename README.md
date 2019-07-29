@@ -112,7 +112,8 @@
 * [【工具Babel 2-1】babel_插件开发](./project_build/babel_plugin_dev.md)
 * [【工具Webpack 3-1】webpack工作原理](/project_build/webpack/how_webpack_work.md)
 * [【工具Webpack 3-2】webpack多入口配置](./project_build/webpack/multi_entry.md)
-* [【框架ElementUI 4-1】源码解读之el-scrollbar](/network/elementUI/elementUI%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B9%8Bel-scrollbar.md)
+* [【框架ElementUI 4-1】源码解读之el-scrollbar](/network/elementUI/elementUI%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B9%8Bel-scrollbar.md)     
+* [【框架ElementUI 4-2】$message](/network/elementUI/$message.md)
 * 【框架ElementUI 4-2】源码解读之Event机制
 * [【工具git 5-1】git_flow](/project_build/git/git_flow.md)
 * [【工具npm 6-1】node依赖包的版本管理](/project_build/npm_package_version.md)
