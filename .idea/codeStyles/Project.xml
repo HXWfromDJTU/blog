@@ -18,6 +18,9 @@
       <option name="ENFORCE_TRAILING_COMMA" value="Remove" />
       <option name="INDENT_CHAINED_CALLS" value="false" />
     </JSCodeStyleSettings>
+    <MarkdownNavigatorCodeStyleSettings>
+      <option name="RIGHT_MARGIN" value="72" />
+    </MarkdownNavigatorCodeStyleSettings>
     <TypeScriptCodeStyleSettings version="1">
       <option name="USE_SEMICOLON_AFTER_STATEMENT" value="false" />
       <option name="FORCE_SEMICOLON_STYLE" value="true" />
