@@ -7,6 +7,24 @@
 ### nginx常见知识点
 1️⃣ 默认监听 `80` 端口    
 
+### nginx 常用命令
+```
+# reload nginx
+$ nginx -s reload
+```
+
+```
+$ nginx -s stop
+```
+```bat
+# 检测 nginx 配置文件是否有效
+$ nginx -t 
+```
+
+```
+# 杀死nginx 进程
+$ pkill nginx
+```
 
 ### 请求转发
 

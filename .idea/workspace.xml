@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fda77912-c30d-44a0-bd96-5d1db52bd390" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/swain.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/markdown-navigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/markdown-navigator/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vagrant.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/browser/UA.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/browser/mobile_webview_webkit.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_build/apiHandler.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/work/cooperation.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LINUX/common_command.md" beforeDir="false" afterPath="$PROJECT_DIR$/LINUX/common_command.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node/error_handler.md" beforeDir="false" afterPath="$PROJECT_DIR$/node/error_handler.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/todo.afterwork.md" beforeDir="false" afterPath="$PROJECT_DIR$/todo.afterwork.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_build/nginx.md" beforeDir="false" afterPath="$PROJECT_DIR$/project_build/nginx.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_note.md" beforeDir="false" afterPath="$PROJECT_DIR$/work_note.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -75,7 +66,9 @@
       <workItem from="1564385884598" duration="1184000" />
       <workItem from="1565581548139" duration="54000" />
       <workItem from="1567650111872" duration="2183000" />
-      <workItem from="1568028445356" duration="1592000" />
+      <workItem from="1568028445356" duration="4496000" />
+      <workItem from="1568779515578" duration="1046000" />
+      <workItem from="1568861657926" duration="2020000" />
     </task>
     <servers />
   </component>
