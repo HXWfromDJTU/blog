@@ -2,22 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fda77912-c30d-44a0-bd96-5d1db52bd390" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/LINUX/dir.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LINUX/yum.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_assets/linux_bin_dir.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_assets/linux_etc_dir.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_assets/linux_lib_dir.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_assets/linux_proc_cpuinfo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_assets/linux_proc_dir.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_assets/linux_proc_pid.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_assets/linux_proc_version.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_assets/linux_root_dir.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_assets/linux_sbin_dir_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_assets/linux_tmp_dir.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_assets/linux_usr_dir.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_assets/linux_usr_sbin_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/swain.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/swain.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LINUX/common_command.md" beforeDir="false" afterPath="$PROJECT_DIR$/LINUX/common_command.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todo.work.md" beforeDir="false" afterPath="$PROJECT_DIR$/todo.work.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -83,6 +70,8 @@
       <workItem from="1568861657926" duration="3519000" />
       <workItem from="1569215255391" duration="1251000" />
       <workItem from="1569565115078" duration="6000" />
+      <workItem from="1576831337165" duration="4000" />
+      <workItem from="1576831410344" duration="5383000" />
     </task>
     <servers />
   </component>
