@@ -60,6 +60,14 @@ find / -name "nginx" -type d
 
 ##### 查找内容
 
+##### 查看进程相关
+
+```bat
+# 查看端口占用情况
+$ lsof -i :3000
+```
+![](/blog_assets/command_lsof.png)
+
 
 
 
