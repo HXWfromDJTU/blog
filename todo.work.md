@@ -3,6 +3,10 @@
 
 ### 跨域再了解
 
+### package-lock 的原理、作用以及实践
+
+### Tencent Cloud SCF 使用与了解
+
 ### typescript
 * typescript的模块化，与其他模块化一起整理
 * TS 单继承与多继承？需求场景与实际解决方案。(backend模块与 a模块、b模块、c模块)
@@ -95,7 +99,7 @@
 
 ### 产品
 * alexa 网站排名
-
+* google-analyse
 ### Javascript定时器延时问题
 
 ### 算法计划
