@@ -1,106 +1,68 @@
-### 离线缓存与 Service Workers
-[参考文章](https://segmentfault.com/a/1190000008491458)
-
-### 跨域再了解
-
-### package-lock 的原理、作用以及实践
-
-### Tencent Cloud SCF 使用与了解
-
-### typescript
-* typescript的模块化，与其他模块化一起整理
-* TS 单继承与多继承？需求场景与实际解决方案。(backend模块与 a模块、b模块、c模块)
-* typescript 模块化
-* Interface、enum 在项目中的使用
-* @decorator
-
-### electron
-* 进程间通信，通过ipc进行进程间通信
-
-
-### nuxt 后端渲染
-
-### RPC了解与进阶
-
-### 与客户端的交互
-* webview-sdk 如何实现
-  * 回调函数
-  * postMessage
-  * 传id RPC2.0协议
-* UIWebview WKWebview 的特性
-* 各个版本的安卓浏览器，对JS版本、语法的支持
-* service-worker 与离线包
-
-### 多语言 与 本地化
-* 需求来源，解决方案溯源
-* 现代化解决方案
-* 自动化解决
-
-### npm 工具
-* 多模块打包
-* es6 module、cjs等模块如何打包生成
-* 多模块同时构建问题
-
-
-
-### 异常处理 实战
-* try catch
-* promise 的异常
-* 工程化中的经验
-   * 前期暴露 error后期慢慢收归
-
-### babel-node 让node环境支持es6
-
-### transition 和 transform 搭配使用
-
-### 如何实现模板共用，但是业务代码不共用
-* mixin 和 extend的区别
-* 路由和组件混合
-
-
-
-### 页面组件构建的经验
-
-1、UI、数据、逻辑分拆
-
-2、v-on：listener
-
-3、event做文档
-
-### 工作总结
-* 闭环,批量暴露问题，自身闭环,和产品的沟通
-
-跨域情况下，set-cookie 返回头无效
-
-### 项目经验
-* 减少代码的潜规则
-* 操作尽量返回值，而不是操作改变一个全局的变量
-* 调试开发的 proxifer 与 whistle
-* sentry
-* drone/github.io CI流程
-* yapi
-* 企业微信 bot
-
-### 单元测试
-
-### flutter
-
-### koa 源码 + 中间件机制
-
-### vue store 源码 + 原理 + 模拟实现
-
-### git 使用进阶
-* 原理分析与截图
-* 实战常用的命令，要附常用参数
-* 理出一个日常的工作流
-* commit log规范
-
-### WASM
+### 项目架构
+| 条目 | 时间安排 | 成果 | 备注 |
+ --- | -- | -- | -- |
+| 如何实现模板共用，但是业务代码不共用 |  | |mixin 和 extend的区别, 路由和组件混合 |
+| vue 重构 || |  1、UI、数据、逻辑分拆  2、v-on：listener 3、event做文档|
 
 ### 产品
-* alexa 网站排名
-* google-analyse
-### Javascript定时器延时问题
+| 条目 | 时间安排 | 成果 | 备注 |
+ --- | -- | -- | -- |
+| alexa 网站排名  ||||
+| google-analyse数据分析 ||||
 
-### 算法计划
+### 前端发散核心
+| 条目 | 时间安排 | 成果 | 备注 |
+ --- | -- | -- | -- |
+| Javascript定时器延时问题  ||||
+| WASM  ||||
+| vue-store | | vue store 源码 + 原理 + 模拟实现|||
+| koa | |   koa 源码 + 中间件机制 |||
+| flutter | | 起demo |||
+| nuxt 后端渲染 ||||
+| electron || 进程间通信，通过ipc进行进程间通信 ||
+| typescript的模块化，与其他模块化一起整理 | 
+| TS 单继承与多继承？需求场景与实际解决方案。(backend模块与 a模块、b模块、c模块) |
+| Interface、enum 在项目中的使用 | ||||
+| @decorator |||||
+| package-lock 的原理、作用以及实践 ||||
+| 跨域再了解 ||||
+| 如何快速构建一个ts为开发语言的前端项目 ||||
+| 跨域情况下，set-cookie 返回头无效 ||||
+| react源码课程继续深挖 ||||
+| 如何避免出现末尾补领以及科学计数法 ||||
+
+### 项目管理
+| 条目 | 时间安排 | 成果 | 备注 |
+| --- | -- | -- | -- |
+| git 使用进阶  |  | ① 原理分析与截图 ② 实战常用的命令，要附常用参数 ③ 理出一个日常的工作流 ④ commit log规范  ||
+| 减少代码的潜规则 | | 操作尽量返回值，而不是操作改变一个全局的变量 ||
+| 闭环,批量暴露问题，自身闭环,和产品的沟通 ||||
+| 调试开发的 proxifer 与 whistle | |||
+| sentry | |||| 
+| drone/github.io CI流程 | |||||
+| yapi | ||||| 
+| 企业微信 bot |||||
+| 单元测试 |||||
+| 异常处理 实战 || ① try catch ②  promise 的异常 ③  工程化中的经验 ④ 前期暴露 error后期慢慢收归 ||
+| npm 工具 ||| ① 多模块打包 ② es6 module、cjs等模块如何打包生成 ③ 多模块同时构建问题 |
+| 多语言 与 本地化 ||| ① 需求来源，解决方案溯源 ② 现代化解决方案 ③ 自动化解决 ||
+| RPC了解与进阶 |||||
+| 前端日志的收集 ||||
+| 骨架屏的实现 ||||
+| 请求成功了，却继续显示跨域 | |||||
+
+### 与客户端的交互
+| 条目 | 时间安排 | 成果 | 备注 |
+| --- | -- | -- | -- |
+| webview-sdk 如何实现 ||| ① 回调函数 ② postMessage ③ 传id RPC2.0协议 |
+| UIWebview WKWebview 的特性 ||||
+| 各个版本的安卓浏览器，对JS版本、语法的支持 ||||
+| service-worker 与离线包 || [参考文章](https://segmentfault.com/a/1190000008491458) ||
+
+### 运维与网络
+| 条目 | 时间安排 | 成果 | 备注 |
+| --- | -- | -- | -- |
+| Tencent Cloud SCF 使用与了解 ||||
+| github action |
+| 常用命令手机 |||||
 
