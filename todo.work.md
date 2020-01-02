@@ -80,6 +80,7 @@
 * drone/github.io CI流程
 * yapi
 * 企业微信 bot
+* eslint 的配置与管理
 
 ### 单元测试
 
