@@ -12,7 +12,7 @@
 ### 服务器配置ssl证书
 > nginx版本
 ##### 1、下载证书包
-请根据自己的服务器平台选择证书包     
+请根据自己的服务器平台选择证书包
 
 ![](/blog_assets/ssl-step3.png)
 ![](/blog_assets/ssl-step4.png)
@@ -39,7 +39,7 @@ $ make
 $ cp /usr/local/nginx/sbin/nginx /usr/local/nginx/sbin/nginx.bak
 ```
 ```
-$ cp objs/nginx /usr/local/nginx/sbin/nginx 
+$ cp objs/nginx /usr/local/nginx/sbin/nginx
 ```
 哦对了~👆上面这个覆盖文件会需要你停止当前的`nginx`，避免你又查了，给你搬运过来了
 ```
@@ -56,7 +56,7 @@ $ nginx -s stop # 强制停了吧
          location / {
             proxy_pass http://nuxtSSR; # 前面配置的一个前端项目
          }
-         # SSL 证书配置 
+         # SSL 证书配置
          ssl_certificate cert/1_woniuhuafang.club_bundle.crt; # 您证书的文件名。
          ssl_certificate_key cert/2_woniuhuafang.club.key; # 证书的私钥文件名。
          ssl_session_timeout 5m;
@@ -83,3 +83,5 @@ $ nginx
 ### 错误回收站
 ##### 1、ssl 前置标志符号不再推荐使用
 >[warn] the "ssl" directive is deprecated, use the "listen ... ssl" directive instead
+
+移除 `ssl on`配置，修改`listen 443` 为 `listen 443 ssl`
