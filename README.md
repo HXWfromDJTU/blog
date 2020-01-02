@@ -86,6 +86,7 @@
 * [【应用层 2-3】从报文分析HTTPS握手过程](/network/http/https.md)
 * [【应用层 2-4】“熟悉而陌生”的GET_&_POST](/network/http/post_get.md) 
 * [【网络安全 3-1】XSS 与 CSRF](/browser/CSRF_XSS.md)
+* [【摸索ssl证书申请及配置】](/network/https_certificate.md)
  
 
 ##### Node系列
