@@ -20,7 +20,7 @@
 | flutter | | 起demo |||
 | nuxt 后端渲染 ||||
 | electron || 进程间通信，通过ipc进行进程间通信 ||
-| typescript的模块化，与其他模块化一起整理 | 
+| typescript的模块化，与其他模块化一起整理 |
 | TS 单继承与多继承？需求场景与实际解决方案。(backend模块与 a模块、b模块、c模块) |
 | Interface、enum 在项目中的使用 | ||||
 | @decorator |||||
@@ -39,9 +39,9 @@
 | 减少代码的潜规则 | | 操作尽量返回值，而不是操作改变一个全局的变量 ||
 | 闭环,批量暴露问题，自身闭环,和产品的沟通 ||||
 | 调试开发的 proxifer 与 whistle | |||
-| sentry | |||| 
+| sentry | ||||
 | drone/github.io CI流程 | |||||
-| yapi | ||||| 
+| yapi | |||||
 | 企业微信 bot |||||
 | 单元测试 |||||
 | 异常处理 实战 || ① try catch ②  promise 的异常 ③  工程化中的经验 ④ 前期暴露 error后期慢慢收归 ||
