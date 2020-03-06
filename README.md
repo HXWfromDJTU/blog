@@ -1,4 +1,4 @@
-### When they go low - we go high 
+### When they go low - we go high
 
 🌈 记录总结日常工作学习...欢迎star....base深圳广州
 
@@ -27,13 +27,13 @@
 * [【浏览器系列 1-6】浏览器跨域总结](/browser/CORS.md)`hot`
 * [【浏览器系列 1-7】性能优化1 - 整体流程优化](/browser/rending_optimize.md)
 * [【浏览器系列 1-8】性能优化2 - css基本性能优化](/CSS/css_optimize.md)
-* [【浏览器系列 1-9】浏览器事件模型](/JS/eventMode.md)  
-* [【浏览器系列 1-10】浏览器中的cookie](/browser/cookie.md)   `new` 
-* [【浏览器系列 1-11】性能优化3 - 从渲染Timeline中深入交互优化](/browser/PaintTiming.md) `new` 
+* [【浏览器系列 1-9】浏览器事件模型](/JS/eventMode.md)
+* [【浏览器系列 1-10】浏览器中的cookie](/browser/cookie.md)   `new`
+* [【浏览器系列 1-11】性能优化3 - 从渲染Timeline中深入交互优化](/browser/PaintTiming.md) `new`
 * [【浏览器系列 1-12】屏幕刷新与requestAnimationFrame](/CSS/RAF.md)
-* [【浏览器系列 1-13】性能优化4 - 从webpack打包配置的优化](/browser/webpack_optimize.md) `new` 
-* [【浏览器系列 1-14】性能优化5 - 从CSS合成层着手的渲染优化](/CSS/GPU.md) `写作中...` 
-* 【浏览器系列 1-15】性能优化6 - 前端资源重新加载 
+* [【浏览器系列 1-13】性能优化4 - 从webpack打包配置的优化](/browser/webpack_optimize.md) `new`
+* [【浏览器系列 1-14】性能优化5 - 从CSS合成层着手的渲染优化](/CSS/GPU.md) `写作中...`
+* 【浏览器系列 1-15】性能优化6 - 前端资源重新加载
 
 <!-- | 其他 | [常见算法的JS实现](/algorithm/common.md/) -->
 
@@ -43,19 +43,19 @@
 * [【JS 2-1】Javascript EventLoop In Browser](/JS/eventloop.md)
 * [【JS 2-2】再看闭包](/JS/closure.md)
 * [【JS 2-3】作用域链](/JS/[[SCOPE]].md)
-* [【JS 2-4】微任务](/JS/microTask.md)   
-* [【JS 2-5】Javascript模块化方案总结](/project_build/js_modules.md)   
+* [【JS 2-4】微任务](/JS/microTask.md)
+* [【JS 2-5】Javascript模块化方案总结](/project_build/js_modules.md)
 * [【JS 2-6】this指向哪里](/JS/apply_call_bind_this.md)
-* [【JS 2-7】类型检测](/JS/type_inspect.md)   
-* [【JS 2-7】RAF-熟悉的陌生人](/CSS/RAF.md) `写作中...`    
-* [【JS 2-8】函数参数传值还是传引用](/JS/function_param.md)   
+* [【JS 2-7】类型检测](/JS/type_inspect.md)
+* [【JS 2-7】RAF-熟悉的陌生人](/CSS/RAF.md) `写作中...`
+* [【JS 2-8】函数参数传值还是传引用](/JS/function_param.md)
 
-##### Typescript 
+##### Typescript
 * 【Typescript 1-1】typescript中的模块化
 * 【Typescript 1-2】ts + vue2.x 开发总结
 
 ##### 设计模式系列
-* [【设计模式 1-X】设计模式总览](/design_mode/summary.md) 
+* [【设计模式 1-X】设计模式总览](/design_mode/summary.md)
 * [【设计模式 1-1】观察者模式](/design_mode/observer.md)
 * [【设计模式 1-2】单例模式](/design_mode/singleton.md)
 * [【设计模式 1-3】策略模式](/design_mode/strategy.md)
@@ -63,31 +63,31 @@
 
 
 ##### 手写模拟系列
-* [【数据结构 1-1】单链表](/algorithm/data_structure/linkedlist/)、[数组](/algorithm/data_structure/array/)、[顺序栈](/algorithm/data_structure/stack/) 、[顺序队列](/algorithm/data_structure/queue/) 
+* [【数据结构 1-1】单链表](/algorithm/data_structure/linkedlist/)、[数组](/algorithm/data_structure/array/)、[顺序栈](/algorithm/data_structure/stack/) 、[顺序队列](/algorithm/data_structure/queue/)
 * [【排序 2-1】冒泡排序](/algorithm/data_structure/sort/BubbleSort.js)、[选择排序](/algorithm/data_structure/sort/SelectSort.js)、[插入+希尔排序](/algorithm/data_structure/sort/InsertSort.js)
-* [【排序 2-2】归并排序](/algorithm/data_structure/sort/MergeSort.js)、[快速排序](/algorithm/data_structure/sort/QuickSort.js) 
+* [【排序 2-2】归并排序](/algorithm/data_structure/sort/MergeSort.js)、[快速排序](/algorithm/data_structure/sort/QuickSort.js)
 * [【排序 2-3】计数排序](/algorithm/data_structure/sort/CountSort.js)、[桶排序](/algorithm/data_structure/sort/BucketSort.js)
-* [【模拟 3-1】手工实现一个Promise](https://github.com/HXWfromDJTU/sw-promise) 
-* [【模拟 3-2】手工实现深拷贝](/algorithm/deepCopy.js) 
+* [【模拟 3-1】手工实现一个Promise](https://github.com/HXWfromDJTU/sw-promise)
+* [【模拟 3-2】手工实现深拷贝](/algorithm/deepCopy.js)
 * [【模拟 3-3】ES3模拟实现 apply-call-bind](/algorithm/bind.js)
 * [【模拟 3-4】实现简单的eventEmitter](/algorithm/data_structure/observer.js)
 * [【模拟 3-5】数组扁平化](/algorithm/flatten.js)
-* [【模拟 3-6】防抖与节流](/algorithm/debounce_throttle.js)  
-* [【模拟 3-7】New_Extend_Create_Assign_Instanceof模拟](/algorithm/instanceof.js)  
-* [【模拟 3-8】LazyMan--模拟一个简单的异步链式调用栈](/algorithm/LazyMan.js)    
-* [【模拟 3-9】模拟一个基础的前端路由](/algorithm/router)  `new`   
-* [【模拟 3-10】模拟一个简单的KOA](https://github.com/HXWfromDJTU/sw-koa)  `new`   
+* [【模拟 3-6】防抖与节流](/algorithm/debounce_throttle.js)
+* [【模拟 3-7】New_Extend_Create_Assign_Instanceof模拟](/algorithm/instanceof.js)
+* [【模拟 3-8】LazyMan--模拟一个简单的异步链式调用栈](/algorithm/LazyMan.js)
+* [【模拟 3-9】模拟一个基础的前端路由](/algorithm/router)  `new`
+* [【模拟 3-10】模拟一个简单的KOA](https://github.com/HXWfromDJTU/sw-koa)  `new`
 
 ##### 网络传输系列
 * [【传输层 1-1】DNS基本原理](/network/DNS.md)
 * [【传输层 1-2】TCP与UDP](/network/network_class/TCP.md)
-* [【应用层 2-1】HTTP 2.0🔱](/network/http/http2.0.md) 
+* [【应用层 2-1】HTTP 2.0🔱](/network/http/http2.0.md)
 * [【应用层 2-2】HTTP状态码 - 从报文头一一分析](/network/http/status_code/summary.md) `hot`
 * [【应用层 2-3】从报文分析HTTPS握手过程](/network/http/https.md)
-* [【应用层 2-4】“熟悉而陌生”的GET_&_POST](/network/http/post_get.md) 
+* [【应用层 2-4】“熟悉而陌生”的GET_&_POST](/network/http/post_get.md)
 * [【网络安全 3-1】XSS 与 CSRF](/browser/CSRF_XSS.md)
 * [【摸索ssl证书申请及配置】](/network/https_certificate.md)
- 
+
 
 ##### Node系列
 * [【node系列 1-1】Node eventLoop](/node/core/eventloop_in_node.md)
@@ -95,13 +95,13 @@
 * [【node系列 1-3】socket 与 FileDescription](/network/socket.md)
 * [【node系列 1-4】libuv源码解读](/node/core/libuv/libUV.md)
 * [【node系列 1-5】node多进程与egg.js](/node/multi_process.md)
-* [【node系列 1-6】内建模块之V8](/node/core/v8/v8.md)  
-* [【node系列 1-7】小议node异常处理](/node/error_handler.md)  
+* [【node系列 1-6】内建模块之V8](/node/core/v8/v8.md)
+* [【node系列 1-7】小议node异常处理](/node/error_handler.md)
 * [【node系列 1-8】node架构总览](/node/core/overview.md)
 
 ##### React源码解析
-* [【React源码 1-1】从React.jsReact对象上的方法](/react/source_ch1.md)   
-* [【React源码 1-2】从Fiber对象说起的更新与调度](/react/source_ch2.md)    
+* [【React源码 1-1】从React.jsReact对象上的方法](/react/source_ch1.md)
+* [【React源码 1-2】从Fiber对象说起的更新与调度](/react/source_ch2.md)
 
 
 
@@ -114,14 +114,14 @@
 * [【工具Babel 2-1】babel_插件开发](./project_build/babel_plugin_dev.md)
 * [【工具Webpack 3-1】webpack工作原理](/project_build/webpack/how_webpack_work.md)
 * [【工具Webpack 3-2】webpack多入口配置](./project_build/webpack/multi_entry.md)
-* [【框架ElementUI 4-1】源码解读之el-scrollbar](/network/elementUI/elementUI%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B9%8Bel-scrollbar.md)     
+* [【框架ElementUI 4-1】源码解读之el-scrollbar](/network/elementUI/elementUI%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B9%8Bel-scrollbar.md)
 * [【框架ElementUI 4-2】$message](/network/elementUI/$message.md)
 * 【框架ElementUI 4-2】源码解读之Event机制
 * [【工具git 5-1】git_flow](/project_build/git/git_flow.md)
 * [【工具npm 6-1】node依赖包的版本管理](/project_build/npm_package_version.md)
 
 <!-- [axios常见问题](/network/vue/axios%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.md)-->
- 
+
 <!-- | 开发 | [node依赖包的版本管理](/project/node_module_manage.md)-->
 
 
@@ -129,14 +129,14 @@
 
 ##### Chrome Devtools使用指南 （待完成）
 * 【Devtools 1-1】Element面板 - Rendering
-* 【Devtools 2-1】Source面板  - 断点与资源分布  
+* 【Devtools 2-1】Source面板  - 断点与资源分布
 * 【Devtools 3-1】Network面板 - 网络调试
-* 【Devtools 3-2】Network面板 - timeline  
-* 【Devtools 3-3】Performance - 性能监测 
+* 【Devtools 3-2】Network面板 - timeline
+* 【Devtools 3-3】Performance - 性能监测
 
 
-##### 项目难点系列 
-* 轨迹计算+绘图导致的UI卡顿
+##### 疑难杂症
+* [客户端数字键盘](/others/client_number_keyboard.md)
 
 <!-- ##### python系列
 * [【python系列 1-1】爬虫练习](/python/python/crawler.md)
