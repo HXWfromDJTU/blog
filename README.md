@@ -1,12 +1,12 @@
 ### When they go low - we go high 
 
-🌈 记录总结日常工作学习...欢迎star....base深圳广州
+🌈 记录总结日常工作学习...欢迎star....
 
-2019 todo list  | status |
+<!-- 2019 todo list  | status |
 -| - |
 `TypeScript` | 👋 learning |
 `electron` | 🚩 working on |
-`node - IPC` | 🚩 working on |
+`node - IPC` | 🚩 working on | -->
 
 <!-- | 优化 | [防抖与节流](/JS/debounce.md) -->
 
@@ -18,7 +18,7 @@
 
 
 
-##### 浏览器系列
+<!-- ##### 浏览器系列
 * [【浏览器系列 1-1】线程与进程](/browser/JS_browser_thread.md)
 * [【浏览器系列 1-2】页面渲染-老话新谈](/network/how_browser_work.md)
 * [【浏览器系列 1-3】浏览器存储](/browser/browser_storage.md)
@@ -33,11 +33,11 @@
 * [【浏览器系列 1-12】屏幕刷新与requestAnimationFrame](/CSS/RAF.md)
 * [【浏览器系列 1-13】性能优化4 - 从webpack打包配置的优化](/browser/webpack_optimize.md) `new` 
 * [【浏览器系列 1-14】性能优化5 - 从CSS合成层着手的渲染优化](/CSS/GPU.md) `写作中...` 
-* 【浏览器系列 1-15】性能优化6 - 前端资源重新加载 
+* 【浏览器系列 1-15】性能优化6 - 前端资源重新加载  -->
 
 <!-- | 其他 | [常见算法的JS实现](/algorithm/common.md/) -->
 
-##### ECMAScript 系列`Javascript` `ES6`
+<!-- ##### ECMAScript 系列`Javascript` `ES6`
 * [【ES6 1-1】Decorator - 肩负历史前行](/ES6/decorator.md)
 * [【ES6 1-1】Async/await - 同步方式写异步](/ES6/async_await_conding.md)
 * [【JS 2-1】Javascript EventLoop In Browser](/JS/eventloop.md)
@@ -48,9 +48,9 @@
 * [【JS 2-6】this指向哪里](/JS/apply_call_bind_this.md)
 * [【JS 2-7】类型检测](/JS/type_inspect.md)   
 * [【JS 2-7】RAF-熟悉的陌生人](/CSS/RAF.md) `写作中...`    
-* [【JS 2-8】函数参数传值还是传引用](/JS/function_param.md)   
+* [【JS 2-8】函数参数传值还是传引用](/JS/function_param.md)    -->
 
-##### Typescript 
+<!-- ##### Typescript 
 * 【Typescript 1-1】typescript中的模块化
 * 【Typescript 1-2】ts + vue2.x 开发总结
 
@@ -59,10 +59,10 @@
 * [【设计模式 1-1】观察者模式](/design_mode/observer.md)
 * [【设计模式 1-2】单例模式](/design_mode/singleton.md)
 * [【设计模式 1-3】策略模式](/design_mode/strategy.md)
-* [【设计模式 1-4】原型模式](/design_mode/prototype.md)
+* [【设计模式 1-4】原型模式](/design_mode/prototype.md) -->
 
 
-##### 手写模拟系列
+<!-- ##### 手写模拟系列
 * [【数据结构 1-1】单链表](/algorithm/data_structure/linkedlist/)、[数组](/algorithm/data_structure/array/)、[顺序栈](/algorithm/data_structure/stack/) 、[顺序队列](/algorithm/data_structure/queue/) 
 * [【排序 2-1】冒泡排序](/algorithm/data_structure/sort/BubbleSort.js)、[选择排序](/algorithm/data_structure/sort/SelectSort.js)、[插入+希尔排序](/algorithm/data_structure/sort/InsertSort.js)
 * [【排序 2-2】归并排序](/algorithm/data_structure/sort/MergeSort.js)、[快速排序](/algorithm/data_structure/sort/QuickSort.js) 
@@ -118,7 +118,7 @@
 * [【框架ElementUI 4-2】$message](/network/elementUI/$message.md)
 * 【框架ElementUI 4-2】源码解读之Event机制
 * [【工具git 5-1】git_flow](/project_build/git/git_flow.md)
-* [【工具npm 6-1】node依赖包的版本管理](/project_build/npm_package_version.md)
+* [【工具npm 6-1】node依赖包的版本管理](/project_build/npm_package_version.md) -->
 
 <!-- [axios常见问题](/network/vue/axios%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.md)-->
  
@@ -127,27 +127,33 @@
 
 <!-- [Vue组件数据流](/network/vue/Vue%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%B5%81.md)-->
 
-##### Chrome Devtools使用指南 （待完成）
+<!-- ##### Chrome Devtools使用指南 （待完成）
 * 【Devtools 1-1】Element面板 - Rendering
 * 【Devtools 2-1】Source面板  - 断点与资源分布  
 * 【Devtools 3-1】Network面板 - 网络调试
 * 【Devtools 3-2】Network面板 - timeline  
-* 【Devtools 3-3】Performance - 性能监测 
+* 【Devtools 3-3】Performance - 性能监测  -->
 
-
+<!-- 
 ##### 项目难点系列 
-* 轨迹计算+绘图导致的UI卡顿
+* 轨迹计算+绘图导致的UI卡顿 -->
 
 <!-- ##### python系列
 * [【python系列 1-1】爬虫练习](/python/python/crawler.md)
  -->
 
-##### 归纳图例
-###### vue双向绑定流程图
+<!-- ##### 归纳图例 -->
+<!-- ###### vue双向绑定流程图
 ![vue双向绑定原理流程图](./vue/Vue_twoway_binding.png)
 
 
 ###### Vue-router实现流程图
-![Vue-router实现流程图](./vue/vue-router/Vue-router.png)
+![Vue-router实现流程图](./vue/vue-router/Vue-router.png) -->
 
-<link rel="stylesheet" href="./config/global.css">
+<div align=center>
+<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583923041608&di=35e8c8d5f4e3336b3a327556ac7865fe&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F347d3746db125c35adf42225ca9e8e8fbb7d87454834-jASIEe_fw658" width="600"/>
+<font size=5>博客施工中...🚧</span>
+</div> 
+
+
+
