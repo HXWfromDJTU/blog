@@ -31,8 +31,8 @@
 * [【浏览器系列 1-10】浏览器中的cookie](/browser/cookie.md)   `new`
 * [【浏览器系列 1-11】性能优化3 - 从渲染Timeline中深入交互优化](/browser/PaintTiming.md) `new`
 * [【浏览器系列 1-12】屏幕刷新与requestAnimationFrame](/CSS/RAF.md)
-* [【浏览器系列 1-13】性能优化4 - 从webpack打包配置的优化](/browser/webpack_optimize.md) `new` 
-* [【浏览器系列 1-14】性能优化5 - 从CSS合成层着手的渲染优化](/CSS/GPU.md) `写作中...` 
+* [【浏览器系列 1-13】性能优化4 - 从webpack打包配置的优化](/browser/webpack_optimize.md) `new`
+* [【浏览器系列 1-14】性能优化5 - 从CSS合成层着手的渲染优化](/CSS/GPU.md) `写作中...`
 * 【浏览器系列 1-15】性能优化6 - 前端资源重新加载  -->
 
 <!-- | 其他 | [常见算法的JS实现](/algorithm/common.md/) -->
@@ -46,11 +46,11 @@
 * [【JS 2-4】微任务](/JS/microTask.md)
 * [【JS 2-5】Javascript模块化方案总结](/project_build/js_modules.md)
 * [【JS 2-6】this指向哪里](/JS/apply_call_bind_this.md)
-* [【JS 2-7】类型检测](/JS/type_inspect.md)   
-* [【JS 2-7】RAF-熟悉的陌生人](/CSS/RAF.md) `写作中...`    
+* [【JS 2-7】类型检测](/JS/type_inspect.md)
+* [【JS 2-7】RAF-熟悉的陌生人](/CSS/RAF.md) `写作中...`
 * [【JS 2-8】函数参数传值还是传引用](/JS/function_param.md)    -->
 
-<!-- ##### Typescript 
+<!-- ##### Typescript
 * 【Typescript 1-1】typescript中的模块化
 * 【Typescript 1-2】ts + vue2.x 开发总结
 
@@ -63,7 +63,7 @@
 
 
 <!-- ##### 手写模拟系列
-* [【数据结构 1-1】单链表](/algorithm/data_structure/linkedlist/)、[数组](/algorithm/data_structure/array/)、[顺序栈](/algorithm/data_structure/stack/) 、[顺序队列](/algorithm/data_structure/queue/) 
+* [【数据结构 1-1】单链表](/algorithm/data_structure/linkedlist/)、[数组](/algorithm/data_structure/array/)、[顺序栈](/algorithm/data_structure/stack/) 、[顺序队列](/algorithm/data_structure/queue/)
 * [【排序 2-1】冒泡排序](/algorithm/data_structure/sort/BubbleSort.js)、[选择排序](/algorithm/data_structure/sort/SelectSort.js)、[插入+希尔排序](/algorithm/data_structure/sort/InsertSort.js)
 * [【排序 2-2】归并排序](/algorithm/data_structure/sort/MergeSort.js)、[快速排序](/algorithm/data_structure/sort/QuickSort.js)
 * [【排序 2-3】计数排序](/algorithm/data_structure/sort/CountSort.js)、[桶排序](/algorithm/data_structure/sort/BucketSort.js)
@@ -131,11 +131,11 @@
 * 【Devtools 1-1】Element面板 - Rendering
 * 【Devtools 2-1】Source面板  - 断点与资源分布
 * 【Devtools 3-1】Network面板 - 网络调试
-* 【Devtools 3-2】Network面板 - timeline  
+* 【Devtools 3-2】Network面板 - timeline
 * 【Devtools 3-3】Performance - 性能监测  -->
 
-<!-- 
-##### 项目难点系列 
+<!--
+##### 项目难点系列
 * 轨迹计算+绘图导致的UI卡顿 -->
 
 <!-- ##### python系列
@@ -153,7 +153,7 @@
 <div align=center>
 <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583923041608&di=35e8c8d5f4e3336b3a327556ac7865fe&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F347d3746db125c35adf42225ca9e8e8fbb7d87454834-jASIEe_fw658" width="600"/>
 <font size=5>博客施工中...🚧</span>
-</div> 
+</div>
 
 
 
