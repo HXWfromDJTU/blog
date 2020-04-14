@@ -32,6 +32,17 @@
        * domain 与 path 的使用，结合工作经验谈一下 
        * 第三方cookie是什么？百度、google广告的基本实现逻辑[参考文章](http://www.bobulous.org.uk/misc/third-party-cookies.html)
        * session 回话的概念又怎么算呢？如何与cookie配合
+    * 强制缓存 max-age、no-cache、no-store、must-revalidate 三个缓存控制的含义
+    * 协商缓存 If-modify-since - Last-Modify、If-None-Match - Etag、
+    * 缓存代理
+       * 服务端缓存体系
+       * 客户端缓存体系
+
+ * http 代理
+   * 负载均衡、安全防护、洗数据等
+   * Via 字段的解读
+   * X-Forwarded-For X-Real-IP
+   * HAProxy 所定义的代理协议是什么？
 
 * http 状态码
   * expect-code 是什么作用？
