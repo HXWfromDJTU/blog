@@ -24,6 +24,15 @@
     * 为什么 Nodejs 不给每一个 .js文件一个独立的上下文，以避免作用域被污染呢？
        * [参考文章](https://www.zhihu.com/question/57375179/answer/152633354)
     * package.lock.json 的实际项目作用。
+    * require 的 cache 与热更新的问题。
+    * yarn、npm、cnpm 的异同点，又有哪些优势。
     
+ * promise
+    * 复习promise的实现过程
+    
+ * event模块
+   * event 是构建很多模块的基础部件
+   * 在作为基础模块，构建其他部件的时候，需要注意listener的释放
+   * 如何实现一个一步的reduce
      
      
