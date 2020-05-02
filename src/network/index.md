@@ -25,6 +25,16 @@
      * MSL 是什么呢？
      * 客户端最后的time_wait是为什么？为何一般是 2MSL 呢？
      * 手动把TCP整体（连接和断开）的状态机，手动画一遍。
+   * 累计确认
+   * 滑动窗口
+      * AdvertiseWindow
+      * LastByteAcked
+      * LastByteSent
+      * 慢启动 与 拥塞窗口
+   * 拥塞控制 与 流量控制
+   * 网络传输与带宽之间的概念
+   * TCP BBR算法是什么，解决的是什么问题？
+   
   
 * UDP
   * UDP 更像是一个原始版本的TCP协议。
