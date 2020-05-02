@@ -5,7 +5,7 @@
 * store.js
 ```js
 import vue from 'vue';
-import vuex from 'vuex';
+import vuex from 'src/vue/src/vuex';
 // 数据状态状态管理
 const state = {
     count:3

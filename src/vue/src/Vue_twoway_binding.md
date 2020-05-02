@@ -15,7 +15,7 @@ Vue2.0是包括多个部分，其中`数据双向绑定`的实现，使用的是
   * 只要`template`中的任意一个数据发生变化，`Watcher`对象都会调用之前传入的`render`方法去重新渲染
   * 因为`Vue2.x`系列已经采用`Virtual DOM`，当`data`改变时，使用优化的`diff`算法，只会重新渲染修改了的部分。
 
-![vue双向绑定流程](./Vue_twoway_binding.png)
+![vue双向绑定流程](Vue_twoway_binding.png)
 ### Q & A？
 > 1、Dep对象是什么
 * 【dep】

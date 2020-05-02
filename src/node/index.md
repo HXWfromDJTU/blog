@@ -34,5 +34,6 @@
    * event 是构建很多模块的基础部件
    * 在作为基础模块，构建其他部件的时候，需要注意listener的释放
    * 如何实现一个一步的reduce
-     
+   * event 中的emit机制是同步还是异步  
+   * node 中的eventLoop libuv 进一步理解
      
