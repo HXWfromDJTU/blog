@@ -36,4 +36,21 @@
    * 如何实现一个一步的reduce
    * event 中的emit机制是同步还是异步  
    * node 中的eventLoop libuv 进一步理解
+  
+ * 进程管理
+   * 进程间通信
+     * 浏览器进程间通信
+     * node 进程间通信
+     * electron 进程间通信的对比  
+  * 孤儿进程、守护进程是什么？设计思想是什么？
+     * cluster 机制 or child_process 机制？有何异同点？
+   * PM2 
+     * pm2 如何实现的负载均衡
+     * pm2 常用指令
+       * pm2 monit
+       
+       
+      
+ node 单元测试
+   * 常用工具
      
