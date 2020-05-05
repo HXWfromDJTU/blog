@@ -36,6 +36,7 @@
    * 如何实现一个一步的reduce
    * event 中的emit机制是同步还是异步  
    * node 中的eventLoop libuv 进一步理解
+   * nodejs 的进程调度与 js 进程调度的区别
   
  * 进程管理
    * 进程间通信
@@ -49,8 +50,50 @@
      * pm2 常用指令
        * pm2 monit
        
+* fs 
+  * readFile 与 readFileAsync 有什么区别？
+  * studio 标准输入、输出      
        
+* Buffer
+  * stream
+    * creatReadStream
+  * buffer/string/0x进制/stream之间的关系
+  * 流与buffer的编码问题
       
- node 单元测试
-   * 常用工具
+* node 单元测试
+   * 常用工具框架
+   * 如何模拟数据
      
+* node 自身的优缺点
+   * IO 密集型业务优势，如何有优势呢？何谓IO、IO密集型业务呢？
+   * OS模块
+   * 常用的查看 OS 各项指标的api。
+      * 可用内存、总内存、核数
+      * 如何结合"OS模块"、v8模块、以及一些标志参数进行 node的运行时分析。
+      * heapdump 等调试工具 
+   * Error
+   * 异常捕获
+   * 内存溢出分析，[文章](https://zhuanlan.zhihu.com/p/25736931?group_id=825001468703674368)
+   
+* C++模块
+   * node 的 C++模块是如何工作的？
+   * 简单编写一个最最最最简单的C++模块，并使其运行起来。[参考内容](https://github.com/nodejs/node-addon-examples)
+   
+   
+* 存储/缓存
+   * redis 的使用
+   * 抛开nodejs，业界其他语言的解决方案，使用的是什么工具库来解决缓存问题呢？
+   
+   
+* 其他一些常用的技巧
+  * 
+
+* node 安全
+   * 如何防范sql注入
+   * crypto 模块
+     * OpenSSL hash
+     * 常用工机具函数了解
+     
+* koa 实现原理
+   * 完善之前的最小化 koa demo
+   * 读完koa核心的3000行源码
