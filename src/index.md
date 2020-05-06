@@ -58,6 +58,7 @@
 
 * 组件设计原则
 
-* OAuth 登录的技术了解
+* computed/watch 实现的原理
+
 
 
