@@ -4,8 +4,6 @@
 ### vue 3
 * 全部模块都支持 tree-shaking
 
-
-
 * vue-router
 
 * vue
@@ -71,6 +69,9 @@
    * 目录架构上
    * 数据流上 
    * 以上两点进行分析
+   
+ * 生命周期的先后顺序
 
+* vue-transition 与动画
 
 

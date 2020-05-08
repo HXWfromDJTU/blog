@@ -52,5 +52,19 @@
 * OAuth 登录的技术了解
 
 * service worker 与 web worker
+  * 浏览器原理
+  * 地图绘制
   
+* 推动流程或者改善流程
 
+* PV 与 UV 如何进行统计呢？
+
+* Graphql
+
+* web-3d
+
+* git的使用
+   * rebase
+   * cherry-pick
+   * 常用的必要流程的指令
+   * [参考文章](https://github.com/airuikun/blog/issues/5)

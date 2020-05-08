@@ -6,6 +6,7 @@
   * Promise
   * 函数currying
   * 防抖与节流(可立即执行版本)
+  * 实现async/await
   
 * 算法原理系列
   * 二分查找
