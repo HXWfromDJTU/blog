@@ -97,3 +97,6 @@
 * koa 实现原理
    * 完善之前的最小化 koa demo
    * 读完koa核心的3000行源码
+   
+* 模块化
+   * require 与 module.exports 的区别

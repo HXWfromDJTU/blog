@@ -43,7 +43,8 @@
   
 * virtual DOM
   * react 的virtual DOM 与 vue 设计上有什么不同点？
-  * 
+  * 数据流、数据监听方式、数据监听后是否可以解绑
+  * 与 jQuery 一起，如何进行选型
 
 * Diff 算法
    * 基本实现
@@ -59,6 +60,17 @@
 * 组件设计原则
 
 * computed/watch 实现的原理
+   * 单列文章进行解析
+   * computed 与 watch 为何能够做来多层依赖?（根据源码说话)
+
+* $nextTick
+  * 实现原理、与setTimeout、setInterval等有任何异同点
+  * 实际项目中一般什么时候会用到
+  
+* MVVM 与 MVC 的区别是什么？
+   * 目录架构上
+   * 数据流上 
+   * 以上两点进行分析
 
 
 
