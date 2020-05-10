@@ -1,25 +1,8 @@
 # Javascript模块化
-![](/BLOG_ASSETS/JS_MODULES_COVER.png)
+![](/blog_assets/JS_MODULES_COVER.png)
 
-### ComonJS (服务端运行)
-`CommonJS`中有一个全局性方法`require()`用于同步加载模块，使用`exports`和`module.exports`去暴露模块。
-##### 优点：
-1️⃣ 服务器模块便于重用。
-2️⃣ 模块的导出和引入机制使得用户完全不需要考虑变量污染，比较于使用命名空间的方案就好很多。
-##### 缺点
-同步的模块加载方式不适合在浏览器的环境中使用，同步意味着加载阻塞，浏览器加载资源是异步的。
-```js
-// foo.js
-module.exports = function(x) {
-  console.log(x);
-};
-
-// main.js
-var foo = require("./foo");
-foo("Hi");
-```
-##### 注意
-1️⃣ CommonJS 模块加载 ES6 模块，不能使用require命令，而要使用import()函数。
+### 为什么要模块化
+在传统项目中，当项目依赖与多个子模块，而这些子模块之间项目之间又相互又依赖关系，会出现`不可能人工手动维护的情况`。参照这个[👉例子](/src/project-build/js-modules/playground/no-modules-demo/index.html)。
 ___
 ### AMD (浏览器运行)
 ##### 产生原因
@@ -45,7 +28,7 @@ ___
 阅读和书写比较困难，因为有大量的嵌套代码。
 ___
 ### CMD  (依赖就近)
-`CMD`规范也就是`Common Module Define`,实现框架有著名的`SeaJS`，作者是大名鼎鼎的玉伯。
+`CMD`规范也就是`Common Module Define`,实现框架有射雕的`SeaJS`。
 ##### 与 `AMD`的不同点 
 1️⃣ `AMD`对代码的态度是预执行     
 2️⃣ `CMD`对代码的态度是懒执行(也就是上面说的依赖就近)，比如`SeaJS`就是在代码需要用到包的内容时候，内核才会去异步地调用这些包。(不同于AMD所有的包都在一开始就加载)
@@ -56,7 +39,7 @@ ___
 
 ___
 
-### ES6 模块化
+### ES6 Module
 ##### 标签引入
 ```html
 <script type="module" src="./foo.js"></script>
@@ -109,9 +92,9 @@ console.log('圆周长：' + circle.circumference(14));
 `import`相当于新的一种声明，与`let`，`function`等，所以在`Javascript`中也存在变量提升，import会在静态解析时，被解拆分成声明与赋值两个部分。
 ES6 模块的设计思想时尽量的静态化，是的编译的时候就能够确定模块的依赖关系。
 ```js
-import {moduleA,moduleB,moduleC} from 'fs';
+import { moduleA, moduleB, moduleC } from 'fs';
 ```
-ES 6模块不是对象，而是通过`export`命令显示输出的代码，在通过`import`命令输入。这种加载称之为`静态加载`、`编译时加载`，这样的加载效率要比CommonJS模块加载效率高，所以ES6不能够引入模块本身。
+ES 6模块不是对象，而是通过`export`命令显示输出的代码，在通过`import`命令输入。这种加载称之为`静态加载`、`编译时加载`，这样的加载效率要比`CommonJS`模块加载效率高，所以ES6不能够引入模块本身。
 
 而CommonJS和AMD规范，都只能在运行的时候确定这些东西。比如，`CommonJS`模块就是对象，输入时必须查找对象属性。
 
@@ -154,12 +137,15 @@ ___
 `arguments`、`require`、`module`、`exports`、`__filename`、`__dirname`这些对象
 (注意es 6 规范中的是 `export`...与`exports`不是一个东西)
 ___
-### Node 模块化 
 
-1️⃣ 采用commonJS规范与ES6规范,但采取的是不同的加载方案。  所以我们看到在node中，既可以使用`export`与`export default`，也能够使用CommonJS的`module.exports` 和 `exports`  
 
-2️⃣ `import`命令在`node`中是异步加载的，这一点与`import`在浏览器中异步加载的行为方式一致。   
-3️⃣ 在node中，使用import导入CommonJS编写的模块时，会将CommonJS模块中的`module.exports`等同为`export default`命令。但引入时，使用的是`*`的话，则会多一层`default`
+### Node 模块化 这部分有很多问题，需要验证后修改
+
+1️⃣ 采用`CommonJS`规范与`ES6`规范,但采取的是不同的加载方案。所以我们看到在`node`中，既可以使用`export`与`export default`，也能够使用`CommonJS`的`module.exports` 和 `exports`  
+
+2️⃣ `import`命令在`node.js`中是异步加载的，这一点与`import`在浏览器中异步加载的行为方式一致。
+
+3️⃣ 在`node.js`中，使用`import`导入`CommonJS`编写的模块时，会将CommonJS模块中的`module.exports`等同为`export default`命令。但引入时，使用的是`*`的话，则会多一层`default`
 ```js
 // common_module.js
 let abc = 456;
