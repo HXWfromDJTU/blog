@@ -1,6 +1,6 @@
 # CommonJS
 
-> `CommonJS` 是一种JS模块规范。Node.js的模块机制是其主要的实践。
+> `CommonJS` 是一种JS模块规范，主要为了弥补当前`Javascript`没有标准的缺陷。Node.js的模块机制是其主要的实践。
 
 ### 规范内容
 `CommonJS`对模块的定义非常简单，主要分为了`模块引用`、`模块定义`与`模块标志`三个部分。

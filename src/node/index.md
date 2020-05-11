@@ -100,3 +100,9 @@
    
 * 模块化
    * require 与 module.exports 的区别
+   
+* v8 内核
+  * JIT
+  * runtime
+  * 编译过程，字节码
+  * 补充文章[入口](/src/node/core/v8/v8.md)

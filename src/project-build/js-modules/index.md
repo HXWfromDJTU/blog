@@ -146,6 +146,7 @@ ___
 2️⃣ `import`命令在`node.js`中是异步加载的，这一点与`import`在浏览器中异步加载的行为方式一致。
 
 3️⃣ 在`node.js`中，使用`import`导入`CommonJS`编写的模块时，会将CommonJS模块中的`module.exports`等同为`export default`命令。但引入时，使用的是`*`的话，则会多一层`default`
+
 ```js
 // common_module.js
 let abc = 456;

@@ -1,3 +1,3 @@
-import { abc } from './module-export'
+import { key } from './module-export'
 
-console.log(abc)
+console.log(key)

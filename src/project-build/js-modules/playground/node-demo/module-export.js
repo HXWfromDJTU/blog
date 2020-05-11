@@ -1,1 +1,3 @@
-export const abc = 123
+module.exports = {
+    value: 123456
+}
