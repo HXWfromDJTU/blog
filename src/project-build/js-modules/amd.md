@@ -82,3 +82,24 @@ require.config({
 　　}
 });
 ```
+
+
+___
+### AMD (浏览器运行)
+##### 产生原因
+要是浏览器也采取 ，同样参考自CommonJS规范。但是CommonJS规范加载代码采用的是阻塞性的同步加载，在服务端直接读取内部资源自然没有大问题，但是在客户端加载服务器的异步资源包，有一个网络传输的问题，浏览器同步加载，代码有可能会长时间阻塞在加载的地方。
+
+所以`AMD`(异步模块定义)就出现了
+```js
+　require([module], callback);
+```
+以`JS`中最常见的函数回调来实现异步加载，异步执行。
+```js
+   // 获取math依赖工具包，使用其中的add方法
+  require(['math'], function (math) {
+　　　　math.add(2, 3);
+　});
+  require(['moduleA', 'moduleB', 'moduleC'], function (moduleA, moduleB, moduleC){
+　　　　// some code here
+　　});
+```

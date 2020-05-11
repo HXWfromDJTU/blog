@@ -1,3 +1,5 @@
 module.exports = {
-    value: 123456
+    abc: 123
 }
+
+console.log(module)

@@ -1,3 +1,7 @@
-import { key } from './module-export'
+const key = require('./module-export')
 
-console.log(key)
+module.exports = {
+    description: 'i am parent module'
+}
+
+console.log(key.id)
