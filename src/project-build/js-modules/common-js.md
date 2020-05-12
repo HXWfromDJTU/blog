@@ -29,8 +29,12 @@ console.log(module)
 * module.filename 表示模块的文件名，带有绝对路径
 
 ##### module.exports 与 exports
-> 先说结论，放弃使用`exports`，严格使用`module.exports`进行模块暴露
+> 先说结论，请您放弃使用`exports`，严格使用`module.exports`进行模块暴露
 
+其实`Node`为每一个模块，都提供了一个当前模块下的全局`exports`变量，指向了当前模块下的`module.exports`,也就是在每一个模块的开头，手动执行了以下语句
+```js
+var exports = module.exports
+```
 
 
 ___
