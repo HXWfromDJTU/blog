@@ -1,4 +1,4 @@
-# CommonJS
+# CommonJS 之 Node.js模块化
 
 > `CommonJS` 是一种JS模块规范。规范内容主要分为`模块定义`、`模块引用`与`模块标志`三个部分。Node.js的模块机制是其主要的实践。
 ___
@@ -33,11 +33,42 @@ var exports = module.exports
 ___
 
 ## 模块引用
-中有一个全局性方法`require()`用于同步加载模块
+`Node.js`中有一个全局性方法`require()`用于同步加载模块
 ```js
 const module1 = require('./module.js')
-
 module1.getName() // 'module1'
+```
+##### 引用的是值的拷贝
+`CommonJS`中模块加载机制，`require`函数引入的是输出模块中`module.exports`的值得拷贝。也就是说，内部值的变化，外界不再能够感知到。
+```js
+// moduleA.js
+var innerValue = 'innerValue'
+
+setTimeout(() => {
+    innerValue = 'innerValue has been changed'
+}, 100)
+
+function changeInnverValue () {
+    innerValue = 'innerValue has been changed by function'
+}
+
+module.exports = {
+    innerValue,
+    changeInnverValue
+}
+
+// index.js
+const moduleA = require('./moduleA')
+
+console.log('before', moduleA.innerValue) // before innerValue
+
+moduleA.changeInnverValue()
+
+console.log('after', moduleA.innerValue) // after innerValue
+
+setTimeout(() => {
+    console.log('after timmer', moduleA.innerValue) // after timmer innerValue
+}, 3000)
 ```
 ##### 一次运行，多次加载
 > 一个模块可能会被多个其他模块所依赖，也就会被多次加载。但是每一次加载，获取到的都是第一次运行所加载到缓存中的值， `require.cache`会指向已经加载的模块。
@@ -145,3 +176,10 @@ const abcModule = require('abcmodule')
 "main": "not-found.js"
 ```
 若`"main"`指定的文件是不存在的，加载机制则会默认依次寻找当前目录下的`index.js`、`index.node`、`inde.json` 来作为文件模块的入口。
+
+___
+
+## 参考资料
+[1][CommonJS规范 - ruanyifeng](https://javascript.ruanyifeng.com/nodejs/module.html#toc6)
+
+[2][《深入浅出Node.js》 - 朴灵](https://book.douban.com/subject/25768396/)
