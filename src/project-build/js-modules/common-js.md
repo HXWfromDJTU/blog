@@ -1,7 +1,8 @@
 # CommonJS
 
-> `CommonJS` 是一种JS模块规范，主要为了弥补当前`Javascript`没有标准的缺陷。主要分为了`模块引用`、`模块定义`与`模块标志`三个部分。Node.js的模块机制是其主要的实践。
-
+> `CommonJS` 是一种JS模块规范。规范内容主要分为`模块定义`、`模块引用`与`模块标志`三个部分。Node.js的模块机制是其主要的实践。
+___
+## 模块定义
 ##### 文件即模块
 CommonJS 规定每一个文件就是一个模块，拥有自己的作用域。文件内的`变量`、`函数`、`类`都是私有的，其他文件不可以直接访问到，只有通过`module.exports`这个`神魔之井`进行访问。
 
@@ -13,7 +14,7 @@ module.exports = {
 }
 console.log(module)
 ```
-![](/blog_assets/node-module.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/node-module.png)
 
 * module.id 模块的标志符
 * module.loaded 标志模块是否已经完成加载
@@ -29,36 +30,36 @@ console.log(module)
 ```js
 var exports = module.exports
 ```
-
-
 ___
 
-##### 模块定义
-使用`exports`和`module.exports`去暴露模块
-
-```js
-// module1
-cosnt name = 'module1'
-
-function getName () {
-    reutrn name
-}
-
-module.exports = {
-    getName
-}
-```
-
-##### 模块引用
+### 模块引用
 中有一个全局性方法`require()`用于同步加载模块
 ```js
 const module1 = require('./module.js')
 
 module1.getName() // 'module1'
 ```
+##### 一次运行，多次加载
+> 一个模块可能会被多个其他模块所依赖，也就会被多次加载。但是每一次加载，获取到的都是第一次运行所加载到缓存中的值， `require.cache`会指向已经加载的模块。
 
+```js
+// module-imported
+module.exports = {abc: 123}
+
+// index.js
+require('./module-imported')
+require('./module-imported').tag = 'i have been imported'
+const moduleImported = require('./module-imported')
+
+console.log(moduleImported.tag) // 输出 'i have been imported'
+
+console.log(require.cache) // 输出如下图
+```
+![](/blog_assets/node-modules-require-cache.png)
+
+上面例子可以说明，对于同一个模块，node只会加载一次。
 ___
-### 加载规则
+### 模块标志
 
 ##### 模块标识
 * 必须是小驼峰命名方式的字符串
@@ -73,7 +74,7 @@ ___
 
 ##### 路径分析(自定义模块)
 我们同样使用上面的输出结果。可以看到路径是逐级向上寻找的过程。从当前目录下的`node_modules`一直寻找到根目录下的`node_modules`为止。逐级向上寻找的方式，FNer们是否似曾相识呢？(Javascript的原型链溯源👩‍🏫‍)
-![](/blog_assets/node_modules_path.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/node_modules_path.png)
 
 这种情况常见于我们项目开发中，引用的第三方模块包。
 * 它们不属于核心模块包
@@ -97,8 +98,8 @@ const abcModule = require('abcmodule')
 若在上述的逐级匹配寻找的过程中，匹配到了一个目录(如上图)。则会进把匹配到的目录当做一个模块包，首先寻找文件夹下的`package.json`文件(也就是模块包的配置文件)。
 
 ```json
+// 省略了一大堆其他属性
 {
-  // 省略了一大堆其他属性
   "author": "",
   "bundleDependencies": false,
   "deprecated": false,
@@ -118,6 +119,3 @@ const abcModule = require('abcmodule')
 "main": "not-found.js"
 ```
 若`"main"`指定的文件是不存在的，加载机制则会默认依次寻找当前目录下的`index.js`、`index.node`、`inde.json` 来作为文件模块的入口。
-
-##### 一次运行，多次加载
-一个模块可能会被多个其他模块所依赖，也就会被多次加载。但是每一次加载，获取到的都是第一次运行所加载到缓存中的值。
