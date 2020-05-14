@@ -8,11 +8,16 @@ import list from './list';
 let list = require('./list');
 ```
 
+## 标签引入 
 
-### ES6 Module
-##### 标签引入
+##### type="module"
 ```html
 <script type="module" src="./foo.js"></script>
+```
+直接在`HTML` `script` 标签中使用,会遇到
+![](/blog_assets/outside-module.png)
+
+```html
 <!-- 效果类似于 -->
 <script src="./foo.js" defer></script>
 <!-- async标志，会自动加载，并且加载成功就马上执行，不管script标签的前后顺序(除非当前有script正在执行) -->
