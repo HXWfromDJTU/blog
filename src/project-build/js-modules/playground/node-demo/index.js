@@ -1,10 +1,12 @@
-require('./module-imported')
-require('./module-imported').tag = 'i have been imported'
-const moduleImported = require('./module-imported')
+const moduleA = require('module-imported')
+const moduleB = require('../node_modules/module-imported')
+moduleA.tag = 'moduleA tagged'
+moduleB.tag = 'moduleB tagged'
 
 console.log(require.cache)
 
-console.log(moduleImported.tag)
+console.log(moduleA.tag)
+console.log(moduleB.tag)
 
 module.exports = {
     name: 'index module'

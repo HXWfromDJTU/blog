@@ -1,1 +1,1 @@
-exports = 123
+exports = '我在上层node_modules中'

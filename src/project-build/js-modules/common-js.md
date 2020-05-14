@@ -1,4 +1,4 @@
-# CommonJS
+# CommonJS 之 Node.js模块化
 
 > `CommonJS` 是一种JS模块规范。规范内容主要分为`模块定义`、`模块引用`与`模块标志`三个部分。Node.js的模块机制是其主要的实践。
 ___
@@ -32,12 +32,43 @@ var exports = module.exports
 ```
 ___
 
-### 模块引用
-中有一个全局性方法`require()`用于同步加载模块
+## 模块引用
+`Node.js`中有一个全局性方法`require()`用于同步加载模块
 ```js
 const module1 = require('./module.js')
-
 module1.getName() // 'module1'
+```
+##### 引用的是值的拷贝
+`CommonJS`中模块加载机制，`require`函数引入的是输出模块中`module.exports`的值得拷贝。也就是说，内部值的变化，外界不再能够感知到。
+```js
+// moduleA.js
+var innerValue = 'innerValue'
+
+setTimeout(() => {
+    innerValue = 'innerValue has been changed'
+}, 100)
+
+function changeInnverValue () {
+    innerValue = 'innerValue has been changed by function'
+}
+
+module.exports = {
+    innerValue,
+    changeInnverValue
+}
+
+// index.js
+const moduleA = require('./moduleA')
+
+console.log('before', moduleA.innerValue) // before innerValue
+
+moduleA.changeInnverValue()
+
+console.log('after', moduleA.innerValue) // after innerValue
+
+setTimeout(() => {
+    console.log('after timmer', moduleA.innerValue) // after timmer innerValue
+}, 3000)
 ```
 ##### 一次运行，多次加载
 > 一个模块可能会被多个其他模块所依赖，也就会被多次加载。但是每一次加载，获取到的都是第一次运行所加载到缓存中的值， `require.cache`会指向已经加载的模块。
@@ -57,16 +88,41 @@ console.log(require.cache) // 输出如下图
 ```
 ![](/blog_assets/node-modules-require-cache.png)
 
-上面例子可以说明，对于同一个模块，node只会加载一次。
-___
-### 模块标志
+上面两个例子结合，可以说明对于同一个模块，node只会加载一次。后续的读取都是从缓存中读取出来。
 
-##### 模块标识
+##### 缓存机制补充
+对于模块缓存机制，若是存在两个同名模块，存放于不同的路径，则那么`require()`方法仍然会重新加载该模块，而不会从缓存中读取出来。如以下例子。
+
+```bat
+|-- node_modules
+    |-- module-importe.js #外层同名模块
+|-- index.js  #入口文件
+|-- node_modules
+    |-- module-importe.js #内层同名模块
+```
+```js
+// index.js
+const moduleA = require('module-imported')
+const moduleB = require('../node_modules/module-imported')
+moduleA.tag = 'moduleA tagged'
+moduleB.tag = 'moduleB tagged'
+console.log(require.cache)
+console.log(moduleA.tag)
+console.log(moduleB.tag)
+module.exports = {
+    name: 'index module'
+}
+```
+![](/blog_assets/node-modules-same-name.png)
+___
+## 模块标识
+
+##### require()路径参数规则
 * 必须是小驼峰命名方式的字符串
 * 以'../'或者'./'开头的相对路径 或者 绝对路径
 * 可以不书写`.js`后缀名
 
-##### 读取规则
+##### require()路径解析规则
 * `/`开头表示绝对路径。
 * `./` 或 `../` 表示相对路径。
 * 除了以上两种情况，则表示加载的是核心模块。
@@ -74,6 +130,7 @@ ___
 
 ##### 路径分析(自定义模块)
 我们同样使用上面的输出结果。可以看到路径是逐级向上寻找的过程。从当前目录下的`node_modules`一直寻找到根目录下的`node_modules`为止。逐级向上寻找的方式，FNer们是否似曾相识呢？(Javascript的原型链溯源👩‍🏫‍)
+
 ![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/node_modules_path.png)
 
 这种情况常见于我们项目开发中，引用的第三方模块包。
@@ -119,3 +176,10 @@ const abcModule = require('abcmodule')
 "main": "not-found.js"
 ```
 若`"main"`指定的文件是不存在的，加载机制则会默认依次寻找当前目录下的`index.js`、`index.node`、`inde.json` 来作为文件模块的入口。
+
+___
+
+## 参考资料
+[1][CommonJS规范 - ruanyifeng](https://javascript.ruanyifeng.com/nodejs/module.html#toc6)
+
+[2][《深入浅出Node.js》 - 朴灵](https://book.douban.com/subject/25768396/)
