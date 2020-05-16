@@ -1,5 +1,88 @@
-##### ES6 
-若要支持 ES 6 Modules则需要加入 babel-plugin-import 一类的转垫片插件，执行的时候，你会发现`babel`会把我们的`import`都转译为熟悉的`CommonJS`的`require`  
+# ES6 module
+
+## 溯源
+* 与前辈`CommonJS`、`AMD` 不同， 而`ES6` 尝试在语言层面上实现了模块化的功能
+* `CommonJS` 与 `AMD` 都需要程序运行时才能够知道模块之间的依赖关系。而`ES 6 Module`要做到的是尽量的静态化，在编译时就确定模块的依赖关系，以及输出和输出的内容。
+
+
+
+## export
+
+##### 建立对应关系
+> export 命令规定的是对外的接口，起的作用必须是与模块内部建立起`一以对应`的关系。
+
+##### 动态绑定
+> `export`语句输出的接口，与其对应的是动态绑定的关系，模块内部值的变化，会引起外部引用的变化。
+
+##### 处于顶级模块
+> `ES6 Module` 的初衷是实现静态分析模块化，所以export必须处于模块顶层中，不能处于块级作用域内。
+
+
+## import
+
+##### 变量提升
+> `import`  语句具有变量提升效果，默认提升到模块顶部。
+
+##### 静态模块
+> 与`export`相类似，同样遵循`ES 6`静态模块分析的设计初衷，`import` 语句同样不能处于`块级作用域`中，导出的值也不能够是`需要运算后得出的结果`。
+
+##### 引用不可改写
+> `import`命令输入的变量都是只读的，因为本质上来说，引入的是`输入接口`。改变引用本身，则会破坏模块之间的引用关系。
+
+##### 仅执行但不引入
+> 一下的语句，仅仅会执行`my.module`模块的内容，但并不会引入任何代码。
+```js
+import 'my-module'
+```
+
+##### 整体引入
+```js
+import * as myModule from 'my-module'
+```
+
+##### 路径解析
+> 优先解析`./`与`../`等相对路径，直接写`模块名称`则需要根据配置文件的规则来约定。
+
+## export default
+
+##### 默认名称为 default
+> 使用 `export default`相当于对外暴露了一个`名为 default`的变量，变量的值直接跟在`export default`后面。
+
+
+
+## export from
+
+##### 模块转发
+> 使用`export from`可以实现模块转发，(表面上相当于是import 与 export的结合)，但要实际进行静态解析的时候，当前模块是没有引入目标对象的。
+
+```js
+// moduleA
+export { foo, bar } from 'moduleB'
+
+console.log(foo) // error
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 例如 
 ```js
@@ -12,10 +95,8 @@ let list = require('./list');
 
 ##### type="module"
 ```html
-<script type="module" src="./foo.js"></script>
+<script type="module" src="./foo.js" type="module"></script>
 ```
-直接在`HTML` `script` 标签中使用,会遇到
-![](/blog_assets/outside-module.png)
 
 ```html
 <!-- 效果类似于 -->
@@ -23,6 +104,7 @@ let list = require('./list');
 <!-- async标志，会自动加载，并且加载成功就马上执行，不管script标签的前后顺序(除非当前有script正在执行) -->
 <script src="./foo.js" defer></script>
 ```
+
 >`defer`关键字表示脚本的`执行`延迟到文档加载完成之后。 ![](/blog_assets/defer_script.png)    
 
 > `module`关键字也能够使得JS在DOM加载完后才执行，兼容性不如前者,IE封杀，edge 16+,FF60+,Chrome 61+
