@@ -1,4 +1,48 @@
-### Webpack
+# 前端模块化 - Webpack 
+> "Node.js 从最一开始就支持模块化编程。然而，在 web，模块化的支持正缓慢到来。在 web 存在多种支持 JavaScript 模块化的工具，这些工具各有优势和限制。webpack 基于从这些系统获得的经验教训，并将_模块_的概念应用于项目中的任何文件。"
+
+从 `Webpack 4`对模块化的面数来看，深知自己的历史任务深重，所以扛起了所有的前端几乎所有的模块化方案: 
+* `ES6`的 `import` 与 `export` 语句
+* `CommonJS` 的 `require` 与 `module.exports`
+* `AMD` 的 `define` 与 `require` 语句
+* `CMD` 的 `define`
+* `css/less/sass` 中的 `@import` 语句
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ##### CommonJS
 webpack默认支`CommonJS`规范,也实现了其中`Modules/Async/A`提出的`require.ensure`的语法。
@@ -43,4 +87,4 @@ require.ensure([], function(require){
     var list = require('./list');
 });
 ```
-要想了解更多使用`webpack`进行前端优化的方法，请看我的另一篇文章 [前端优化第二曲👉](/browser/front_end_optimize.md)  
+要想了解更多使用`webpack`进行前端优化的方法，请看另一篇文章 [前端优化第二曲👉](/browser/front_end_optimize.md)  

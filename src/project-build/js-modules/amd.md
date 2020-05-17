@@ -1,8 +1,7 @@
-# AMD 规范
-
+## 溯源
 > AMD 是一种模块管理规范,全称是`Asynchronous Module Definition`(异步模块定义)。其中一个实现则是著名的[require.js](https://requirejs.org/)。
 
-### 特点
+## 特点
 AMD的最大特点是他的`A` ==> `Asynchronous`，规范规定模块的加载过程是异步的，不会影响侯后续的代码执行。
 > 同步加载模块会阻塞浏览器的代码执行，是当初AMD产生的主要原因。
 ##### CommonJS 写法
@@ -24,7 +23,7 @@ require(['really-big-module'], function (BigData) {
 console.log('some action')
 ```
 
-### 语法
+## 基本语法
 
 ##### 定义模块
 ```js
@@ -67,7 +66,7 @@ require.config({
 
 身处`webpack`统治时期的当下前端开发时代，对这些配置项是否也有似曾相识的感觉呢？
 
-### 值得注意
+## 值得注意
 
 * 使用`require.js`引入模块的时候，被引入的模块也需要是遵循`require.js`规范，否则需要使用`shim`配置项进行额外声明。
 
@@ -81,25 +80,4 @@ require.config({
 　　　　}
 　　}
 });
-```
-
-
-___
-### AMD (浏览器运行)
-##### 产生原因
-要是浏览器也采取 ，同样参考自CommonJS规范。但是CommonJS规范加载代码采用的是阻塞性的同步加载，在服务端直接读取内部资源自然没有大问题，但是在客户端加载服务器的异步资源包，有一个网络传输的问题，浏览器同步加载，代码有可能会长时间阻塞在加载的地方。
-
-所以`AMD`(异步模块定义)就出现了
-```js
-　require([module], callback);
-```
-以`JS`中最常见的函数回调来实现异步加载，异步执行。
-```js
-   // 获取math依赖工具包，使用其中的add方法
-  require(['math'], function (math) {
-　　　　math.add(2, 3);
-　});
-  require(['moduleA', 'moduleB', 'moduleC'], function (moduleA, moduleB, moduleC){
-　　　　// some code here
-　　});
 ```
