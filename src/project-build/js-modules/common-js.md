@@ -70,6 +70,8 @@ setTimeout(() => {
     console.log('after timmer', moduleA.innerValue) // after timmer innerValue
 }, 3000)
 ```
+> ❓❓❓ 大家想想，既然`CommonJS`是运行时加载，那么内部的变动的值如何才能够被取到呢？留言区见
+
 ##### 一次运行，多次加载
 > 一个模块可能会被多个其他模块所依赖，也就会被多次加载。但是每一次加载，获取到的都是第一次运行所加载到缓存中的值， `require.cache`会指向已经加载的模块。
 
