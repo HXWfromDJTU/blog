@@ -151,8 +151,8 @@
 ![Vue-router实现流程图](./vue/vue-router/Vue-router.png) -->
 
 <div align=center>
-<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583923041608&di=35e8c8d5f4e3336b3a327556ac7865fe&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F347d3746db125c35adf42225ca9e8e8fbb7d87454834-jASIEe_fw658" width="600"/>
-<font size=5>博客施工中...🚧</span>
+
+<font size=5>博客文章迁移整理中...请耐心等待🚧</span>
 </div> 
 
 
