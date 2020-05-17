@@ -1,21 +1,24 @@
-# CommonJS 模块化 与 ES6 模块化的差异比较
-
-
+# CommonJS  与 ES6 Module 差异比较
 
 ## 值的拷贝 与 值的 引用 
-> CommonJS引入的是模块的一个拷贝，而ES 6 module引入的是暴露对象的引用(模块内部值改变，外部引用值也会改变)   
-
+* `CommonJS` 引入的是模块值一个拷贝
+* `ES 6 module`引入的是暴露对象的引用,本质上是暴露了一个指向对应内存空间的指针，模块内部值改变，外部引用值也会改变。   
 
 ## this的指向
-> 在模块中,CommonJS的this指向当前模块，而ES 6 module中this指向的是undefined。
+* 在模块中 `CommonJS`的`this`指向当前模块
+
+* 而ES 6 module中this指向的是`undefined`。
 
 同时，`ES 6`模块中也不存在
 `arguments`、`require`、`module`、`exports`、`__filename`、`__dirname`这些对象
 
 ## 处理的阶段
-* nodejs
+* CommonJS 在执行阶段进行处理
+* ES6 Module 则对标的是编译阶段的静态处理，但是在`执行阶段`也有`import()`语句来对补充空缺
 
-
+## 同步与异步
+* `CommonJS`加载模块使用的`require()`是同步加载的。
+* `ES6 Module`中的`import()`方法，返回的是一个`Promise`对象，属于异步加载。
 
 ## Node.js 加载 ES6 Module
 * 文件名以`.mjs`结尾的文件，代码中可以出现`import` 或者 `export`等`ES 6`模块代码，Nodejs引擎也会将其当做`ES 6 Module`进行处理。 
@@ -65,3 +68,6 @@ module.exports = {
 // app.mjs
 import { bar } from "moduleA.cjs" // error
 ```
+
+## 参考资料
+[ECMascript6 入门 - 阮一峰](https://es6.ruanyifeng.com/#docs/module-loader)
