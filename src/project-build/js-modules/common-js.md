@@ -1,7 +1,7 @@
 # CommonJS 之 Node.js模块化
 
 > `CommonJS` 是一种JS模块规范。规范内容主要分为`模块定义`、`模块引用`与`模块标志`三个部分。Node.js的模块机制是其主要的实践。
-___
+
 ## 模块定义
 ### 文件即模块
 CommonJS 规定每一个文件就是一个模块，拥有自己的作用域。文件内的`变量`、`函数`、`类`都是私有的，其他文件不可以直接访问到，只有通过`module.exports`这个`神魔之井`进行访问。
@@ -88,7 +88,7 @@ console.log(moduleImported.tag) // 输出 'i have been imported'
 
 console.log(require.cache) // 输出如下图
 ```
-![](/blog_assets/node-modules-require-cache.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/node-modules-require-cache.png)
 
 上面两个例子结合，可以说明对于同一个模块，node只会加载一次。后续的读取都是从缓存中读取出来。
 
@@ -115,7 +115,7 @@ module.exports = {
     name: 'index module'
 }
 ```
-![](/blog_assets/node-modules-same-name.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/node-modules-same-name.png)
 ___
 ## 模块标识
 
@@ -245,20 +245,59 @@ Module._load = function(request, parent, isMain) {
 }
 ```
 ##### ③ 根据文件不同类型，调用`Module.extensions`
-调用处[传送门👉](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L1049)
+调用处[传送门👉](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L1049) 
+注意这里的实现方式使用的是 `readFileSync` 则说明我们需要同步地去读取文件。
 ```js
 // /lib/internal/modules/cjs/loader.js#L1049
 Module._extensions[extension](this, filename);
 ```
 各种文件的处理方式:
   * [.js文件👉](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L1209)
-     * 调用 `module._compile(content, filename)`编译执行js模块
+    ```js
+    // Native extension for .js
+    Module._extensions['.js'] = function(module, filename) {
+      if (filename.endsWith('.js')) {
+        const pkg = readPackageScope(filename);
+        // Function require shouldn't be used in ES modules.
+        if (pkg && pkg.data && pkg.data.type === 'module') {
+         const parentPath = module.parent && module.parent.filename;
+         const packageJsonPath = path.resolve(pkg.path, 'package.json');
+          throw new ERR_REQUIRE_ESM(filename, parentPath, packageJsonPath);
+       }
+      }
+      // 使用文件模块读取文件
+      const content = fs.readFileSync(filename, 'utf8');  
+      // 编译文件内容
+      module._compile(content, filename);
+    };
+    ```
   * [.json文件👉](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L1225)
   * [.node文件👉](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L1243)
 
-④ 编译执行js模块 [传送门👉](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L1154)
+##### ④ 编译执行js模块 [传送门👉](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L1154)
+```js
+// /lib/internal/modules/cjs/loader.js#L1154
+Module.prototype._compile = function(content, filename) {
+  // ...
+  const compiledWrapper = wrapSafe(filename, content, this);
+  return result;
+};
+// /lib/internal/modules/cjs/loader.js#L1104
+function wrapSafe(filename, content, cjsModuleInstance) {
+   // vm.runInThisContext 用于编译和执行JavaScript代码
+   return vm.runInThisContext(wrapper, {
+      filename,
+      lineOffset: 0,
+      displayErrors: true,
+      importModuleDynamically: async (specifier) => {
+        const loader = asyncESM.ESMLoader;
+        return loader.import(specifier, normalizeReferrerURL(filename));
+      },
+    });
+}
+```
 
-⑤ 返回`module.exports` 结果
+##### ⑤ 返回`module.exports` 结果
 ```js
 // /lib/internal/modules/cjs/loader.js#L961
 return module.exports;

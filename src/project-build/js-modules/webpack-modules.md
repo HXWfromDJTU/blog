@@ -58,35 +58,51 @@ console.log(B)
 })([module1, module2, module3, moduleEntry]);
 ```
 ### 引入
-`Webpack`编译后的代码中，使用`__webpack_require__()`方法进行模块的调度。
+`Webpack`编译后的代码中，使用`__webpack_require__()`方法进行模块的调度,相当于`Node.js`版实现中的`require()`方法。
 ```js
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/
-/******/ 		// Check if module is in cache
+/******/ 		// 使用内存进行模块缓存
 /******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
 /******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
+/******/ 		// 若没有命中缓存，则新创建一个 module 实例
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
 /******/ 		};
 /******/
-/******/ 		// Execute the module function
+/******/ 		// 执行模块  
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
 /******/
-/******/ 		// Return the exports of the module
+/******/ 		// 返回模块
 /******/ 		return module.exports;
 /******/ 	}
 ```
 简单总结一下
-* 使用了和内存进行模块单例缓存
+* 使用了和内存进行模块单例缓存,类似于`Node.js`实现中的`require.cache` 与 `Module._cache`(建议和[这篇文章](https://github.com/HXWfromDJTU/blog/issues/4)的“源码概览”部分一起食用)
+
 * `__webpack_require__`参数为`moduleId`，该`ID`也为传入的模块数组下标的`ID`
+
+* 创建模块部分，相当于`Node.js` 实现中的[这部分内容👉](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L912)
+```js
+ // /lib/internal/modules/cjs/loader.js#L912
+const module = new Module(filename, parent);
+```
+* 模块执行部分，相当与 Node.js 实现版本中的[这部分内容👉](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L1200)
+```js
+ // /lib/internal/modules/cjs/loader.js#L1200
+ result = compiledWrapper.call(thisValue, exports, require, module,
+                                  filename, dirname);
+```
+
+#### 异步加载
+`Webpack`如何实现的异步加载,请参考这篇[文章👉](https://www.njleonzhang.com/2019/02/12/webpack-bundle-3.html)
 
 ### 导出
 `__webpack_require__.d`(其实应该为`__webpack_require__.define`),函数用于导出模块，也就是实现`export`语句的基础方法，编译后的源码如下。
@@ -166,8 +182,7 @@ require.ensure([], function(require){
 
 当然我们正在做 `code spliting`的时候一般会通过`webpack.config.js`来进行配置`plugins`或者`optimization`来实现
 
-## 总结 
-
-
 ## 参考资料
 [1] [webpack 前端运行时的模块化设计与实现 - by Alien ZHOU](https://www.alienzhou.com/2018/08/27/webpack-module-runtime/)
+
+[2] [webpack 输出文件分析 3 - 异步加载 - by Leon Zhang](https://www.njleonzhang.com/2019/02/12/webpack-bundle-3.html)
