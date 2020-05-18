@@ -3,10 +3,10 @@
 > `CommonJS` 是一种JS模块规范。规范内容主要分为`模块定义`、`模块引用`与`模块标志`三个部分。Node.js的模块机制是其主要的实践。
 ___
 ## 模块定义
-##### 文件即模块
+### 文件即模块
 CommonJS 规定每一个文件就是一个模块，拥有自己的作用域。文件内的`变量`、`函数`、`类`都是私有的，其他文件不可以直接访问到，只有通过`module.exports`这个`神魔之井`进行访问。
 
-##### module 对象
+### module 对象
 ```js
 // 最简单的一个模块，使用node命令执行它，输出以下的内容
 module.exports = {
@@ -23,7 +23,7 @@ console.log(module)
 * module.exports 表示对外暴露的`对象`（👈注意这个用词）
 * module.filename 表示模块的文件名，带有绝对路径
 
-##### module.exports 与 exports
+### module.exports 与 exports
 > 先说结论，请您放弃使用`exports`，严格使用`module.exports`进行模块暴露
 
 其实`Node`为每一个模块，都提供了一个当前模块下的全局`exports`变量，指向了当前模块下的`module.exports`,也就是在每一个模块的开头，手动执行了以下语句
@@ -38,7 +38,7 @@ ___
 const module1 = require('./module.js')
 module1.getName() // 'module1'
 ```
-##### 引用的是值的拷贝
+### 引用的是值的拷贝
 `CommonJS`中模块加载机制，`require`函数引入的是输出模块中`module.exports`的值得拷贝。也就是说，内部值的变化，外界不再能够感知到。
 ```js
 // moduleA.js
@@ -72,7 +72,7 @@ setTimeout(() => {
 ```
 > ❓❓❓ 大家想想，既然`CommonJS`是运行时加载，那么内部的变动的值如何才能够被取到呢？留言区见
 
-##### 一次运行，多次加载
+### 一次运行，多次加载
 > 一个模块可能会被多个其他模块所依赖，也就会被多次加载。但是每一次加载，获取到的都是第一次运行所加载到缓存中的值， `require.cache`会指向已经加载的模块。
 
 ```js
@@ -92,7 +92,7 @@ console.log(require.cache) // 输出如下图
 
 上面两个例子结合，可以说明对于同一个模块，node只会加载一次。后续的读取都是从缓存中读取出来。
 
-##### 缓存机制补充
+### 缓存机制补充
 对于模块缓存机制，若是存在两个同名模块，存放于不同的路径，则那么`require()`方法仍然会重新加载该模块，而不会从缓存中读取出来。如以下例子。
 
 ```bat
@@ -119,18 +119,18 @@ module.exports = {
 ___
 ## 模块标识
 
-##### require()路径参数规则
+### require()路径参数规则
 * 必须是小驼峰命名方式的字符串
 * 以'../'或者'./'开头的相对路径 或者 绝对路径
 * 可以不书写`.js`后缀名
 
-##### require()路径解析规则
+### require()路径解析规则
 * `/`开头表示绝对路径。
 * `./` 或 `../` 表示相对路径。
 * 除了以上两种情况，则表示加载的是核心模块。
 * 自定义模块指的是非路径形式的文件模块。
 
-##### 路径分析(自定义模块)
+### 路径分析(自定义模块)
 我们同样使用上面的输出结果。可以看到路径是逐级向上寻找的过程。从当前目录下的`node_modules`一直寻找到根目录下的`node_modules`为止。逐级向上寻找的方式，FNer们是否似曾相识呢？(Javascript的原型链溯源👩‍🏫‍)
 
 ![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/node_modules_path.png)
@@ -139,10 +139,10 @@ ___
 * 它们不属于核心模块包
 * 不属于我们业务代码中自己封装的参数模块
 
-##### 文件拓展名
+### 文件拓展名
 require()函数在解析`标识符`的时候，对于不指定文件拓展名的情况，Node.js按照`.js`、`.node`、`.json`文件的顺序补足拓展名后，再尝试进行加载。
 
-##### 目录与模块
+### 目录与模块
 ```js
 // app.js
 const abcModule = require('abcmodule')
@@ -179,9 +179,96 @@ const abcModule = require('abcmodule')
 ```
 若`"main"`指定的文件是不存在的，加载机制则会默认依次寻找当前目录下的`index.js`、`index.node`、`inde.json` 来作为文件模块的入口。
 
-___
+## Node.js Module 部分源码概览
+
+### Module 构造函数
+在`Node.js`源码中，也出现了模块定义的内应内容[👉传送门](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L162)。
+
+```js
+// lib/internal/modules/cjs/loader.js #L192
+function Module(id = '', parent) {
+  this.id = id;
+  this.path = path.dirname(id);
+  this.exports = {};
+  this.parent = parent;
+  updateChildren(parent, this, false);
+  this.filename = null;
+  this.loaded = false;
+  this.children = [];
+}
+```
+
+### module、exports、module、__dirname、__filename 从哪来？
+先上`Node.js`b部分源码。看过`Webpack`编译后代码的童鞋可能不会对下面的内容陌生，`Node.js`实现`CommonJS`的方式，也是将每个文件模块都封装在一个`函数作用域`中，然后将常用的`module`、`exports`、`module`、`__dirname`、`__filename` 一一作为参数传递到作用域中。
+```js
+// /lib/internal/modules/cjs/loader.js#L192
+let wrap = function(script) {
+  return Module.wrapper[0] + script + Module.wrapper[1];
+};
+
+const wrapper = [
+  '(function (exports, require, module, __filename, __dirname) { ',
+  '\n});'
+];
+```
+
+### Node.js 模块化流程
+##### ① `require` 引入模块 [入口👉](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L1081) 到 [出口👉](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L1089)
+
+```js
+Module.prototype.require = function(id) {
+  validateString(id, 'id');
+  if (id === '') {
+    throw new ERR_INVALID_ARG_VALUE('id', id,
+                                    'must be a non-empty string');
+  }
+  requireDepth++;
+  try {
+    return Module._load(id, this, /* isMain */ false);
+  } finally {
+    requireDepth--;
+  }
+};
+
+```
+
+##### ② 调用`Module._load()`进行模块加载，[传送门👉](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L877)
+```js
+// /lib/internal/modules/cjs/loader.js#L877
+Module._load = function(request, parent, isMain) {
+    // .....
+    // /lib/internal/modules/cjs/loader.js#L912
+    const module = new Module(filename, parent); // 新建 module 实例
+
+    // /lib/internal/modules/cjs/loader.js#L912
+    Module._cache[filename] = module; // 存入缓存
+}
+```
+##### ③ 根据文件不同类型，调用`Module.extensions`
+调用处[传送门👉](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L1049)
+```js
+// /lib/internal/modules/cjs/loader.js#L1049
+Module._extensions[extension](this, filename);
+```
+各种文件的处理方式:
+  * [.js文件👉](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L1209)
+     * 调用 `module._compile(content, filename)`编译执行js模块
+  * [.json文件👉](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L1225)
+  * [.node文件👉](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L1243)
+
+④ 编译执行js模块 [传送门👉](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js#L1154)
+
+⑤ 返回`module.exports` 结果
+```js
+// /lib/internal/modules/cjs/loader.js#L961
+return module.exports;
+```
 
 ## 参考资料
 [1][CommonJS规范 - ruanyifeng](https://javascript.ruanyifeng.com/nodejs/module.html#toc6)
 
 [2][《深入浅出Node.js》 - 朴灵](https://book.douban.com/subject/25768396/)
+
+[3] [Node.js - github](https://github.com/nodejs/node/blob/ef1eb8d43903e7c5f671998cd3ee912a73292634/lib/internal/modules/cjs/loader.js)
+
+[4] [webpack 前端运行时的模块化设计与实现 - by AlienZHOU](https://www.alienzhou.com/2018/08/27/webpack-module-runtime/)
