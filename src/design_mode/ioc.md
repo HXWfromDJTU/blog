@@ -12,7 +12,7 @@
 
 `decrotor`主要的用法有以下两种: `类的装饰` 、 `类方法的装饰`。
 
-##### 类的装饰
+### 类的装饰
 ```js
 function hasLongHair(target) {
   target.isLongHair = true;
@@ -27,7 +27,7 @@ class AmericanBlondeClass {
 AmericanBlondeClass.isLongHair // true
 ```
 
-##### 类方法的装饰
+### 类方法的装饰
 ```js
 // 修改 descriptor.writable 似的对象不可被修改
 function readonly(target, name, descriptor){
@@ -49,13 +49,13 @@ class AmericanBlondeClass {
 
 那么，我们如何实现一个控制反转呢，需要了解以下几个关键步骤。
 
-##### 创建 IOC 容器
+### 创建 IOC 容器
 所谓IOC容器，它的作用是：在应用初始化的时候自动处理对类的依赖，并且将类进行实例化，在需要的时候，使用者可以随时从容器中去除实力进行使用，而不必关心所使用的的实例何时引入、何时被创建。
 ```js
 const container = new Container()
 ```
 
-##### 绑定对象
+### 绑定对象
 有了容器，我们需要将”可能会被用到“的对象类，绑定到容器上去。
 ```js
 class Rabbit {}
@@ -67,7 +67,7 @@ container.bind('wolf', Wolf)
 container.bind('tiger', Tiger)
 ```
 
-##### 需要时取出实例
+### 需要时取出实例
 ```js
 const rabbit = container.get('rabbit')
 const wolf = container.get('wolf')
@@ -75,8 +75,8 @@ const wolf = container.get('wolf')
 const tigger = container.getAsync('tiger')
 ```
 
-##### TS 中的实现
-基本原理说完了，我们再来看看 `midwayjs`中提供各种功能的`修饰器`吧
+### TS 中的实现
+基本原理说完了，我们再来看看 `midwayjs`中提供各种功能的`修饰器`
 
 `midway.js` 封装了许多装饰器，部分是用于实现`IOC`,如 `@provide`与`@inject`
 ```ts
@@ -99,19 +99,8 @@ export class FlowerService {
 @get、@post、@del、@put、@patch、@options、@head、@all
 ```
 
+## 总结
+`依赖注入`只是`IOC`思维实现的一种表现，而`装饰器`只是`依赖注入`的一种实现手段。
 
-
-
-
-
-
-
-
-
-
-
-
-
-___
-### 参考文章
+## 参考文章
 [midway - IOC](https://midwayjs.org/injection/guide.html#%E8%83%8C%E6%99%AF)
