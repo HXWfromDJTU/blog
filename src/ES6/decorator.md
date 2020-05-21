@@ -1,14 +1,14 @@
 # Decorator
 
 ### 简介
-1️⃣ 用于修改类、类方法的特征   
-2️⃣ 修饰器不能够用于一般方法的修饰，因为方法的声明存在变量提升，修饰器方法和被修饰方法不知道哪一个会先被声明，导致装饰效果未知   
-3️⃣ 无论是node还是Browser环境，目前还未支持Decorator。需要我们手动下载垫片,拖动你的页面到底部，有方法可以让你在线先体验哦...
+* 用于修改类、类方法的特征   
+* 修饰器不能够用于一般方法的修饰，因为方法的声明存在变量提升，修饰器方法和被修饰方法不知道哪一个会先被声明，导致装饰效果未知   
+* 无论是node还是Browser环境，目前还未支持Decorator。需要我们手动下载垫片,拖动你的页面到底部，有方法可以让你在线先体验哦...
 ![](/blog_assets/babel_decorator.png)
 
 ### 类的修饰
-1️⃣ 面向对象的语言都有修饰器函数，用来修饰其行为。   
-2️⃣ 一般使用一个函数作为类的修饰器   
+* 面向对象的语言都有修饰器函数，用来修饰其行为。   
+* 一般使用一个函数作为类的修饰器   
 
 ```ts
 @testable
@@ -28,9 +28,9 @@ MyTestableClass.isTestable
 ### 类方法、属性的修饰
 > 注意：这里提到的类方法和、属性也包含类实例访问器(get/set/Configurable/Enumerable)
 
-1️⃣ 首先要区别与第一种类的修饰，类方法的修饰接收到的三个参数
-💿 类的原型(注意不是类哦)
-📷 要修饰的类方法(或者属性)的名称   
+* 首先要区别与第一种类的修饰，类方法的修饰接收到的三个参数
+* 类的原型(注意不是类哦)
+* 要修饰的类方法(或者属性)的名称   
 
 📹 descriptor对象(也就是 Object.defineProperty里面的第三个参数。
 其实这里的操作基本就是未实例化版的`Object.defineProperty()操作`
@@ -65,7 +65,7 @@ const Foo = {
   foo() { console.log('foo') }
 };
 
-@mixins(Foo); // 直接传入想添加的属性对象
+@mixins(Foo) // 直接传入想添加的属性对象
 class MyClass {}
 ```
 社区中也有更加成熟的解决方案，屏蔽掉了我们手工mixin的一些毛病(比如说同名属性被覆盖的问题)，traits-decorator，有兴趣的去看看，[传送门](https://github.com/CocktailJS/traits-decorator)
@@ -81,16 +81,19 @@ class MyClass {}
 
 
 ### Summary
-1️⃣ Decorator是Javascript未来发展的趋势，也会是Javascript逐渐实现静态检查的里程碑式的特性
-2️⃣ Decorator线上运行，[传送门](https://babeljs.io/repl)
+* Decorator是Javascript未来发展的趋势，也会是Javascript逐渐实现静态检查的里程碑式的特性
+* Decorator线上运行，[传送门](https://babeljs.io/repl)
 ![](/blog_assets/babel_decorator_online.png)
-3️⃣ 遗留的问题：`装饰器叠加`、`叠加时候的顺序`、`对于敏感的get/set属性多层修饰`
+* 遗留的问题：`装饰器叠加`、`叠加时候的顺序`、`对于敏感的get/set属性多层修饰`
 
 Anyway..之前一直没有啃下来的Decorator,找到应用场景和知道其远大的历史使命之后...希望大家也重视起来...
+
 ___
 ### 参考文章
-[我们来聊聊装饰器 -by 讶羽](https://juejin.im/post/5bec22ad5188254d070bd9e8) 
+[1] [我们来聊聊装饰器 -by 讶羽](https://juejin.im/post/5bec22ad5188254d070bd9e8) 
 
-[JS 装饰器实战 -by 芋头](https://zhuanlan.zhihu.com/p/30487077)
+[2] [JS 装饰器实战 -by 芋头](https://zhuanlan.zhihu.com/p/30487077)
 
-[ES6 教程 -by 阮一峰](http://es6.ruanyifeng.com/#docs/decorator)
+[3] [ES6 教程 -by 阮一峰](http://es6.ruanyifeng.com/#docs/decorator)
+
+[4] [ES7 Decorator 装饰器 | 淘宝前端团队](https://segmentfault.com/p/1210000009968000/read)
