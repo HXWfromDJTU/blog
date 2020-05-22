@@ -1,9 +1,8 @@
-# Decorator & IOC & Dependency Injection
+# Decorator AOP IOC  Injection
 
-> 工作中第一次接触到@decorator是在 `ng2` 中([笔记✈️](/src/ES6/decorator.md))。最近因为工作，重新接触了 ts 上手了 midway.js 和 nest.js 重新见到了久违的 decorator。所以决定把 @Decorator 到 依赖注入 还有 IOC 几个概念理一理。
+> 工作中第一次接触到@decorator是在 `ng2`。最近因为工作，重新接触了 ts 上手了 midway.js 和 nest.js 重新见到了久违的 decorator。所以决定把 @Decorator 到 依赖注入 还有 IOC 几个概念理一理。
 
-
-### @decorator
+### decorator
 > Decorators provide a way to add both annotations and a meta-programming syntax for class declarations and members. 
 装饰器（Decorator）是一种与类（class）相关的语法，用来注释或修改类和类方法。
 
@@ -19,34 +18,32 @@ function hasLongHair(target) {
 
 // 金发女郎，一般都是长头发
 @hasLongHair
-class AmericanBlondeClass {
+class Blonde {
   // ...
 }
 
-AmericanBlondeClass.isLongHair // true
+Blonde.isLongHair // true
 ```
 
 ### 类方法的装饰
 ```js
-// 修改 descriptor.writable 似的对象不可被修改
+// 修改 descriptor.writable 使得对象不可被修改
 function readonly(target, name, descriptor){
   descriptor.writable = false;
   return descriptor;
 }
 
-class AmericanBlondeClass {
+class Blonde {
   @readonly
   name() { return `${this.first} ${this.last}` }
 }
 ```
 
 
-### IOC 
-来自于维基百科对”控制反转“的基本解释
-
+## IOC 
 > 控制反转，是面向对象编程中的一种设计原则，可以用来减低计算机代码之间的耦合度。其中最常见的方式叫做依赖注入，还有一种方式叫“依赖查找”。通过控制反转，对象在被创建的时候，由一个调控系统内所有对象的外界实体，将其所依赖的对象的引用传递给它。
 
-那么，我们如何实现一个控制反转呢，需要了解以下几个关键步骤。
+以上是来自于维基百科对”控制反转“的基本解释。那么，我们如何实现一个控制反转呢，需要了解以下几个关键步骤。
 
 ### 创建 IOC 容器
 所谓IOC容器，它的作用是：在应用初始化的时候自动处理对类的依赖，并且将类进行实例化，在需要的时候，使用者可以随时从容器中去除实力进行使用，而不必关心所使用的的实例何时引入、何时被创建。
@@ -91,15 +88,14 @@ export class FlowerService {
         return this.flowerModel.findByIds([12,28,31])
     }
 }
-```
 
-```js
 // 封装了和 koa-router 所支持的多种请求方法相对应的修饰器
 @get、@post、@del、@put、@patch、@options、@head、@all
 ```
 
 ## 总结
-`依赖注入`只是`IOC`思维实现的一种表现，而`装饰器`只是`依赖注入`的一种实现手段。
+* `依赖注入`只是`IOC`思维实现的一种表现，而`装饰器`只是`依赖注入`的一种实现手段。
+* 
 
 ## 参考文章
-[midway - IOC](https://midwayjs.org/injection/guide.html#%E8%83%8C%E6%99%AF)
+[1] [midway - IOC](https://midwayjs.org/injection/guide.html#%E8%83%8C%E6%99%AF)
