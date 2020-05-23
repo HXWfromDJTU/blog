@@ -1,6 +1,5 @@
 # 设计模式汇总
 ![](/blog_assets/desgin_mode_cover.png)
-___
 > 本文系《Javascript设计模式与开发实践》的读书笔记整理，添加了一些自己的理解
 ### 单例模式
 某一个对象在整个模块功能中只会出现一次，就像我们日常使用的全局变量一样
@@ -341,4 +340,4 @@ ___
 
 ___
 ### 参考资料
-《Javascript设计模式与开发实践》 -by 曾探 - [京东传送门](https://item.jd.com/11686375.html)
+《Javascript设计模式与开发实践》 -by 曾探 - [传送门](https://item.jd.com/11686375.html)

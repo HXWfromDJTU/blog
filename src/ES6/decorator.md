@@ -1,9 +1,95 @@
 # Decorator
+本文的主角是`decorator`,字面意思是`装饰器`。前端的同学大概都知道，它当前处于`stage 2`阶段([草案原文](https://github.com/tc39/proposal-decorators/blob/master/README.md))，可以用`babel`进行[转码](https://www.babeljs.cn/repl#?browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=AIFwpgziCGBGA2YBQBje0IQAQAUwCcIB7AOywG8ksth8xoATU-ATyppNLBIFcBbAnETsS0AQAoAlBSx0QPfGQAGAEnIgAFgEsIAOgBmWwiAC-WNZp270UE0qwmkJoA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015%2Creact%2Cstage-2&prettier=false&targets=&version=7.9.6&externalPlugins=)后进行使用。
 
-### AOP思维、减少对代码的侵入
+使用过`Angular 2`或者`Nest.js`（或者`Midway.js`）的同学，一定对`@Component`、`@Inject`、`@ViewChild`和`@get()`、`@post()`、`@provide()`不陌生。
 
-### IOC思维
+了解设计模式的同学，大概还记得`修饰器模式`这东西，也许至今也还分不太清楚它和`代理模式`的差别。    
 
+但这次，我们想要追本溯源，从`AOP`、`IOC`和`descriptor`这些东西说起，认识一下`修饰器`这个熟悉的陌生人。      
+
+## "脑壳疼"de问题
+在正文开始之前，我们先来一个需求，我们将陆续用不同阶段的思维去实现这个要求。
+> 要求是：已知一个超过10几个人维护的代码，在不修改原函数的情况下，如何实现在每个函数执行后打印出指定内容的一行日志。
+## AOP
+> In computing, aspect-oriented programming (AOP) is a programming paradigm that aims to increase modularity by allowing the separation of cross-cutting concerns. It does so by adding additional behavior to existing code (an advice) without modifying the code itself, instead separately specifying which code is modified via a "pointcut" specification. 
+
+以上是维基百科对`AOP`的基本解释，主要着重于以下几点    
+* 将`横切关注点`与中体业务的进一步分离。    
+* 在`现有代码的基础上`，通过在`切入点`增加`通知`的方式实现。          
+* 减少`与主体业务没有这么密切的代码`对`主题代码`的入侵。   
+
+了解过`Javascript 高阶函数`的同学，可能见到过以下方式对👆题目需求的实现。
+
+```js
+// 注意在执行 after的时候，原函数也会被一并执行
+Function.prototype.after = function(afterfn){
+    let _self =this;
+    return function(){
+        // 执行原方法
+        let result = _self.apply(this,arguments);
+        // 额外添加 after 函数的执行
+        afterfn.apply(this,arguments);
+        return result;
+    }
+}
+```  
+实现过程本身不做过多解释，主要思维是将`要添加的行为`和`目标函数(主函数)`包装到了一起，实现了不对`原函数(主函数)`入侵的预期，但写法上仍不够`优雅`。
+
+### Spring AOP
+在《Spring实战》第四章中提到了
+> 散布于应用中多处的功能（日志、安全、事务管理等）被称为横切关注点。
+>
+>把横切关注点与业务逻辑分离是AOP要解决的问题。
+
+
+在`Spring`中的`AOP`实现，给调用者的实际已经是经过`加工`的对象，开发者表面上调用的是`Fun`方法,但其实`Spring`为你做的是`a + b + c --> Fun -->d + e + f` 的调用过程。这里的`abcdef`都是函数动态的编入点，也就是定义中描述的`pointcut`。
+
+我们称这种切入方式为`运行时织入`。
+
+##### Spring AOP 的织入点
+* 前置通知（Before Advice）
+* 后置通知（After Advice）
+* 返回通知（After Return Advice
+* 环绕通知（Around Advice
+* 抛出异常后通知（After Throwing Advice）
+
+```java
+// 基本实现代码
+try{
+    try{
+        //@Before
+        method.invoke(..);
+    }finally{
+        //@After
+    }
+    //@AfterReturning
+} catch() {
+    //@AfterThrowing
+}
+```
+
+## IOC 与 DI
+> 控制反转，是面向对象编程中的一种设计原则，可以用来减低计算机代码之间的耦合度。其中最常见的方式叫做依赖注入，还有一种方式叫“依赖查找”。通过控制反转，对象在被创建的时候，由一个调控系统内所有对象的外界实体，将其所依赖的对象的引用传递给它。
+
+以上是来自于维基百科对”控制反转“的基本解释。那么，我们如何实现一个控制反转呢，需要了解以下几个关键步骤。
+
+#### 创建 IOC 容器
+所谓IOC容器，它的作用是：在应用初始化的时候自动处理对类的依赖，并且将类进行实例化，在需要的时候，使用者可以随时从容器中去除实力进行使用，而不必关心所使用的的实例何时引入、何时被创建。
+```js
+const container = new Container()
+```
+
+#### 绑定对象
+有了容器，我们需要将”可能会被用到“的对象类，绑定到容器上去。
+```js
+class Rabbit {}
+class Wolf {}
+class Tiger {}
+// 绑定到容器上
+container.bind('rabbit', Rabbit)
+container.bind('wolf', Wolf)
+container.bind('tiger', Tiger)
+```
 
 ### 其他语言中的decorator
 * python
@@ -25,6 +111,7 @@
 
 ### 日志模块的构建
 
+### 与代理模式的差别
 
 
 
@@ -143,3 +230,7 @@ ___
 [3] [ES6 教程 -by 阮一峰](http://es6.ruanyifeng.com/#docs/decorator)
 
 [4] [ES7 Decorator 装饰器 | 淘宝前端团队](https://segmentfault.com/p/1210000009968000/read)
+
+[5] [什么是面向切面编程AOP？ - 柳树的回答 - 知乎](https://www.zhihu.com/question/24863332/answer/350410712)
+
+[6] [什么是面向切面编程AOP？ - 夏昊的回答 - 知乎](https://www.zhihu.com/question/24863332/answer/863736101)
