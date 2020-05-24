@@ -152,8 +152,19 @@
 
 <div align=center>
 
-<font size=5>博客文章迁移整理中...请耐心等待🚧</span>
+<font size=5>知识需要一直更新，更多博客文章正在迁移整理中...请耐心等待🚧</span>
 </div> 
+
+## 模块化
+[前端模块化 - CommonJS](https://github.com/HXWfromDJTU/blog/issues/4)  
+[前端模块化 - ES6 Module](https://github.com/HXWfromDJTU/blog/issues/5)  
+[前端模块化 - CommonJS 与 ES6 Module 差异比较](https://github.com/HXWfromDJTU/blog/issues/6)  
+[前端模块化 - Webpack](https://github.com/HXWfromDJTU/blog/issues/9)  
+[前端模块化 - CMD 规范](https://github.com/HXWfromDJTU/blog/issues/8)  
+[前端模块化 - AMD 规范](https://github.com/HXWfromDJTU/blog/issues/7)  
+
+## 其他
+[Decorator - 从 AOP IOC descriptor、decorator mode 开始说 ](https://github.com/HXWfromDJTU/blog/issues/10)  
 
 
 
