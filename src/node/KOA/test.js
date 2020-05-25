@@ -1,4 +1,4 @@
-const { Koa } = require('./koa/index.js');
+const { Koa } = require('./koa/old');
 
 
 const app = new Koa();
