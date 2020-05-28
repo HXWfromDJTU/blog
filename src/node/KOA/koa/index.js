@@ -29,8 +29,14 @@ class Koa extends EventEmitter {
     return this
   }
 
+  /**
+   * 为node.js native http server 创建一个请求处理器
+   * @returns {function(*=, *=)}
+   */
   callback () {
+    // 使用 compose 函数，将所有的中间件串联起来
     const fn = compose(this.middlewares)
+
     if (!this.listenerCount('error')) this.on('error', this.onerror)
 
     const handleRequest = (req, res) => {
@@ -67,11 +73,11 @@ class Koa extends EventEmitter {
   }
 
   /**
-   * Handle request in callback.
-   *
-   * @api private
+   * 处理 callback 中的请求
+    * @param ctx
+   * @param fnMiddleware
+   * @returns {Promise<T>}
    */
-
   handleRequest (ctx, fnMiddleware) {
     const res = ctx.res
     res.statusCode = 404
