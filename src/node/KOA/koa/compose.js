@@ -9,10 +9,14 @@ export default function compose (middlewares) {
   return function (context, next) {
     let index = -1
     return dispatch(0)
+    // 递归函数
     function dispatch (i) {
+      // 终止条件，也就是所有的中间件都执行完了，返回一个 Promise
       if (i <= index) return Promise.reject(new Error('next() called multiple times'))
+      // 取出第一个中间件
       let fn = middlewares[i]
       if (i === middlewares.length) fn = next
+      // 若取不到中间件，则直接返回一个 resolve 状态的 Promise
       if (!fn) return Promise.resolve()
       try {
         return Promise.resolve(fn(context, dispatch.bind(null, i + 1)))
