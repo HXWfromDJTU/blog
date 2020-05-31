@@ -1,4 +1,4 @@
-export default function compose (middlewares) {
+function compose (middlewares) {
   if (!Array.isArray(middlewares)) throw new TypeError('Middlewares must be an array')
   for (const fn of middlewares) {
     if (typeof fn !== 'function') {
@@ -6,24 +6,24 @@ export default function compose (middlewares) {
     }
   }
 
+  /**
+   * compose
+   * @description
+   * @point 递归就是天然的洋葱模型实现
+   * @point 每个中间件的调用应该为异步的
+   * @point
+   * @return compose 是一个作用是将所有的中间件串联起来，包装成一个函数，并且返回。这里要使用高阶函数
+   */
   return function (context, next) {
-    let index = -1
-    return dispatch(0)
-    // 递归函数
-    function dispatch (i) {
-      // 终止条件，也就是所有的中间件都执行完了，返回一个 Promise
-      if (i <= index) return Promise.reject(new Error('next() called multiple times'))
-      // 取出第一个中间件
-      let fn = middlewares[i]
-      if (i === middlewares.length) fn = next
-      // 若取不到中间件，则直接返回一个 resolve 状态的 Promise
-      if (!fn) return Promise.resolve()
-      try {
-        return Promise.resolve(fn(context, dispatch.bind(null, i + 1)))
-      }
-      catch (err) {
-        return Promise.reject(err)
-      }
+
+    function dispatch(i) {
+      let fn = middlewares[i] // ① 取出当前的中间件，fn指向每一个中间件
+      if (!fn) return // ③ 为递归设定终结条件
+      return fn(context, dispatch(i + 1)) // ② 形成初步的递归调用
     }
+
+    dispatch(0) // ④ 设定一个递归启动点
   }
 }
+
+module.exports.compose = compose

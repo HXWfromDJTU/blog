@@ -1,8 +1,9 @@
 const http = require('http')
 const EventEmitter = require('events')
-import compose from './compose'
+const compose = require('./compose')
 
 class Koa extends EventEmitter {
+
   constructor () {
     super()
     this.keys = []
@@ -102,3 +103,5 @@ function respond (ctx) {
 function onFinished(msg, listener) {
 
 }
+
+module.exports.Koa = Koa
