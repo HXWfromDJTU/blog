@@ -96,6 +96,7 @@ const mid1 = async (ctx, next) => {
  return function (context, next) {
     function dispatch(i) {
       let fn = middlewares[i]
+      if (i === middlewares.length) fn = next
       if (!fn) return Promise.resolve()
       // ⑤ 改造当前中间件执行时传入的参数，将下一个中间件的含数句柄，作为第二个参数 next 传入
       return Promise.resolve(fn(context, dispatch.bind(null, i + 1)))
