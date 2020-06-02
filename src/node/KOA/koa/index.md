@@ -105,6 +105,28 @@ const mid1 = async (ctx, next) => {
  }
 ```
 
+要是大家还是不太明白上面写法的原理，那我们来看看`compose` 组合 `middlewares`后的结果会是什么样子。
+
+```js
+const [mid1, mid2, mid3] = middlewares
+// compose 可以理解为
+const fnMiddleware = function(ctx) {
+  return Promise.resolve(
+    mid1(ctx, function next () {
+     return Promise.resolve(
+       mid2(ctx, function next () {
+          return Promise.resolve(
+            mid3(ctx, function next() {
+              return Promise.resolve()
+           }) 
+         )
+       })
+     )
+   })
+ )
+}
+```
+
 
 ![](/blog_assets/koa-hand-by-hand.png)
 
