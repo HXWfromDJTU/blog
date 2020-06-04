@@ -164,7 +164,7 @@
 [前端模块化 - AMD 规范](https://github.com/HXWfromDJTU/blog/issues/7)  
 
 ## 其他
-[Decorator - 从 AOP IOC descriptor、decorator mode 开始说 ](https://github.com/HXWfromDJTU/blog/issues/10) 
+[Decorator - 从 AOP IOC descriptor、decorator mode 开始说 ](https://github.com/HXWfromDJTU/blog/issues/10)      
 [koa-compose 解读](https://github.com/HXWfromDJTU/blog/issues/11)
 
 
