@@ -75,8 +75,10 @@ function compose (middleware) {
     }
   }
 }
-
 ```
+
+> 接下来是手摸手教你写 compose , 要是上面的看懂了，就节省时间不必往下看了 👻👻👻
+
 ## 拆解分析
 #### 条件判断
 前面的一些类型判断语句也就不做过多描述。
@@ -153,7 +155,7 @@ const fnx = compose([mid1, mid2, mid3])
 fnx() // 输出结果我就不写了，你猜猜是什么
 ```
 
-#### 第三阶段 - 支持 async/await 转为同步写法
+#### 第三阶段 - 支持 thenable
 研究清楚第二阶段的测试输出后，我们基本将`异步中间件`串联起来。那么源码中，`dispatch`函数，无论走哪一个分支，为何一定都要返回一个`Promise`对象呢？   
 
 想了好久不得其解，就把源码中返回`Promise`部分改为同步，跑了一下`koa`自带的测试用例。
@@ -219,7 +221,52 @@ $ npm run test
  }
 ```
 
-### compose 结果
+#### 防止多次调用 next 的调用次数
+我们知道一次深入到最内层，再原路返回到最外层，就是一次完整的洋葱模型。对于代码设计中的`index` 与 `i` 的关系，也是一个设计巧妙的宝盒。如下测试代码，在mw1中调用多次next函数
+```js
+async function mw1 (context, next) {
+  console.log('===== middleware 1 =====')
+  next()
+  next() // 预计这里是会爆出一个错误，但是为什么呢？是如何工作的呢？
+}
+
+function mw2 (context, next) {
+  console.log('===== middleware 2 =====')
+  next()
+}
+
+async function mw3 (context, next) {
+  console.log('===== middleware 3 =====')
+}
+```
+
+![](/blog_assets/compose-prevent-multiple-time-next.png)
+
+如上图我们可以知道，用`index`去标记`i`曾经到达过的最深层词的中间件的下标，那么就能有效防止再原路返回时，每个中间件再次出触发`next`深入深层次的情况。
+
+```js
+ return function (context, next) {
+    let index = -1 // ⑨ 表示初始的层次
+    function dispatch(i) {
+      // 10 当前调用的层次，是否小于曾经到过的最大层次(变相判断这一个中间件的next是否已经调用过了)
+      if (i <= index) return Promise.reject('next cant not be invoke multiple time')
+      // 11 通过了上面的校验，就标记本次到达的最深层次
+      index = i
+      let fn = middlewares[i]
+      if (i === middlewares.length) fn = next
+      if (!fn) return Promise.resolve()
+      try {
+        return Promise.resolve(fn(context, dispatch.bind(null, i + 1)))
+      } catch (err) {
+        return Promise.resolve()
+      }
+    }
+    return dispatch(0)
+ }
+```
+
+
+## compose 结果
 
 若还是不太明白上面写法的原理，那我们来看看`compose` 组合 `middlewares`后的结果会是什么样子。
 
@@ -243,7 +290,7 @@ const fnMiddleware = function(ctx) {
 }
 ```
 
-### 参考资料
+## 参考资料
 [Koa源码 - github](https://github.com/koajs/koa)   
 [大家觉得 Koa 框架还有什么不足的地方吗？ - Starkwang的回答 - 知乎](https://www.zhihu.com/question/320893133/answer/660332567)       
 
