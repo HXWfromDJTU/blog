@@ -3,129 +3,6 @@
 
 > koa-compose 作为koa实现中间件串联功能的关键函数，值得我们细细品味，话不多说先送上[👉源码](https://github.com/koajs/compose/blob/master/index.js)，别惊讶确实只有这么多行....
 
-### 条件判断
-前面的一些类型判断语句也就不做过多描述。
-```js
-if (!Array.isArray(middlewares)) throw new TypeError('Middlewares must be an array')
-  for (const fn of middlewares) {
-    if (typeof fn !== 'function') {
-      throw new TypeError('item of middlewares must be an functions')
-    }
-  }
-```
-
-### 第一阶段 - 递归与洋葱模型
-* 是一个作用是将所有的中间件串联起来，包装成一个函数，并且返回。这里要使用高阶函数
-* 递归就是天然的洋葱模型实现
-```js
- return function (context) {
-    function dispatch(i) {
-      let fn = middlewares[i] // ① 取出当前的中间件，fn指向每一个中间件
-      if (!fn) return // ④ 为递归设定终结条件
-      fn(context)   // ② 执行当前中间件
-      return dispatch(i + 1)// ③ 形成初步的递归调用
-    }
-    return dispatch(0) // ④ 设定一个递归启动点
- }
-```
-```js
-// 简单准备第三个中间件
-const mid1 = () => console.log('mid1')
-const mid2 = () => console.log('mid2')
-const mid3 = () => console.log('mid3')
-
-const fnx = compose([mid1, mid2, mid3]) 
-fnx() // mid3 mid2 mid1
-```
-
-### 第二阶段 - 支持异步
-* 使用`next`表示开启下个中间件的函数句柄
-* 使用 `bind`对`dispatch`进行函数改造
-```js
- return function (context, next) {
-    function dispatch(i) {
-      let fn = middlewares[i]
-      if (!fn) return
-      // ⑤ 改造当前中间件执行时传入的参数，将下一个中间件的含数句柄，作为第二个参数 next 传入
-      return fn(context, dispatch.bind(null, i + 1))
-    }
-    return dispatch(0)
- }
-```
-```js
-const mid1 =  (ctx, next) => {
-   console.log('mid1')
-  setTimeout(()=>{
-    console.log('mid1 wait for 2s')
-    next()
-}, 2000)
-   console.log('mid1 after')
-}
-const mid2 = (ctx, next) => {
-   console.log('mid2')
-   setTimeout(()=>{
-     console.log('mid2 wait for 2s')
-     next()
-    },2000)
-   console.log('mid2 after')
-}
-const mid3 = function (ctx, next) {
-   console.log('mid3')
-   console.log('mid3 after')
-}
-
-const fnx = compose([mid1, mid2, mid3]) 
-fnx() // 输出结果我就不写了，你猜猜是什么
-```
-
-### 第三阶段 - 支持 async/await 转为同步写法
-研究清楚第二阶段的测试输出后，我们将`mid1`改为,想要`mid2`执行完了再回来执行`mid1 after`
-```js
-const mid1 = async (ctx, next) => {
-   console.log('mid1')
-    await next()
-   console.log('mid1 after')
-}
-```
-我们则需要继续添加对`Promise`的支持
-
-```js
- return function (context, next) {
-    function dispatch(i) {
-      let fn = middlewares[i]
-      if (i === middlewares.length) fn = next
-      if (!fn) return Promise.resolve()
-      // ⑤ 改造当前中间件执行时传入的参数，将下一个中间件的含数句柄，作为第二个参数 next 传入
-      return Promise.resolve(fn(context, dispatch.bind(null, i + 1)))
-    }
-    return dispatch(0)
- }
-```
-
-### compose 结果
-
-若还是不太明白上面写法的原理，那我们来看看`compose` 组合 `middlewares`后的结果会是什么样子。
-
-```js
-const [mid1, mid2, mid3] = middlewares
-// compose 可以理解为
-const fnMiddleware = function(ctx) {
-  return Promise.resolve(
-    mid1(ctx, function next () {
-     return Promise.resolve(
-       mid2(ctx, function next () {
-          return Promise.resolve(
-            mid3(ctx, function next() {
-              return Promise.resolve()
-           }) 
-         )
-       })
-     )
-   })
- )
-}
-```
-
 
 ### 先撸一遍
 ```js
@@ -200,6 +77,173 @@ function compose (middleware) {
 }
 
 ```
+## 拆解分析
+#### 条件判断
+前面的一些类型判断语句也就不做过多描述。
+```js
+if (!Array.isArray(middlewares)) throw new TypeError('Middlewares must be an array')
+  for (const fn of middlewares) {
+    if (typeof fn !== 'function') {
+      throw new TypeError('item of middlewares must be an functions')
+    }
+  }
+```
 
-Koa-compose 与 Redux 与 vue-router守卫 实现上的异同点
-* 看上去都有 next() 的机制
+####  第一阶段 - 递归与洋葱模型
+* 是一个作用是将所有的中间件串联起来，包装成一个函数，并且返回。这里要使用高阶函数
+* 递归就是天然的洋葱模型实现
+```js
+ return function (context) {
+    function dispatch(i) {
+      let fn = middlewares[i] // ① 取出当前的中间件，fn指向每一个中间件
+      if (!fn) return // ④ 为递归设定终结条件
+      fn(context)   // ② 执行当前中间件
+      return dispatch(i + 1)// ③ 形成初步的递归调用
+    }
+    return dispatch(0) // ④ 设定一个递归启动点
+ }
+```
+```js
+// 简单准备第三个中间件
+const mid1 = () => console.log('mid1')
+const mid2 = () => console.log('mid2')
+const mid3 = () => console.log('mid3')
+
+const fnx = compose([mid1, mid2, mid3]) 
+fnx() // mid3 mid2 mid1
+```
+
+####  第二阶段 - 支持异步
+* 使用`next`表示开启下个中间件的函数句柄
+* 使用 `bind`对`dispatch`进行函数改造
+```js
+ return function (context, next) {
+    function dispatch(i) {
+      let fn = middlewares[i]
+      if (!fn) return
+      // ⑤ 改造当前中间件执行时传入的参数，将下一个中间件的含数句柄，作为第二个参数 next 传入
+      return fn(context, dispatch.bind(null, i + 1))
+    }
+    return dispatch(0)
+ }
+```
+```js
+const mid1 =  (ctx, next) => {
+   console.log('mid1')
+  setTimeout(()=>{
+    console.log('mid1 wait for 2s')
+    next()
+}, 2000)
+   console.log('mid1 after')
+}
+const mid2 = (ctx, next) => {
+   console.log('mid2')
+   setTimeout(()=>{
+     console.log('mid2 wait for 2s')
+     next()
+    },2000)
+   console.log('mid2 after')
+}
+const mid3 = function (ctx, next) {
+   console.log('mid3')
+   console.log('mid3 after')
+}
+
+const fnx = compose([mid1, mid2, mid3]) 
+fnx() // 输出结果我就不写了，你猜猜是什么
+```
+
+#### 第三阶段 - 支持 async/await 转为同步写法
+研究清楚第二阶段的测试输出后，我们基本将`异步中间件`串联起来。那么源码中，`dispatch`函数，无论走哪一个分支，为何一定都要返回一个`Promise`对象呢？   
+
+想了好久不得其解，就把源码中返回`Promise`部分改为同步，跑了一下`koa`自带的测试用例。
+
+```bat
+# koa
+$ npm run test
+```
+
+```js
+ 1) app.context
+       should merge properties:
+     Uncaught TypeError: Cannot read property 'then' of undefined
+      at Application.handleRequest (lib/application.js:166:29)  // 👈👈 点开这里看了看
+      at Server.handleRequest (lib/application.js:148:19)
+      at parserOnIncoming (_http_server.js:779:12)
+      at HTTPParser.parserOnHeadersComplete (_http_common.js:117:17)
+      [use `--full-trace` to display the full stack trace]
+```
+
+```js
+// application.js #line 160
+  handleRequest(ctx, fnMiddleware) {
+    const res = ctx.res;
+    res.statusCode = 404;
+    const onerror = err => ctx.onerror(err);
+    const handleResponse = () => respond(ctx);
+    onFinished(res, onerror);
+    // 上面的错误堆栈，追踪到的就是这里 #line 166 👇👇👇 
+    return fnMiddleware(ctx).then(handleResponse).catch(onerror);
+  }
+
+  // application.js #line 141
+  callback() {
+    const fn = compose(this.middleware);
+    if (!this.listenerCount('error')) this.on('error', this.onerror);
+    const handleRequest = (req, res) => {
+      const ctx = this.createContext(req, res);
+      return this.handleRequest(ctx, fn);
+    };
+    return handleRequest;
+  }
+```
+不难看出抛出错误的`#line 161` fnMiddleware指的就是 `compose`之后的结果。说明在`koa`中，将所有中间件串联起来之后，希望得到的是一个`thenable`的对象。我们则需要继续添加对`Promise`的支持
+
+```js
+ return function (context, next) {
+    function dispatch(i) {
+      let fn = middlewares[i]
+      if (i === middlewares.length) fn = next
+      // ⑧ 调用最后一个中间件
+      if (!fn) return Promise.resolve()
+      try {
+        // ⑥ 成功调用
+        return Promise.resolve(fn(context, dispatch.bind(null, i + 1)))
+      } catch (err) {
+        // ⑦ 成功过程出错
+        return Promise.resolve()
+      }
+      
+    }
+    return dispatch(0)
+ }
+```
+
+### compose 结果
+
+若还是不太明白上面写法的原理，那我们来看看`compose` 组合 `middlewares`后的结果会是什么样子。
+
+```js
+const [mid1, mid2, mid3] = middlewares
+// compose 可以理解为
+const fnMiddleware = function(ctx) {
+  return Promise.resolve(
+    mid1(ctx, function next () {
+     return Promise.resolve(
+       mid2(ctx, function next () {
+          return Promise.resolve(
+            mid3(ctx, function next() {
+              return Promise.resolve()
+           }) 
+         )
+       })
+     )
+   })
+ )
+}
+```
+
+### 参考资料
+[Koa源码 - github](https://github.com/koajs/koa)   
+[大家觉得 Koa 框架还有什么不足的地方吗？ - Starkwang的回答 - 知乎](https://www.zhihu.com/question/320893133/answer/660332567)       
+
