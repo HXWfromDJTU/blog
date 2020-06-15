@@ -1,0 +1,14 @@
+{
+  "name": "abc-websocket",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "websocket"
+  ],
+  "author": "swain",
+  "license": "MIT"
+}
