@@ -9,12 +9,13 @@ interface IOption {
 
 export class ABCWebsocket extends EventEmitter {
   protected _serverUrl: string
-  protected _channel: WebSocket
+  protected _ws: WebSocket
+  protected _promises: Map<string, Promise>
 
   constructor (option: IOption) {
     super()
     this._serverUrl = option.url
-    this._channel = new WebSocket(this._serverUrl)
+    this._ws = new WebSocket(this._serverUrl)
   }
 
   request (data: any): Promise<any> {
@@ -23,6 +24,8 @@ export class ABCWebsocket extends EventEmitter {
         id: uniqueId(pkg.name + '-'),
         jsonrpc: JSON_RPC_VERSION
       })
+
+      this._ws.send(data)
     })
   }
 }
