@@ -1,23 +1,12 @@
-import { ABCWebsocket} from '../ABCWebsocket'
-interface IOption {
-  url: string
+import { BackendApi } from './api'
+const config = {
+  testServer: 'localhost:12000'
 }
 
-class BackendApi {
-  protected _url:string
-  protected _abcwebsocket: ABCWebsocket
+const api = new BackendApi({
+  url: config.testServer
+})
 
-  constructor(option: IOption) {
-    this._url = option.url
-    this._abcwebsocket = new ABCWebsocket({
-      url: this._url
-    })
-  }
-
-  version () {
-    return
-  }
+const test = async () => {
+  await api.version()
 }
-
-
-

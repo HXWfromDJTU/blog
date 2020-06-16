@@ -7,7 +7,7 @@ interface IOption {
   url: string
 }
 
-export class ABCWebsocket extends Event {
+export class ABCWebsocket extends EventEmitter {
   protected _serverUrl: string
   protected _channel: WebSocket
 
