@@ -1,6 +1,6 @@
 import { BackendApi } from './api'
 const config = {
-  testServer: 'localhost:12000'
+  testServer: 'ws://localhost:12000'
 }
 
 const api = new BackendApi({

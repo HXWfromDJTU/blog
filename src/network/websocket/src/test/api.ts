@@ -15,7 +15,6 @@ export class BackendApi {
   }
 
   version () {
-    console.log(123)
     return
   }
 }
