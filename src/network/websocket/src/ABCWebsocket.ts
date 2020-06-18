@@ -25,7 +25,11 @@ export class ABCWebsocket extends EventEmitter {
     super()
     this._serverUrl = option.url
     this._ws = new WebSocket(this._serverUrl)
-    this._logger = option.logger || new Console()
+    this._logger = option.logger || console
+
+    this._ws.onmessage = event => {
+      console.log(event.data)
+    }
   }
 
   request (data: any): Promise<any> {
