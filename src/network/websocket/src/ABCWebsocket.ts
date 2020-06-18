@@ -15,6 +15,20 @@ interface IPromise {
   method: string
 }
 
+interface IResponse {
+  id: string,
+  jsonrpc: string,
+  method: string,
+  data: any
+}
+
+interface IRequest {
+  id: string,
+  jsonrpc: string,
+  method: string,
+  data: any
+}
+
 // websocket的几个状态
 enum WEBSOCKET_STATE {
   CONNECTING = 0,
@@ -40,6 +54,11 @@ export class ABCWebsocket extends EventEmitter {
 
     this._ws.onmessage = event => {
       console.log(event.data)
+
+      // 简单的检测过后，进行相应处理
+      if (event.data && typeof event.data === 'string' && event.data.includes(JSON_RPC_VERSION)) {
+        this.response(event.data)
+      }
     }
 
     this._ws.onopen = event => {
@@ -80,10 +99,18 @@ export class ABCWebsocket extends EventEmitter {
   }
 
 
-  response (msg) {
+  response (msg: string) {
     try {
-      msg = JSON.parse(msg)
+      const res: IResponse = JSON.parse(msg)
+
       this._logger.log('response msg:', msg)
+
+
+      const promise: IPromise = this._promises.get(res.id)
+
+      // todo: 删除处理过的promise
+      // todo: 根据errno决定执行哪一个reject还是resolve
+      promise.resolve(res.data)
     }
     catch (err) {
       this._logger.error('response msg parse fail')
