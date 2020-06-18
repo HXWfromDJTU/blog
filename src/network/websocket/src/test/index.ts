@@ -1,6 +1,7 @@
 import { BackendApi } from './api'
 const config = {
-  testServer: 'ws://121.40.165.18:8800'
+  testServer: 'ws://121.40.165.18:8800',
+  thingubgServer: 'ws://achex.ca:4010'
 }
 
 const api = new BackendApi({

@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "ws": "^7.3.0"
+  },
+  "dependencies": {
+    "lodash.uniqueid": "^4.0.1"
   }
 }
