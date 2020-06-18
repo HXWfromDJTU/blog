@@ -10,3 +10,6 @@ const api = new BackendApi({
 const test = async () => {
   await api.version()
 }
+
+setTimeout(test, 3000)
+

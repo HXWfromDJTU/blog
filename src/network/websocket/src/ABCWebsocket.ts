@@ -27,6 +27,8 @@ export class ABCWebsocket extends EventEmitter {
     this._ws = new WebSocket(this._serverUrl)
     this._logger = option.logger || console
 
+    this._promises = new Map()
+
     this._ws.onmessage = event => {
       console.log(event.data)
     }
@@ -46,8 +48,8 @@ export class ABCWebsocket extends EventEmitter {
         reject,
         method: data.method,
       })
-
-      // this._ws.send(data)
+      this._logger.log('ABCWebsocket send data', data)
+      this._ws.send(JSON.stringify(data))
     })
   }
 

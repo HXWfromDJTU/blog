@@ -1,4 +1,6 @@
 import { ABCWebsocket} from '../ABCWebsocket'
+const JSON_RPC_VERSION = '2.0'
+
 interface IOption {
   url: string
 }
@@ -15,7 +17,9 @@ export class BackendApi {
   }
 
   version () {
-    return
+    return this._abcwebsocket.request({
+        data: null
+    })
   }
 }
 
