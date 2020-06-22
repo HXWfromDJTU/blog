@@ -166,7 +166,7 @@
 ## 其他笔记
 [Decorator - 从 AOP IOC descriptor、decorator mode 开始说 ](https://github.com/HXWfromDJTU/blog/issues/10)        
 [koa-compose 解读](https://github.com/HXWfromDJTU/blog/issues/11)     
-[Socket编程之 File Description](https://github.com/HXWfromDJTU/blog/issues/12)
+[Socket编程 - File Description](https://github.com/HXWfromDJTU/blog/issues/12)
 
 
 
