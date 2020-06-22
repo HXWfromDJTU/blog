@@ -19,7 +19,8 @@ interface IResponse {
   id: string,
   jsonrpc: string,
   method: string,
-  data: any
+  data: any,
+  errCode: number,
 }
 
 interface IRequest {
@@ -27,6 +28,11 @@ interface IRequest {
   jsonrpc: string,
   method: string,
   data: any
+}
+
+// todo: error code 拆分
+export enum ErrorCode {
+  SUCCESS = 0
 }
 
 // websocket的几个状态
@@ -62,8 +68,9 @@ export class ABCWebsocket extends EventEmitter {
     }
 
     this._ws.onopen = event => {
+      this._logger.log(`ABCWebsocket connected to ${this._serverUrl} successfully......`)
 
-      // ws通道联通后，发送前期未发送的请求
+      // ws通道联通后，发送前期未发送的请求(缓存队列中的请求，都已经注册登记过了，所以不需要再次登记)
       this._waitingQueue.forEach(payload => {
         this._ws.send(this._toDataString(payload))
       })
@@ -109,8 +116,16 @@ export class ABCWebsocket extends EventEmitter {
       const promise: IPromise = this._promises.get(res.id)
 
       // todo: 删除处理过的promise
+      this._promises.delete(res.id)
+      this._logger.log('ABCWebsocket delete the promise, id=', res.id)
+
       // todo: 根据errno决定执行哪一个reject还是resolve
-      promise.resolve(res.data)
+      if (res.errCode !== ErrorCode.SUCCESS) {
+        promise.reject(res.errCode)
+      }
+      else {
+        promise.resolve(res.data)
+      }
     }
     catch (err) {
       this._logger.error('response msg parse fail')
