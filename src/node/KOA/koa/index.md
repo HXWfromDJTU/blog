@@ -291,6 +291,6 @@ const fnMiddleware = function(ctx) {
 ```
 
 ## 参考资料
-[Koa源码 - github](https://github.com/koajs/koa)   
-[大家觉得 Koa 框架还有什么不足的地方吗？ - Starkwang的回答 - 知乎](https://www.zhihu.com/question/320893133/answer/660332567)       
+[1] [Koa源码 - github](https://github.com/koajs/koa)   
+[2] [大家觉得 Koa 框架还有什么不足的地方吗？ - Starkwang的回答 - 知乎](https://www.zhihu.com/question/320893133/answer/660332567)       
 
