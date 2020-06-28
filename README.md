@@ -152,7 +152,7 @@
 
 <div align=center>
 
-<font size=5>知识需要一直更新，更多博客文章正在迁移整理中...请耐心等待🚧</span>
+<font size=5>知识就是需要不断更新，2020更多博客文章正在迁移整理中...请耐心等待🚧</span>
 </div> 
 
 ## 模块化
@@ -164,7 +164,9 @@
 [前端模块化 - AMD 规范](https://github.com/HXWfromDJTU/blog/issues/7)  
 
 ## Socket编程
-[File Description](https://github.com/HXWfromDJTU/blog/issues/12)
+[Socket 编程 - File Description](https://github.com/HXWfromDJTU/blog/issues/12)     
+[Socket 编程 - I/O 多路复用](https://github.com/HXWfromDJTU/blog/issues/13)    
+[ Socket 编程 - tcp与udp socket](https://github.com/HXWfromDJTU/blog/issues/14)      
 
 ## 其他笔记
 [Decorator - 从 AOP IOC descriptor、decorator mode 开始说 ](https://github.com/HXWfromDJTU/blog/issues/10)        
