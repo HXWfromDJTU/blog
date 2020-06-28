@@ -139,11 +139,11 @@
      UDP 是没有维护连接状态的，因而不需要每对连接建立一组 Socket，而是只要有一个 Socket，就能够和多个客户端通信。也正是因为没有连接状态，每次通信的时候，都调用 `sendto` 和 `recvfrom`，都可以传入 IP 地址和端口。
      ```js
      // node.js 客户端通过UDP发送数据
-     var dgram = require('dgram');
-     var client = dgram.createSocket('udp4');
-     var msg = Buffer.from('hello world');
-     var port = 41234;
-     var host = '255.255.255.255';
+     const dgram = require('dgram');
+     const client = dgram.createSocket('udp4');
+     const msg = Buffer.from('hello world');
+     const port = 41234;
+     const host = '255.255.255.255';
 
      client.bind(function(){
          client.setBroadcast(true);
@@ -159,17 +159,105 @@
 
 ![](/blog_assets/socket_udp.png)  
 
-
 ## 并发连接问题
-socket在内核中就是一个文件
-他就应该有文件描述符
-每一个TCP链接都要占用一定的内存  
 
-Linux 创建一个子进程 fork,进程复制的时候回把文件描述符列表全部拷贝一遍,也会复制内存空间，也会记录代码执行的位置
-创建多线层，就可以共用文件描述符
+### TCP最大连接数
+* ##### socket 四元组的限制
+  每一个`TCP`可以用一个`四元组`来唯一确定，也就是
+  ```
+  <source_IP, source_PORT, target_IP, target_PORT>
+  ```
+  通常服务端启动服务后，`IP`与`Port`就不再变化，但是可以承接`N多个`客户端的请求。这里的N是由`Source_IP`数目`2^32`个，与`port`数目`2^16`个.搭配起来的话就是`2^48`个，但实际上远远达不到。
+  > 备注: `IPV_4`下 共有`32`位，则最多`2^32`个。TCP与UDP存储port的字段一共16位，所以最多`2^16`个
+
+* ##### 文件描述符限制
+  按照上文的理解，每一个`socket`都被`OS`当做一个文件处理，那么就有存在`打开文件数`的限制。
+
+  ```bat
+  # 查看最大打开文件数
+  $ ulimit -n
+
+  # 设置最大打开文件数
+  $ ulimit -n <file-num>
+  ```
+  这里的`-n`参数标明修改的是`单个进程可以打开的文件数`     
+
+  其他的参数这里也一并简单了解一下[(参考文档👉)](https://www.runoob.com/linux/linux-comm-ulimit.html)
+
+  ```bat
+     数据段长度：ulimit -d unlimited
+     最大内存大小：ulimit -m unlimited
+     堆栈大小：ulimit -s unlimited
+     CPU 时间：ulimit -t unlimited
+     虚拟内存：ulimit -v unlimited    
+  ```
+
+* ##### 内存的限制
+  每一个`socket`都有对应的`inode`存储在内存中，然而计算机的内存是有限的。
+
+
+### 解决办法
+
+* ##### 创建多进程
+  `Linux`创建一个子进程的操作称为`fork`, 进程复制的主要涉及几样东西
+     * 把文件描述符列表全部拷贝一遍。
+     * 也会复制内存空间。
+     * 复制当前代码执行的位置。
+ 
+  执行了`fork`后，父子进程理论上是完全一样的。仅能通过`fork`返回值来区分，自己到底是`父进程`还是`子进程`。     
+
+  ```js
+    // node 创建子进程的命令
+    const cp = require('child_process')
+
+    // 启动子进程来执行命令
+    cp.spawn('node', ['index.js'])
+    // 启动了子进程，并通过回调获得信息
+    cp.exec('node index.js', (err, studio, stderr) => {
+        // get some message
+    })
+    // 启动子进程来执行可执行文件
+    cp.execFile('index.js',  (err, studio, stderr) => {
+        // get some message
+    })
+    // 仅需指定执行文件模块
+    cp.fork('index.js')
+  ```
+* ##### 创建多线程
+  进程的创建与销毁开销过大，则可以考虑使用轻量级得多的`多线程`，区别在于
+  * 共用文件描述符
+  * 共用进程空间
+  * 新的连接也可以直接通过`已连接`的socket来处理请求，从而达到并发表处理的目的。
+
+  ```js
+  const { Worker, isMainThread, parentPort, workerData } = require('worker_threads');
+
+  return new Promise((resolve, reject) => {
+      const worker = new Worker(__filename, {
+        workerData: script
+      });
+      worker.on('message', resolve);
+      worker.on('error', reject);
+      worker.on('exit', (code) => {
+        if (code !== 0)
+          reject(new Error(`Worker stopped with exit code ${code}`));
+      });
+    });
+  ```
+  示例代码使用`node`的`worker_threads`，感兴趣的推荐[这篇文章👉](https://blog.skk.moe/post/say-hello-to-nodejs-worker-thread/) 
+
+* ##### I/O 多路复用
+  无论多么厉害的一台机器，同时维护超过`1w`个进程，OS是无法承受的，这就是常说的`C10K`问题。此时`I/O`多路复用就出现了。有以下优点：
+    * 使用监听的形式，Socket 数据增加的时候，效率不会大幅度降低
+    * 能够同时监听的 Socket 的数目能达到系统定义的、进程打开的最大文件描述符个数
+
+  更多关于多路复用的问题，请关注[另一篇笔记👉](https://github.com/HXWfromDJTU/blog/issues/13)
+
+
+## 参考文章
+[趣谈网络协议 - 套接字Socket](https://time.geekbang.org/column/article/9293)
+
 IPC 进行通信？
-
-线程会轻量级的多，办公家具可以共用。
 
 C10K 一台机器要创建10K个链接，一亿个用户要10W台服务器
 I/O多路复用，项目进度墙
