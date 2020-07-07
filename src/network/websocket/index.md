@@ -16,6 +16,8 @@
 * 通道未建成时的请求
 
 ## 鉴权
+ws - 关于ws
+https://github.com/websockets/ws/issues/377
 
 ## 心跳机制
 
