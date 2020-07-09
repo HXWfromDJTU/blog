@@ -6,28 +6,22 @@
 2.实现请求与相应的中间件
 3.实现订阅机制
 
-## 请求库的封装
+### 基础架子
 ```ts
-export class RainbowWebsocket extends EventEmitter {
+export class RainbowWebsocket {
   protected _serverUrl: string // 远端地址
   protected _ws: WebSocket // 原生ws实例
 
   constructor (option: IOption) {
-    super()
+     // 初始化
     this._serverUrl = option.url
     this._ws = new WebSocket(this._serverUrl)
-
-    this._ws.onmessage = event => {
-      console.log(event.data)
-    }
-
-    this._ws.onopen = event => {
-      this._logger.log(`RainbowWebsocket connected to ${this._serverUrl} successfully......`)
-    }
   }
 
+  // 处理请求
   request (data: any): Promise<any> {}
 
+  // 处理相应
   response (msg: string) {}
 }
 ```
