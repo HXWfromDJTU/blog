@@ -1,12 +1,12 @@
-# websocket 项目笔记 - 前端部分 #15 
+# websocket 项目笔记[2] 封装一个简单的lib
 
 上一篇主要总结了`鉴权`、`签名`、`心跳`的问题，这次我们着重过一下在封装请求库时遇到的以下问题。
 
-1.对调用方透明，尽可能使用`Promise`封装
-2.实现请求与相应的中间件
-3.实现订阅机制
+1.对调用方透明，尽可能使用`Promise`封装  
+2.实现请求与响应的中间件  
+3.实现订阅机制  
 
-### 基础架子
+## 基础架子
 ```ts
 export class RainbowWebsocket {
   protected _serverUrl: string // 远端地址
@@ -25,6 +25,242 @@ export class RainbowWebsocket {
   response (msg: string) {}
 }
 ```
+
+## 请求与响应
+##### 请求响应记录表
+```js
+export interface IPromise {
+  resolve: Function,
+  reject: Function,
+  method: string
+}
+
+protected _promises: Map<string, IPromise> // 请求记录哈希表
+```
+
+### 请求
+##### 数据准备
+```ts
+ export interface IRequest {
+   id: string,
+   jsonrpc: string,
+   method: string,
+   data: any
+ }
+```
+##### 发送请求 - 登记
+```ts
+request (data: any): Promise<any> {
+    return new Promise((resolve, reject): void => {
+
+      const payload = Object.assign(data, {
+        id: uniqueId(pkg.name + '-'),
+        jsonrpc: JSON_RPC_VERSION
+      })
+
+      // 登记请求
+      this._promises.set(data.id, {
+        resolve,
+        reject,
+        method: payload.method,
+      })
+
+      // 发送请求
+      this._ws.send(this._toDataString(data))
+    })
+  }
+```
+
+### 响应
+##### 数据准备
+```ts
+export interface IResponse {
+  id: string,
+  jsonrpc: string,
+  method: string,
+  data: any,
+  errCode: number,
+}
+
+// error code
+export enum ErrorCode {
+  SUCCESS = 0
+}
+```
+##### 响应入口
+```ts
+this._ws.onmessage = event => {
+    console.log(event.data)
+
+    // 简单的检测过后，进行相应处理
+    if (event.data && typeof event.data === 'string' && event.data.includes(JSON_RPC_VERSION)) {
+    this.response(event.data)
+    }
+ }
+```
+```ts
+response (msg: string) {
+    try {
+      const res: IResponse = JSON.parse(msg)
+
+      // 取出对应的响应
+      const promise: IPromise = this._promises.get(res.id)
+
+      // 删除对端已响应的promise
+      this._promises.delete(res.id)
+
+      // 根据errno决定执行哪一个reject还是resolve
+      if (res.errCode !== ErrorCode.SUCCESS) {
+        // 执行请求登记时的 resolve function
+        promise.reject(res.errCode)
+      }
+      else {
+        // 执行请求登记时的 resolve function
+        promise.resolve(res.data)
+      }
+    }
+    catch (err) {
+      this._logger.error('response msg parse fail')
+      return
+    }
+  }
+```
+
+## 拦截器
+##### 数据格式
+```ts
+public interceptors: {
+    request: InterceptorManager
+    response: InterceptorManager
+}
+```
+
+##### 声明拦截器
+```ts
+ _requestInterceptorExecutor (payload) {
+    let _payload = payload
+    this.interceptors.request.forEach((handler: Function) => {
+      _payload = handler(_payload)
+    })
+
+    return _payload
+  }
+
+  _responseInterceptorExecutor (payload) {
+    let _payload = payload
+    this.interceptors.response.forEach((handler: Function) => {
+      _payload = handler(_payload)
+    })
+
+    return _payload
+  }
+```
+
+##### 放置拦截器
+```ts
+request (data: any): Promise<any> {
+    return new Promise((resolve, reject): void => {
+      // 拼接生成payload
+
+      // 通过请求拦截器
+      const _payload = this._requestInterceptorExecutor(payload)
+
+      // 登记请求 .....
+      // 若ws连接达成，则先缓存请求 ......
+      // 发送请求
+      this._ws.send(this._toDataString(data))
+    })
+  }
+
+response (msg: string) {
+      const res: IResponse = JSON.parse(msg)
+      // 解析数据 ....
+      // 删除处理过的promise记录 .....
+
+      // 响应中间件
+      const _res = this._responseInterceptorExecutor(res)
+
+      // 根据errno决定执行哪一个reject还是resolve
+  }
+```
+
+##### 
+
+## 请求缓冲区
+`websocket`建立需要时间，但作为`接口层`的调用方并不关心这些事，即使在`websocket`信道连通前发出的请求，也可以顺利发出。
+
+##### 建立缓冲区
+```ts
+protected _waitingQueue: Array<any> // websocket 未建立的时候，缓存请求
+```
+##### 存入缓冲区
+```ts
+request (data: any): Promise<any> {
+    return new Promise((resolve, reject): void => {
+      // 登记请求
+      // ........
+
+      // 若ws连接达成，则先缓存请求
+      if (this._ws.readyState === WEBSOCKET_STATE.CONNECTING) {
+        this._waitingQueue.push(payload)
+        return
+      }
+
+      // 发送请求
+      this._ws.send(this._toDataString(data))
+    })
+  }
+```
+
+##### 清理缓冲区
+```ts
+this._ws.onopen = event => {
+    this._logger.log(`RainbowWebsocket connected to ${this._serverUrl} successfully......`)
+
+    // ws通道联通后，发送前期未发送的请求(缓存队列中的请求，都已经注册登记过了，所以不需要再次登记)
+    this._waitingQueue.forEach(payload => {
+    this._ws.send(this._toDataString(payload))
+    })
+ }
+```
+
+## 通信异常
+我们在使用http请求库(比如`axios`)，发送了请求等待响应过程中，突然发现网络发生了异常，我们通常会收到不同的错误码，比如404等。
+
+##### 网络断开
+```ts
+this._ws.onclose = event => {
+  this._logger.log(`RainbowWebsocket has close ......`)
+
+  // 将所有未处理的请求都reject调
+  for (const record of this._promises) { // 遍历Set
+     const request = record[1]
+     request.reject(ErrorCode.DISCONNECT)
+  }
+}
+```
+
+## 通知
+通知类型的通信，并不存在一发一收的对应机制，自然也不需要使用`this._promises`用于存储。但是`通知`自然是需要一个监听机制的存在。
+```ts
+import * as EventEmitter from 'eventemitter3'
+
+export class RainbowWebsocket extend EventEmitter {}
+```
+
+##### 
+```ts
+request () {
+    this.
+}
+
+response () {
+
+}
+```
+
+
+### 按时
 * promise
 * 订阅的队列 （如何实现多频道）
 * 通道未建成时的请求
@@ -40,15 +276,14 @@ export class RainbowWebsocket {
 * 请求头
 * http upgrade
 
-
 结合promise
 异常捕获
 
-如何做安全防范呢？
+<!-- 如何做安全防范呢？
 
 ## 是否有跨域限制？
 * 浏览器怎么规定的呢？
-* 没有跨域不会不安全吗？
+* 没有跨域不会不安全吗？ -->
 
 
 <!-- 对端关闭，另一端是否能够立马知晓
