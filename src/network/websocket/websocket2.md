@@ -6,6 +6,8 @@
 2.实现请求与响应的中间件  
 3.实现订阅机制  
 
+> 完整的代码在[这里👉👉👉]()
+
 ## 基础架子
 ```ts
 export class RainbowWebsocket {
@@ -184,8 +186,6 @@ response (msg: string) {
   }
 ```
 
-##### 
-
 ## 请求缓冲区
 `websocket`建立需要时间，但作为`接口层`的调用方并不关心这些事，即使在`websocket`信道连通前发出的请求，也可以顺利发出。
 
@@ -244,23 +244,88 @@ this._ws.onclose = event => {
 通知类型的通信，并不存在一发一收的对应机制，自然也不需要使用`this._promises`用于存储。但是`通知`自然是需要一个监听机制的存在。
 ```ts
 import * as EventEmitter from 'eventemitter3'
-
-export class RainbowWebsocket extend EventEmitter {}
+export class RainbowWebsocket extend EventEmitter {
+    // .....
+}
 ```
 
-##### 
+##### 事件广播
 ```ts
-request () {
-    this.
-}
-
 response () {
-
+  this.$emit('notify')
 }
 ```
+##### 发送通知
+```ts
+request (data: any, isNotify = false): Promise<any> {
+    return new Promise((resolve, reject): void => {
+       // data处理......
+      // 通过请求拦截器......
+
+      if (!isNotify) {
+        // 登记请求
+        this._promises.set(data.id, {
+          resolve,
+          reject,
+          method: _payload.method
+        })
+      }
+
+      // 若ws连接尚未达成，则先缓存请求......
+      // 发送请求......
+    })
+  }
+```
+##### 接收通知
+```ts
+response (msg: string) {
+    try {
+      const res: IResponse = JSON.parse(msg)
+
+      const promise: IPromise = this._promises.get(res.id)
+
+      // todo: 删除处理过的promise......
+
+      // 响应中间件
+      const _res = this._responseInterceptorExecutor(res)
+
+      // 判断是否是通知性的消息
+      if (isNotifyMsg(res)) {
+
+        // 使用事件机制进行通知
+        this.emit(`notify:${ res.method }`, res.data)
+      }
+      else {
+        // todo: 根据errno决定执行哪一个reject还是resolve
+        if (_res.errCode !== ErrorCode.SUCCESS) {
+          promise.reject(_res.errCode)
+        }
+        else {
+          promise.resolve(_res.data)
+        }
+      }
+    }
+    catch (err) {
+      this._logger.error('response msg parse fail')
+      return
+    }
+  }
+```
+##### 调用方法
+```ts
+const apiServer = new RainbowWebsocket({port: 9527, host: 'localhost'})
+
+apiServer.on('notify:balance', data => {
+    // do something you like...
+})
+```
+
+## 参考资料
+[1] [ axios / axios - github](https://github.com/axios/axios)     
+[2] [ websockets / ws - github](https://github.com/websockets/ws)      
 
 
-### 按时
+<!-- ### 按时
 * promise
 * 订阅的队列 （如何实现多频道）
 * 通道未建成时的请求
@@ -277,7 +342,7 @@ response () {
 * http upgrade
 
 结合promise
-异常捕获
+异常捕获 -->
 
 <!-- 如何做安全防范呢？
 
