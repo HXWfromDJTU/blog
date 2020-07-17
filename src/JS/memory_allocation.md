@@ -7,7 +7,7 @@
 
 | 类型 | 包含种类 | 存储情况 |
 | --- | --- | --- |
-| 原始值 | `String` `Number` `boolean` `null` `undefined` | 原始值存储在`栈`中    |
+| 原始值 | `Number` `boolean` `null` `undefined` | 原始值存储在`栈`中    |
 | 引用值 | `Object`  `Function` `Array` | 引用类型的指针存储在`栈`中，指向存在`堆`中的实际对象    |
 
 ### 堆与栈
@@ -23,21 +23,25 @@
 | 值的变动 | 原地操作 |
 | 大小与存活时间 | 可以动态地分配内存大小，生存期也不必事先告诉编译器 |
 
-### 字符串的不可变性(举例)       
-`Javascript`的字符串属于基础类型，每次往字符串中加添加内容，其实在内存中都是新创建了一个新字符串对象，旧字符串对象短时间也还在内存中，但马上会被GC回收。    
-     
+## String 存储的特殊情况
+
+#### 存储空间
+`Javascript` 中的 `String` 虽然是 `原始类型`，但事实上 `V8` 堆内使用（类似数组的）连续空间存储字符串。并且使用`OneByte` 和 `TwoByte`两类结构来做存储。     
+
+#### 字符串的不可变性(举例) 
 ```js
-var str = '123';
+const str = 'abcdef'
 
-function change(str) {
-  str = '456';
-}
+// 可读
+conso.log(str[2]) // c 
 
-change(str);
+str[2] = 'x'
 
-console.log(str); //"123"
+// 但不可写
+console.log(str) // abcdef
 ```
-看起来表现和基本类型差不多，但实际上是在内存中另外开辟了一个空间，形参初始为`123`，被修改的空间是一个新的空间，和原来的实参`123`所在空间并不一样。 
+
+`Javascript`的字符串属于基础类型，每次往字符串中加添加内容，其实在内存中都是新创建了一个新字符串对象，旧字符串对象短时间也还在内存中，但马上会被GC回收。    
 
 ## js函数传参是传值还是传引用？
 首先我们给一个定论，是传值。而且所有情况都只传值。 
@@ -105,7 +109,9 @@ console.log(a)    // {key:789}
 
 
 ## 参考资料
-[1] [图1 - 链接](https://blog.csdn.net/pingfan592/article/details/55189622)
+[1] [图1 - 链接](https://blog.csdn.net/pingfan592/article/details/55189622)     
+[2] [字符串在 V8 内的表达 - @superzheng](https://juejin.im/entry/59a67f3a5188252428611e62)    
+[3] [[讨论] JavaScript中String的存储 - iteye](https://hllvm-group.iteye.com/group/topic/38923)
 
 
 <!-- ## 类型判断
