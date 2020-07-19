@@ -174,7 +174,9 @@
 ## 其他笔记
 [Decorator - 从 AOP IOC descriptor、decorator mode 开始说 ](https://github.com/HXWfromDJTU/blog/issues/10)        
 [koa-compose 解读](https://github.com/HXWfromDJTU/blog/issues/11)   
-[Javascript 变量存储-堆与栈](https://github.com/HXWfromDJTU/blog/issues/17)    
+[基础深挖 - 变量存储与堆栈](https://github.com/HXWfromDJTU/blog/issues/17)    
+[基础深挖 - 深浅拷贝循序渐进慢慢写](https://github.com/HXWfromDJTU/blog/issues/18)    
+
 
 
 
