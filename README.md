@@ -175,7 +175,7 @@
 [Decorator - 从 AOP IOC descriptor、decorator mode 开始说 ](https://github.com/HXWfromDJTU/blog/issues/10)        
 [koa-compose 解读](https://github.com/HXWfromDJTU/blog/issues/11)   
 [基础深挖 - 变量存储与堆栈](https://github.com/HXWfromDJTU/blog/issues/17)    
-[基础深挖 - 深浅拷贝循序渐进慢慢写](https://github.com/HXWfromDJTU/blog/issues/18) 
+[基础深挖 - 深浅拷贝循序渐进慢慢写](https://github.com/HXWfromDJTU/blog/issues/18)    
 [网络系列 - 再聊DNS工作原理及其应用、优化](https://github.com/HXWfromDJTU/blog/issues/19)
 
 
