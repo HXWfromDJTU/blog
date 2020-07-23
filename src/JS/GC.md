@@ -73,12 +73,29 @@ Chrome使用V8作为Javascript引擎，其GC回收机制也另有不同。
 ☢️ 再使用两个标记指针，去遍历这时候的To区域，若有发现有相关引用的对象，则做以下判断
 ☢️ 若该对象出现在老生代区，则不做操作，若该对象出现在新生代From区，则复制到To区，直到占用超过25%
 
-___
-### 参考资料
-《Javascript 高级程序设计 第三版》
+## 参考资料
+[1]《Javascript 高级程序设计 第三版》     
+[2] [浅谈Chrome中的垃圾回收 -博客园](https://www.cnblogs.com/liangdaye/p/4654734.html)     
+[3]《Nodejs深入浅出》     
+[4] [javascript 中的 delete](https://justjavac.com/javascript/2013/04/04/understanding-delete-in-javascript.html)
 
-[浅谈Chrome中的垃圾回收 -博客园](https://www.cnblogs.com/liangdaye/p/4654734.html)
 
-《Nodejs深入浅出》
-
-[javascript 中的 delete](https://justjavac.com/javascript/2013/04/04/understanding-delete-in-javascript.html)
+<!-- 
+## 内存的释放(GC)
+### 内存的生命周期
+```js
+1、分配当前代码所需的内存
+2、使用非配到的内存，进行读写操作等
+3、使用结束，将不需要的内存空间进行释放、归还。可以使手动或者GC标记回收
+```
+###### 垃圾回收
+`GC标记清理`
+`Javascript`有自动垃圾回收机制，原理是JS 内核找出那些不在使用的值，然后释放其占用的内存。垃圾回收器(`GC`)会每隔固定的时间就会执行一次释放操作。
+建议减少使用全局变量的使用，因为在GC标记回收中，全局变量是最难判断是否该释放的。
+而在局部作用域中，使用标记清除的算法，容易找出那些对象是不再使用的。
+`手动清理`
+```js
+let obj = {a:123,qq:123};
+obj = null;
+```
+[Javascript垃圾回收](/JS/GC.md) -->
