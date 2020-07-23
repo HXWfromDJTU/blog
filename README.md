@@ -166,7 +166,8 @@
 ## Socket编程
 [Socket 编程 - File Description](https://github.com/HXWfromDJTU/blog/issues/12)     
 [Socket 编程 - I/O 多路复用](https://github.com/HXWfromDJTU/blog/issues/13)    
-[ Socket 编程 - tcp与udp socket](https://github.com/HXWfromDJTU/blog/issues/14)      
+[Socket 编程 - tcp与udp socket](https://github.com/HXWfromDJTU/blog/issues/14)    
+[websocket 项目笔记[1] - 鉴权、安全、心跳 #15 ](https://github.com/HXWfromDJTU/blog/issues/15)    
 
 ## 其他笔记
 [Decorator - 从 AOP IOC descriptor、decorator mode 开始说 ](https://github.com/HXWfromDJTU/blog/issues/10)        
