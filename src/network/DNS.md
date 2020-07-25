@@ -37,11 +37,8 @@
 ### 1、查找本地缓存
 每一次`DNS`的查找结果，OS都会进行一定时间的缓存。
 
-### 2、向本地DNS服务器查找
-每一次连接网络的时候，`DNS`服务器都是可以通过`DHCP`协议动态获取的，常用的`DNS`服务器一般是你接入的`ISP`提供的服`DNS`服务器。
-
 #### 本地 DNS 服务器地址从哪里来
-`UNIX`系统中，在`/etc/resolve.conf`文件中查看`DNS`服务器的IP地址。Mac 使用`偏好设置一样可以看到对应设置`。
+`UNIX`系统中，在`/etc/resolve.conf`文件中查看c`DNS`服务器的IP地址。Mac 使用`偏好设置一样可以看到对应设置`。
 
 ```bat
 $ cat cat /etc/resolv.conf
@@ -49,6 +46,9 @@ $ cat cat /etc/resolv.conf
 ![](/blog_assets/DNS_2.png)
 
 ![](/blog_assets/mac_dns_config.png)
+
+### 2、向本地DNS服务器查找
+每一次连接网络的时候，`DNS`服务器都是可以通过`DHCP`协议动态获取的，常用的`DNS`服务器一般是你接入的`ISP`提供的服`DNS`服务器。
 
 #### UDP DNS
 客户端(系统)向本地DNS服务器查找`ip`，这个过程`OS`通过`UDP`请求向本地`DNS`服务器询问这个`www.baidu.com`对应的`ip`是多少。
@@ -130,13 +130,3 @@ ___
 [3] [主DNS服务器与辅助DNS服务器的区别](https://www.dns.com/supports/1224.html)   
 [4] [讲讲DNS的原理？](https://zhuanlan.zhihu.com/p/79350395)   
 
-
-<!-- 
-
-## DNS负载均衡
-本地DNS服务器一般  
-
-GSLB
-配置CName   
-SLB  
-得到多个ip地址，客户端可以坐负载均衡    -->
