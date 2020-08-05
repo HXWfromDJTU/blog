@@ -176,7 +176,11 @@
 [koa-compose 解读](https://github.com/HXWfromDJTU/blog/issues/11)   
 [基础深挖 - 变量存储与堆栈](https://github.com/HXWfromDJTU/blog/issues/17)    
 [基础深挖 - 深浅拷贝循序渐进慢慢写](https://github.com/HXWfromDJTU/blog/issues/18)    
-[网络系列 - 再聊DNS工作原理及其应用、优化](https://github.com/HXWfromDJTU/blog/issues/19)
+[网络系列 - 再聊DNS工作原理及其应用、优化](https://github.com/HXWfromDJTU/blog/issues/19)     
+[基础系列 - 奇怪的 0.1 + 0.2 与 IEEE 754](https://github.com/HXWfromDJTU/blog/issues/20)   
+[Javascript GC杂谈](https://github.com/HXWfromDJTU/blog/issues/21)
+
+
 
 
 
