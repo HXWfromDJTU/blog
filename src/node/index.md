@@ -9,8 +9,11 @@
       
    * JavaScript中的引用和 C++ 中的指针区别在哪？ ✅
    * 字符串为何是不可被修改的呢？ ✅
-   * 数值0.01 + 0.02 === 0.03 的经典问题
+   * 数值0.01 + 0.02 === 0.03 的经典问题 ✅
    
+   
+* Tengine
+   - SLB(server load balance)   
 * Nodejs 引擎的使用既支持V8也支持chakra。
    * shim chakra 
    * Nodejs rpc     
@@ -28,9 +31,9 @@
       * 闭包中的内容何时释放。
       
  * 模块机制
-    * node基于CommonJS 规范，与其他AMD、CMD的比较。
-    * node的require的实现原理
-    * require 模块的作用域、模块间是否会相互影响的问题
+    * node基于CommonJS 规范，与其他AMD、CMD的比较。 ✅
+    * node的require的实现原理 ✅
+    * require 模块的作用域、模块间是否会相互影响的问题 ✅
     * 为什么 Nodejs 不给每一个 .js文件一个独立的上下文，以避免作用域被污染呢？
        * [参考文章](https://www.zhihu.com/question/57375179/answer/152633354)
     * package.lock.json 的实际项目作用。
