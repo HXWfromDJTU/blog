@@ -63,7 +63,7 @@ function Person(){
 
 ## Chrome V8垃圾回收
 
-#### node中查看内存使用情况
+#### node中查看内存使用情况   
 ![](/blog_assets/node_memory_usage.png)
 * heapTotal 和 heapUsed 代表 V8 的内存使用情况
 * `external` 代表 V8 管理的，绑定到 `Javascript` 的 `C++` 对象的内存使用情况。
