@@ -1,15 +1,9 @@
+| 任务类型 | 事件类型 |
+| --- | --- | --- |
+| 宏任务 | `setTimeOut` 、 `setInterval` 、 `setImmediate` 、 `I/O` 、 各种`callback`、 `UI渲染` 、`messageChannel`等  |
+| 微任务 | `process.nextTick` 、`Promise`  、`MutationObserver` 、`async(实质上也是promise)`  |
+
 ## 微任务
-![](/blog_assets/micro_task_cover.png)
-
-面试的时候被问到，除了`promise`还有哪些常见的`微任务`,日常除了使用`promise`之外，貌似没有太多实战...一时语塞......回顾一下知识点
-
-#### 微任务：
-1️⃣ `process.nextTick()` 
-2️⃣ `MutationObserber`  
-3️⃣ `async`    
-4️⃣ `Promise`    
-___
-
 ### MutationObserver
 >MutationObserver 接口提供了监视对DOM树所做的更改能力。它被设计为旧的MutationEvents功能的替代品。
 
@@ -75,7 +69,7 @@ document.body.appendChild(div)
 // 停止监听
 observer.disconnect();
 ```
-___
+
 ### process.nextTick
 process.NextTick是nodeJS中的概念，在浏览器中并不能够使用哦，node官网[传送门:point_right:](http://nodejs.cn/api/process.html#process_process_nexttick_callback_args)
 准备另开一篇文章：去学习node_eventLoop,[传送门:point_right:](/node/eventloop_in_node.md)
@@ -92,8 +86,84 @@ console.log('scheduled');
 // nextTick callback
 ```
 注意：每次事件轮询后，在额外的`I/O`执行前，`next tick`队列都会优先执行。 递归调用`nextTick callbacks` 会阻塞任何I/O操作，就像一个`while(true);` 循环一样。
-___
+
+
+
+## 宏任务
+
+### postMessage
+##### 基本用法
+```js
+let ch = new MessageChannel()
+let p1 = ch.port1;
+let p2 = ch.port2;
+
+p1.postMessage("你好我是 p1");
+// port2 receive 你好我是 p1
+
+p2.postMessage("这样啊，我是p2，吃了吗？")；
+// port1 receive 这样啊，我是p2，吃了吗？
+```
+##### MDN 示例
+
+```js
+// 使用MessageChannel构造函数实例化了一个channel对象
+var channel = new MessageChannel();
+var para = document.querySelector('p');
+
+// 获取到iframe对象    
+var ifr = document.querySelector('iframe');
+var otherWindow = ifr.contentWindow;
+
+// 当iframe加载完毕
+ifr.addEventListener("load", iframeLoaded, false);
+
+// 我们使用MessagePort.postMessage方法把一条消息和MessageChannel.port2传递给iframe
+function iframeLoaded() {
+  otherWindow.postMessage('Hello from the main page!', '*', [channel.port2]);
+}
+
+// 
+channel.port1.onmessage = handleMessage;
+function handleMessage(e) {
+  para.innerHTML = e.data;
+}
+```
+##### webworker
+> 后来笔者在工作使用到了service-worker帮助进行排序计算，所以补充一下，主页面和worker之间的通信也是是用了 MessageChannel 机制进行实现
+```js
+// page.js
+let worker = new Worker('./counting.js');
+worker.postMessage({id:666})
+worker.on('message',result=>{
+   rending(result); // 渲染结果
+})
+
+// counting.js
+self.on('message',message=>{
+   let result = countintMethod(message.id);
+   self.postMessage(result);
+})
+```
+这样至少有一个好处就是能够不阻塞浏览器UI的渲染，让另一个进程去帮助我们进行计算，然后异步渲染。
+
+### setTimeout、setInterval、setImmediate
+几个定时器属于宏任务这个不多说。简单提一下`setImmediate`，它相当于`setTimeout(fn,0)`，一般我们会将他用于把某个任务提取到异步的形式执行，而不阻塞当前任务。
+
+### requestAnimationFrame - 不是宏任务的任务
+> window.requestAnimationFrame() 告诉浏览器——你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行 --- MDN
+
+严格意义上来说，raf并不是一个宏任务，因为
+* 执行时机和宏任务完全不一致。
+* raf任务队列被执行的时候，会将其此刻队列中所有的任务都执行完。
+
+但是查阅了[相关规范](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model)之后，我们可以知道`一个eventLoop的完整过程是包含这浏览器的渲染过程的`，再根据上面`raf`的定义可以知道，ref的执行会在一个`eventLoop`中的微任务结束后，下一个`eventloop`开始前去执行。
+
+![](/blog_assets/raf_eventloop.png)
+
 ### 参考文章
-[MessageChannel](https://github.com/jabez128/jabez128.github.io/issues/11)
-[MutationObserver - MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver)
-[MutationObserver的使用 - 掘金](https://juejin.im/post/5b18e6606fb9a01e5c45434c)
+[1] [MessageChannel](https://github.com/jabez128/jabez128.github.io/issues/11)     
+[2] [MutationObserver - MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver)     
+[3] [MutationObserver的使用 - 掘金](https://juejin.im/post/5b18e6606fb9a01e5c45434c)     
+[4] [requestAnimationFrame是一个宏任务么](https://ginobilee.github.io/blog/2019/02/01/requestAnimationFrame%E6%98%AF%E4%B8%80%E4%B8%AA%E5%AE%8F%E4%BB%BB%E5%8A%A1%E4%B9%88/)     
+[5] [Living Standard — Last Updated 6 October 2020](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model)     

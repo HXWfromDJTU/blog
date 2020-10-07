@@ -1,35 +1,18 @@
 # Javascript 的 EventLoop
 ![](/blog_assets/eventLoopTitle.png)
-___
-其实Javascript的事件环，主要就在理解`宏任务`和`微任务`这两种异步任务，
-###   任务分类
-#### 宏任务(macrotask)
 
-`setTimeOut` 、 `setInterval` 、 `setImmediate` 、 `I/O` 、 各种`callback`、 `UI渲染` 、`messageChannel`等 
+Javascript的事件环，主要就在理解`宏任务`和`微任务`这两种异步任务
 
-##### 优先级
-  `主代码块` > `setImmediate` > `postMessage` > `setTimeOut`/`setInterval`
-#### 微任务(microtask)
-1️⃣ `process.nextTick` 、`Promise`  、`MutationObserver` 、`async(实质上也是promise)`     
-##### 优先级 
-`process.nextTick` > `Promise` > `MutationOberser`
+| 任务类型 | 事件类型 | 优先级 |
+| --- | --- | --- |
+| 宏任务 | `setTimeOut` 、 `setInterval` 、 `setImmediate` 、 `I/O` 、 各种`callback`、 `UI渲染` 、`messageChannel`等  | `主代码块` > `setImmediate` > `postMessage` > `setTimeOut`/`setInterval` |
+| 微任务 | `process.nextTick` 、`Promise`  、`MutationObserver` 、`async(实质上也是promise)`  | `process.nextTick` > `Promise` > `MutationOberser` |
 
-micro-task详细笔记[传送门:point_right:](/JS/microTask.md)
-___
-### 执行分区
-> 我们常常吧EventLoop中分为 内存、执行栈、WebApi、异步回调队列(包括微任务队列和宏任务队列)
+
+我们常常把`EventLoop`中分为 `内存`、`执行栈`、`WebApi`、`异步回调队列`(包括微任务队列和宏任务队列)
 
 ![](/blog_assets/eventLoop_task.png) 
-#### 执行栈
-* 执行栈是宏任务被执行的地方
 
-#### 宏任务 & 宏任务队列
-* 宏任务总会在下一个`EventLoop`中执行
-* 若在执行宏任务的过程中，加入了新的`微任务`，会把新的微任务添加到微任务的队列中。
-
-#### 微任务 &  微任务队列
-* 若在执行微任务的过程中，加入了新的微任务，会把新的微任务添加在当前任务队列的队尾巴。
-* 微任务会在本轮`EventLoop`执行完后，马上把执行栈中的任务都执行完毕。
 
 简单用代码表示一下过程
 ```js
@@ -76,6 +59,7 @@ promiseGlobal.then(data=>{
      console.log(data)
    })
 })
+
 let setTimeoutGlobal = setTimeout(_=>{
   console.log(7);
  let promiseInGlobalTimeout = new Promise(resolve=>{
@@ -98,7 +82,9 @@ let setTimeoutGlobal = setTimeout(_=>{
 #### 例2
 ```js
 let mc = new MessageChannel();
-let p1 = mc.port1,p2=mc.port2;
+
+let p1 = mc.port1, p2 = mc.port2;
+
 setTimeout(function(){
    let pro2 = new Promise(resolve=>{
        resolve()
@@ -109,6 +95,7 @@ setTimeout(function(){
 },0)
 
 console.log('first round');
+
 p1.onmessage = function(data){
  let pro3 = new Promise(resolve=>{
        resolve()
@@ -118,8 +105,11 @@ p1.onmessage = function(data){
    })
    console.log(data);
 }
+
 p2.postMessage("message form port2")
+
 p2.postMessage("message form port2 second")
+
 let pro1 = new Promise((solve)=>{
    
     console.log('pro1 inner');
@@ -133,19 +123,19 @@ pro1.then(data=>{
 ##### 结果 
 ![](/blog_assets/macrotask_message_channel.png)     
 
-___
-### 常见的问题
-* Q: 我的`setTimeout`函数到时间了，为啥一直不去执行。
+
+## 其他问题
+##### Q: 我的`setTimeout`函数到时间了，为啥一直不去执行。
    A: `setTimeOut`的回调会被放到任务队列中，需要当前的执行栈执行完了，才会去执行执行任务队列中的内容。出现`setTimeout`回调不及时，说明在执行栈中出现了阻塞，或者说执行代码过多。
 
-* 常见的`vue.$nextTick`会把事件直接插入到当前`微任务`队列的中
-____
-### 相关文章
-[实现异步的Api](../ES6/async_await_conding.md)
+##### vue.$nextTick
+A:常见的`vue.$nextTick`会把事件直接插入到当前`微任务`队列的中
 
-[vue 的nextTick](/vue/nextTick.md)
+## 参考资料
+[1] [实现异步的Api](../ES6/async_await_conding.md)
 
-[vue 的DOM更新机制](/vue/vue_dom_nextTick.md)
+[2] [vue 的nextTick](/vue/nextTick.md)
 
+[3] [vue 的DOM更新机制](/vue/vue_dom_nextTick.md)
 
-[高能福利 -- 外国帅哥讲清楚Eventloop](https://www.v2ex.com/t/537855#reply0)
+[4] [高能福利 -- 外国帅哥讲清楚Eventloop](https://www.v2ex.com/t/537855#reply0)

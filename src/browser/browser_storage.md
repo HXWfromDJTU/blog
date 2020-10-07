@@ -1,7 +1,6 @@
 # 浏览器存储方案
 ![](/blog_assets/browser_storage.png)
 
-
 常用的存储：`sessionStorage`  && `localStorage` && `cookie`   
 
 浏览器对对一个域的cookie大小和数目都有着不同的限制。   
@@ -18,7 +17,7 @@
 
 生命周期：默认是浏览器的会话关闭就删除，若设置了`expire/Max-Age`字段则
 
-我的另一篇深入cookie的文章，[传送门👉](/browser/cookie.md)
+另一篇深入cookie的文章，[传送门👉](https://github.com/HXWfromDJTU/blog/issues/22)
 
 ### 本地存储
 1️⃣ 大小调整到有5MB  

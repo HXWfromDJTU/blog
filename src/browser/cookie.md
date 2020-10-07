@@ -36,9 +36,8 @@ cookie的创建是由服务端的响应头，其中带着`set-cookie`的字段�
 比如说`domain`为`www.abc.com`,`path`为`/sale/img`，则只有匹配`www.abc.com/sale/img`路径的资源才可以读取`cookie`。
 谨记，这里的规则是`匹配模式`的，也就是向后匹配，上面的例子也能匹配`www.abc.com/sale/img/qqq/ss`
 
-`expire/Max-Age`表示为cookie的有效时间
-默认值session,也就是指浏览器session，也就是用户关闭浏览器就会清除掉这个cookie。
-若明确设置时间，则表示在此时间前，cookie始终有效。
+##### `expire/Max-Age` 
+表示为cookie的有效时间，默认值session,也就是指浏览器session，也就是用户关闭浏览器就会清除掉这个cookie。若明确设置时间，则表示在此时间前，cookie始终有效。
 expire 的值为一个日期时间
 Max-Age 的值为一个秒值
 
@@ -46,12 +45,16 @@ Max-Age 的值为一个秒值
 
 ##### `secure`
 若设置为true，则表表示此`cookie`只会在https协议或者ssl等安全协议下进行发送。
+
 ```js
 document.cookie = "username=cfangxu; secure"
 ```
 
 ##### `http-only`
 表示该cookie只会在http请求传输的时候携带，而不能够被本地的JavaScript脚本所读取到。(可以简要的防止XSS攻击)。
+
+### 低安全级别无法覆盖高安全级别
+`secure`与`http-only`都象征着更高的对应`cookie`条目的更高安全级别，当前`cookie`已经添加了对应安全策略的时候，更低安全策略的`cookie`写入相对于是无法无盖已存在的旧`cookie`值。
 
 ### 客户端读写Cookie
 读取cookie可以使用`docuemnt.cookie`
@@ -140,17 +143,17 @@ ___
 
 ##### 优化改进(token)
 `问题一`
-session状态文件，在服务端是会占用服务端的资源和内存，所以服务端需要维护session的数目，以防内存的溢出。但是用户数目众多的时候，服务还是会因为要维护`session`而不堪重负。
-`问题二`
-若使用分布式系统，那么跨服务器需要维护一个同一个session，则需要使用一个单独的session服务器去维持访问。一旦session崩溃，那么所有的用户状态都会丢失。
+session状态文件，在服务端是会占用服务端的资源和内存，所以服务端需要维护session的数目，以防内存的溢出。但是用户数目众多的时候，服务还是会因为要维护`session`而不堪重负。  
 
-基于以上问题，我们可以使用`时间换空间`的思维，服务端不再保存session信息，而是将这部分信息进行编码后再加密，通过`cookie`返回给客户端，我们称之为`token`。下次用户再进行登录的时候，都携带`token`进行访问，服务端使用秘钥进行解密，若能够解开并且解编码成功，则说明这个`token`是之前服务器下发的，也就证明了这个客户端用户的合法性。
+`问题二`
+若使用分布式系统，那么跨服务器需要维护一个同一个`session`，则需要使用一个单独的`session`服务器去维持访问。一旦`session`崩溃，那么所有的用户状态都会丢失。
+
+基于以上问题，我们可以使用`时间换空间`的思维，服务端不再保存`session`信息，而是将这部分信息进行编码后再加密，通过`cookie`返回给客户端，我们称之为`token`。下次用户再进行登录的时候，都携带`token`进行访问，服务端使用秘钥进行解密，若能够解开并且解编码成功，则说明这个`token`是之前服务器下发的，也就证明了这个客户端用户的合法性。
 
 ___
 ### 参考文章
 
+[1] [干掉状态：从 session 到 token](https://juejin.im/entry/592e286d44d9040064592a7b)
 
-[干掉状态：从 session 到 token](https://juejin.im/entry/592e286d44d9040064592a7b)
-
-[正确使用cookie中的domain](https://blog.csdn.net/u010856177/article/details/81104714)
+[2] [正确使用cookie中的domain](https://blog.csdn.net/u010856177/article/details/81104714)
 
