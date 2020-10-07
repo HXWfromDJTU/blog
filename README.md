@@ -171,7 +171,9 @@
 [websocket 项目笔记[2] - 封装一个简单的lib](https://github.com/HXWfromDJTU/blog/issues/16)   
 
 ## 浏览器
-[浏览器缓存之 cookie](https://github.com/HXWfromDJTU/blog/issues/22)
+[浏览器原理 - 缓存之cookie](https://github.com/HXWfromDJTU/blog/issues/22)
+[浏览器原理 - JavaScript 的 EventLoop](https://github.com/HXWfromDJTU/blog/issues/24)
+[浏览器原理 - 宏任务微任务](https://github.com/HXWfromDJTU/blog/issues/23)
 
 
 ## 其他笔记
