@@ -232,7 +232,7 @@ struct uv_loop_t
 struct uv__io_s {
   uv__io_cb cb;
   void* pending_queue[2];
-  void* watcher_queue[2];
+  void* watcher_queue[2];v
   unsigned int pevents; /* Pending event mask i.e. mask at next tick. */
   unsigned int events;  /* Current event mask. */
   int fd;
