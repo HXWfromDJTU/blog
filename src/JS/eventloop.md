@@ -1,4 +1,4 @@
-# Javascript 的 EventLoop
+# 浏览器中 JavaScript 的 EventLoop
 ![](/blog_assets/eventLoopTitle.png)
 
 Javascript的事件环，主要就在理解`宏任务`和`微任务`这两种异步任务
