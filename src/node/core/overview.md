@@ -75,20 +75,11 @@ v8无论是在浏览器端还是Node.js环境下都会启用一个主线程`(浏
 * 脚本执行过程总，每遇到一个异步任务，都会在线程池中抽取一个线程来执行这个任务。
 
 
-#### libuv小结
-* 在`node`使用的时候，对使用者是单线程的概念，但在底层`node`使用了一个`libUV`的C++库去模拟了这个单线程的过程。
-
-* `Node.js` 具有的事件驱动和非阻塞单线程特点，使相关应用变得轻量和高效，当应用程序需要相关I/O操作的时候，把I/O移交给`libuv`处理。线程则并不会阻塞。
-
-* 事实上在`libuv`内部的`thread pool`，在第三方的异步处理时候使用，比如`文件读取`、`跨域访问`、`dns查询`等等，都是使用线程池来处理的，默认使用4个线程。（翻译自[文章](https://link.juejin.im/?target=http%3A%2F%2Fvoidcanvas.com%2Fnodejs-event-loop%2F)）
-
 ## EventLoop in Node.js
 ![](/blog_assets/node_event_loop_phase.png)
 * 事件循环的职责，就是不断得等待事件的发生，然后将这个事件的所有处理器，以它们订阅这个事件的时间顺序，依次执行。当这个事件的所有处理器都被执行完毕之后，事件循环就会开始继续等待下一个事件的触发，不断往复。
 
 * 即如果某个事件绑定了两个处理器，那么第二个处理器会在第一个处理器执行完毕后，才开始执行。
-
-* 在这个事件的所有处理器都执行完毕之前，事件循环不会去检查是否有新的事件触发。
 
 ### 源码中的eventLoop
 ```c++
@@ -167,38 +158,43 @@ int uv_run(uv_loop_t* loop, uv_run_mode mode) {
 只在内部执行
 
 #### poll 
-这个是整个消息循环中最重要的一个 Phase ，作用是等待异步请求和数据，文档原话是
+poll是整个消息循环中最重要的一个阶段，作用是等待异步请求和数据，文档原话是
 >Acceptc new incomming connection( new socket establishment ect) and dat (file read etc)
 
-说他最重要是因为他支撑了整个消息循环机制  
+他支撑了整个消息循环机制  
 
-##### poll phase 执行
-`poll phase`首先会执行 `watch_queue` 队列中的`I/O`  
-一旦`watch_queue`中的队列空，则整个消息循环则会进入`sleep`(不同平台实现线程休眠的方法不一样)，从而等待被内核时间唤醒。(深入理解笔记📒[传送门](/node/core/node_io.md))
+| 阶段 | |
+|-- | -- |
+| poll phase 执行 | `poll phase`首先会执行 `watch_queue` 队列中的`I/O`  一旦`watch_queue`中的队列空，则整个消息循环则会进入`sleep`(不同平台实现线程休眠的方法不一样)，从而等待被内核时间唤醒。|
+| poll phase等待 | 简单来说首先会判断后面的 `check phase` 以及 `close phase`是否还有等待处理的回调。  如果有，则不等待，直接进入`check phase`。|
+| poll phase 超时 | 如果没有其他回调等待执行，他会给`epoll` 方法设置一个`timeout`，等待一段时间，这段时间的长度一般是 `timer phase` 中最近要执行的回调启动时间，到现在的差值。 |
 
-##### Poll phase等待
-简单来说首先会判断后面的 `check phase` 以及 `close phase`是否还有等待处理的回调。  
-如果有，则不等待，直接进入`check phase`。     
-
-##### Poll phase 超时
-如果没有其他回调等待执行，他会给`epoll` 方法设置一个`timeout`，等待一段时间，这段时间的长度一般是 `timer phase` 中最近要执行的回调启动时间，到现在的差值。
-
-在这里 `poll phase` 最多等待上述时长。若此期间，有事件唤醒了消息循环，那么就继续下一个`phase`的工作。
-
-若此期间，没有发生任何事情，那么`timeout`后，消息循环依然要进入后面的 `phase`，让下一个`eventloop` 的 `Timer Phase`也能够执行
-
-##### 总结
-`nodejs`就是通过 `poll phase`对`I/O`事件的等待和内核异步事件的到达来驱动整个消息循环的。
+具体`epoll`的实现过程，可以参考另一篇笔记[Socket 编程 - I/O 多路复用](https://github.com/HXWfromDJTU/blog/issues/13)
 
 
 #### check phase
-1️⃣ 这个阶段只处理`setImmediate`的回调函数  
+这个阶段只处理`setImmediate`的回调函数  
 
 因为`poll phase`阶段可能设置一些回调，希望在 `poll  phase`后运行，所以在`poll phase`后面增加了这个`check phase`
 
 #### close callback
-1️⃣ 专门处理一些 close类型的回调，比如`socket.on('close',....)`，用于清理资源。
+专门处理一些 close类型的回调，比如`socket.on('close',....)`，用于清理资源。
 
+
+### libuv小结
+* `Node.js`中`v8`借助`libuv`来实现异步工作的调度，使得主线程则不阻塞
+* `libuv`中的`poll`阶段，主要封装了各平台的多路复用策略`epoll`/`kqueue`/`event ports`等，对`I/O`事件的等待和到达来驱动整个消息循环。
+* 事实上在`libuv`内部的`thread pool`，在第三方的异步处理时候使用，比如`文件读取`、`跨域访问`、`dns查询`等等，都是使用线程池来处理的，默认使用4个线程。（翻译自[文章](https://link.juejin.im/?target=http%3A%2F%2Fvoidcanvas.com%2Fnodejs-event-loop%2F)）
+
+* 使用`Node.js`时，使用者是单线程的概念。但了解其`线程池`规则之后，我们仍可`隐式`地去使用`多线程`的特性，只是线程的调度完全交给了`Node.js`的内核。
+
+![](/blog_assets/libuv_deep_in.png)
+
+
+## 参考资料
+[1] [NodeConf EU | A deep dive into libuv - Saul Ibarra Coretge](https://www.youtube.com/watch?v=sGTRmPiXD4Y)
+[2] [libuv & Node.js EventLoop](https://mlib.wang/2020/03/01/v8-libuv-timer-event-loop/)
+[3] [The Node.js Event Loop: Not So Single Threaded](https://www.youtube.com/watch?v=zphcsoSJMvM)
 
 
 <!-- ## 其他概念理解

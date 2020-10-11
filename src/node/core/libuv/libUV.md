@@ -1,69 +1,6 @@
 
 # Libuv
 
-
-### libUV运转流程
-![](/blog_assets/node_event_loop_phase.png)
-![](/blog_assets/node_eventloop)
-
-#### 整体流程
-```c++
-int uv_run(uv_loop_t* loop, uv_run_mode mode) {
-  int timeout;
-  int r;
-  int ran_pending;
-
-  /*
-  从uv__loop_alive中我们知道event loop继续的条件是以下三者之一：
-  1，有活跃的handles（libuv定义handle就是一些long-lived objects，例如tcp server这样）
-  2，有活跃的request
-  3，loop中的closing_handles
-  */
-  r = uv__loop_alive(loop);
-  //  假若上述三个条件都不满足，则更新 loop 里的update_times
-  if (!r)
-    uv__update_time(loop);  // 更新 loop 实体的 time属性为当前时间
-
-  while (r != 0 && loop->stop_flag == 0) {
-    uv__update_time(loop);//更新时间变量，这个变量在uv__run_timers中会用到
-    uv__run_timers(loop);//timers阶段
-    ran_pending = uv__run_pending(loop);//从libuv的文档中可知，这个其实就是I/O callback阶段,ran_pending指示队列是否为空
-    uv__run_idle(loop);//idle阶段
-    uv__run_prepare(loop);//prepare阶段
-
-    timeout = 0;
-
-    /**
-    设置poll阶段的超时时间，以下几种情况下超时会被设为0，这意味着此时poll阶段不会被阻塞，在下面的poll阶段我们还会详细讨论这个
-    1，stop_flag不为0
-    2，没有活跃的handles和request
-    3，idle、I/O callback、close阶段的handle队列不为空
-    否则，设为timer阶段的callback队列中，距离当前时间最近的那个
-    **/    
-    if ((mode == UV_RUN_ONCE && !ran_pending) || mode == UV_RUN_DEFAULT)
-      timeout = uv_backend_timeout(loop);
-
-    uv__io_poll(loop, timeout);//poll阶段
-    uv__run_check(loop);//check阶段
-    uv__run_closing_handles(loop);//close阶段
-    //如果mode == UV_RUN_ONCE（意味着流程继续向前）时，在所有阶段结束后还会检查一次timers，这个的逻辑的原因不太明确
-    
-    if (mode == UV_RUN_ONCE) {
-      uv__update_time(loop);
-      uv__run_timers(loop);
-    }
-
-    r = uv__loop_alive(loop);
-    if (mode == UV_RUN_ONCE || mode == UV_RUN_NOWAIT)
-      break;
-  }
-
-  if (loop->stop_flag != 0)
-    loop->stop_flag = 0;
-
-  return r;
-}
-```
 ### 分阶段解析
 ##### timer阶段
 使用一个`for`循环执行所有的 `setTimeout`,`setInterval`的回调，源码在此。[传送门>>](https://github.com/libuv/libuv/blob/9ed3ed5fcb3f19eccd3d29848ae2ff0cfd577de9/src/unix/timer.c#L150)
@@ -245,14 +182,4 @@ typedef void (*uv__io_cb)(struct uv_loop_s* loop,
                           unsigned int events);
 ```
 
-
-
-### 新笔记
-
-
-
-
-### 笔记
-
-
-### non-blocking
+![](/blog_assets/libuv_network_io.png)
