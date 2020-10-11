@@ -183,3 +183,5 @@ typedef void (*uv__io_cb)(struct uv_loop_s* loop,
 ```
 
 ![](/blog_assets/libuv_network_io.png)
+
+![](/blog_assets/libuv_file_io.png)

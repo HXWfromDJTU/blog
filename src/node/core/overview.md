@@ -5,7 +5,7 @@
 
 
 ## Node.js Framework
-![](/blog_assets/node_framework.png)  
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/node_framework.png)  
 
 ##### 第一层(Javascript依赖包)
 * Standard Libary 是我们日常项目常用的`HTTP` `Buffer`等模块  
@@ -23,7 +23,7 @@
 
 * `http_parser`、`OpenSSL`、`zlib`等模块实现了一些和网络请求封装有关的东西，比如说`http解析`、`SSL`和`数据压缩`。  
 
-* 可以在node源码的`/deps`目录中找到都有哪些C/C++依赖![](/blog_assets/node_source.png)
+* 可以在node源码的`/deps`目录中找到都有哪些C/C++依赖![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/node_source.png)
 
 ##### 第四层 操作系统
 第三层的内容都是C/C++编写的依赖，在各操作系统平台下，都会直接调用系统`Api`去完成对应的任务。
@@ -35,11 +35,15 @@ ___
 #### 编译
 |引擎|处理流程|优缺点|
 |---|---|---|
-| 旧版v8 | JavaScript 代码 ---> 抽象语法树(AST) ---> V8 直接执行这些未优化过的机器码，保证了执行的速度 ---> 出现频率过高的代码，优化为机器码 | ①惰性编译，编译时间过久，影响代码启动速度   ②编译出的机器码通常为源JS代码大小的几千倍    ③使用内存、硬盘进行缓存在移动端内存占用问题明显 |
-| 新版v8 | 源代码 ---> 抽象语法树 ---(解释器)---> 字节码 ------> JIT ---> 本地代码| ①字节码占用空间远小于机器码，有效减少内存占用 ②将字节码转换为不同架构的二进制代码的工作量也会大大降低 ③引入字节码，使得V8 移植到不同的 CPU 架构平台更加容易 |
+| 旧版v8 | JavaScript 代码 ---> AST ---> V8 直接执行这些未优化过的机器码 ---> 高频率过高的代码优化为机器码 | ①惰性编译，编译时间过久，影响代码启动速度   ②编译出的机器码通常为源JS代码大小的几千倍    ③使用内存、硬盘进行缓存在移动端内存占用问题明显 |
+| 新版v8 | 源代码 ---> AST ---> 字节码 ---> 解释器执行字节码 | ①字节码占用空间远小于机器码，有效减少内存占用 ②将字节码转换为不同架构的二进制代码的工作量也会大大降低 ③引入字节码，使得V8 移植到不同的 CPU 架构平台更加容易 |
 
-* 字节码: 字节码是一种中间码，占用内存相较机器码小，不受cpu型号影响。
-* 机器码: 机器码可以被cpu直接解读，运行速度快。但是不同cpu有不同体系架构，也对应不同机器码。占用内存也较大。
+* ##### 字节码
+   ① 解释器可以直接解释执行字节码。    
+   ② 字节码是一种中间码，占用内存相较机器码小，不受cpu型号影响。
+* ##### 机器码
+   ① 机器码可以被cpu直接解读，运行速度快。
+   ② 但是不同cpu有不同体系架构，也对应不同机器码。占用内存也较大。
 
 #### 控制与执行
 v8无论是在浏览器端还是Node.js环境下都会启用一个主线程`(浏览器中称为为UI线程)`，并且维护一个消息队列用于存放即将被执行的宏任务，若队列为空，则主线程也会被挂起。    
@@ -52,36 +56,40 @@ v8无论是在浏览器端还是Node.js环境下都会启用一个主线程`(浏
 
 通俗地理解，V8 会为每个宏任务维护一个微任务队列，生成一个微任务，该微任务会被 V8 自动添加进微任务队列，等整段代码快要执行结束时，该环境对象也随之被销毁，但是在销毁之前，V8 会先处理微任务队列中的微任务。
 
-![](/blog_assets/micro_task_know.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/micro_task_know.png)
 
 ## libuv
 `libuv` 是一个高性能的，事件驱动的`I/O`库，这个库负责各种回调函数的执行熟顺序。童鞋们熟知的`EventLoop`与`Thread Pool`都由`Libuv`实现。
 
-![](/blog_assets/node_libuv_dir.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/node_libuv_dir.png)
 
 
 在 `《图解 Google V8》`中有一段描述十分经典，这里直接引用一下
 > Node 是 V8 的宿主，它会给 V8 提供事件循环和消息队列。在 Node 中，事件循环是由 libuv 提供的，libuv 工作在主线程中，它会从消息队列中取出事件，并在主线程上执行事件。 
 同样，对于一些主线程上不适合处理的事件，比如消耗时间过久的网络资源下载、文件读写、设备访问等，Node 会提供很多线程来处理这些事件，我们把这些线程称为线程池。  
 
-![](/blog_assets/node_libuv.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/node_libuv.png)
 
 拿文件读写操作来说，如上图libuv就会启用`Thread Pool`中的文件读写线程进行文件读写。读写完毕后，该线程会将读写的结果包装成函数的形式，塞入消息队列中等待主线程执行。
 
 
 #### 关于线程池
-* 每一个node进程中，libuv都维护了一个线程池(Thread Pool)。
+* 每一个`node`进程中，`libuv`都维护了一个线程池。
 * 因为同处于一个进程，所以线程池中的所有线程都共享进程中的上线文。
-* 脚本执行过程总，每遇到一个异步任务，都会在线程池中抽取一个线程来执行这个任务。
+* 只有`文件读取`、`跨域访问`、`dns查询`是使用线程池来处理的，默认使用4个线程。
+（翻译自[文章](https://link.juejin.im/?target=http%3A%2F%2Fvoidcanvas.com%2Fnodejs-event-loop%2F),配图来自libuv团队的演讲）
 
+  ![](/blog_assets/libuv_thread_pool_only_for_file_io.png)
 
 ## EventLoop in Node.js
-![](/blog_assets/node_event_loop_phase.png)
+![](/blog_assets/libuv_loop_official.png)
 * 事件循环的职责，就是不断得等待事件的发生，然后将这个事件的所有处理器，以它们订阅这个事件的时间顺序，依次执行。当这个事件的所有处理器都被执行完毕之后，事件循环就会开始继续等待下一个事件的触发，不断往复。
 
 * 即如果某个事件绑定了两个处理器，那么第二个处理器会在第一个处理器执行完毕后，才开始执行。
 
-### 源码中的eventLoop
+首先判断当前`loop`的状态，只有处于激活状态才会开始执行周期，若处于非激活状态，则什么都不需要做。
+
+#### 从源码中看 EventLoop
 ```c++
 int uv_run(uv_loop_t* loop, uv_run_mode mode) {
   int timeout;
@@ -95,13 +103,14 @@ int uv_run(uv_loop_t* loop, uv_run_mode mode) {
   3，loop中的closing_handles
   */
   r = uv__loop_alive(loop);
+
   //  假若上述三个条件都不满足，则更新 loop 里的update_times
   if (!r)
     uv__update_time(loop);  // 更新 loop 实体的 time属性为当前时间
 
   while (r != 0 && loop->stop_flag == 0) {
-    uv__update_time(loop);//更新时间变量，这个变量在uv__run_timers中会用到
-    uv__run_timers(loop);//timers阶段
+    uv__update_time(loop); // 更新时间变量，这个变量在uv__run_timers中会用到
+    uv__run_timers(loop); // 执行timers阶段
     ran_pending = uv__run_pending(loop);//从libuv的文档中可知，这个其实就是I/O callback阶段,ran_pending指示队列是否为空
     uv__run_idle(loop);//idle阶段
     uv__run_prepare(loop);//prepare阶段
@@ -115,38 +124,41 @@ int uv_run(uv_loop_t* loop, uv_run_mode mode) {
     3，idle、I/O callback、close阶段的handle队列不为空
     否则，设为timer阶段的callback队列中，距离当前时间最近的那个
     **/    
-    if ((mode == UV_RUN_ONCE && !ran_pending) || mode == UV_RUN_DEFAULT)
-      timeout = uv_backend_timeout(loop);
+    if ((mode == UV_RUN_ONCE && !ran_pending) || mode == UV_RUN_DEFAULT){
+      timeout = uv_backend_timeout(loop); // 这个函数调用计算除了，I/O将会阻塞多少时间
 
-    uv__io_poll(loop, timeout);//poll阶段
-    uv__run_check(loop);//check阶段
-    uv__run_closing_handles(loop);//close阶段
-    //如果mode == UV_RUN_ONCE（意味着流程继续向前）时，在所有阶段结束后还会检查一次timers，这个的逻辑的原因不太明确
+      uv__io_poll(loop, timeout);//poll阶段
+      uv__run_check(loop);//check阶段
+      uv__run_closing_handles(loop);//close阶段
+      //如果mode == UV_RUN_ONCE（意味着流程继续向前）时，在所有阶段结束后还会检查一次timers，这个的逻辑的原因不太明确
     
-    if (mode == UV_RUN_ONCE) {
-      uv__update_time(loop);
-      uv__run_timers(loop);
+      if (mode == UV_RUN_ONCE) {
+        uv__update_time(loop);
+        uv__run_timers(loop);
+      }
+
+      r = uv__loop_alive(loop);
+      if (mode == UV_RUN_ONCE || mode == UV_RUN_NOWAIT)
+       break;
     }
 
-    r = uv__loop_alive(loop);
-    if (mode == UV_RUN_ONCE || mode == UV_RUN_NOWAIT)
-      break;
-  }
+    if (loop->stop_flag != 0) {
+        loop->stop_flag = 0;
+    }
 
-  if (loop->stop_flag != 0)
-    loop->stop_flag = 0;
-
-  return r;
+    return r;
 }
 ```
 #### timers
 * 使用一个`for`循环执行所有的 `setTimeout` , `setInterval`的回调。源码在此。[传送门>>](https://github.com/libuv/libuv/blob/9ed3ed5fcb3f19eccd3d29848ae2ff0cfd577de9/src/unix/timer.c#L150)
 
-* 这些回调都会被存入一个最小堆(min heap)中，这样引擎只需要每次判断头元素，如果符合条件就拿出来执行，直到遇到一个不符合条件或者队列空了才结束`time phase`
-![](/blog_assets/min_set.png)
+* 回调都会被存入一个最小堆(min heap)中，这样引擎只需要每次判断头元素，如果符合条件就拿出来执行，直到遇到一个不符合条件或者队列空了才结束`timers phase`
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/min_set.png)
 >最小堆，是一种经过排序的完全二叉树，其中任一非终端节点的数据值均不大于其左子节点和右子节点的值。这里不使用队列来实现，是因为timeout的callback是按照设置的时间长短来排列先后而调用的，并不是先进先出的逻辑队列。
 
-* 此外，`nodejs`为了防止某个`Pahse`任务太多，而使得后续的Pahse发饥饿的现象，会给每个`Phase`设置一个最大的回调数量，执行超过这个上限的回调数目之后，会自动跳出这个`Pahse`,进入下一个`Pahse`。
+* 一个`Node.js`的timer与`libuv`的timer阶段并不是一一对应的,若多个`Node.js`中的timer都到期了，则会在一个`libuv`的timer阶段所处理。
+
+* 此外，为了防止某个阶段任务太多，而使得后续的阶段出现饥饿的现象，会给每个阶段设置一个最大的回调数量，执行超过这个上限的回调数目之后，会自动跳出这个阶段,进入下一个阶段。
 
 #### pending callbacks (I/O Callback)
 * 这一阶段会执行 `fs.read`，`socket`等`I/O`操作的回调函数   
@@ -154,7 +166,7 @@ int uv_run(uv_loop_t* loop, uv_run_mode mode) {
 * 处理上一轮残留的`I/O`操作  
 * 理论上来说，`poll`阶段会被`timers`阶段代码的执行所阻塞。   
 
-#### idle,prepare 
+#### idle 与 prepare 
 只在内部执行
 
 #### poll 
@@ -184,17 +196,17 @@ poll是整个消息循环中最重要的一个阶段，作用是等待异步请�
 ### libuv小结
 * `Node.js`中`v8`借助`libuv`来实现异步工作的调度，使得主线程则不阻塞
 * `libuv`中的`poll`阶段，主要封装了各平台的多路复用策略`epoll`/`kqueue`/`event ports`等，对`I/O`事件的等待和到达来驱动整个消息循环。
-* 事实上在`libuv`内部的`thread pool`，在第三方的异步处理时候使用，比如`文件读取`、`跨域访问`、`dns查询`等等，都是使用线程池来处理的，默认使用4个线程。（翻译自[文章](https://link.juejin.im/?target=http%3A%2F%2Fvoidcanvas.com%2Fnodejs-event-loop%2F)）
-
 * 使用`Node.js`时，使用者是单线程的概念。但了解其`线程池`规则之后，我们仍可`隐式`地去使用`多线程`的特性，只是线程的调度完全交给了`Node.js`的内核。
 
-![](/blog_assets/libuv_deep_in.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/libuv_deep_in.png)
 
 
 ## 参考资料
 [1] [NodeConf EU | A deep dive into libuv - Saul Ibarra Coretge](https://www.youtube.com/watch?v=sGTRmPiXD4Y)
 [2] [libuv & Node.js EventLoop](https://mlib.wang/2020/03/01/v8-libuv-timer-event-loop/)
 [3] [The Node.js Event Loop: Not So Single Threaded](https://www.youtube.com/watch?v=zphcsoSJMvM)
+[4] [《图解 Google V8》](https://time.geekbang.org/column/article/224206)
+[5] [Introduction to libuv: What's a Unicorn Velociraptor? - Colin Ihrig, Joyent](https://www.youtube.com/watch?v=_c51fcXRLGw)
 
 
 <!-- ## 其他概念理解
@@ -231,7 +243,7 @@ setImmediate(function(){
   console.log('2')
 })
 ```
-![](/blog_assets/setImmediate_timeout.png)  
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/setImmediate_timeout.png)  
 
 ##### 结合上面的 eventloop来说
 1️⃣ `setTimeout`能够接受的最小时限是`4毫秒`(`setInterval`是10毫秒)，所以计算机接受到的数字是4毫秒  
