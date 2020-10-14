@@ -182,7 +182,7 @@ poll整个阶段过程为:
 * 如果event loop进入了 poll阶段，且代码设定了timer
   * 如果poll queue进入空状态时（即poll 阶段为空闲状态），event loop将检查timers,如果有1个或多个timers时间时间已经到达，event loop将按循环顺序进入 timers 阶段，并执行timer queue
 
-![](/blog_assets/libuv_poll_phase_diagram.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/libuv_poll_phase_diagram.png)
 
 <!-- | 阶段 | 处理 |
 |-- | -- |
