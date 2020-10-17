@@ -24,3 +24,4 @@ const apiMap = {
 Object.keys(apiMap).forEach(key => {
   console.log(key, ':', apiMap[key])
 })
+
