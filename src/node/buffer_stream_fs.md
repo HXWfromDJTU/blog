@@ -24,7 +24,7 @@
 ### 内存分配
 > Buffer 是一个典型的Javascript 与 C++ 结合的模块，它将性能相关部分用 C++ 实现，将非心梗相关部分用`Javascript`实现。   --- 《Node.js 深入浅出》
 
-![](/blog_assets/nodejs_buffer_memory.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/nodejs_buffer_memory.png)
 
 * `Buffer`所占的内存并不受`V8`所支配，属于堆外内存，但包含在`RSS`之内。
 * 内核用`8 KB`来界定`大对象`和`小对象`
@@ -35,7 +35,7 @@
 ## Stream
 > 流（stream）是 Node.js 中处理流式数据的抽象接口。 stream 模块用于构建实现了流接口的对象。  --- 《Node.js官网文档》
 
-![](/blog_assets/node_stream_buffer_relate.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/node_stream_buffer_relate.png)
 
 数据的流动就像是生活中水的流动褨，流是可以描述所有常见`输入-输出`类型数据的统一模型。就像是水流有方向，数据的排列也有方向性一样，数据流本身也具有方向性，对于某一端可写，对于另一端边仅仅可读了。
 ### 四种基本 Stream

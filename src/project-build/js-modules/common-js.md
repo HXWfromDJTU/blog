@@ -26,10 +26,30 @@ console.log(module)
 ### module.exports 与 exports
 > 先说结论，请您放弃使用`exports`，严格使用`module.exports`进行模块暴露
 
-其实`Node`为每一个模块，都提供了一个当前模块下的全局`exports`变量，指向了当前模块下的`module.exports`,也就是在每一个模块的开头，手动执行了以下语句
+事实上，在编译的过程中`Node.js`对获取的`Javascript`文件进行了`头尾包装`。在头尾分别添加了
+`(function (exports, require, module, __filename, __dirname) {/n)` 和 `\n})`
+
+也就是我们常常在`webpack`打包之后debugger的时候看到的
 ```js
-var exports = module.exports
+(function (exports, require, module, __filename, __dirname) {
+  var math = require('math')
+  exports.area = function (radius) {
+    return Math.PI * radius * radius
+  } 
+})
 ```
+
+通过观察以上的产出的模块代码，不难得出以下结论:
+* `exports`对于一个模块内部来说，仅仅是一个函数形参。
+* ```js
+  exports.abc = 123
+  ```
+  相当于修改一个函数内部参数`exports`上的属性，并不会影响到外部参数。
+* 但形参`module`上的`exports`属性指向的确实，全局上的`module`的`exports`属性，而不是内部的形参`exports`。所以
+    ```js
+     module.exports.abc = 123 
+    ```
+  这样的赋值才能够被外部所读取到。
 ___
 
 ## 模块引用
