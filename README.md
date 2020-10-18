@@ -171,6 +171,7 @@
 ## 浏览器
 [浏览器原理 - 缓存之cookie](https://github.com/HXWfromDJTU/blog/issues/22)     
 [浏览器原理 - JavaScript 的 EventLoop](https://github.com/HXWfromDJTU/blog/issues/24)     
+[浏览器系列 - 简单读懂渲染Timeline](https://github.com/HXWfromDJTU/blog/issues/27)    
 
 ## V8
 [V8 - 宏任务微任务](https://github.com/HXWfromDJTU/blog/issues/23)  
