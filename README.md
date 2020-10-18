@@ -166,7 +166,7 @@
 ## Node.js
 [Node.js - 流程梳理，从v8、libuv到EventLoop](https://github.com/HXWfromDJTU/blog/issues/25)    
 [Node.js - Buffer、Stream 与 fs](https://github.com/HXWfromDJTU/blog/issues/26)     
-[koa-compose 解读](https://github.com/HXWfromDJTU/blog/issues/11)      
+[Node.js - koa-compose 解读](https://github.com/HXWfromDJTU/blog/issues/11)      
 
 ## 浏览器
 [浏览器原理 - 缓存之cookie](https://github.com/HXWfromDJTU/blog/issues/22)     
