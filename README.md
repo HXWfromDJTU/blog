@@ -158,19 +158,20 @@
 ## 网络编程
 [Socket 编程 - File Description](https://github.com/HXWfromDJTU/blog/issues/12)     
 [Socket 编程 - I/O 多路复用](https://github.com/HXWfromDJTU/blog/issues/13)    
-[Socket 编程 - tcp与udp socket](https://github.com/HXWfromDJTU/blog/issues/14) 
-[websocket 项目笔记[1] - 鉴权、安全、心跳 ](https://github.com/HXWfromDJTU/blog/issues/15)    
-[websocket 项目笔记[2] - 封装一个简单的lib](https://github.com/HXWfromDJTU/blog/issues/16)   
-[DNS系列 - 再聊DNS工作原理及其应用、优化](https://github.com/HXWfromDJTU/blog/issues/19)  
+[Socket 编程 - tcp与udp socket](https://github.com/HXWfromDJTU/blog/issues/14)    
+[websocket - 项目笔记[1] - 鉴权、安全、心跳 ](https://github.com/HXWfromDJTU/blog/issues/15)       
+[websocket - 项目笔记[2] - 封装一个简单的lib](https://github.com/HXWfromDJTU/blog/issues/16)   
+[DNS - 再聊DNS工作原理及其应用、优化](https://github.com/HXWfromDJTU/blog/issues/19)  
 
 ## Node.js
 [Node.js - 流程梳理，从v8、libuv到EventLoop](https://github.com/HXWfromDJTU/blog/issues/25)    
 [Node.js - Buffer、Stream 与 fs](https://github.com/HXWfromDJTU/blog/issues/26)     
-[koa-compose 解读](https://github.com/HXWfromDJTU/blog/issues/11)      
+[Node.js - koa-compose 解读](https://github.com/HXWfromDJTU/blog/issues/11)      
 
 ## 浏览器
 [浏览器原理 - 缓存之cookie](https://github.com/HXWfromDJTU/blog/issues/22)     
 [浏览器原理 - JavaScript 的 EventLoop](https://github.com/HXWfromDJTU/blog/issues/24)     
+[浏览器系列 - 简单读懂渲染Timeline](https://github.com/HXWfromDJTU/blog/issues/27)    
 
 ## V8
 [V8 - 宏任务微任务](https://github.com/HXWfromDJTU/blog/issues/23)  
