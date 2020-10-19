@@ -153,6 +153,5 @@ TTI强调的点是交互，那么我们要消除或者减少的是页面`UI渲�
 
 ___
 ### 参考文章
-[前端性能量化标准 -by 云栖社区](https://yq.aliyun.com/articles/598162)
-
-[DOMContentLoaded与load的区别](https://www.cnblogs.com/caizhenbo/p/6679478.html)
+[1] [前端性能量化标准 -by 云栖社区](https://yq.aliyun.com/articles/598162)     
+[2] [DOMContentLoaded与load的区别](https://www.cnblogs.com/caizhenbo/p/6679478.html)
