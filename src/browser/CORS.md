@@ -27,7 +27,7 @@
 表示正式请求中，会去请求资源的地址。
 
 * `Access-Control-Request-Method`
-该字段是必须的，用来列出浏览器的CORS请求会用到哪些HTTP方法   
+该字段是必须的，用来列出浏览器的`CORS`请求会用到哪些HTTP方法   
 
 * `Access-Control-Request-Headers`    
 该字段表明，在即将发送的正式跨域请求中，需要浏览器除了基本字段外，额外发送什么这段，内容是一个逗号分隔的字符串
