@@ -194,29 +194,15 @@ CSRF `(Cross-Site-Request-Forgery)`，中文称之为`跨站点伪造攻击`。�
 
 ![](/blog_assets/same-site-cookie-compatibility.png)
 
-时间来到了`2020年秋天`，`SameSite Cookie`已经被大多数浏览器所支持了，甚至于有`“浏览器全面禁止第三方Cookie”`的传闻([连接](https://zhuanlan.zhihu.com/p/131256002))，这里推荐一个小工具给大家测试自己浏览器的`Same-Site Cookie`支持情况，[传送门==>](https://samesite-sandbox.glitch.me/)  
-
-将`cookie`中授权 `token`的`same-site`属性设置为`Strict`则可以直接防止`CSRF`的发生。
-
-
+这里推荐一个小工具给大家测试自己浏览器的`Same-Site Cookie`支持情况，[传送门](https://samesite-sandbox.glitch.me/)
 ## 发现CSRF
 根据上面的总结，`CSRF`攻击，通常有以下的特点
 * 第三方发起: 说明我们要关注非白名单中的域，发起的跨域请求
 * 使用`img`作为`CSRF`请求时，`Request Header`中的`MIME Type`为图片，而想要窃取的数据返回的`MIME Tpye`一般为`plain/text`、`json`等文本信息
 * 后端童鞋在review 日志的时候，需要多关注以上类型的请求     
 
-## 总结
-* 应用安全每一个环节都有责任，勿以`事小`而不为。被攻击时，每一个环节都不是无辜的。
-* 拒绝绝非同源访问
-    * Origin 与 Referer 请求头识别
-    * CSRF Token
-      * 服务器下发式
-      * 验证码二次验证式
-      * 客户端主动同步式
-* SameSite Cookie的使用
-* 要善于观察发现服务上的`CSRF`请求
 
-## 参考文章
+### 参考文章
 [1] [HTTP headers 之 host, referer, origin ](https://juejin.im/post/6844903954455724045)    
 [2] [浏览器的沙箱模式](https://www.cnblogs.com/slly/p/6639173.html)  
 [3] [前端优化 - by Alex 百度](https://juejin.im/book/5a8f9ddcf265da4e9f6fb959/section/5a8f9f7bf265da4e82635e46)   
