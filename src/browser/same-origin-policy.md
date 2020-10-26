@@ -1,9 +1,9 @@
 
 ## 前言
 实习时第一次接触`浏览器同源策略`问题，是前后端准备联调需要访问后端Api，呆头呆脑的我再浏览器上发送了好久的 `xhr` 请求，却一直不成功.....头都麻了
-![](/blog_assets/cross-origin-error.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/cross-origin-error.png)
 一起实习的小伙伴让我在`Chrome`的启动程序上，加上`--disable-web-security`的小尾巴禁用掉同源策略，轻松加愉快地直接解决了问题......
-![](/blog_assets/disable-web-security.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/disable-web-security.png)
  
  作为`web`开发者，工作中不同阶段、不同场景都会遇到`跨域`的情况。这篇`笔记📒`在博客中也随着工作学习的推进，一次次地更新内容，更新自己对`跨域`这一问题的认识。
 
@@ -63,7 +63,7 @@
     src: url(./material.woff2) format('woff2');
   }
   ```
-  ![](/blog_assets/cnd_font_cors.png)
+  ![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/cnd_font_cors.png)
 
 * 问题原因: `字体文件请求`是从我们自己的网站发起的，而请求的是`CDN`资源库上的`字体文件`，明显是you跨域的情况存在。
 * 解决办法
@@ -72,7 +72,7 @@
 
 #### `Allow-Origin: *` 与 `withCredentials = true`
 想要跨域请求携带`cookie`，但服务端允许跨域的端口却是`*`的话，听起来就是矛盾的。
-![](/blog_assets/with-credentials-error.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/with-credentials-error.png)
 
 所以服务端需要同时设置二者: 
 ```bat
