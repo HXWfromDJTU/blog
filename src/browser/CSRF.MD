@@ -189,25 +189,36 @@ CSRF `(Cross-Site-Request-Forgery)`，中文称之为`跨站点伪造攻击`。�
   * 可以看出`signKey`的更新是由前端驱动的，只有在发版的时候才会更新，实时性并不如第一种方案。
   * 统一在`nginx`层处理，可以大量减少后端同学的开发工作量。
 
+### SameSite Cookie
+所谓成也`Cookie`,败也`Cookie`。`CSRF`则是利用浏览器的这个规则漏洞建立起来的攻击方式。前面说到，安全每一个环节都有责任，那么作为前端主要运行环境的浏览器，是否也可以在`Cookie`规则上进行优化呢？
 
-## 实战演练
+![](/blog_assets/same-site-cookie-compatibility.png)
+
+时间来到了`2020年秋天`，`SameSite Cookie`已经被大多数浏览器所支持了，甚至于有`“浏览器全面禁止第三方Cookie”`的传闻([连接](https://zhuanlan.zhihu.com/p/131256002))，这里推荐一个小工具给大家测试自己浏览器的`Same-Site Cookie`支持情况，[传送门==>](https://samesite-sandbox.glitch.me/)  
+
+将`cookie`中授权 `token`的`same-site`属性设置为`Strict`则可以直接防止`CSRF`的发生。
 
 
+## 发现CSRF
+根据上面的总结，`CSRF`攻击，通常有以下的特点
+* 第三方发起: 说明我们要关注非白名单中的域，发起的跨域请求
+* 使用`img`作为`CSRF`请求时，`Request Header`中的`MIME Type`为图片，而想要窃取的数据返回的`MIME Tpye`一般为`plain/text`、`json`等文本信息
+* 后端童鞋在review 日志的时候，需要多关注以上类型的请求     
 
+## 总结
+* 应用安全每一个环节都有责任，勿以`事小`而不为。被攻击时，每一个环节都不是无辜的。
+* 拒绝绝非同源访问
+    * Origin 与 Referer 请求头识别
+    * CSRF Token
+      * 服务器下发式
+      * 验证码二次验证式
+      * 客户端主动同步式
+* SameSite Cookie的使用
+* 要善于观察发现服务上的`CSRF`请求
 
-### 参考文章
+## 参考文章
 [1] [HTTP headers 之 host, referer, origin ](https://juejin.im/post/6844903954455724045)    
-[浏览器的沙箱模式](https://www.cnblogs.com/slly/p/6639173.html)  
-
-[前端优化 - by Alex 百度](https://juejin.im/book/5a8f9ddcf265da4e9f6fb959/section/5a8f9f7bf265da4e82635e46)  
-
-
-
-
-* 比如你正在浏览`HUPU`首页，cookie中有你之前就保存过的账号密码信息，你正在浏览自己的勇士球队区。此时，有人给你发了一封邮件，里面包含了一张图片，图片的url是 
-`http://hupu.com/Lakers/post?title=勇士总冠军`
-图片自然加载不出来，但是很可能浏览器就帮你自动发送了一片名为`标题`为`追梦是脏B...`的文章，你可能就被关到小黑屋了...莫名奇妙的哦。  
-
-3️⃣ 看起来发了一篇文章没有什么，但是要是这个操作是转账操作呢？....
-`http://alipay/payment?toUserid=15016132387` 
-当然，阿里转账的接口不会有这么简单...但这是因为大厂有这个方法的思维，要是小厂分分出问题钟呗。 
+[2] [浏览器的沙箱模式](https://www.cnblogs.com/slly/p/6639173.html)  
+[3] [前端优化 - by Alex 百度](https://juejin.im/book/5a8f9ddcf265da4e9f6fb959/section/5a8f9f7bf265da4e82635e46)   
+[4] [前端安全系列（二）：如何防止CSRF攻击？ - 美团技术团队](https://tech.meituan.com/2018/10/11/fe-security-csrf.html)     
+[5] [CSRF 漏洞的末日？关于 Cookie SameSite 那些你不得不知道的事](https://zhuanlan.zhihu.com/p/137408482)
