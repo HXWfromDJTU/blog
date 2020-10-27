@@ -172,7 +172,8 @@
 [Node.js - koa-compose 解读](https://github.com/HXWfromDJTU/blog/issues/11)      
 
 ## 浏览器
-[浏览器原理 - 缓存之cookie](https://github.com/HXWfromDJTU/blog/issues/22)     
+[cookie 系列 - cookie 属性那些坑你都知道吗](https://github.com/HXWfromDJTU/blog/issues/22)       
+[cookie 系列 - 聊聊 session 问题 和 same-site 问题应对办法](https://github.com/HXWfromDJTU/blog/issues/30)       
 [浏览器原理 - JavaScript 的 EventLoop](https://github.com/HXWfromDJTU/blog/issues/24)     
 [浏览器系列 - 简单读懂渲染Timeline](https://github.com/HXWfromDJTU/blog/issues/27)   
 [浏览器系列 - 同源策略 与 跨域安全](https://github.com/HXWfromDJTU/blog/issues/28)     
