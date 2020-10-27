@@ -1,14 +1,14 @@
 ## 前言
 相比较于其他浏览器本地存储，cookie的特点在于符合匹配规则，则自动携带。服务端与客户端双方都可以写入。Cookie 的存在使得基于无状态的HTTP协议下，储存信息成为了可能。      
 
-## cookie
+## cookie    
 首先定义一下，cookie是一段记录用户信息的字符串，一般保存在客户端的内存或者硬盘中。
-![](/blog_assets/cookie_file.png)
-![](/blog_assets/ff_cookie.png)   
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/cookie_file.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/ff_cookie.png)   
 
 ### 服务端对cookie进行写入
 cookie的创建是由服务端的响应头，其中带着`set-cookie`的字段，来对客户端进行cookie设置。   
-![](/blog_assets/cookie_set.png)    
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/cookie_set.png)    
 
 ## 基础属性
 | 属性名 | 作用 | 
@@ -70,7 +70,7 @@ SameSite 用于限制第三方cookie的使用, 在 a.com 下发起对 b.com 的�
 
 ##### 第三方cookie隐私问题    
 * 你在闲逛某个`网站A`的时候，使用管理工具查看`cookie`，发现除了本域下的`cookie`,还经常存在`某些知名`搜索网站的`cookie`。  
-  ![](/blog_assets/third_party_cookie.png)   
+  ![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/third_party_cookie.png)   
 
 * 这并不是什么秘密了，而是搜索网站跟踪手机用户习惯的`主要手段`。    
 * 比如你的网站加入了`某某广告联盟`，则在你的网站中加入`上报脚本`，告知`广告联盟`这个用户来过这里，帮助联盟构建更完整的用户画像。   
@@ -83,7 +83,7 @@ SameSite 用于限制第三方cookie的使用, 在 a.com 下发起对 b.com 的�
 关于域的设置，👆前面讲解domain部分有介绍。
 
 `cookie`中的`domin`设置的跨域是指跨子域名都不可以访问,例如`www.baidu.com`和`map.baidu.com`是不可以跨域进行读取内容的。(看上述domain第一条规则)
-![](/blog_assets/cookie_devtool.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/cookie_devtool.png)
 ##### CORS下的cookie跨域
 * 首先服务端要返回`Access-Control-Allow-Credentials`表明允许跨域请求携带`cookie`，并且`Allow-Control-Allow-Origin`字段也不能模糊的表示为`*`，而要写明`cookie`发送的域
 
@@ -98,7 +98,7 @@ xhr.withCredentials = true;
 ##### 读取 cookie
 读取cookie可以使用`docuemnt.cookie`
 
-![](/blog_assets/js_cookie.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/js_cookie.png)
 
 ```js
 document.cookie = 'userId=xusfh123; maxAge=5000；path=/;secure'
@@ -146,9 +146,11 @@ document.cookie = 'userId=xusfh123; maxAge=5000；path=/;secure'
 2. 设置 `cookie` 需要注意对应的`有效范围`、`有效期`、`安全生效条件`等属性   
 3. 特别注意最近各个浏览器对于`SameSite`的支持情况，有可能对于你的应用导致致命的bug。     
 
-接下来会结合`安全`、`隐私`方向，说说最常见的用`cookie`作为用户身份标识，遇到的问题和解决方案。
+接下来会结合`安全`、`隐私`方向，说说最常见的用`cookie`作为用户身份标识，遇到的问题和解决方案。 
 
 ## 参考文章
 [1] [从url中解析出域名、子域名和有效顶级域名 - alsotang](https://zhuanlan.zhihu.com/p/22714186)    
 [2] [干掉状态：从 session 到 token](https://juejin.im/entry/592e286d44d9040064592a7b)
 [3] [正确使用cookie中的domain](https://blog.csdn.net/u010856177/article/details/81104714)
+
+
