@@ -43,10 +43,37 @@
 * 缓存服务 与 引用服务将会保持长链接，而并非是频繁的短连接     
 * 缓存服务 与 应用服务一般部署在同一个机房，访问速度受到网络影响一般比较小    
 
-##### token 的加密
+##### token 的结构与加密
 * 添加客户端独有的信息作为加密的盐，比如用户访问时的`IP`或者`浏览器型号`等等。     
 * `明文信息` = `随机生成字符串` + `客户端独有信息`后，通过服务端独有的私钥进行加密，最终生成下发的`token`   
-
+* JWT 结构一般分为三个部分，使用`.`号分割
+    * `Header`.`Payload`.`Signature`
+    * Header 结构一般为
+        ```json
+          {
+            "alg": "HS256",
+            "typ": "JWT"
+          }
+        ```
+     * Payload 部分则为需要保密的主要内容
+        ```json
+        {
+            "user_id":"8192qhgb6kmoh3bypbc9wp146jusho",
+            "session_id":"81928yaqk1sccfgwze4k718338z3ae",
+            "platform":"wechat",
+            "roles":"",
+            "props": {"botId":"850444981"},
+            "exp":1606291794,
+            "iat":1603699794
+        }
+        ```
+     * Signature 部分则是使用秘钥对前面二者的签名结果，`私钥`保存在服务器，以下是生成秘钥的示例。       
+        `HMACSHA256(base64UrlEncode(header) + "." +base64UrlEncode(payload),secret)`
+    
 ## 第三方cookie 与 隐私   
 
 ## websocket 与 cookie   
+
+
+## 参考文章
+[1] [JSON Web Token 入门教程](https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)     
