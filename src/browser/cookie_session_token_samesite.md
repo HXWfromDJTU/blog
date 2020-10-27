@@ -71,9 +71,53 @@
         `HMACSHA256(base64UrlEncode(header) + "." +base64UrlEncode(payload),secret)`
     
 ## 第三方cookie 与 隐私   
+[《浏览器原理 - 缓存之cookie》](https://github.com/HXWfromDJTU/blog/issues/22) 这篇文章中聊到`SameSite`时提到了，欧美国家因为隐私安全问题，对`Google`涉及使用第三方`Cookie`来追踪用户行为的操作，进行了巨额的罚金。    
 
-## websocket 与 cookie   
+1. 各大浏览器厂商也陆续跟进了`SameSite`属性的实现，将`Lax`规则设置为默认规则。    
+2. 使得网站以前下发的`token`，在跨站条件下直接无法发送。     
+![](/blog_assets/same-site_telegram.png)    
+
+#### 什么是第三方cookie
+某个 cookie 对应的 domain 值，和当前页面服务器所在的 doamin 不属于一个站点。那么对于这个站点来说，这个 cookie 就是一个`第三方cookie`。   
+![](/blog_assets/taobao_third_party_cookie.png)     
+
+若上图，在淘宝主页面下，就存在`hps.tanx.com`和`g.alicdn.com`两个`第三方cookie`。分别是阿里旗下的`阿里妈妈营销平台`和`阿里CDN`。      
+
+#### 如何限制第三方coookie    
+1. 在旧版(Chrome 80之前)的Chrome浏览器中，默认只在`无痕窗口`中禁用第三方cookie。    
+![](/blog_assets/third_party_setting.png)
+
+2. 通过设置SameSite字段
+   2020年秋天，SameSite 默认值改为`Lax`已经在逐步推广，这意味着除了`超链接` `pre-fetch` 之外，所有的跨站请求都不再携带cookie。   
+    ![](/blog_assets/same-site_support.png)     
+
+### SameSite 有多大影响
+说了这么多，像是欧美人和几家浏览器巨头在做商业利益和人权之间的权衡，远远影响不到我们。可事实真是这样吗？    
+
+* 广告营销
+    从上面`阿里妈妈`数据平台的第三方 cookie 看出，用户行为收集，数据分析，广告精准投放已经成为大多数平台类的主要收入。而他们标记用户的主要手段就是，在目标网站插入用户信息的脚本。
+* 前端打点上报
+    与上述问题相同，使用过`Google Analysis`的童鞋应该知道，原理其实和广告追踪一样。更像是一种`正义`的数据收集 [滑稽脸.png]
+    ![](/blog_assets/google_analysis_cookie.png)   
+* 第三方登录受影响
+    许多使用`iframe`嵌入第三方域的`授权登录`都将因为之前没有设置`SameSite`这个字段，而被浏览器升级导致默认为`Lax`，进而导致之前的`Cookie`而失效。   (抱歉，👇这个图我又用了一次)
+    ![](/blog_assets/same-site_telegram.png)   
+
+    作为下发授权的网站，需要默认更新你的设置cookie策略，声明式地将`SameSite`设置为`None`。
+
+* 非同站的跨域请求
+    1. 日常开发中，假如我们的项目名为`queen`，那么前端通常页面部署在`my.queen.io`，api的域名通常为`api.queen.io`和`login.queen.io`,这种情况不受到`SameSite`的影响。   
+    2. 项目多了，需要调用第三方`api`,调用兄弟部门的`api`, 则日常的`CORS`请求中携带对方域名的`cookie`就会出现问题，不仅仅是`withCredentials = true`可以解决问题的。   
+    3. 解决办法参考上一条，需要第三方下发 cookie 时带上`SameSite=None`
+
+#### None 必须是 Secure
+第三方选择显式关闭 `SameSite` 属性，将其设为 `None`时，前提是必须同时设置 `Secure` 属性, 标明 Cookie 只能通过 HTTPS 协议发送，否则无效。
+
+<!-- ## websocket 与 cookie      -->
 
 
 ## 参考文章
 [1] [JSON Web Token 入门教程](https://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)     
+[2] [当浏览器全面禁用三方 Cookie - 知乎 by conard](https://zhuanlan.zhihu.com/p/131256002)   
+[3] [Cookie 的 SameSite 属性](https://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html)    
+[4] [SameSite cookies - MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Set-Cookie/SameSite)
