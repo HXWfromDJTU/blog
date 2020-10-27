@@ -155,6 +155,9 @@
 <font size=5>知识就是需要不断更新，2020更多博客文章正在迁移整理中...请耐心等待🚧</span>
 </div> 
 
+## 项目构建
+[工作规范沉淀 - 持续更新](https://github.com/HXWfromDJTU/blog/issues/30)
+
 ## 网络编程
 [Socket 编程 - File Description](https://github.com/HXWfromDJTU/blog/issues/12)     
 [Socket 编程 - I/O 多路复用](https://github.com/HXWfromDJTU/blog/issues/13)    
