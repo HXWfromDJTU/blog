@@ -156,8 +156,9 @@
 </div> 
 
 ## 反思与沉淀
-[质量提升 之 日常开发规范沉淀](https://github.com/HXWfromDJTU/blog/issues/30)       
+[质量提升 之 日常开发自查表](https://github.com/HXWfromDJTU/blog/issues/30)       
 [效率提升 之 小团队测试流程优化](https://github.com/HXWfromDJTU/blog/issues/32)      
+[效率提升 之 前端工作流总结](https://github.com/HXWfromDJTU/blog/issues/33)          
 
 ## 网络编程
 [Socket 编程 - File Description](https://github.com/HXWfromDJTU/blog/issues/12)     
