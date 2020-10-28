@@ -177,8 +177,8 @@
 [Node.js - koa-compose 解读](https://github.com/HXWfromDJTU/blog/issues/11)      
 
 ## 浏览器
-[cookie 系列 - 你的 Token 还好吗？浏览器 SameSite 的 breaking change 应对办法](https://github.com/HXWfromDJTU/blog/issues/22)       
-[cookie 系列 - 聊聊 session 问题 和 same-site 问题应对办法](https://github.com/HXWfromDJTU/blog/issues/31)       
+[cookie 系列 - 有效范围、安全与隐私](https://github.com/HXWfromDJTU/blog/issues/22)       
+[cookie 系列 - 你的 Token 还好吗？浏览器 SameSite 的 breaking change 应对办法](https://github.com/HXWfromDJTU/blog/issues/31)       
 [浏览器原理 - JavaScript 的 EventLoop](https://github.com/HXWfromDJTU/blog/issues/24)     
 [浏览器系列 - 简单读懂渲染Timeline](https://github.com/HXWfromDJTU/blog/issues/27)   
 [浏览器系列 - 同源策略 与 跨域安全](https://github.com/HXWfromDJTU/blog/issues/28)     
