@@ -158,7 +158,10 @@
 ## 反思与沉淀
 [质量提升 之 日常开发自查表](https://github.com/HXWfromDJTU/blog/issues/30)       
 [效率提升 之 小团队测试流程优化](https://github.com/HXWfromDJTU/blog/issues/32)      
-[效率提升 之 前端工作流总结](https://github.com/HXWfromDJTU/blog/issues/33)          
+[效率提升 之 前端工作流总结](https://github.com/HXWfromDJTU/blog/issues/33)     
+
+## 安全
+[前端安全系列 - CSRF 原理与实战](https://github.com/HXWfromDJTU/blog/issues/29)
 
 ## 网络编程
 [Socket 编程 - File Description](https://github.com/HXWfromDJTU/blog/issues/12)     
@@ -179,9 +182,6 @@
 [浏览器原理 - JavaScript 的 EventLoop](https://github.com/HXWfromDJTU/blog/issues/24)     
 [浏览器系列 - 简单读懂渲染Timeline](https://github.com/HXWfromDJTU/blog/issues/27)   
 [浏览器系列 - 同源策略 与 跨域安全](https://github.com/HXWfromDJTU/blog/issues/28)     
-
-## 安全
-[前端安全系列 - CSRF 原理与实战](https://github.com/HXWfromDJTU/blog/issues/29)
 
 ## V8
 [V8 - 宏任务微任务](https://github.com/HXWfromDJTU/blog/issues/23)  
