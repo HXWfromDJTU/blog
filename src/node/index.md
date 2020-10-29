@@ -17,18 +17,18 @@
 * Nodejs 引擎的使用既支持V8也支持chakra。
    * shim chakra 
    * Nodejs rpc     
-   
    * LAMP 与 MEAN 体系    
    * Model - Dao  - Services - Controller                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 
 * 内存释放
-   * V8 GC
-      * 浏览器、node环境中的GC策略有什么异同点
-      * 和其他语言Java、Python、Go的GC策略有什么异同点
-      * 新生代、老生代、各种淘汰算法之间是如何协作完成GC的
-         * 不同的数据类型，存储的位置是否不一致，对应的释放策略呢？
-      * 实战情况中有哪些常见操作，有内存泄漏风险
-      * 闭包中的内容何时释放。
+   * V8 GC 
+      * 浏览器、node环境中的GC策略有什么异同点 ✅
+      * 和其他语言Java、Python、Go的GC策略有什么异同点 ✅
+      * 新生代、老生代、各种淘汰算法之间是如何协作完成GC的 ✅
+         * 不同的数据类型，存储的位置是否不一致，对应的释放策略呢？ ✅
+      * 实战情况中有哪些常见操作，有内存泄漏风险 ✅
+      * 闭包中的内容何时释放。 ✅
+      * 新生代内存地址移动到老生代内存地址的过程
       
  * 模块机制
     * node基于CommonJS 规范，与其他AMD、CMD的比较。 ✅
@@ -68,7 +68,7 @@
   * studio 标准输入、输出      
        
 * Buffer
-  * stream
+  * stream ✅
     * creatReadStream
   * buffer/string/0x进制/stream之间的关系
   * 流与buffer的编码问题
@@ -100,9 +100,9 @@
 
 * node 安全
    * 如何防范sql注入
-   * crypto 模块
-     * OpenSSL hash
-     * 常用工机具函数了解
+   * crypto 模块      
+     * OpenSSL hash      
+     * 常用工机具函数了解     
      
 * koa 实现原理
    * 完善之前的最小化 koa demo ✅
@@ -125,3 +125,11 @@
   
   * Serverless
   基础的serverles搭建
+
+
+### 实战
+* node对于option请求如何处理
+* node如何处理cors跨域
+
+## 基础补充
+* node的event loop和浏览器的区别
