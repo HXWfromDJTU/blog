@@ -161,7 +161,7 @@
 [效率提升 之 前端工作流总结](https://github.com/HXWfromDJTU/blog/issues/33)     
 
 ## 安全
-[前端安全 - 记一次网站 CSRF 防护](https://github.com/HXWfromDJTU/blog/issues/29)
+[前端安全 - CSRF 原理与一次实战](https://github.com/HXWfromDJTU/blog/issues/29)
 
 ## 网络编程
 [Socket 编程 - File Description](https://github.com/HXWfromDJTU/blog/issues/12)     
