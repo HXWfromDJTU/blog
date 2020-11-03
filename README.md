@@ -152,7 +152,7 @@
 
 
 [![Generic badge](https://img.shields.io/badge/github-HXWfromDJTU/blog-<COLOR>.svg)](https://github.com/HXWfromDJTU/blog) [![GitHub stars](https://img.shields.io/github/stars/HXWfromDJTU/blog.svg?style=flat-square)](https://github.com/HXWfromDJTU/blog/stargazers)      
-<div align=center>
+
 知识就是需要不断更新，2020更多博客文章正在迁移整理中...请耐心等待🚧</span>
 
 ## 反思与沉淀
