@@ -1,13 +1,12 @@
 ## 前言
 [![npm version](https://badge.fury.io/js/mobile_bridge_js.svg)](//npmjs.com/package/mobile_bridge_js)    [![Generic badge](https://img.shields.io/badge/github-mobile_bridge_js-<COLOR>.svg)](https://github.com/HXWfromDJTU/mobile_bridge_js)
 
-客户端`webview`中加载的`h5`应用与`Native`通信工具，持续完善中....
-
+一个客户端`webview`中加载的`h5`应用与`Native`通信工具，持续完善中....[传送门 👉👉](https://github.com/HXWfromDJTU/mobile_bridge_js)
 ### 设计思路
-![](/blog_assets/bridge_workflow.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/bridge_workflow.png)
 
 ### 主要构成
-![](/blog_assets/bridge_uml.png)   
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/bridge_uml.png)   
 
 
 <!-- * 通信信道
