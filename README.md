@@ -150,8 +150,10 @@
 ###### Vue-router实现流程图
 ![Vue-router实现流程图](./vue/vue-router/Vue-router.png) -->
 
+
+
+[![GitHub stars](https://img.shields.io/github/stars/HXWfromDJTU/blog.svg?style=flat-square)](https://github.com/HXWfromDJTU/blog/stargazers)     
 <div align=center>
-[![GitHub stars](https://img.shields.io/github/stars/HXWfromDJTU/blog.svg?style=flat-square)](https://github.com/HXWfromDJTU/blog/stargazers)
 <font size=5>知识就是需要不断更新，2020更多博客文章正在迁移整理中...请耐心等待🚧</span>
 </div> 
 
