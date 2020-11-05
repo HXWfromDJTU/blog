@@ -51,6 +51,7 @@ CORS 策略允许浏览器向跨源服务器发出获取资源，但请求既然
 ![](/blog_assets/option_csrf_combine.png)    
 
 ##### OPTION 处理 (Koa)
+服务端的跨域处理，简单可以表示为以下的流程，感兴趣的话也可以看看[kosjs/cors](https://github.com/koajs/cors)插件的实现过程。     
 
 ```js
 // 集中处理错误
