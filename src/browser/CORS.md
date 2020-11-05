@@ -48,7 +48,42 @@ CORS 策略允许浏览器向跨源服务器发出获取资源，但请求既然
 #### OPTION检测 与 CSRF 预防相结合
 在👉 [CSRF 实战](https://github.com/HXWfromDJTU/blog/issues/29) 笔记中，我们讲到过对于非同源请求的拦截与处理方法。结合起来 CORS 的 `OPTION` 预检查请求用于浏览器缓存`检测结果`，而`CSRF Token`的检测则用于做最后的防御。    
 
-![](/blog_assets/option_csrf_combine.png)
+![](/blog_assets/option_csrf_combine.png)    
+
+##### OPTION 处理 (Koa)
+
+```js
+// 集中处理错误
+const handler = async (ctx, next) => {
+  // log request URL:
+  ctx.set("Access-Control-Allow-Origin", "yourdmain.com");
+  ctx.set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+  ctx.set("Access-Control-Max-Age", "86400");
+  ctx.set("Access-Control-Allow-Headers", "x-requested-with,Authorization,Content-Type,Accept");
+  ctx.set("Access-Control-Allow-Credentials", "true");
+  
+  // 若有必要，请添加上其他 CSRF TOKEN 所需的响应头字段
+  ctx.set("X-Yourdomain-Timestamp", "x-requested-with,Authorization,Content-Type,Accept");
+
+  // 统一处理预请求
+  if (ctx.request.method == "OPTIONS") {
+    ctx.response.status = 204
+  }
+
+  console.log(`Process ${ctx.request.method} ${ctx.request.url}`);
+
+  try {
+    await next();
+    console.log('handler通过')
+  } catch (err) {
+    console.log('handler处理错误')
+    ctx.response.status = err.statusCode || err.status || 500;
+    ctx.response.body = {
+      message: err.message
+    };
+  }
+};
+```
 
 
 #### 小结
