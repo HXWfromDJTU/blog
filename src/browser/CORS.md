@@ -1,91 +1,63 @@
-上一篇笔记了解了浏览器`同源策略`的方方面面，随着`web`服务的多元化，以及前后端分离的大环境，页面与资源的分离已经是必然的事情。    
+## 前言
+上一篇笔记了解了浏览器`同源策略`的方方面面，随着`web`服务的多元化，以及前后端分离的大环境，页面与资源的分离已经是必然的事情。这次则先聊聊工作中用得最多的 CORS 策略`(Corss-origin Resource Sharing)`。     
 
-这次则介绍下工作中用到过的`CORS`、`cors-anywhere`、`JSONP`。     
+## CORS 与 请求类型
+CORS 策略允许浏览器向跨源服务器发出获取资源，但请求既然是来源于不同于服务器的非同域。最容易出现以下问题: 
+1. 跨域说明有可能是恶意站点发起，则处理请求前的 `同域检测` 就十分有必须要了。(你是否想起了`CSRF Token`的概念，后文会做相应比较)。     
+2. 每次都携带全量数据访问服务端接口，但却因为最基础的 `同域检测` 都通过不了，则十分浪费网络带宽
+3. 服务器执行 `同域检测` 的逻辑复杂程度不一，每一次都需要重新判断，也是对服务器资源的浪费   
 
-## CORS
-`W3C` 有一个CROS策略`(Corss-origin Resource Sharing)`，允许浏览器向跨源服务器，发出异步请求`(XHRHttpRequest)`，获取所需要的资源。  
+针对此需求，w3c 在提出了一个`预检查请求` (CORS-preflight) 的概念。但由于`向下兼容`的需要，只在`非简单请求`中启用`预检查请求`，而对`简单请求`不作额外处理。    
 
-![CORS兼容性](/blog_assets/section-cross-domain-cors.png)
-* 所有的跨域行为，都需要资源提供方的改动与许可。   
-* 支持`CORS`的浏览器会在发生跨域请求时，携带上对应的请求头。
-* 网页应用开发者并不需要做额外的预处理，处理的工作在于服务端返回的响应头中，是否包含了预期的内容，允许了本次的跨域请求。
+服务端服务器可以根据这个`预检查请求`，来告知是否允许浏览器对原接口发起请求。
+     
+### 简单请求
+正如前文👆所提到的，其实 `简单请求` 仅仅是为了 w3c 为了退出新策略而强行划定的标准。在 CORS 标准推出前，浏览器与服务器的数据交互大多数是使用 `<Form>` 发起的，那么为了最大程度地兼容已存在的服务，则以此为界定。
 
-#### 简单请求
-若是简单请求必须满足以下三点特征：  
-* 请求方法必须是`GET`、`POST`、`HEAD`
-* HTTP的头信息不超出以下几种字段：`Accept`  `Accept-Language`  `Content-Language` `Last-Event-ID`  
-* `Content-Type`：只限于三个值`application/x-www-form-urlencoded`、`multipart/form-data`、`text/plain`  
+参考 👉[DOM Form - MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/form) 和  👉[简单请求 - MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS), 二者的描述 和 定义也十分相近。
+![](/blog_assets/html_form_method.png)    
 
-请求发送时，浏览器会在`header`中添加`Origin`这一个字段,表示本次请求的来源是哪里。内容包括( 协议+域名+端口号 )
+![](/blog_assets/simple_request_desc.png)
 
-![cross_origin_header.png](/blog_assets/CORS_request_header.png) 
+使用`form`标签是否可以发起这一标准，大多数情况下我们就不需要去强行记忆区分`简单请求`的那些复杂的`method`、`content-type` 和 `header`了。
 
-### 复杂请求
-若是复杂型的跨域请求，客户端回先发一个`正常的(非跨域)HTTP请求`，就进行预告知,主要内容包括以下几点：
+### 非简单请求 与 预检查请求
+很好理解的是, `非简单请求` 字面意思就是 除了 `简单请求` 以外的其他请求。这时候，浏览器会先行发送一个请求的`预检查请求`。     
+![](/blog_assets/freflight-request.png)   
 
-* `Origin` 
-表示正式请求中，会去请求资源的地址。
+#### 预检测请求的有效时间
+预检测请求存在的意义之一，则是减少服务器频繁执行 `检查同域` 逻辑，其起作用的核心则是： 
+> Access-Control-Max-Age: xxx
 
-* `Access-Control-Request-Method`
-该字段是必须的，用来列出浏览器的`CORS`请求会用到哪些HTTP方法   
+在有效时间内，浏览器无须为同一请求再次发起预检请求。这一机制有效地减少了服务端执行 `同域检测` 逻辑的时间，节省了服务器的资源。   
 
-* `Access-Control-Request-Headers`    
-该字段表明，在即将发送的正式跨域请求中，需要浏览器除了基本字段外，额外发送什么这段，内容是一个逗号分隔的字符串
+如果值为 -1，则表示禁用缓存，每一次请求都需要提供预检请求，即用OPTIONS请求进行检测。
 
-    ```js
-    OPTIONS /cors HTTP/1.1
-    Origin: https://api.qiutc.me
-    Access-Control-Request-Method: PUT
-    Access-Control-Request-Headers: X-Custom-Header
-    Host: api.qiutc.com
-    Accept-Language: en-US
-    Connection: keep-alive
-    User-Agent: Mozilla/5.0...
-    ```
-##### 预请求的返回
-* `Access-Control-Max-Age`
-可选字段，用来指定本次预检请求的有效期，单位为秒。在此安全时间范围内，不需要另外发送预请求。
-##### 正式的跨域请求
-* 在与请求成功之后，有效限期之内。客户端和服务端就可以直接进行跨域请求，不需要另外发送预请求。
-* 并且每次的跨域请求中，请求报文会包含`Origin`字段，服务器的返回报文会包含`Access-Control-Allow-Origin`
+#### 其他的 CORS 头信息
+`Access-Control-Allow-Origin`、`Access-Controll-Allow-Method`、`Access-Controll-Allow-Header` 和 `Access-Control-Allow-Credentials` 这几个的用法已经是老生常谈了。这里则不再赘述了。
 
-### 服务端的处理
-若浏览器发现本次请求为跨域请求，则会在返回的响应报文中多添加几个字段
-![](/blog_assets/CORS_response_header.png)
-* `Access-Control-Allow-Origin`  
-   必要字段。表示服务端允许那些地址的资源可以进行跨域访问。一般值为请求头中相同的资源地址值，或者是`*` 
-* `Access-Control-Allow-Credentials`
-   可选字段，意为是否允许客户端发送跨域请求时，带上浏览器的`cookie`数据，默认值为false。
-   除此之外
-   ☎️ 要客户端会将cookie数据传到服务端，在启动异步请求的时候，需要设置
-   ```js
-   var xhr = new XMLHttpRequest(); 
-   xhr.withCredentials = true;
-   ```
-   ☎️ 若要使用cookie跨域，服务端相应头中，`Access-Control-Allow-Origin`就不能模糊地表为` * `，而是需要标明与发送请求客户的地址。   
-   
-* `Access-Control-Expose-Headers`
-   可选字段，用于给返回报文中，添加六个基本字段外的其他字段。客户端在获得返回报文的时候，可以使用`XHR.getResponseHeader()`获取到包括基础字段，外加这些额外的字段 
-
-#### ⭕️ 拒绝跨域请求
-* 若是服务端选择拒绝这个跨域请求，则在返回报文中不设置`Access-Control-Allow-Origin`字段即可   
-* 浏览器解析报文时，发现没有该字段，则会抛出一个错误，会被`XHRHttpRequest`对象的`onerror`获取到，从而客户端就可以捕获并处理该错误  
+![](/blog_assets/cors_header_cctip.png)
 
 
+## 君子协定 CORS
+与 HTTP 协议相类似，w3c 提出的 CORS 也是一种约定，需要浏览器和服务器共同配合实现。对于`预检测请求`的结果，仍然后很多种可能的处理流程: 
+1. 浏览器在收到预请求结果为失败的情况下，仍去发起原`非简单请求`。
+2. 对于`简单请求`，是否就可以绕过 `同源检测` 了呢？   
+3. 同域策略 和 CORS 只在浏览器中存在约定，对于其他客户端，类似 `curl`、`postman`工具 和 其他脚本等发起的请求，是否不用检测了呢？    
 
-## 简单请求与复杂请求 与 安全
-* 项目中使用了签名安全方案的请求头
-* 项目中使用了业务信息的请求头(本不应该携带在此)
+#### OPTION检测 与 CSRF 预防相结合
+在👉 [CSRF 实战](https://github.com/HXWfromDJTU/blog/issues/29) 笔记中，我们讲到过对于非同源请求的拦截与处理方法。结合起来 CORS 的 `OPTION` 预检查请求用于浏览器缓存`检测结果`，而`CSRF Token`的检测则用于做最后的防御。    
+
+![](/blog_assets/option_csrf_combine.png)
 
 
-
-## cors-anywhere
-* 项目中接触到了
-
-
-## JSONP
-* 电商网站常用
-* 有什么优点呢？
+#### 小结
+1. 客户端(浏览器)可以做的是判断请求目标源是否跨域，服务端可以做的是收到请求后，是否拒绝这一个请求，注意服务端判断的过程，消耗的资源可大可小。
+2. 非简单请求可以触发 `preflight` 机制，使用 `Access-Control-Max-Age` 响应头实现预请求的缓存，减少服务器压力   
+3. 作为网站开发者，尽量使用`非简单请求`，触发 `preflight` 机制而减小服务器压力。     
+4. 预检查请求不能作为安全防护策略，仍然需要做好 `CSRF`防护。    
 
 ## 参考文章
-[1] [跨源资源共享（CORS） - MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS)    
+[1] [跨源资源共享（CORS） - MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS)       
+[2] [koa跨域 - mapplat](http://blog.mapplat.com/public/javascript/koa%E8%B7%A8%E5%9F%9F/)     
+[3] [CORS 为什么要区分『简单请求』和『预检请求』？ - 奇舞团](https://juejin.im/post/6844903936512491528)     
