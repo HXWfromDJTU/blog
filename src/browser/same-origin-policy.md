@@ -1,5 +1,5 @@
 
-## 前言
+## 前言 
 实习时第一次接触`浏览器同源策略`问题，是前后端准备联调需要访问后端Api，呆头呆脑的我再浏览器上发送了好久的 `xhr` 请求，却一直不成功.....头都麻了
 ![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/cross-origin-error.png)
 一起实习的小伙伴让我在`Chrome`的启动程序上，加上`--disable-web-security`的小尾巴禁用掉同源策略，轻松加愉快地直接解决了问题......
@@ -34,24 +34,23 @@
 * 能够通过`JSONP`、`CORS`和`Websocket`的形式进行。
 * 但 `SOP` 本质上 SOP 并不是禁止跨域请求，而是浏览器在请求后拦截了请求的回应
 
-## 跨域与安全
+## 跨域与安全      
 ### CSRF
 ##### 同源策略不能直接防范CSRF❌
 * 通过恶意连接，`"借用"`用户`cookie`以实现盗用用户登录态的行为，便是大家熟知的`CSRF`攻击。     
 * 通过👆上文可知，浏览器的`同源策略`仅仅只是拦截了请求的返回，但并不会阻止跨域请求的发送。     
 
 ##### 借助参数防范
-1. 借用`同源策略`中对非同域下`Cookie`读取的限制。
-2. 在对服务端数据发起请求的时候，将`token`信息添加到请求的参数中。
-3. 服务端验证参数中的`token`，以确认请求来源于官方的应用。校验失败，则拒绝该请求。
-
-### 服务端跨域安全
+* 前后端配合，使用 `CSRF token` 方案进行防范    
+  * 检测到不合法后，须入口层面 (比如`nginx`)处拒绝掉请求，否则请求仍然会被服务器处理
 * 若非必要不开启`CORS`访问、或者不开启`Access-Control-Allow-Credentials`
-* 允许访问的域，使用指定白名单的方式，而不直接使用`通配符`。
-* 配置`Vary: Origin`头部
-  > 如果服务器未使用“*”，而是指定了一个域，那么为了向客户端表明服务器的返回会根据Origin请求头而有所不同，必须在Vary响应头中包含Origin。
+* 允许访问的域，使用指定白名单的方式，而不直接使用通配符 `*`。
+  * 如果服务器未使用“*”，而是指定了一个域，那么为了向客户端表明服务器的返回会根据`Origin` 请求头而有所不同，必须在Vary响应头中包含 `Origin`。    
 
-## 生产中遇到的跨域问题
+
+关于 `CSRF` 原理与防范实战，请看博主的另一篇笔记，[传送门👉](https://github.com/HXWfromDJTU/blog/issues/29)
+
+## 工作中遇到的跨域问题
 #### CDN下的字体文件
 * 博主上周给公司`web项目`上了`CDN加速`。开发使用的是`nuxt.js`，在`nuxt.config.js`的配置中很快滴配置好了`static.xxx.io`的`CDN`域名。测试后发现，所有`js``css`、`image`资源都正常，除了项目中的`material-design.woff2`字体文件加载失败了。
   ```css
@@ -80,6 +79,14 @@ add_header "Access-Control-Allow-Origin" "http://fedren.com";
 add_header "Access-Control-Allow-Credentials" "true";
 ```
 
+#### 不一定是跨域
+在日常开发调试中，博主在搭配使用`whistle`作为代理服务器进行调试时，应用运行在`Chrome` 的某些版本下。后端接口返回 `5xx` 的异常，`Chrome Dev Tool` 中会显示与接口跨域调用失败一样的错误。   
+
+(截图待补充......)
+
+不知道 `whistle` 是啥?[去看看👉](https://juejin.im/post/6861882596927504392)
+
 ## 参考资料
 [1] [浏览器的同源策略 - MDN](https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy)     
-[2] [阿里云 CDN 字体fonts跨域问题](https://www.vicw.com/groups/cats_and_dogs/topics/223)
+[2] [阿里云 CDN 字体fonts跨域问题](https://www.vicw.com/groups/cats_and_dogs/topics/223)    
+[3] [CORS - MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS)

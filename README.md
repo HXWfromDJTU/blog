@@ -146,7 +146,6 @@
 <!-- ###### vue双向绑定流程图
 ![vue双向绑定原理流程图](./vue/Vue_twoway_binding.png)
 
-
 ###### Vue-router实现流程图
 ![Vue-router实现流程图](./vue/vue-router/Vue-router.png) -->
 

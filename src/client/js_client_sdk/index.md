@@ -63,4 +63,5 @@
 [2] [logger-level - github](https://github.com/pimterry/loglevel)    
 [3] [webpack - ts-loader](https://webpack.js.org/guides/typescript/)       
 [4] [JavaScript WebView and iOS](https://www.vivekkalyan.com/javascript-webview-and-ios)    
-[5] [JSON-RPC 2.0](https://www.jsonrpc.org/specification)       
+[5] [JSON-RPC 2.0](https://www.jsonrpc.org/specification)      
+[6] [Android与Javascript互相调用 - 简书](https://www.jianshu.com/p/f5c77a655ea6)    
