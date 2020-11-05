@@ -184,7 +184,7 @@
 [浏览器原理 - JavaScript 的 EventLoop](https://github.com/HXWfromDJTU/blog/issues/24)     
 [浏览器系列 - 简单读懂渲染Timeline](https://github.com/HXWfromDJTU/blog/issues/27)   
 [浏览器系列 - 同源策略 与 跨域安全](https://github.com/HXWfromDJTU/blog/issues/28)       
-[浏览器原理 - CORS预请求检测 与 CSRF](https://github.com/HXWfromDJTU/blog/issues/35)  
+[浏览器原理 - CORS中预检测与非简单请求](https://github.com/HXWfromDJTU/blog/issues/35)  
 
 
 ## V8
