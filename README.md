@@ -183,7 +183,9 @@
 [cookie 系列 - 你的 Token 还好吗？浏览器 SameSite 的 breaking change 应对办法](https://github.com/HXWfromDJTU/blog/issues/31)       
 [浏览器原理 - JavaScript 的 EventLoop](https://github.com/HXWfromDJTU/blog/issues/24)     
 [浏览器系列 - 简单读懂渲染Timeline](https://github.com/HXWfromDJTU/blog/issues/27)   
-[浏览器系列 - 同源策略 与 跨域安全](https://github.com/HXWfromDJTU/blog/issues/28)     
+[浏览器系列 - 同源策略 与 跨域安全](https://github.com/HXWfromDJTU/blog/issues/28)       
+[浏览器原理 - CORS预请求检测 与 CSRF](https://github.com/HXWfromDJTU/blog/issues/34)  
+
 
 ## V8
 [V8 - 宏任务微任务](https://github.com/HXWfromDJTU/blog/issues/23)  
