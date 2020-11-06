@@ -1,16 +1,15 @@
-
 ## 前言 
 实习时第一次接触`浏览器同源策略`问题，是前后端准备联调需要访问后端Api，呆头呆脑的我再浏览器上发送了好久的 `xhr` 请求，却一直不成功.....头都麻了
 ![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/cross-origin-error.png)
 一起实习的小伙伴让我在`Chrome`的启动程序上，加上`--disable-web-security`的小尾巴禁用掉同源策略，轻松加愉快地直接解决了问题......
-![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/disable-web-security.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/disable-web-security.png)   
  
  作为`web`开发者，工作中不同阶段、不同场景都会遇到`跨域`的情况。这篇`笔记📒`在博客中也随着工作学习的推进，一次次地更新内容，更新自己对`跨域`这一问题的认识。
 
  以下内容最后更新于`2020.10`，前文内容略有删改。由于这个问题体系比较繁杂，本片文章仅涉及
  * `浏览器同源策略的由来`
  * `为什么要同源策略，不设置会有什么安全问题。`
- * `一些实战中遇到的跨域安全问题`
+ * `为什么客户端没有同源策略呢`
  * `一些特殊的跨域场景`
 
  想了解项目中如何进行跨域设置的小伙伴，请关注下一篇文章。
@@ -34,76 +33,50 @@
 * 能够通过`JSONP`、`CORS`和`Websocket`的形式进行。
 * 但 `SOP` 本质上 SOP 并不是禁止跨域请求，而是浏览器在请求后拦截了请求的回应
 
-## 跨域与安全      
-### CSRF
-##### 同源策略不能直接防范CSRF❌
-* 通过恶意连接，`"借用"`用户`cookie`以实现盗用用户登录态的行为，便是大家熟知的`CSRF`攻击。     
-* 通过👆上文可知，浏览器的`同源策略`仅仅只是拦截了请求的返回，但并不会阻止跨域请求的发送。     
+## 为什么只有浏览器有同源策略
+#### 浏览器是个公共应用
+无论是在PC还是移动设备商，你的 Chrome 和 Firefox 是所有网站应用的载体。   
+你在访问  淘宝网 的时候，相当于从 www.taobao.com 的服务器上下载了 对应的 html、css、js资源，页面也从 api.taobao.com  (JSONP 也好, CORS 也罢）获取了商品数据。
+页面 JavaScript 把获取到的热门商品数据 缓存到了 本地的 localstorage 中，用于优化体验。
+你点击登陆时，通过访问 api.taobao.com/login  接口完成了授权登录，服务器下发 Token 到 cookie 中。
+同样的，在京东、在亚马逊、在你的个站、甚至在恶意网站进行访问后，网站的数据都会被下载到设备本地，并且通用 浏览器 这一个应用所管理着。
+#### 资源以域划分，是浏览器的本地行为
+接触过客户端的同学一定知道，在安卓 和 iOS上的两个App的本地数据，没有对方的允许是不能够直接本访问的，控制权在于App开发方本身，而提供保障的则是系统(Android 和 iOS)本身。
+相同的情况类比一下，把浏览器当做系统本身(Chrome Book 请给我打钱)，把各个站点相当于“系统上”的一个个App。
+下面的页面各位 FEer一定很熟悉，这是Chrome浏览器对于页面中所有加载的静态资源的域名划分。
 
-##### 借助参数防范
-* 前后端配合，使用 `CSRF token` 方案进行防范    
-  * 检测到不合法后，须入口层面 (比如`nginx`)处拒绝掉请求，否则请求仍然会被服务器处理
-* 若非必要不开启`CORS`访问、或者不开启`Access-Control-Allow-Credentials`
-* 允许访问的域，使用指定白名单的方式，而不直接使用通配符 `*`。
-  * 如果服务器未使用“*”，而是指定了一个域，那么为了向客户端表明服务器的返回会根据`Origin` 请求头而有所不同，必须在Vary响应头中包含 `Origin`。    
+![Chrome 浏览器静态资源预览](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/chrome_assets.jpg)
 
 
-关于 `CSRF` 原理与防范实战，请看博主的另一篇笔记，[传送门👉](https://github.com/HXWfromDJTU/blog/issues/29)
+想想一下，不仅仅是静态的资源。WebStorage、Cookie、IndexDB，在浏览器层面上都是以域这一概念来划分管理的。而且这个划分管理行为，就是在浏览器本地生效，和服务器、其他客户端没有直接关系。
 
-## 工作中遇到的跨域问题
-#### CDN下的字体文件
-* 博主上周给公司`web项目`上了`CDN加速`。开发使用的是`nuxt.js`，在`nuxt.config.js`的配置中很快滴配置好了`static.xxx.io`的`CDN`域名。测试后发现，所有`js``css`、`image`资源都正常，除了项目中的`material-design.woff2`字体文件加载失败了。
-  ```css
-  /* fallback */
-  @font-face {
-   font-family: 'Material Icons';
-    font-style: normal;
-    font-weight: 400;
-    src: url(./material.woff2) format('woff2');
-  }
-  ```
-  ![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/cnd_font_cors.png)
+#### 浏览器不会阻断跨域请求
+你在 your.company.com 对 data.abc.com 发起数据请求，通常我们会遇到浏览器跨域访问的提示，你的代码拿不到 返回的数据。
+但其实对于跨域请求，浏览器并不是直接阻止了此次请求的发出，也没有隔断数据的返回。仅仅是阻止了你尝试跨越 “域” 这个本地 “沙箱” 去访问其他域 下刚刚获取回来的数据 罢了。
 
-* 问题原因: `字体文件请求`是从我们自己的网站发起的，而请求的是`CDN`资源库上的`字体文件`，明显是you跨域的情况存在。
-* 解决办法
-  * 博文使用的是 `阿里云`,直接在`CDN`服务后台添加上跨域白名单即可。[参考这里](https://www.vicw.com/groups/cats_and_dogs/topics/223)
-  * 若是自己的`CDN`服务，那就自行在对应机器上的`nginx`或者服务上加上返回头 `Access-Control-Allow-Origin: 'your.domain.com'`    
+你的业务代码在 your.company.com 域下，请求回来的数据在 data.abc.com 域下，是不是？    
 
-#### Script Error 与 crossorigin
-问题出现的过程:
-1. test.com 下的页面引用了属于 http://other-cdn-domain.com 的 `target.js` 文件  
-2. 在 test.js 运行过程中发生了错误，因为第三方隐私安全的原因，浏览器不会把错误信息报出来。 
+你品品，你再品 
 
-如何解决: 
-1. 给`script`标签增加 `crossorigin` 属性，让浏览器允许页面请求资源。
-    ```html
-    <script src="http://other-cdn-domain.com/static/target.js" crossorigin>
-    ```
+#### 跨域 与 服务器响应头
+在以前的理解中，我们总容易把跨域想想得跟服务端有很大关系，因为服务端总是要去设置什么 `Access-Control-Allow-Origin`  巴拉巴拉的好几个响应头(我猜你已经熟读全文，并能够默写了)。
 
-2. 参考 CORS 规范，在资源服务端返回跨域头 `Access-Control-Allow-Origin: test.com`
-    * 自家的服务器请自己手动添加
-    * 若是启用了 CDN 服务，一般服务商的资源配置页面，支持设定返回的请求头
+总的来说，我们要将 页面HTML 脚本 样式 字体 等静态资源，和接口返回的数据都同等视为资源，而资源在浏览器的管理下，就是以域区划分管理的。
 
-3. 最后就可以可以在控制台中看到 跨域脚本 下的 js 执行异常了。
+在同源策略中，`<img>` `<script>` 不受跨域访问限制 (熟悉的 `打点上报` 和 `JSONP`)，是因为浏览器本地开放了这些途径返回的资源的访问权限。
 
-#### `Allow-Origin: *` 与 `withCredentials = true`
-想要跨域请求携带`cookie`，但服务端允许跨域的端口却是`*`的话，听起来就是矛盾的。
-![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/with-credentials-error.png)
+而我们常见的 跨域响应头 们，相当于告诉了浏览器，这几个资源的管理权限应该 根据跨域响应头 来设置，所以本地的其他域下的 JavaScript 代码才能够访问得到这些返回的数据。
 
-所以服务端需要同时设置二者: 
-```bat
-add_header "Access-Control-Allow-Origin" "http://fedren.com";
-add_header "Access-Control-Allow-Credentials" "true";
-```
+#### 小结
+1. 无论是同步请求、异步请求返回的，要都将所有服务器返回的内容都视为资源，都受浏览器统一管理浏览器与域来划分着所有它管理的资源
+2. 浏览器发现请求跨域时，并不会阻止请求的发出与响应通路
+3. 同源策略 是一个w3c提出，各大浏览器厂实现的一个策略。一个域中的JavaScript代码，尝试访问另一个域中的任何资源时，都要通过浏览器的同源策略检测。
+4. 把浏览器考虑成 Android 或 iOS 平台本身，这个问题就能够解释得通了。
 
-#### 不一定是跨域
-在日常开发调试中，博主在搭配使用`whistle`作为代理服务器进行调试时，应用运行在`Chrome` 的某些版本下。后端接口返回 `5xx` 的异常，`Chrome Dev Tool` 中会显示与接口跨域调用失败一样的错误。   
-
-(截图待补充......)
-
-不知道 `whistle` 是啥?[去看看👉](https://juejin.im/post/6861882596927504392)     
+### Todo
+* 补充客户端跨APP访问资源的资料
+* 补充 RFC 对浏览器 同源策略的定义
 
 ## 参考资料
 [1] [浏览器的同源策略 - MDN](https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy)     
-[2] [阿里云 CDN 字体fonts跨域问题](https://www.vicw.com/groups/cats_and_dogs/topics/223)    
 [3] [CORS - MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS)
