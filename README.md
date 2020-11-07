@@ -185,7 +185,8 @@
 [优化优化 - 简单读懂渲染Timeline](https://github.com/HXWfromDJTU/blog/issues/27)   
 [跨域系列 - 为什么客户端没有同源策略，而浏览器有](https://github.com/HXWfromDJTU/blog/issues/28)       
 [跨域系列 - 非简单请求 与 预检测优化方案](https://github.com/HXWfromDJTU/blog/issues/35)     
-[跨域系列 - 工作中遇到的跨域问题(持续更新)](https://github.com/HXWfromDJTU/blog/issues/36)         
+[跨域系列 - 工作中遇到的跨域问题(持续更新)](https://github.com/HXWfromDJTU/blog/issues/36)            
+[跨域系列 - Api Proxy 与 JSONP](https://github.com/HXWfromDJTU/blog/issues/37)        
 
 
 ## V8
