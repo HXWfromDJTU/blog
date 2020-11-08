@@ -66,6 +66,8 @@
 [基础系列 - 奇怪的 0.1 + 0.2 与 IEEE 754](https://github.com/HXWfromDJTU/blog/issues/20)   
 
 
+## 2019 年
+[前端性能优化 - 第一曲 总览](https://github.com/HXWfromDJTU/blog/issues/39)      
 
 
 <!-- 2019 todo list  | status |
