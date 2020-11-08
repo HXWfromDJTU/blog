@@ -12,7 +12,7 @@
 [效率提升 之 前端工作流总结](https://github.com/HXWfromDJTU/blog/issues/33)     
 
 ## 安全
-[前端安全 - CSRF 原理与一次实战](https://github.com/HXWfromDJTU/blog/issues/29) ![Generic badge](https://img.shields.io/badge/实战-<COLOR>.svg)
+[前端安全 - CSRF 原理与一次实战](https://github.com/HXWfromDJTU/blog/issues/29)
 
 ## 客户端
 [客户端 - 尝试做一个 Native 与 JS 通信工具](https://github.com/HXWfromDJTU/blog/issues/34)        
