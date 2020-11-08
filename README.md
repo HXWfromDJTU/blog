@@ -37,8 +37,7 @@
 [cookie 系列 - 你的 Token 还好吗？浏览器 SameSite 的 breaking change 应对办法](https://github.com/HXWfromDJTU/blog/issues/31)             
     
 [浏览器系列 - Javascript单线程与浏览器多进程](https://github.com/HXWfromDJTU/blog/issues/38)            
-[浏览器原理 - JavaScript 的 EventLoop](https://github.com/HXWfromDJTU/blog/issues/24)            
-[优化优化 - 简单读懂渲染Timeline](https://github.com/HXWfromDJTU/blog/issues/27)               
+[浏览器原理 - JavaScript 的 EventLoop](https://github.com/HXWfromDJTU/blog/issues/24)                       
 
 [跨域系列 - 只有浏览器有"同源策略"吗？](https://github.com/HXWfromDJTU/blog/issues/28)       
 [跨域系列 - 非简单请求 与 预检测优化方案](https://github.com/HXWfromDJTU/blog/issues/35)     
@@ -68,6 +67,11 @@
 
 ## 2019 年
 [前端性能优化 - 第一曲 总览](https://github.com/HXWfromDJTU/blog/issues/39)      
+[浏览器系列 - 页面渲染过程简析](https://github.com/HXWfromDJTU/blog/issues/40)     
+[调试技巧 - 教你读懂 Chrome-DevTool 的 Timeline](https://github.com/HXWfromDJTU/blog/issues/27)    
+
+
+
 
 
 <!-- 2019 todo list  | status |
