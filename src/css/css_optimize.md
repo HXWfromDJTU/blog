@@ -1,5 +1,4 @@
-## CSS 性能优化技巧
-![](/blog_assets/css_opt_cover.png) 
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/css_opt_cover.png) 
 
  HTML是页面的骨架，而 CSS 作为页面的衣服，才是页面展示的重要环节。
 
@@ -121,7 +120,7 @@ document.head.appendChild(link1);
 ```
 
 兼容性
-![](/blog_assets/preload.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/preload.png)
 ###  :heavy_check_mark: 样式表压缩
 这是我们最常用的方法，减小css样式表文件的大小，能够有效地减少文件传送时间。
 `webpack`等构建工具
