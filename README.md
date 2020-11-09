@@ -2,6 +2,78 @@
 
 🌈 记录总结日常工作学习...欢迎star....
 
+[![Generic badge](https://img.shields.io/badge/github-HXWfromDJTU/blog-<COLOR>.svg)](https://github.com/HXWfromDJTU/blog) [![GitHub stars](https://img.shields.io/github/stars/HXWfromDJTU/blog.svg?style=flat-square)](https://github.com/HXWfromDJTU/blog/stargazers)      
+
+知识就是需要不断更新，2020更多博客文章正在迁移整理中...请耐心等待🚧</span>
+
+## 反思与沉淀
+[质量提升 之 日常开发自查表](https://github.com/HXWfromDJTU/blog/issues/30)       
+[效率提升 之 小团队测试流程优化](https://github.com/HXWfromDJTU/blog/issues/32)      
+[效率提升 之 前端工作流总结](https://github.com/HXWfromDJTU/blog/issues/33)     
+
+## 安全
+[前端安全 - CSRF 原理与一次实战](https://github.com/HXWfromDJTU/blog/issues/29)
+
+## 客户端
+[客户端 - 尝试做一个 Native 与 JS 通信工具](https://github.com/HXWfromDJTU/blog/issues/34)        
+
+## 网络编程
+[Socket 编程 - File Description](https://github.com/HXWfromDJTU/blog/issues/12)     
+[Socket 编程 - I/O 多路复用](https://github.com/HXWfromDJTU/blog/issues/13)    
+[Socket 编程 - tcp与udp socket](https://github.com/HXWfromDJTU/blog/issues/14)        
+   
+[websocket - 项目笔记[1] - 鉴权、安全、心跳 ](https://github.com/HXWfromDJTU/blog/issues/15)       
+[websocket - 项目笔记[2] - 封装一个简单的lib](https://github.com/HXWfromDJTU/blog/issues/16)           
+
+[DNS - 再聊DNS工作原理及其应用、优化](https://github.com/HXWfromDJTU/blog/issues/19)  
+
+## Node.js
+[Node.js - 流程梳理，从v8、libuv到EventLoop](https://github.com/HXWfromDJTU/blog/issues/25)    
+[Node.js - Buffer、Stream 与 fs](https://github.com/HXWfromDJTU/blog/issues/26)     
+[Node.js - koa-compose 解读](https://github.com/HXWfromDJTU/blog/issues/11)      
+
+## 浏览器
+[cookie 系列 - 有效范围、安全与隐私](https://github.com/HXWfromDJTU/blog/issues/22)       
+[cookie 系列 - 你的 Token 还好吗？浏览器 SameSite 的 breaking change 应对办法](https://github.com/HXWfromDJTU/blog/issues/31)             
+    
+[浏览器系列 - Javascript单线程与浏览器多进程](https://github.com/HXWfromDJTU/blog/issues/38)            
+[浏览器原理 - JavaScript 的 EventLoop](https://github.com/HXWfromDJTU/blog/issues/24)                       
+
+[跨域系列 - 只有浏览器有"同源策略"吗？](https://github.com/HXWfromDJTU/blog/issues/28)       
+[跨域系列 - 非简单请求 与 预检测优化方案](https://github.com/HXWfromDJTU/blog/issues/35)     
+[跨域系列 - 工作中遇到的跨域问题(持续更新)](https://github.com/HXWfromDJTU/blog/issues/36)            
+[跨域系列 - Api Proxy 与 JSONP](https://github.com/HXWfromDJTU/blog/issues/37)        
+
+
+## V8
+[V8 - 宏任务微任务](https://github.com/HXWfromDJTU/blog/issues/23)  
+[V8 - 内存分配与GC](https://github.com/HXWfromDJTU/blog/issues/21)  
+  
+
+## 前端模块化
+[前端模块化 - CommonJS](https://github.com/HXWfromDJTU/blog/issues/4)  
+[前端模块化 - ES6 Module](https://github.com/HXWfromDJTU/blog/issues/5)  
+[前端模块化 - CommonJS 与 ES6 Module 差异比较](https://github.com/HXWfromDJTU/blog/issues/6)  
+[前端模块化 - Webpack](https://github.com/HXWfromDJTU/blog/issues/9)  
+[前端模块化 - CMD 规范](https://github.com/HXWfromDJTU/blog/issues/8)  
+[前端模块化 - AMD 规范](https://github.com/HXWfromDJTU/blog/issues/7)  
+
+## JavaScript
+[Decorator - 从 AOP IOC descriptor、decorator mode 开始说 ](https://github.com/HXWfromDJTU/blog/issues/10)        
+[基础深挖 - 变量存储与堆栈](https://github.com/HXWfromDJTU/blog/issues/17)    
+[基础深挖 - 深浅拷贝循序渐进慢慢写](https://github.com/HXWfromDJTU/blog/issues/18)       
+[基础系列 - 奇怪的 0.1 + 0.2 与 IEEE 754](https://github.com/HXWfromDJTU/blog/issues/20)   
+
+
+## 2019 年
+[前端性能优化 - 第一曲 总览](https://github.com/HXWfromDJTU/blog/issues/39)      
+[浏览器系列 - 页面渲染过程简析](https://github.com/HXWfromDJTU/blog/issues/40)     
+[调试技巧 - 教你读懂 Chrome-DevTool 的 Timeline](https://github.com/HXWfromDJTU/blog/issues/27)    
+
+
+
+
+
 <!-- 2019 todo list  | status |
 -| - |
 `TypeScript` | 👋 learning |
@@ -148,66 +220,6 @@
 
 ###### Vue-router实现流程图
 ![Vue-router实现流程图](./vue/vue-router/Vue-router.png) -->
-
-
-[![Generic badge](https://img.shields.io/badge/github-HXWfromDJTU/blog-<COLOR>.svg)](https://github.com/HXWfromDJTU/blog) [![GitHub stars](https://img.shields.io/github/stars/HXWfromDJTU/blog.svg?style=flat-square)](https://github.com/HXWfromDJTU/blog/stargazers)      
-
-知识就是需要不断更新，2020更多博客文章正在迁移整理中...请耐心等待🚧</span>
-
-## 反思与沉淀
-[质量提升 之 日常开发自查表](https://github.com/HXWfromDJTU/blog/issues/30)       
-[效率提升 之 小团队测试流程优化](https://github.com/HXWfromDJTU/blog/issues/32)      
-[效率提升 之 前端工作流总结](https://github.com/HXWfromDJTU/blog/issues/33)     
-
-## 安全
-[前端安全 - CSRF 原理与一次实战](https://github.com/HXWfromDJTU/blog/issues/29)     
-
-## 客户端
-[客户端 - 尝试做一个 Native 与 JS 通信工具](https://github.com/HXWfromDJTU/blog/issues/34)        
-
-## 网络编程
-[Socket 编程 - File Description](https://github.com/HXWfromDJTU/blog/issues/12)     
-[Socket 编程 - I/O 多路复用](https://github.com/HXWfromDJTU/blog/issues/13)    
-[Socket 编程 - tcp与udp socket](https://github.com/HXWfromDJTU/blog/issues/14)    
-[websocket - 项目笔记[1] - 鉴权、安全、心跳 ](https://github.com/HXWfromDJTU/blog/issues/15)       
-[websocket - 项目笔记[2] - 封装一个简单的lib](https://github.com/HXWfromDJTU/blog/issues/16)   
-[DNS - 再聊DNS工作原理及其应用、优化](https://github.com/HXWfromDJTU/blog/issues/19)  
-
-## Node.js
-[Node.js - 流程梳理，从v8、libuv到EventLoop](https://github.com/HXWfromDJTU/blog/issues/25)    
-[Node.js - Buffer、Stream 与 fs](https://github.com/HXWfromDJTU/blog/issues/26)     
-[Node.js - koa-compose 解读](https://github.com/HXWfromDJTU/blog/issues/11)      
-
-## 浏览器
-[cookie 系列 - 有效范围、安全与隐私](https://github.com/HXWfromDJTU/blog/issues/22)       
-[cookie 系列 - 你的 Token 还好吗？浏览器 SameSite 的 breaking change 应对办法](https://github.com/HXWfromDJTU/blog/issues/31)       
-[浏览器原理 - JavaScript 的 EventLoop](https://github.com/HXWfromDJTU/blog/issues/24)     
-[优化优化 - 简单读懂渲染Timeline](https://github.com/HXWfromDJTU/blog/issues/27)   
-[跨域系列 - 为什么客户端没有同源策略，而浏览器有](https://github.com/HXWfromDJTU/blog/issues/28)       
-[跨域系列 - 非简单请求 与 预检测优化方案](https://github.com/HXWfromDJTU/blog/issues/35)     
-[跨域系列 - 工作中遇到的跨域问题(持续更新)](https://github.com/HXWfromDJTU/blog/issues/36)            
-[跨域系列 - Api Proxy 与 JSONP](https://github.com/HXWfromDJTU/blog/issues/37)        
-
-
-## V8
-[V8 - 宏任务微任务](https://github.com/HXWfromDJTU/blog/issues/23)  
-[V8 - 内存分配与GC](https://github.com/HXWfromDJTU/blog/issues/21)  
-  
-
-## 前端模块化
-[前端模块化 - CommonJS](https://github.com/HXWfromDJTU/blog/issues/4)  
-[前端模块化 - ES6 Module](https://github.com/HXWfromDJTU/blog/issues/5)  
-[前端模块化 - CommonJS 与 ES6 Module 差异比较](https://github.com/HXWfromDJTU/blog/issues/6)  
-[前端模块化 - Webpack](https://github.com/HXWfromDJTU/blog/issues/9)  
-[前端模块化 - CMD 规范](https://github.com/HXWfromDJTU/blog/issues/8)  
-[前端模块化 - AMD 规范](https://github.com/HXWfromDJTU/blog/issues/7)  
-
-## JavaScript
-[Decorator - 从 AOP IOC descriptor、decorator mode 开始说 ](https://github.com/HXWfromDJTU/blog/issues/10)        
-[基础深挖 - 变量存储与堆栈](https://github.com/HXWfromDJTU/blog/issues/17)    
-[基础深挖 - 深浅拷贝循序渐进慢慢写](https://github.com/HXWfromDJTU/blog/issues/18)       
-[基础系列 - 奇怪的 0.1 + 0.2 与 IEEE 754](https://github.com/HXWfromDJTU/blog/issues/20)   
-
 
 
 
