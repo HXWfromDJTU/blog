@@ -1,11 +1,6 @@
-# 前端性能优化_第一曲  
-
-![](/blog_assets/RENDING_OPTIMIZE_2.png)
-
-___
-### 网络请求部分
+## 网络请求部分
 ##### 1️⃣ DNS缓存，预加载
-`<meta pre-fetch>`二级页面DNS预查询    
+`<meta pre-fetch>` 二级页面DNS预查询    
 
 ##### 2️⃣ 静态资源的压缩与合并
  js,css混淆压缩  
@@ -34,13 +29,12 @@ HTTP 2.0改为使用单一TCP链接，数据的传输改为使用流的形式，
 首屏数据直接结合DOM后，直接输出字符串到客户端，而不需要使用异步去请求数据。   
 
 
-___
-### 浏览器渲染部分 
+## 浏览器渲染部分 
 #####  1️⃣ css提前，script沉底
 因为浏览器的渲染规则，渲染页面需要CSS生成一个稳定的CSSOM，与DOM一起组成`Render Tree`。  
 
 而`script`的下载和执行都会阻塞UI的渲染，所以一般将`script`标签放到DOM结构末尾。  
-![rendingtree](/blog_assets/rendingtree.png)  
+![rendingtree](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/rendingtree.png)  
 
 
 ##### 2️⃣ 减少DOM查询 
@@ -57,7 +51,7 @@ button.id = 'newId'; // 尽量复用前面的引用
 
 兼容性：`IE系列基本不支持` `Chrome>55` `FF>64`
 
-![](/blog_assets/WEB_OPTIMIZE_1.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/WEB_OPTIMIZE_1.png)
 原理就是这么个原理，但是经过大家的测试，貌似兼容性不太好，并且实验效果并没有提升多少效率，暂不推荐使用。
 
 
@@ -80,12 +74,14 @@ VUE-SSR[传送门](https://ssr.vuejs.org/zh/)👉
 
 ##### 减少CSS范围选择器的使用
 当页面有大量DOM节点的时候，大量使用范围选择器，会引起CSS选择器查询事件累计加长。      
-___
-### 整体实施
+
+## 整体实施
 ❤️ 性能优化需要数据作为支持，而前端的性能数据的收集，依赖于我们在项目中的埋点。  
 ❤️ 建立数据分析平台，收集大量的监控数据，进行分析。  
 ❤️ 根据分析结构优化代码，然后再继续监测。  
 
-___
-### 参考文章
-[页面优化与安全 - by 掘金](https://juejin.im/book/5a8f9ddcf265da4e9f6fb959/section/5a8f9f7bf265da4e82635e46)  
+## 参考文章
+[1] [页面优化与安全 - by 掘金](https://juejin.im/book/5a8f9ddcf265da4e9f6fb959/section/5a8f9f7bf265da4e82635e46)     
+
+
+# 前端性能优化_第一曲  
