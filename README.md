@@ -11,8 +11,8 @@
 [效率提升 之 小团队测试流程优化](https://github.com/HXWfromDJTU/blog/issues/32)      
 [效率提升 之 前端工作流总结](https://github.com/HXWfromDJTU/blog/issues/33)     
 
-## 安全
-[前端安全 - CSRF 原理与一次实战](https://github.com/HXWfromDJTU/blog/issues/29)
+## 实战笔记
+[前端安全 - CSRF 原理与一次实战](https://github.com/HXWfromDJTU/blog/issues/29)     
 
 ## 客户端
 [客户端 - 尝试做一个 Native 与 JS 通信工具](https://github.com/HXWfromDJTU/blog/issues/34)        
@@ -33,6 +33,8 @@
 [Node.js - koa-compose 解读](https://github.com/HXWfromDJTU/blog/issues/11)      
 
 ## 浏览器
+[前端优化 - 记一次前端优化项的落地](https://github.com/HXWfromDJTU/blog/issues/42)     
+
 [cookie 系列 - 有效范围、安全与隐私](https://github.com/HXWfromDJTU/blog/issues/22)       
 [cookie 系列 - 你的 Token 还好吗？浏览器 SameSite 的 breaking change 应对办法](https://github.com/HXWfromDJTU/blog/issues/31)             
     
