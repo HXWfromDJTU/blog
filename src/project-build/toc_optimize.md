@@ -17,15 +17,15 @@
 
 天天忙着改 bug 的我们组还没来得及看运营小姐姐的的消息，就被老板在群里 `艾特`了。      
 
-> ![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/cctip_io_ga_main_speed.png)
-  ![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/cctip_io_ga_load_time_before.png)  
+> ![](/blog_assets/cctip_io_ga_main_speed.png)
+  ![](/blog_assets/cctip_io_ga_load_time_before.png)  
   @前端组-ALL 这样的体验，凭我们凭什么留住用户？？？ 
 
 两张图重重地砸在了我的脸上，将近 `10s` 的平均加载时间，和主要用户来源马来西亚的加载时间甚至达到了 `11.41s`。      
 
 随手打开线上的项目主页，就碰到了和 `大V` 哥一样的尴尬.....，`nuxt 的loading` 足足占据了屏幕 `15s` 才缓缓出现内容。      
 
-<img src="https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/cctip_io_index_loading.png" width="300px">     
+<img src="/blog_assets/cctip_io_index_loading.png" width="300px">     
 
 要我自己是用户早就关掉了......
 
@@ -33,7 +33,7 @@
 ### “平均网页加载时间”   
 冤有头债有主，解铃也还需寄铃人嘛。既然是 “平均网页加载时间” 惹了众怒，那就查查 `Google Analysis` 对这个词儿是如何定义的吧。 [传送门👉](https://support.google.com/analytics/answer/2383341?hl=zh-Hans)
 
-![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/google_analysis_dcl.png)     
+![](/blog_assets/google_analysis_dcl.png)     
 
 `Google Analytics` 的描述和我们web开发中的 `load` 事件基本一致。
 
@@ -79,7 +79,7 @@ ga('send', 'timing', 'JS Dependencies', 'load', timeSincePageLoad);
 ##### 资源压缩
 `webpack`打包优化网上的资料很多，这里就不拓展开讲了。这次只是习惯性地运行一次 `analyser`，便可以发现那个眨眼的 `lodash.js`     
 
-<img src="https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/lodash_webpack_too_big.png" width="500px">        
+<img src="/blog_assets/lodash_webpack_too_big.png" width="500px">        
 
 ```js
 // 全部引入
@@ -94,8 +94,8 @@ import sortby from 'lodash.sortby'
 上面的一顿操作后，JavaScript 文件的大小的到了控制，但海外用户反映还是慢慢慢慢慢慢慢慢慢慢慢慢.....
 
 这时候针对性地上了一个部分地区的 CDN 服务。域名配置的是 `static-xxx.io`。
-![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/cdn_before.png)   
-![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/cdn_after.png)   
+![](/blog_assets/cdn_before.png)   
+![](/blog_assets/cdn_after.png)   
 
 根据 `Nuxt.js` 的文档([传送门👉](https://zh.nuxtjs.org/docs/2.x/configuration-glossary/configuration-build/#publicpath))配置一下，发布前尝试一下连通性...就可以发到线上试试啦。       
 ```js
@@ -107,17 +107,17 @@ export default {
 ```
 
 实际效果也比较明显
-![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/cdn_assets.png)
-![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/cdn_result.png)
+![](/blog_assets/cdn_assets.png)
+![](/blog_assets/cdn_result.png)
 
 
 ## 缓存的使用
 随着 Web 应用的不断复杂化，早就已经不是填写一个表单就离开的那个时代了。特别是在移动端使用你的 web 服务时，总是想要体会到和原生 App 一样的感受。此时，本地缓存就变得越来越重要了。     
 
 ### 干掉loading
-<img src="https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/loading_page.png" width="200px"> 
-<img src="https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/loading_page.png" width="200px">
-<img src="https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/loading_page.png" width="200px">   
+<img src="/blog_assets/loading_page.png" width="200px"> 
+<img src="/blog_assets/loading_page.png" width="200px">
+<img src="/blog_assets/loading_page.png" width="200px">   
 
 无论是作为用户还是开发者，你是不是也受够这无穷无尽 loading。滥用 loading 作为你页面的遮羞布，长此以往只会让你的页面越来越不可用。     
 
@@ -126,7 +126,7 @@ export default {
 2. 使用脚本 `ajax` 或者 `websocket` 进行静默地数据更新
 3. 若本地没有缓存，才使用 `loading` 进行数据更新，更新后也缓存到本地     
 
-![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/data_load_cache.png)
+![](/blog_assets/data_load_cache.png)
 
 对于 loading 提醒的其他建议，可以看看[这篇笔记](https://github.com/HXWfromDJTU/blog/issues/30)        
 
@@ -134,7 +134,7 @@ export default {
 #### 减少请求握手
 针对于数据实时性要求强的业务模块，请求的信道的搭建时间已经远远地超过了数据的实时性本身。这次使用的是 `websocket` 的解决方案。  
 
-![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/websocket_request_response.png)
+![](/blog_assets/websocket_request_response.png)
 
 
 在减少了请求我收的同时，也带来了一些问题: 
@@ -207,7 +207,7 @@ MDN 连接: [[dns-prefetch]](https://developer.mozilla.org/en-US/docs/Web/Perfor
 * 移除无用的包，简化包
     * lodash
 
-![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/google_analysis_speed.png)
+![](/blog_assets/google_analysis_speed.png)
 
 ## 讲座
 * 带宽

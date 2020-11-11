@@ -1,6 +1,7 @@
 ### When they go low - we go high
+<img style="float: right;" width="200px" src="https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/wechat_qrcode.png">
 
-🌈 记录总结日常工作学习...欢迎star....
+🌈 记录总结日常工作学习...欢迎star....   
 
 [![Generic badge](https://img.shields.io/badge/github-HXWfromDJTU/blog-<COLOR>.svg)](https://github.com/HXWfromDJTU/blog) [![GitHub stars](https://img.shields.io/github/stars/HXWfromDJTU/blog.svg?style=flat-square)](https://github.com/HXWfromDJTU/blog/stargazers)      
 
