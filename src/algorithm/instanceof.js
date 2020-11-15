@@ -9,7 +9,7 @@ function _isLeagal(obj){
  * @param {*} a  要检测的对象
  * @param {*} b  要追溯的原型
  */
-function  instanceOf(a,b){
+function instanceOf (a,b) {
    // 检验参数合法性
 
    if(!_isLeagal(b)){throw new Error('the second param of instanceof must be an object');}
@@ -40,14 +40,18 @@ function  instanceOf(a,b){
  * new 关键字模拟
  * @param {*} fun 要实例化的构造器
  */
-function New(fun){
-    if(typeof(fun) !== 'function'){throw new Error('new 操作必须作用于一个构造器上')};
-    return function(){
-        var o = {}                           //创建临时对象
-        o.__proto__ = fun.prototype;         // 将父类的作用域赋值给新对象
-        fun.apply(o,arguments);                //用新的参数，继承父类的属性，调用父类的构造器，生成新的属性
-        return o;                            //返回新对象
-    }
+function New(){
+    const ctor = Array.prototype.shift.call(arguments) // 取出第一个参数作为构造器，并删掉
+
+    if(typeof(ctor) !== 'function'){throw new Error('new 操作必须作用于一个构造器上')};
+
+    const newObj = Object.create(ctor.prototype)          // 创建临时对象
+
+    const ctorRet = ctor.apply(newObj, arguments)       // 调用父类的构造器，并传入剩余参数
+
+    const isLegalObject = typeof ctorRet === 'object' && ctorRet !== null  // 构造函数返回的是不是合法的对象类型
+
+    return isLegalObject ? ctorRet : newObj  // 若不是则会被忽略，直接返回对象本身
 }
 
 
@@ -63,17 +67,28 @@ Object.prototype.create = Object.prototype.create || function(obj){
 }
 
 
+function SubClass(name, age, price) {
+    SuperClass.call(this) // 在子类中调用父亲的构造方法
+}
+
+
+Student.prototype = Object.create(Person.prototype)//核心代码
+Student.prototype.constructor = Student//核心代码
+
 /**
  * 模拟继承函数
  * @param {*} subClass 子类构造器
  * @param {*} superClass 父类构造器
  */
-function Extend(subClass,superClass){
-    if(typeof(subClass)!=='function' || typeof(superClass)!=='function'){
+function _Extend(subClass,superClass){
+    if(typeof(subClass) !== 'function' || typeof(superClass) !== 'function'){
         throw new Error('extend操作必须作用在两个构造器之间');
     }
+
     var proto = Object.create(superClass.prototype);// 拷贝父类原型
+
     proto.constructor  = subClass; // 对象增加，修改该原型对应的构造器
+
     subClass.prototype = proto; // 赋值给子类原型
 }
 
@@ -114,3 +129,83 @@ let construct = [
 construct.forEach(res=>{
     console.log(res)
 })
+
+
+// 2、创建一个空的对象并链接到原型，obj 可以访问构造函数原型中的属性
+let obj = Object.create(Con.prototype);
+
+
+
+function Person(name, age) {
+    this.name = name,
+    this.age = age,
+    this.setAge = function () { }
+}
+Person.prototype.setAge = function () {
+    console.log("111")
+}
+
+function Student(name, age, price) {
+    Person.call(this,name,age)
+    this.price = price
+    this.setScore = function () { }
+}
+
+Student.prototype = new Person()
+Student.prototype.constructor = Student //组合继承也是需要修复构造函数指向的
+Student.prototype.sayHello = function () { }
+
+
+
+class Person {
+    constructor (name) {
+      this.name = name
+    }
+
+    getName() {
+
+    }
+}
+
+
+
+Object.myCreate = function (obj, properties)  {
+    var F = function ()  {}
+    F.prototype = obj
+    if (properties) {
+       Object.defineProperties(F, properties)
+    }
+    return new F()
+  }
+
+
+
+
+
+  
+"use strict";
+var a = 10;
+function foo () {
+  console.log('this1', this)
+  console.log(window.a)
+  console.log(this.a)
+}
+console.log(window.foo)
+console.log('this2', this)
+foo();
+
+
+var obj2 = {
+    a: 2,
+    foo2: function () {
+      setTimeout(function () {
+        console.log(this)
+        console.log(this.a)
+      }, 0)
+    }
+  }
+
+var a = 3
+
+obj2.foo2()
+  

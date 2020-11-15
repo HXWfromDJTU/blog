@@ -7,12 +7,12 @@
 ##### eg1
 ```js
 var name = "global";
-    var a = {
-        name: "inner",
-        fn : function () {
-            console.log(this.name);      
-        }
+var a = {
+    name: "inner",
+    fn : function () {
+        console.log(this.name);      
     }
+}
 a.fn();   // inner
 ```
 ##### eg2
