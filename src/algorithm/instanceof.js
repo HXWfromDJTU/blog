@@ -208,4 +208,13 @@ var obj2 = {
 var a = 3
 
 obj2.foo2()
+
+
+
+var data = {};
+var arr = Object.keys(data);
+arr.length === 0
   
+
+var data = {};
+JSON.stringify(data) === "{}"

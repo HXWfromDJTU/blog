@@ -1,5 +1,5 @@
 # 大有用途的 Set & Map
-![set](../blog_assets/set.gif)
+![set](/blog_assets/set.gif)
 
 * `Set`可以接受一个具有`iterable`接口的数据作为创建基础
 ```js
@@ -7,7 +7,7 @@
  const domSet = new Set(docuemnt.querySelector("div")); //DOM数组
 ```
 也可以传入 类数组
-![set](../blog_assets/arguSet.gif)
+![set](/blog_assets/arguSet.gif)
 
 1️⃣  `Set`中的重复检测
   🎦 其规则类似于`===`的校验(唯一区别是，`NaN`在Set中也不可以重复)。
