@@ -127,6 +127,10 @@
   基础的serverles搭建
 
 
+* npm 相关的内容
+   * npx
+
+
 ### 实战
 * node对于option请求如何处理
 * node如何处理cors跨域

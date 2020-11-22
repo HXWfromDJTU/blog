@@ -1,13 +1,11 @@
 # DNS工作原理
 
-## 简介
+## 前言
 `DNS` （Domain Name System 的缩写）的作用非常简单，就是根据域名查出IP地址。你可以把它想象成一本巨大的电话本，电话黄页。 使用的是`UDP`协议进行传输。
 
 
 ### dig 
 ![](/blog_assets/dns_dig_query.png) 
-
-
 
 ### host
 ![](/blog_assets/DNS_7.png) 
@@ -58,11 +56,11 @@ $ cat cat /etc/resolv.conf
 #### TCP DNS 
 首先我们要知道两个概念，`DNS主服务器`和`DNS辅助服务器`
 
-> 主服务器托管控制区域文件，该文件包含域的所有权威信息（这意味着它是重要信息的可信源，例如域的IP地址）   
+1. 主服务器托管控制区域文件，该文件包含域的所有权威信息（这意味着它是重要信息的可信源，例如域的IP地址）   
 
-> 辅助服务器包含区域文件的只读副本，它们通过称为区域传输的通信从主服务器获取其信息。每个区域只能有一个主DNS服务器，但它可以有任意数量的辅助DNS服务器。
+2. 辅助服务器包含区域文件的只读副本，它们通过称为区域传输的通信从主服务器获取其信息。每个区域只能有一个主DNS服务器，但它可以有任意数量的辅助DNS服务器。
 
-> 一台DNS服务器可以是一个区域的主要服务器，也可以是另一个区域的辅助服务器。     
+3. 一台DNS服务器可以是一个区域的主要服务器，也可以是另一个区域的辅助服务器。     
 
 其实这里是要补充说明一下，`DNS`中也有一个地方用到了`TCP`协议，那就是`辅助DNS服务器`从`区主DNS服务器`中，读取该区域的`DNS数据信息`的时候，称之为`区域传送`。这个过程因为数据量比较大、而且需要保证正确性，所以这里使用到了可靠传输`TCP`。
 
@@ -97,34 +95,44 @@ $ cat cat /etc/resolv.conf
 > This prefetching is performed in the background, so that the DNS is likely to have been resolved by the time the referenced items are needed. This reduces latency(延迟) when the user clicks a link.
 
 
-### 兼容性
+#### 兼容性
 ![](/blog_assets/DNS_10.png) 
 感动得流泪...IE6-8竟然都支持...  
 
-### 使用
+#### 使用
 我们来看看`淘宝网`是怎么用`prefetch`的  
 
 ![](/blog_assets/DNS_11.png)
 
 ```html
-<link rel="dns-prefetch" href="http://www.next-resource.com/">
+<!-- 告诉浏览器开启预请求 -->
+<meta http-equiv="x-dns-prefetch-control" content="on" />
+<!-- 禁用浏览器的预请求 -->
+<meta http-equiv="x-dns-prefetch-control" content="off">
+
+<!-- 进行 DNS 预请求 -->
+<link rel="dns-prefetch" href="http://www.next-resource.com/">  
 ```
-### 观察 DNS-prefetch 的工具
+#### 观察 DNS-prefetch 的工具
 使用Chrome浏览器，打开`chrome://histograms/DNS.PrefetchQueue`这个页面，就能查看到
 
-### 项目中使用 dns-prefetch
+#### 项目中使用 dns-prefetch
 [Manual Prefetch](https://www.chromium.org/developers/design-documents/dns-prefetching#TOC-Manual-Prefetch) 这是使用`dns-prefetch`之前必须要先知道的知识。文档中提到
 
 ![](/blog_assets/manual_fetch.png)
 
-##### 几点使用技巧
+### 其他资源的 pre-fetch
 * 不需要对`<a>` `<style>`等带有`href`的标签手动`pre-fetch`
 * 代码中使用`js`跳转站外的，需要手动进行`pre-fetch`
 * 对`script`、`img`、`font`等静态资源进行`pre-fetch`
-* 上文提到的含有重定向的背后域名需要进行`pre-fetch`
+* 上文提到的含有重定向的背后域名需要进行`pre-fetch`     
 
-___
-### 参考文章  
+```html
+<link rel="prefetch" href="login-modal-chunk.js">
+```
+
+
+## 参考文章  
 [1] [阮一峰 - DNS入门](http://www.ruanyifeng.com/blog/2016/06/dns.html)   
 [2] [前端优化与DNS](https://www.cnblogs.com/rongfengliang/p/5601770.html)     
 [3] [主DNS服务器与辅助DNS服务器的区别](https://www.dns.com/supports/1224.html)   

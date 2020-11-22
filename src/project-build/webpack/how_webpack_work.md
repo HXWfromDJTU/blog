@@ -1,6 +1,6 @@
 # webpack工作流程
 ![](/blog_assets/WEBPACK_1.png/)
-___
+
 本期封面不要脸滴用了`webpack`官网的封面图，也体现了`webpack的核心`，和区别于`gulp`、`grunt`之类工具的核心部分 --- 模块化
 ![](/blog_assets/WEBPACK_2.png/)  
 官方简介都说了诶，我们是一个骄傲的`module bundler`
@@ -8,21 +8,24 @@ ___
 ## 模块化系统
 组织开发中的碎片化资源合代码，整合成浏览器能够识别的的资源。
 
-##### 其他模块化方案
-1️⃣ AMD 
-2️⃣ CMD（玉伯的sea.js）
-3️⃣ CommonJS  
+#### 其他模块化方案
+1. AMD 
+2. CMD（玉伯的sea.js）
+3. CommonJS  
+
 模块之间的引用关系，在编译时就可以确定，而不是运行的时候。
 CommonJS 和 AMD 模块化方案，都只能够在运行的时候才确定依赖关系。
-1️⃣ 优点：开发的时候容易分析，模块关系明确。
-2️⃣ 缺点：原生浏览器还不能直接实现  
+1. 优点：开发的时候容易分析，模块关系明确。
+2. 缺点：原生浏览器还不能直接实现  
 [详细了解，传送门>>>](/project_build/js_modules.md) 
-##### 模块化的目标
+
+
+#### 模块化的目标
 1️⃣ 实现分块传输，按需进行懒加载。
 2️⃣ 在实际用到某些模块的时候，在进行增量打包更新。
 3️⃣ 一切皆模块，样式、图片、字体、HTML模板等资源，都可以视为模块。
-___
-### webpack 职责
+
+## webpack 职责
 
 ##### 代码拆分
 `Webapck`整合了同步和异步两种加载形式。一步的以来作为代码的分割点，形成新的模块。
@@ -34,11 +37,9 @@ ___
 `Webpack`内置了一些解析器，能够处理常见的很多第三方库，兼容`CommonJS`、`AMD`普通的文件。
 
 ##### 插件系统
-`Webpack`当然少不了工嗯呢强大的插件的插件。   
+`Webpack`当然少不了强大的插件的插件。   
 
-___
-
-### 工作流程
+## 工作流程
 
 #### 初始化参数
 从配置文件和`Shell`语句中读取与合并参数，得到最终参数。
@@ -56,7 +57,7 @@ ___
 在确定好输出的内容后，根据输出的路径和文件名，把文件写入到文件系统。
 
 
-![webpack_step](../../blog_assets/webpack_step.png)
+![webpack_step](/blog_assets/webpack_step.png)
 图片来自[文章](https://juejin.im/entry/5b0e3eba5188251534379615)</div>
 
 ### webpack阶段事件
@@ -68,7 +69,7 @@ webpack编译对象 （webpack compiler object）
 
 
 processOption 
-___
+
 ### 参考文章
 [webpack运行原理 -by Jrain](https://segmentfault.com/a/1190000015291911)
 
