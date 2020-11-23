@@ -1,12 +1,13 @@
-# https证书申请
-![](/blog_assets/on_flower.jpg)
 
-> 最近工作室的官网准备要上线了，也因为https的普遍使用，https的原理读得多了，现在就来实操一次，为网站建立https证书吧。
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/on_flower.jpg)
+
+## 前言
+最近工作室的官网准备要上线了，也因为 `https` 的普遍使用，`https` 的原理读得多了，现在就来实操一次，为网站建立 `https` 证书吧。
 
 ### 申请流程
 > 以腾讯云(免费)申请流程为例子
 
-![](/blog_assets/ssl-step1.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/ssl-step1.png)
 
 
 ### 服务器配置ssl证书
@@ -14,8 +15,8 @@
 ##### 1、下载证书包
 请根据自己的服务器平台选择证书包
 
-![](/blog_assets/ssl-step3.png)
-![](/blog_assets/ssl-step4.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/ssl-step3.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/ssl-step4.png)
 
 
 ##### 2、上传证书文件到服务器
@@ -26,7 +27,7 @@ $ scp xxxss.com_bundle.crt xxxss.com.key xxx.xxx.xxx.xx:/usr/local/nginx/conf/ce
 
 ##### 3、(补充)安装 `with-http_ssl_module` 模块
 在你安装nginx的目录下(这里要注意，不是`/usr/local/nginx`这个，一般会是nginx.10.x.x带版本号的那个，下面有一个`configure`可执行文件)，用它来安装这个`ssl`模块
-![](/blog_assets/ssl-nginx.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/ssl-nginx.png)
 ```
 $ ./configure --with-http_ssl_module
 ```
@@ -77,10 +78,10 @@ $ nginx
 
 ##### 完结阶段撒花
 哇咔咔，小锁头被解开啦 🙃
-![](/blog_assets/ssl-nginx-final.png)
+![](https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/ssl-nginx-final.png)
 
 
-### 错误回收站
+## 错误回收站
 ##### 1、ssl 前置标志符号不再推荐使用
 >[warn] the "ssl" directive is deprecated, use the "listen ... ssl" directive instead
 

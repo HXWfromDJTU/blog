@@ -1,14 +1,20 @@
 最新待补充内容
 
 * 传输层 (优化补充原有文章)
-   * DNS 是基于UDP 还是基于 TCP
-      DNS在进行区域传输的时候使用TCP协议，其它时候则使用UDP协议。
+   * ✅ DNS 是基于UDP 还是基于 TCP 
+      1. DNS在进行区域传输的时候使用TCP协议，其它时候则使用UDP协议。
+      2. DNS Prefetch 的使用
+      3. DNS 优化之路，[美团 HTTP DNS 优化之路](https://zhuanlan.zhihu.com/p/53247757)
+      4. [阿里云 DOH/DOT 服务](https://developer.aliyun.com/article/757592)
    * OS 级别的DNS 缓存在哪里？在什么目录下？以什么形式存在？
    * nginx 中的 resolver 配置项目，影响的是哪一个个过程？
-   * 改动 host 文件是如何实现fq的？
+   * ✅ 改动 host 文件是如何实现fq的？
+      1. LSP DNS 污染
+      2. 使用 HOST 文件，让 OS 优先使用本地缓存
    * 发送接收是一个封装与解封装的过程
-   * TCP 与 UPD 之间的实际区别有哪些？
-   * UDP 是否也可以三次握手呢？
+   * ✅ TCP 与 UPD 之间的实际区别有哪些？
+   * UDP 是否也可以三次握手呢？ ❌
+
    
 * TCP
   * TCP的队头阻塞是怎么出现的？如何解决优化。
