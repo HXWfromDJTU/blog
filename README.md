@@ -29,7 +29,7 @@
 
 [DNS - 再聊DNS工作原理及其应用、优化](https://github.com/HXWfromDJTU/blog/issues/19)    
 
-[网络篇 - HTTPS 与 TLS 握手 #45](https://github.com/HXWfromDJTU/blog/issues/45)     
+[网络篇 - HTTPS 与 TLS 握手](https://github.com/HXWfromDJTU/blog/issues/45)     
 [网络篇 - https 免费证书申请 与 nginx 配置](https://github.com/HXWfromDJTU/blog/issues/46)      
 
 ## Node.js
