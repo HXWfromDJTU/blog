@@ -1,19 +1,21 @@
 ### When they go low - we go high
 <img style="float: right;" width="200px" src="https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/wechat_qrcode.png">
 
-🌈 记录总结日常工作学习...欢迎star....   
 
 [![Generic badge](https://img.shields.io/badge/github-HXWfromDJTU/blog-<COLOR>.svg)](https://github.com/HXWfromDJTU/blog) [![GitHub stars](https://img.shields.io/github/stars/HXWfromDJTU/blog.svg?style=flat-square)](https://github.com/HXWfromDJTU/blog/stargazers)      
 
-知识就是需要不断更新，2020更多博客文章正在迁移整理中...请耐心等待🚧</span>
+
+🌈 记录总结日常工作学习...欢迎star....也欢迎加微信一起讨论(备注 from github)         
+知识就是需要不断更新，2020更多博客文章正在迁移整理中...请耐心等待🚧            
+<img style="float: right;" width="200px" src="https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/wechat_qrcode.png">
 
 ## 反思与沉淀
 [质量提升 之 日常开发自查表](https://github.com/HXWfromDJTU/blog/issues/30)       
 [效率提升 之 小团队测试流程优化](https://github.com/HXWfromDJTU/blog/issues/32)      
 [效率提升 之 前端工作流总结](https://github.com/HXWfromDJTU/blog/issues/33)     
 
-## 安全
-[前端安全 - CSRF 原理与一次实战](https://github.com/HXWfromDJTU/blog/issues/29)
+## 实战笔记
+[前端安全 - CSRF 原理与一次实战](https://github.com/HXWfromDJTU/blog/issues/29)     
 
 ## 客户端
 [客户端 - 尝试做一个 Native 与 JS 通信工具](https://github.com/HXWfromDJTU/blog/issues/34)        
@@ -26,7 +28,12 @@
 [websocket - 项目笔记[1] - 鉴权、安全、心跳 ](https://github.com/HXWfromDJTU/blog/issues/15)       
 [websocket - 项目笔记[2] - 封装一个简单的lib](https://github.com/HXWfromDJTU/blog/issues/16)           
 
-[DNS - 再聊DNS工作原理及其应用、优化](https://github.com/HXWfromDJTU/blog/issues/19)  
+[DNS - 再聊DNS工作原理及其应用、优化](https://github.com/HXWfromDJTU/blog/issues/19)    
+
+[网络篇 - HTTPS 与 TLS 握手](https://github.com/HXWfromDJTU/blog/issues/45)     
+[网络篇 - https 免费证书申请 与 nginx 配置](https://github.com/HXWfromDJTU/blog/issues/46)     
+[网络篇 - 进击的 http2.0](https://github.com/HXWfromDJTU/blog/issues/47)  
+
 
 ## Node.js
 [Node.js - 流程梳理，从v8、libuv到EventLoop](https://github.com/HXWfromDJTU/blog/issues/25)    
@@ -34,6 +41,8 @@
 [Node.js - koa-compose 解读](https://github.com/HXWfromDJTU/blog/issues/11)      
 
 ## 浏览器
+[前端优化 - 记一次前端优化项的落地](https://github.com/HXWfromDJTU/blog/issues/42)     
+
 [cookie 系列 - 有效范围、安全与隐私](https://github.com/HXWfromDJTU/blog/issues/22)       
 [cookie 系列 - 你的 Token 还好吗？浏览器 SameSite 的 breaking change 应对办法](https://github.com/HXWfromDJTU/blog/issues/31)             
     
@@ -63,7 +72,9 @@
 [Decorator - 从 AOP IOC descriptor、decorator mode 开始说 ](https://github.com/HXWfromDJTU/blog/issues/10)        
 [基础深挖 - 变量存储与堆栈](https://github.com/HXWfromDJTU/blog/issues/17)    
 [基础深挖 - 深浅拷贝循序渐进慢慢写](https://github.com/HXWfromDJTU/blog/issues/18)       
-[基础系列 - 奇怪的 0.1 + 0.2 与 IEEE 754](https://github.com/HXWfromDJTU/blog/issues/20)   
+[基础系列 - 奇怪的 0.1 + 0.2 与 IEEE 754](https://github.com/HXWfromDJTU/blog/issues/20)          
+[Javascript - 闭包原理及应用场景](https://github.com/HXWfromDJTU/blog/issues/43)            
+[Javascript - 作用域链与[[scope]]](https://github.com/HXWfromDJTU/blog/issues/44)        
 
 
 ## 2019 年
