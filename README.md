@@ -32,7 +32,8 @@
 
 [网络篇 - HTTPS 与 TLS 握手](https://github.com/HXWfromDJTU/blog/issues/45)     
 [网络篇 - https 免费证书申请 与 nginx 配置](https://github.com/HXWfromDJTU/blog/issues/46)     
-[网络篇 - 进击的 http2.0](https://github.com/HXWfromDJTU/blog/issues/47)  
+[网络篇 - 进击的 http2.0](https://github.com/HXWfromDJTU/blog/issues/47)     
+[网络篇 - 从报文分析 http 状态码](https://github.com/HXWfromDJTU/blog/issues/48)    
 
 
 ## Node.js
