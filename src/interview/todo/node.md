@@ -14,11 +14,11 @@
    
 * Tengine
    - SLB(server load balance)   
-* Nodejs 引擎的使用既支持V8也支持chakra。
+* Nodejs 引擎的使用既支持V8也支持chakra。   
    * shim chakra 
    * Nodejs rpc     
    * LAMP 与 MEAN 体系    
-   * Model - Dao  - Services - Controller                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+   * Model - Dao  - Services - Controller                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 
 * 内存释放
    * V8 GC 

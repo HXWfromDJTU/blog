@@ -3,11 +3,11 @@
 盒子模型一共分为两种，
 #### 标准盒模型，
 `width`/`height`指的是`content`区域的宽度和高度。
-![标准盒模型](../blog_assets/box_standard.png)
+![标准盒模型](/blog_assets/box_standard.png)
 
 #### 怪异盒模型
 `width`/`height`指的是`content`+`padding`+`border`。
-![怪异盒模型](../blog_assets/box_verid.png)  
+![怪异盒模型](/blog_assets/box_verid.png)  
 
 
 ### box-sizing 

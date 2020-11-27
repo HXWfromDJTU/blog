@@ -267,3 +267,41 @@ websocket
 * Keep alive和多路复用的区别
  
    
+
+
+Basic
+* 浏览器运行机制
+    * 渲染和js之间怎么通信，浏览器如何处理请求，线程与进程
+    * 浏览器如何构建和渲染页面
+    * html的dom树如何生成的
+    * 浏览器缓存策略
+* 跨域问题
+    * 跨域怎么携带cookie
+    * 跨域的请求解决方案和其本质 
+    * 说下get和post 的区别拓展来说 
+* 移动端适配方案
+* CSS
+    * CSS与DOM的加载和渲染方式: 详细描述DOM树和CSS规则树,渲染树的生成
+    * BFC的实现 
+    * 又问了一下position，这里具体解释了一下position的属性影响
+    * 如何触发BFC
+    * BFC为什么可以减少重排重绘
+* async await的一些用法
+
+网络
+* dns查询过程，使用的协议
+* tcp如何保证安全连接
+* HTTPS加密原理 
+* TCP和UDP的区别，字节流和字符流的区别，三次握手和四次挥手的细节
+* 网络分层以及对应层次的协议  
+* http的upgrade字段
+* http的connection字段 
+
+
+Vue
+* vue的生命周期，把知道的全写出来（写了十个，多了两个keep-alive的）
+* keep-alive作用
+* vue-router的原理 
+* vue中v-if和v-show
+* 双向绑定原理，2和3有什么区别
+* defineproperty和proxy有什么区别 

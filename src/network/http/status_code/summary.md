@@ -238,10 +238,10 @@ HTTP/1.1 协议里设计 100 (Continue) HTTP 状态码的的目的是，在客�
 [1] [100 continue 的秘密](https://blog.csdn.net/pzqingchong/article/details/70196092)
 [2] [http状态码 -百度百科](https://baike.baidu.com/item/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/5053660?fr=aladdin)  
 [3] [301与302](https://lz5z.com/HTTP-301-vs-302/)    
-[websocket探秘](https://segmentfault.com/a/1190000015985491)    
-[200/204/206-302/303/307 -cnblog](http://www.cnblogs.com/zhjh256/p/6910534.html)    
-[HTTP状态码302、303和307的故事](https://www.cnblogs.com/cswuyg/p/3871976.html)    
-[RFC- HTTP1.1](https://tools.ietf.org/html/rfc2616#section-10.3.3)   
-[206断续下载](
+[4] [websocket探秘](https://segmentfault.com/a/1190000015985491)    
+[5] [200/204/206-302/303/307 -cnblog](http://www.cnblogs.com/zhjh256/p/6910534.html)    
+[6] [HTTP状态码302、303和307的故事](https://www.cnblogs.com/cswuyg/p/3871976.html)    
+[7] [RFC- HTTP1.1](https://tools.ietf.org/html/rfc2616#section-10.3.3)   
+[8] [206断续下载](
 https://blog.csdn.net/xiaofei0859/article/details/52883500)         
-[断点续传-http协议里Header参数Range](https://www.jianshu.com/p/e8dee3dbc409)
+[9] [断点续传-http协议里Header参数Range](https://www.jianshu.com/p/e8dee3dbc409)
