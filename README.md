@@ -40,6 +40,7 @@
 [Node.js - 流程梳理，从v8、libuv到EventLoop](https://github.com/HXWfromDJTU/blog/issues/25)    
 [Node.js - Buffer、Stream 与 fs](https://github.com/HXWfromDJTU/blog/issues/26)     
 [Node.js - koa-compose 解读](https://github.com/HXWfromDJTU/blog/issues/11)      
+[Node.js - 从net模块到cluster](https://github.com/HXWfromDJTU/blog/issues/49)     
 
 ## 浏览器
 [前端优化 - 记一次前端优化项的落地](https://github.com/HXWfromDJTU/blog/issues/42)     
