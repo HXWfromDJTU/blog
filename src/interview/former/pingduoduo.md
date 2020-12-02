@@ -3,7 +3,8 @@ ES5 之前一共有`6`种类型，`ES6`新增一种`symbol`一共7种
 * [JS类型](https://www.cnblogs.com/HXW-from-DJTU/p/5933023.html)
 
 新增的属性：`symbol` 
-* [symbol](../ES6/symbol.md)
+* [symbol](../ES6/symbol.md)   
+
 ##### vue双向绑定的原理是什么？
 * [vue双向绑定接口](../vue/Vue_twoway_binding.md)
 

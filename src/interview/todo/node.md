@@ -18,7 +18,11 @@
    * shim chakra 
    * Nodejs rpc     
    * LAMP 与 MEAN 体系    
-   * Model - Dao  - Services - Controller                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+   * Model - Dao  - Services - Controller                                                                                                                                                     
+
+## 补充
+* node 如何进行接口调用？
+   * rpc 还是 http？                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 
 * 内存释放
    * V8 GC 
@@ -137,3 +141,18 @@
 
 ## 基础补充
 * node的event loop和浏览器的区别
+
+父进程与子进程，主从模式
+https://juejin.cn/post/6844904055240654856
+
+
+### 面试
+* 你了解node多进程吗
+* node进程中怎么通信
+* node可以开启多线程吗
+* node中cluster是怎样开启多进程的，并且一个端口可以被多个进程监听吗
+* nodejs 中异常的捕获
+
+
+## 参考资料
+1. https://www.bookstack.cn/read/Nodejs-Roadmap/nodejs-net.md    

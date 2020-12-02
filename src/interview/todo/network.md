@@ -211,6 +211,7 @@ http 与 nginx
      * 如何在nginx中使用它
 
 websocket
+   * 说说你对websocket的了解(一句话介绍清楚)？
    * websocket 与 http 都基于TCP，都是应用层协议
       * websocket 是对tcp进行简单的包装
    * 对于实时数据，轮询/长链接/HTTP2/websocket 各自有什么特点呢？
@@ -233,10 +234,13 @@ websocket
       * 服务端与客服端共同性定制好缓存方案，使用cookie还是其他缓存方案
    * 传输链路
       * DNS 域名解析
+   * http 长轮询是什么？如何实现？
       
  * http 报文头中的mime-type
    * 常用的有哪些？
    * 上传与下载有哪些？
+
+* 简单请求和复杂请求有什么区别，怎样算是复杂请求
       
       
       
@@ -265,6 +269,8 @@ websocket
 * Csrf攻击原理和防御方式
 * 二进制分帧的具体是什么
 * Keep alive和多路复用的区别
+* HTTP 各版本的区别
+* HTTPS 与 HTTP 之间的优缺点差别
  
    
 
@@ -296,12 +302,15 @@ Basic
 * 网络分层以及对应层次的协议  
 * http的upgrade字段
 * http的connection字段 
+* 401 和 403 的区别
+
+### ipv6
+* ipv6 是什么？你能够解决什么问题？
+* 它与设备消息推送的有什么关系呢？
 
 
-Vue
-* vue的生命周期，把知道的全写出来（写了十个，多了两个keep-alive的）
-* keep-alive作用
-* vue-router的原理 
-* vue中v-if和v-show
-* 双向绑定原理，2和3有什么区别
-* defineproperty和proxy有什么区别 
+### 面试
+* https与http有什么区别(一面刚好也被问到)
+* 你知道哪些http头部
+* 什么是 options 请求
+* 什么是强缓存，什么是协商缓存
