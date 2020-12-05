@@ -36,6 +36,7 @@
     * promise 实现原理
 * commonjs 和 esmodule 有什么区别
 * for in 和 for of 有什么区别，可以 for of 对象吗
+* cloneSymbol的作用
 
 ### 跨域
 * JSONP

@@ -146,10 +146,10 @@ Function.prototype.mybind2 = Function.prototype.bind || function(context){
 
         // 当构造函数使用时，this 指向该创建的实例
         // 作为普通函数时，this 指向传入的 context
-        return self.apply(isNewOperate ? this : context , argArr.concat(bindingArgs)) // 调用的时候两部分参数结合
+        return self.apply(isNewOperate ? this : context , args.concat(bindingArgs)) // 调用的时候两部分参数结合
     }
 
-    retFun.prototype = Object.create(this.prototype) // 为了在new关键字执行的时候，搭建原型链
+    retFun.prototype = Object.create(this.prototype) // 使得但会的实例可以继承原型属性，但又不去修改原型
 
     return retFun
 }

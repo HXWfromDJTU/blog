@@ -112,7 +112,7 @@ LazyMan.prototype.next = function () {
     cb.fun.apply(this, cb.param)
 }
 
-    (new LazyMan('tony')).eat('knife').sleep(3)
+(new LazyMan('tony')).eat('knife').sleep(3)
 
 
 
