@@ -314,3 +314,12 @@ Basic
 * 你知道哪些http头部
 * 什么是 options 请求
 * 什么是强缓存，什么是协商缓存
+
+
+
+
+|类型|存储区|插入点| 
+|---|---| -- |
+|存储型 XSS|后端数据库|HTML| 
+|反射型 XSS|URL|HTML|
+|DOM 型 XSS|后端数据库/前端存储/URL|前端 JavaScript|
