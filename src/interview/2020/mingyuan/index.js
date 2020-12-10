@@ -95,17 +95,21 @@ function deepClone(target) {
 // 广度优先
 function flattenTreeBFS(objArr) {
     var result = []
-    var treeNode = [...objArr] // 双端队列
+    var treeNode = [] // 双端队列
 
-    while (treeNode.length) {
-        const currNode = treeNode.shift() // 左边出队一个节点
+    objArr.forEach(root => {
+        treeNode.push(root)
 
-        result.push(currNode.id)
-
-        if (Array.isArray(currNode.children)) {
-            currNode.push(...currNode.children)
+        while (treeNode.length) {
+            const currNode = treeNode.shift() // 左边出队一个节点
+    
+            result.push(currNode.id)
+    
+            if (Array.isArray(currNode.children)) {
+                treeNode.push(...currNode.children)
+            }
         }
-    }
+    })
 
     return result
 }
@@ -222,9 +226,6 @@ function sumRang2 (left, right) {
     return sumRecord[right + 1] - sumRecord[left]
 }
 
-
-
-
 // 实现一个LazyMan，可以按照以下方式调用
 // LazyMan("Hank") 输出
 // Hi！This is Hank!
@@ -247,6 +248,65 @@ function sumRang2 (left, right) {
 // Eat supper
 
 // 以此类推
+function LazyMan (name) {
+    var taskList = []
+    var _name = name
+
+    _sayHello()
+
+    setTimeout(function () {
+        _next()
+    })
+
+    function _next () {
+        if (taskList.length) {
+            const fn = taskList.shift()
+            fn()
+        }
+    }
+
+   function _sayHello () {
+        taskList.push(function () {
+            console.log('Hi this is ' + _name)
+            _next()
+        })
+    }
+
+    function sleepFirst (wait) {
+        taskList.unshift(function () {
+            setTimeout(function () {
+                console.log('等待' + wait + 's')
+                _next()
+            }, wait)
+        })
+        return this
+    }
+
+    function sleep (wait) {
+        taskList.push(function () {
+            setTimeout(function () {
+                console.log('等待' + wait + 's')
+                _next()
+            }, wait)
+        })
+        return this
+    }
+
+    function eat (sth) {
+        taskList.push(function () {
+            console.log('Eat ' + sth)
+            _next()
+        })
+        return this
+    }
+
+
+    return {
+        sleep,
+        eat,
+        sleepFirst,
+    }
+}
 
 /**
  * JavaScript将具有父子关系的原始数据格式化成树形结构数据(id,pid)
@@ -288,3 +348,7 @@ function buildTree(flattenTreeArr) {
   }
 
  // 请使用正则表示式实现方法 numSplit，为任意数字添加千分位分隔符，注意参数校验
+ function formatNum(num) {
+    // (num.toFixed(2) + '') 保留两位小数
+    return num && num.toString().replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,')
+  }
