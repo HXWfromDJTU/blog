@@ -32,7 +32,7 @@
     4. 在 Keep-Alive 组件被销毁的时候，内部缓存的所有组件的 destory 生命周期都会被调用。     
     5. 允许用户最大缓存数目。 this.keys 用于保存组件在缓存对象中的 key，并且用于实现 LRU 淘汰算法。每次命中缓存时，则会更新 this.keys中组件key的位置
   * 参考资料  [https://juejin.im/post/6844903837770203144](https://juejin.im/post/6844903837770203144)
-    
+
 - watch 中 deep true是如何实现的？
     * 复盘：
       1. 若设置了 deep: true，在对数据生成 Watcher 对象的时候，会调用 traverse 函数处理数据值本身，touch 所有的子元素，实现依赖收集。
