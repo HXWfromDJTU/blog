@@ -1,0 +1,1 @@
+使用JS实现一个 repeat 方法 log 4次 hello world, 每次间隔3秒

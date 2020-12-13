@@ -214,6 +214,8 @@ is string
 is Array
 ```
 
+5.5 Vue 与 React 的异同点是什么？   
+
 6. 要求实现常用的排序算法
 
 7. 以vue或是react为例，画出生命周期图？
