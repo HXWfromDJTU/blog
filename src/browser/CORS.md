@@ -11,8 +11,8 @@ CORS 策略允许浏览器向跨源服务器发出获取资源，但请求既然
 
 服务端服务器可以根据这个`预检查请求`，来告知是否允许浏览器对原接口发起请求。
      
-### 简单请求
-正如前文👆所提到的，其实 `简单请求` 仅仅是为了 w3c 为了退出新策略而强行划定的标准。在 CORS 标准推出前，浏览器与服务器的数据交互大多数是使用 `<Form>` 发起的，那么为了最大程度地兼容已存在的服务，则以此为界定。
+### 简单请求   
+正如前文👆所提到的，其实 `简单请求` 仅仅是为了 w3c 为了推出新策略而强行划定的标准。在 CORS 标准推出前，浏览器与服务器的数据交互大多数是使用 `<Form>` 发起的，那么为了最大程度地兼容已存在的服务，则以此为界定。
 
 参考 👉[DOM Form - MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/form) 和  👉[简单请求 - MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS), 二者的描述 和 定义也十分相近。
 ![](/blog_assets/html_form_method.png)    

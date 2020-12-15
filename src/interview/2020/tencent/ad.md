@@ -16,14 +16,15 @@
 1. Vue 的 computed 与 watch 有什么不同？computed 是如何实现依赖收集的？   
 2. Vue 的双向绑定是如何实现的？
 3. Node 在你们项目中的角色是什么？为什么要用这个 Node？用到了那些模块？
-4. http 缓存了解吗？说一些整个流程是怎么样的？
+4. http 缓存了解吗？说一些整个流程是怎么样的？ Etag 与 If-Modified 为什么要两套机制？     
 5. git rebase 与 git merge 的区别是什么？     
 6. 说说你平时的开发 git 工作流？测试在哪一步进行？
 7. React有了解过吗？ Vue 和 React 的差别是什么？ 
     1. Vue 提供了过多的api，使用的时候经常需要查阅api，相反react就不需要
 8. JSONP 的原理是什么？
-9. postMessage 的应用场景一般是什么？
-10. Iframe 可以使用全局变量进行跨域？相比较下 postMessage 有什么优势？   
+9. postMessage 的应用场景一般是什么？     
+10. Iframe 可以使用全局变量进行跨域？相比较下 postMessage 有什么优势？  
+    * 如果你明确的知道消息应该发送到哪个窗口，那么请始终提供一个有确切值的 targetOrigin，而不是*。不提供确切的目标将导致数据泄露到任何对数据感兴趣的恶意站点。
 10. CORS 的原理是什么？说说简单请求 和 复杂请求的区别？       
 
 

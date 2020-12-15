@@ -35,28 +35,28 @@ Sentry 上报是怎么使用的呢？
       1. 使用CDN
       2. HTTP 2.0 多路复用
     * 减小文件大小
-      1. 模块异步加载 (代码分割，使用webpack 的分包技术 基于 ES 7 import()语法)
-      2. 关键资源使用 preload 保证资源优先被请求
+      1. 模块异步加载 (代码分割，使用webpack 的分包技术 基于 ES 7 import()语法)  
+      2. 关键资源使用 preload 保证资源优先被请求      
     * 渲染
-      1. 图片实行懒加载，避免过多图片渲染卡顿浏览器
+      1. 图片实行懒加载，避免过多图片渲染卡顿浏览器     
     * 补充: 
-      1. 静态文件缓存，比如 vue 等类库的可以设置长时间的缓存。而后通过 contentHash进行控制更新
+      1. 静态文件缓存，比如 vue 等类库的可以设置长时间的缓存。而后通过 contentHash进行控制更新    
       2. 使用 websocket 进行通信，减少 tcp 握手次数
-      3. (交互体验上) 使用骨架屏 或者 loading，从情绪上较少用户的焦躁
-      4. script 的执行会阻塞UI线程，所以使用 async 与 defer 与延缓script 的执行
+      3. (交互体验上) 使用骨架屏 或者 loading，从情绪上较少用户的焦躁   
+      4. script 的执行会阻塞UI线程，所以使用 async 与 defer 与延缓script 的执行   
       5. (交互体验上) 优先使用本地缓存的数据 (web-storage) 展示给用户，再等待 xhr返回更新数据
   * 归纳: 
-      1. 减少请求  ===> 后端直出SSR、内嵌关键CSS 与 JS、Server push、静态文件设置长时间缓存
-      2. 减小请求 ===> 模块异步加载、webpack 分包
-      3. 加速请求 ===> 使用CDN、h2 多路复用、websocket 较少握手次数
-      4. 交互体验上 ===> 骨架屏、loading、优先使用缓存展示数据
-      5. 渲染上 ===> script - async - defer、 图片懒加载、资源 preload 调整加载顺序
+      1. 减少请求  ===> 后端直出SSR、内嵌关键CSS 与 JS、Server push、静态文件设置长时间缓存    
+      2. 减小请求 ===> 模块异步加载、webpack 分包  
+      3. 加速请求 ===> 使用CDN、h2 多路复用、websocket 减少握手次数     
+      4. 交互体验上 ===> 骨架屏、loading、优先使用缓存展示数据    
+      5. 渲染上 ===> script - defer、 图片懒加载、 资源 preload 调整加载顺序    
 
 - 可以从打包、网络各个方面去说说
 
 * http2.0 有什么优化？
-  1. server-push
-  2. 多路复用
+  1. server-push   
+  2. 多路复用   
   3. 头部压缩 ===>  使用静态 + 动态索引表 + huffan 压缩 大大减小了头部的占用空间
 
 * http 与 https 有什么不同？握手过程说一下？
@@ -84,8 +84,8 @@ Vue 中 Vue-DOM 的作用是什么呢？
 Vue 的 diff 算法是怎么进行优化的？
   1. diff 算法在vue 中称之为patch，作用是比对新旧两个 v-dom 的差别
   2. 当 Component 数据发生变化、watcher会通知 component执行其用于更新的 render function,正是在这个过程中触发的patch.
-  3. 整体的过程是 先比较 v-dom 的高度是否一致，然后再同层比较
-  4. 先比较是否存在子节点
+  3. 整体的过程是 先比较 v-dom 的高度是否一致，然后再同层比较   
+  4. 先比较是否存在子节点   
      * 若都有子节点，则使用updateChildren 进行后头头、尾尾、头尾、尾头比较进行优化
   5. 借助用户设置的 key 进行比对优化，并产生依赖。若节点类型、key相同则会直接被认为是同一个节点
   6. 所以列表中 key 的设置，不能使用下标进行，十分容易出错
@@ -239,8 +239,10 @@ Node.js
        5. 关于定时器超时 与 setImmediate    
           1. 按照上面的情况说明，定时器的调度是不确定时间的
        6. 面试可以列举官网的文件读写延迟了定时器的例子
-       7. 参考官网文档: https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/
-           https://juejin.cn/post/6844904007270563848 
+       7. 参考官网文档:
+           https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/      
+           https://juejin.cn/post/6844904007270563848        
+           http://www.ruanyifeng.com/blog/2018/02/node-event-loop.html    
  
    * 网络 I/O 应该在哪里处理呢？
 
@@ -277,3 +279,9 @@ https://github.com/aliyun-node/Node.js-Troubleshooting-Guide/blob/master/0x08_%E
 
 
 Node.js 异常捕获
+ * node 原生支持错误优先风格的 callback
+ * 使用 try catch
+ * 使用 process.on('uncaughtException', callback) 进行异常捕获
+    1. 一般作为兜底方案，尽量用于异常告警，而不是业务逻辑处理     
+    2. 尽量使用进程守护工具，比如说 pm2 进行主程序的守护工作
+    3. 或者使用 Node.js 自带 agent机制的框架
