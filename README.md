@@ -16,7 +16,7 @@
 
 ## 实战笔记
 [前端安全 - CSRF 原理与一次实战](https://github.com/HXWfromDJTU/blog/issues/29)    
-[讨论反思 - 微信扫码登录的设计与实现](https://github.com/HXWfromDJTU/blog/issues/50)               
+⭐⭐[讨论反思 - 微信扫码登录的设计与实现](https://github.com/HXWfromDJTU/blog/issues/50)               
 
 ## 客户端
 [客户端 - 尝试做一个 Native 与 JS 通信工具](https://github.com/HXWfromDJTU/blog/issues/34)        
