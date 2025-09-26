@@ -4,8 +4,7 @@
 
 
 🌈 记录总结日常工作学习...欢迎star....也欢迎加微信一起讨论(备注 from github)      
-
-知识就是需要不断更新，2020更多博客文章正在迁移整理中...请耐心等待🚧            
+     
 
 <img style="float: right;" width="200px" src="https://raw.githubusercontent.com/HXWfromDJTU/blog/master/blog_assets/wechat_qrcode.png">
 
